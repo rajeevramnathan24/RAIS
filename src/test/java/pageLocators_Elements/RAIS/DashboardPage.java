@@ -1,7 +1,5 @@
 package pageLocators_Elements.RAIS;
 
-import constants.RaisTestData;
-
 public class DashboardPage {
 
 	

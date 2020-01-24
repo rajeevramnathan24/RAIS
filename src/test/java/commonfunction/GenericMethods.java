@@ -2,8 +2,7 @@ package commonfunction;
 
 
 import java.util.concurrent.TimeUnit;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
