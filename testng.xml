@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RAIS Test Automation" >
+ 
+ 
+ <!-- Commented code is below to run without parameters>
+ 		<test name="Maven and testngTest">
+ 			<classes>
+ 				<class name="testcases.RAIS.SanityTestPack_TEMP" />
+ 
+ 			</classes>
+ 		</test>
+ -->
+ 
+
+ 
+ <test name="RAIS Test Suite Run for Chrome Browser">
+ 	<classes>
+ 		<class name="testcases.RAIS.E2ETests">
+ 		<parameter name="browserType" value="Chrome"/>
+ 		</class>
+ 		
+ 	</classes>
+ </test>
+ 
+
+  <!--
+ <test name="RAIS Test Suite Run for Chrome Browser">
+ 	<classes>
+ 		<class name="testcases.RAIS.SanityTestPack_Final",ValidationTests,CRUD_Operation_Tests,E2ETests >
+ 		<parameter name="browserType" value="Chrome"/>
+ 		</class>
+ 		
+ 	</classes>
+ </test>
+  -->
+ 
+</suite>

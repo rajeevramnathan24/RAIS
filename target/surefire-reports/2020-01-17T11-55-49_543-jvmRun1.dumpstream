@@ -1,0 +1,4452 @@
+# Created at 2020-01-17T11:56:32.834
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: DEFAULT
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:390)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 1
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 5
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 7
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 3
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 8
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 3
+
+# Created at 2020-01-17T11:56:38.273
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: 1
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: W
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: A
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: R
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: I
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: G
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: :
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: T
+
+# Created at 2020-01-17T11:56:38.289
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: d
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: u
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:38.304
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: C
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: h
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:38.320
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: ,
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:38.336
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: y
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: 
+
+# Created at 2020-01-17T11:56:38.351
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=79.0.3945.117)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 79.0.3945.117, chrome: {chromedriverVersion: 78.0.3904.70 (edb9c9f3de024..., userDataDir: C:\Users\RAJEEV~1.RAM\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:50271}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 45b448845ff565c52144bc18b3de7033
+*** Element info: {Using=xpath, value=//button[text()='Save']}
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.386
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.waitforElement(GenericMethods.java:67)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:506)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.401
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:56:42.417
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:56:42.432
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 1
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 5
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 7
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 0
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 5
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 8
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: 5
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: W
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: A
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: R
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: I
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: G
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream: :
+
+# Created at 2020-01-17T11:56:44.450
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.465
+Unexpected IOException with stream: T
+
+# Created at 2020-01-17T11:56:44.465
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: d
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: u
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:44.484
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: C
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: h
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: ,
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: y
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: 
+
+# Created at 2020-01-17T11:56:44.496
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=79.0.3945.117)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 79.0.3945.117, chrome: {chromedriverVersion: 78.0.3904.70 (edb9c9f3de024..., userDataDir: C:\Users\RAJEEV~1.RAM\AppDa...}, goog:chromeOptions: {debuggerAddress: localhost:50271}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 45b448845ff565c52144bc18b3de7033
+*** Element info: {Using=xpath, value=//button[text()='Save']}
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+
+# Created at 2020-01-17T11:56:48.507
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.523
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.elementClickable(GenericMethods.java:124)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:507)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.530
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:56:48.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:48.561
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:56:48.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 1
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 5
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 7
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 4
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 1
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 0
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 7
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 2
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: 9
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: [
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: W
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: A
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: R
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: I
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: N
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: G
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: ]
+
+# Created at 2020-01-17T11:56:50.575
+Unexpected IOException with stream: :
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: T
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: d
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: u
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: c
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: C
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: h
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: o
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: m
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:50.591
+Unexpected IOException with stream: ,
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream:  
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: e
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: t
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: r
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: y
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: i
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: n
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: g
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: .
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: 
+
+# Created at 2020-01-17T11:56:50.606
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.sendText(GenericMethods.java:181)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:510)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.238
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.253
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:56:54.269
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.284
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	... 36 more
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 	... 56 more
+
+# Created at 2020-01-17T11:56:54.300
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.sendText(GenericMethods.java:181)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:513)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.356
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.371
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.387
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	... 36 more
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 	... 56 more
+
+# Created at 2020-01-17T11:56:56.403
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:56:58.474
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.sendText(GenericMethods.java:181)
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:516)
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:56:58.490
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.505
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.521
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.537
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:56:58.552
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	... 36 more
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:56:58.568
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 	... 56 more
+
+# Created at 2020-01-17T11:56:58.583
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at commonfunction.GenericMethods.sendText(GenericMethods.java:181)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:519)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.655
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.671
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.686
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.702
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.717
+Unexpected IOException with stream: 	... 36 more
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:57:00.733
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:00.748
+Unexpected IOException with stream: 	... 56 more
+
+# Created at 2020-01-17T11:57:00.748
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at commonfunction.RAIS_applicationSpecificMethods.valueSelectfromDropDown(RAIS_applicationSpecificMethods.java:158)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:522)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.805
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:57:02.820
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.836
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	... 36 more
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 	... 56 more
+
+# Created at 2020-01-17T11:57:02.851
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:04.928
+Unexpected IOException: 8,1,testcases.RAIS.E2ETests,E2E_FormDesigner(testcases.RAIS.E2ETests),null,java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923\000ABuild info: version: '3.141.59'\002C revision: 'e82be7d358'\002C time: '2018-11-14T08:17:03'\000ASystem info: host: 'SEZ-LAP-123'\002C ip: '172.52.80.162'\002C os.name: 'Windows 10'\002C os.arch: 'amd64'\002C os.version: '10.0'\002C java.version: '1.8.0_171'\000ADriver info: driver.version: RemoteWebDriver,null,java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923\000ABuild info: version: '3.141.59'\002C revision: 'e82be7d358'\002C time: '2018-11-14T08:17:03'\000ASystem info: host: 'SEZ-LAP-123'\002C ip: '172.52.80.162'\002C os.name: 'Windows 10'\002C os.arch: 'amd64'\002C os.version: '10.0'\002C java.version: '1.8.0_171'\000ADriver info: driver.version: RemoteWebDriver,E2ETests.E2E_FormDesigner:662 \00BB WebDriver java.net.ConnectException: Failed to...,org.openqa.selenium.WebDriverException: \000Ajava.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923\000ABuild info: version: '3.141.59'\002C revision: 'e82be7d358'\002C time: '2018-11-14T08:17:03'\000ASystem info: host: 'SEZ-LAP-123'\002C ip: '172.52.80.162'\002C os.name: 'Windows 10'\002C os.arch: 'amd64'\002C os.version: '10.0'\002C java.version: '1.8.0_171'\000ADriver info: driver.version: RemoteWebDriver\000A\0009at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:662)\000ACaused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923\000A\0009at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:662)\000ACaused by: java.net.ConnectException: Connection refused: connect\000A\0009at testcases.RAIS.E2ETests.E2E_FormDesigner(E2ETests.java:662)\000A
+
+
+# Created at 2020-01-17T11:57:07.509
+Unexpected IOException with stream: org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'SEZ-LAP-123', ip: '172.52.80.162', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: RemoteWebDriver
+
+# Created at 2020-01-17T11:57:07.509
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.509
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:92)
+
+# Created at 2020-01-17T11:57:07.509
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.509
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:609)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.RemoteWebDriver.quit(RemoteWebDriver.java:452)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at commonfunction.BaseClass.BrowserClose(BaseClass.java:516)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at testcases.RAIS.E2ETests.afterClass(E2ETests.java:720)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.513
+Unexpected IOException with stream: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2020-01-17T11:57:07.517
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.517
+Unexpected IOException with stream: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2020-01-17T11:57:07.517
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at java.lang.reflect.Method.invoke(Method.java:498)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:59)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:458)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:222)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:142)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.invokeAfterClassMethods(TestMethodWorker.java:214)
+
+# Created at 2020-01-17T11:57:07.521
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.TestRunner.run(TestRunner.java:505)
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.525
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.529
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+
+# Created at 2020-01-17T11:57:07.533
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.533
+Unexpected IOException with stream: 	at org.testng.TestNG.runSuites(TestNG.java:1049)
+
+# Created at 2020-01-17T11:57:07.533
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.533
+Unexpected IOException with stream: 	at org.testng.TestNG.run(TestNG.java:1017)
+
+# Created at 2020-01-17T11:57:07.533
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.537
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:1923
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:247)
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.541
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:165)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:07.545
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.549
+Unexpected IOException with stream: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:07.549
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:126)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+
+# Created at 2020-01-17T11:57:07.553
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:200)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at okhttp3.RealCall.execute(RealCall.java:77)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.internal.OkHttpClient.execute(OkHttpClient.java:103)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:155)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.557
+Unexpected IOException with stream: 	... 35 more
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: Caused by: java.net.ConnectException: Connection refused: connect
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.561
+Unexpected IOException with stream: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 	at java.net.Socket.connect(Socket.java:589)
+
+# Created at 2020-01-17T11:57:07.565
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.java:129)
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:245)
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 	... 55 more
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: 
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Error in closing browser
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Printing Total TC = 1
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Total pass Test cases 0
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Total Fail Test cases 1
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Printing Total TC = 0
+
+
+# Created at 2020-01-17T11:57:07.569
+Unexpected IOException with stream: Total pass Test cases 0
+
+
+# Created at 2020-01-17T11:57:07.573
+Unexpected IOException with stream: Total Fail Test cases 0
+
+
+# Created at 2020-01-17T11:57:08.033
+Unexpected IOException: 2,1,org.apache.maven.surefire.testng.TestNGXmlTestSuite,TestSuite,null,null,null
+
+
