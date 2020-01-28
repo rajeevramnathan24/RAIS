@@ -68,15 +68,15 @@ public class RaisTestData {
 
 	public static String chkBox_internalName = "chkBoxFrmBldrAuto";
 	public static String chkBox_toolTip = "chkBoxtooltipFrmBldr";
-	public static String chkBox_label = "chkBoxlblFrmBldr";
+	public static String chkBox_label = "Sample Checkbox";
 	
 	public static String numeric_internalName = "nmricFrmBldrAuto";
 	public static String numeric_toolTip = "nmrictooltipFrmBldr";
-	public static String numeric_label = "nmriclblFrmBldr";
+	public static String numeric_label = "Sample Numeric field";
 		
 	public static String text_internalName = "txtFrmBldrAuto";
 	public static String text_toolTip = "txttooltipFrmBldr";
-	public static String text_label = "txtlblFrmBldr";	
+	public static String text_label = "Sample Text field";	
 	
 	public static String date_internalName = "dteFrmBldrAuto";
 	public static String date_toolTip = "dtetooltipFrmBldr";

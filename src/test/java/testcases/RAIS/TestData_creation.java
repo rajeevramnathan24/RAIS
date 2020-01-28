@@ -9,7 +9,7 @@ import commonfunction.BaseClass;
 import commonfunction.GenericMethods;
 import commonfunction.RAIS_applicationSpecificMethods;
 import constants.RaisTestData;
-import net.bytebuddy.description.type.TypeDescription.Generic;
+
 import pageLocators_Elements.RAIS.AddNewAttributePage;
 import pageLocators_Elements.RAIS.AddNewEntityPage;
 import pageLocators_Elements.RAIS.AddNewPermRestrictionsPage;
@@ -26,17 +26,11 @@ import pageLocators_Elements.RAIS.SecurityProfilePage;
 import pageLocators_Elements.RAIS.UserListPage;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 
-import static org.testng.Assert.assertTrue;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;

@@ -9,7 +9,7 @@ import commonfunction.BaseClass;
 import commonfunction.GenericMethods;
 import commonfunction.RAIS_applicationSpecificMethods;
 import constants.RaisTestData;
-import net.bytebuddy.description.type.TypeDescription.Generic;
+
 import pageLocators_Elements.RAIS.AddNewAttributePage;
 import pageLocators_Elements.RAIS.AddNewEntityPage;
 import pageLocators_Elements.RAIS.AddNewPermRestrictionsPage;
@@ -28,13 +28,9 @@ import pageLocators_Elements.RAIS.UserListPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-import static org.testng.Assert.assertTrue;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -764,7 +760,112 @@ System.out.println("waiting newly created entity page to load");
 
 	}
 
+	//#2 - continued for 2
+	@Test(priority=3,enabled=true)
+	public void e2e_FormDesigner2() {
+		
+		String calibrationXpath = "//*[@id='main-menu']//a[contains(text(),'Calibrations')]";
+		
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Demo Test Name","Description");
 
+		//Calling Login method
+		GenericMethods.loginApplication
+		(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+				password, loginPage.loginBtn_XPath);
+
+		//Waiting until element to load
+		//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+
+		//Clicking on Element
+		GenericMethods.waitforElement(wd, dashboardnew.invent_Resources_XPath);
+		GenericMethods.elementClickable(wd, dashboardnew.invent_Resources_XPath);
+		
+		//wait for page load
+		GenericMethods.pageLoadWait(1000);
+		GenericMethods.elementClick(wd, dashboardnew.invent_Resources_XPath);
+		
+		//waiting for link to load and then click
+		GenericMethods.elementClickable(wd, calibrationXpath);
+		GenericMethods.waitforElement(wd, calibrationXpath);
+
+		//Clicking on Element
+		GenericMethods.elementClick(wd, calibrationXpath);
+		
+		//**************
+		//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, "//*[@id='entity-details']//button[text()='Add New']");
+				GenericMethods.waitforElement(wd, "//*[@id='entity-details']//button[text()='Add New']");
+
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on Element
+				GenericMethods.elementClick(wd, "//*[@id='entity-details']//button[text()='Add New']");
+				
+				//page wait
+				GenericMethods.pageLoadWait(2000);
+				
+				//TO be ocntinued
+				//verify check box label
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Sample Checkbox']"),
+						RaisTestData.chkBox_label);
+
+				//verify numeric field label and relevant input field
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, "//*[@id='entity-form']//label[text()='Sample Numeric field']"),
+						RaisTestData.numeric_label);
+				Assert.assertEquals(GenericMethods.verifyTextBoxProperty(wd, "//*[@id='nmricFrmBldrAuto']", 50,
+						RaisTestData.verifiedTextBoxProperty), RaisTestData.verifiedTextBoxProperty);
+				
+				//verify sample text field label and relevant input field
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, "//*[@id='entity-form']//label[text()='Sample Text field']"),
+						RaisTestData.text_label);
+				Assert.assertEquals(GenericMethods.verifyTextBoxProperty(wd, "//*[@id='txtFrmBldrAuto']", 12,
+						RaisTestData.verifiedTextBoxProperty), RaisTestData.verifiedTextBoxProperty);
+				
+				//verification of fields ends above
+				
+				//input data into sample check box fields
+				//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Sample Checkbox']");
+				GenericMethods.waitforElement(wd, "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Sample Checkbox']");
+
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//input data on certificate number
+				GenericMethods.sendText(wd, "//*[@id='CertificateNumber']", 
+							"111");
+				
+				
+				//Clicking on Element
+				GenericMethods.elementClick(wd, "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Sample Checkbox']");
+				
+				//input data on sample numeric and text fields
+				GenericMethods.sendText(wd, "//*[@id='nmricFrmBldrAuto']", 
+							"333");
+				
+				//input data on sample numeric and text fields
+				GenericMethods.sendText(wd, "//*[@id='txtFrmBldrAuto']", 
+							"Sample data");
+				
+		
+				// Clicking on save butto
+				GenericMethods.elementClickable(wd, "//*[@id='entity-form']//button[text()='Save']");
+				GenericMethods.waitforElement(wd, "//*[@id='entity-form']//button[text()='Save']");
+
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on Element
+				GenericMethods.elementClick(wd, "//*[@id='entity-form']//button[text()='Save']");
+				
+				//page wait
+				GenericMethods.pageLoadWait(2000);
+				
+				
+		
+	}
 
 
 	//Test case Ends here *********************************

@@ -2,8 +2,7 @@ package commonfunction;
 
 
 import java.util.concurrent.TimeUnit;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -665,4 +664,38 @@ case "Link":
 				return null;
 			}  	
 		}
+
+		//Method reads the content of textbox and return it
+		public static String getTextBoxContent(WebDriver wtx, String txtXpath) {
+
+			//Initialising string to be returned
+			String ActualTextcontent=null;
+			
+			try {
+				
+				//below is used to highlight only when flag is true
+				highLightElement(wtx, txtXpath, elementClickHighlight);
+				
+				//retrieving the text value of the element
+				ActualTextcontent = wtx.findElement(By.xpath(txtXpath)).getAttribute("value");
+
+				//Return the value of string
+				return ActualTextcontent;
+							
+
+			} catch (NoSuchElementException e) {
+
+				e.printStackTrace();
+
+				//return null if error
+				return null;
+
+			}	catch (Exception e) {
+				e.printStackTrace();
+
+				//return null if error
+				return null;
+			}  		
+		}
+
 }

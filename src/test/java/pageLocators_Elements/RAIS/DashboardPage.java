@@ -1,7 +1,5 @@
 package pageLocators_Elements.RAIS;
 
-import constants.RaisTestData;
-
 public class DashboardPage {
 
 	
@@ -21,16 +19,24 @@ public class DashboardPage {
 	//logged in user xpath
 	
 	//public String loggedinUser_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div/div";	 
-	//public String loggedinUser_XPath = "//*[@class='nav-item dropdown']";
-	public String loggedinUser_XPath = "//*[@class='app-login dropdown-toggle']"	;
+	//public String loggedinUser_XPath = "//*[@class='nav-item dropdown']//div[@class='nav-link show']//div[contains(text(),'Administrator')]";
+	//public String loggedinUser_XPath = "//*[@class='app-login dropdown-toggle']"	;
+	
+	public String loggedinUser_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div";
+	
+	
 	public String xx = "//a[text()='Logout']/@href";
+	public String newRoleName_XPath = "//*[@class='nav-item dropdown']//div//div[contains(text(),'Administrator')]";
 	
 	//public String loggedinUser_XPath= "//div[@class='nav-link show']//div[@title='Logout User']";
 
 	//logout xpath
-	//public String logout_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div/ul/li[2]/a";
+	public String logout_XPath = "//*[@class='nav-link show']//ul//li//a[text()='Logout']";
 	public String profile_XPath = "//*[contains(@href,'Profile')]";	
-	public String logout_XPath = "//*[contains(@href,'Logout')]";
+	//public String logout_XPath = "//*[contains(@href,'Logout')]";
+	
+	public String newlogOut_XPath1 = "//*[@class='nav-item dropdown']//div//ul//li//a[@href='/Home/Profile']";
+	public String newlogOut_XPath2 = "//*[@class='nav-item dropdown']//div//ul//li//a[text()='Logout']";
 	//public String logout_XPath = "//*div[@class='dropdown-menu profile-dropdown show']//a[contains(text(),'Logout']";
 	
 	//*[@href='/idp%2FAccount/Logout']";

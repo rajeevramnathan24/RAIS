@@ -3,7 +3,7 @@ package commonfunction;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.collections4.functors.SwitchClosure;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -167,20 +167,22 @@ public class RAIS_applicationSpecificMethods  {
 		//page refresh
 		//wLgout.navigate().refresh();
 
-		//Adding implicit wait
-		wLgout.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
-
+		GenericMethods.pageLoadWait(1000);
 		//Waiting until element is visible to be clicked
 		GenericMethods.waitforElement(wLgout, loggedinUserXpath);
 		GenericMethods.elementClickable(wLgout, loggedinUserXpath);
 		GenericMethods.elementClick(wLgout, loggedinUserXpath);
 
+		GenericMethods.pageLoadWait(1000);
+		
 		//Waiting until element is visible to be clicked
 		GenericMethods.waitforElement(wLgout, logoutLink);
 		GenericMethods.elementClickable(wLgout, logoutLink);
-		GenericMethods.waitforvisibilityOfElement(wLgout, logoutLink);
+		//GenericMethods.waitforvisibilityOfElement(wLgout, logoutLink);
 		GenericMethods.elementClick(wLgout, logoutLink);
 
+		GenericMethods.pageLoadWait(500);
+		
 		//page refresh
 		wLgout.navigate().refresh();
 	}
