@@ -84,6 +84,9 @@ public class AddNewEntityPage {
 	
 	//Add attribute listing page
 	public String attributeListingPage_AddnewAttbBtn_XPath = "//*[@id='add-entity']//button[text()='Add New Attribute']";
+	
+	//close success message diaog
+	public String addnewEntity_closeMsg_Xpath = "//*[@id='message-success']//span//a[@id='close-btn-success']";
 
 	
 

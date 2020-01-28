@@ -841,9 +841,6 @@ public class CRUD_Operation_Tests extends BaseClass
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
 
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
-			
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
 			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
@@ -858,8 +855,8 @@ public class CRUD_Operation_Tests extends BaseClass
 			
 			//********************************Add new Entity starts here
 			//Waiting for button to load and click
-//			GenericMethods.waitforElement(wd, entListingPage.addNewEntityBtn_XPath);	
-//			GenericMethods.elementClickable(wd, entListingPage.addNewEntityBtn_XPath);
+			GenericMethods.waitforElement(wd, entListingPage.addNewEntityBtn_XPath);	
+			GenericMethods.elementClickable(wd, entListingPage.addNewEntityBtn_XPath);
 						
 			//wait for page load
 			GenericMethods.pageLoadWait(500);
@@ -1008,11 +1005,23 @@ public class CRUD_Operation_Tests extends BaseClass
 			GenericMethods.elementClickable(wd, addEntityPage.delEntity_popUpYesBtn_XPath);
 			GenericMethods.elementClick(wd, addEntityPage.delEntity_popUpYesBtn_XPath);			
 			
+			//Waiting for delete popup page
+			GenericMethods.waitforElement(wd, addEntityPage.addnewEntity_SuccessMsg_XPath);	
+			GenericMethods.elementClickable(wd, addEntityPage.addnewEntity_SuccessMsg_XPath);
+			
 			//verifying the Delete popup message
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, addEntityPage.addnewEntity_SuccessMsg_XPath),
 					addEntityPage.DELENT_SUCESSMSG_TXT);
 			
-			//**************************************************Delete ENDS HERE					
+			//**************************************************Delete ENDS HERE	
+			
+//			//Waiting for button to load and click
+			GenericMethods.waitforElement(wd, entListingPage.addNewEntityBtn_XPath);	
+			GenericMethods.elementClickable(wd, entListingPage.addNewEntityBtn_XPath);
+
+			//wait for page load
+			//GenericMethods.pageLoadWait(2000);
+			
 						
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();

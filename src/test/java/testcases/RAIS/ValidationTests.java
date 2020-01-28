@@ -305,10 +305,7 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
-
+			
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
 			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
@@ -421,6 +418,9 @@ public class ValidationTests extends BaseClass
 
 			//clicking on Cancel buttonon add role page
 			GenericMethods.elementClick(wd, AddNewDataRole.cancelBtn_XPath);
+			
+			//waiting for page load
+			GenericMethods.pageLoadWait(1000);
 
 			//**************************Duplicate check ends here			
 
@@ -458,9 +458,6 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -568,6 +565,9 @@ public class ValidationTests extends BaseClass
 			//clicking on Cancel buttonon add role page
 			GenericMethods.elementClick(wd, AddNewDataRole.cancelBtn_XPath);
 
+			//waiting for page load
+			GenericMethods.pageLoadWait(1000);
+			
 			//**************************Duplicate check ends here
 
 
@@ -605,11 +605,6 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
-
-			//Thread.sleep(3000);
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -696,6 +691,9 @@ public class ValidationTests extends BaseClass
 			GenericMethods.elementClick(wd, AddNewSProle.cancelBtn_XPath);
 
 			//*******************************Validation test ends here
+			
+			//waiting for page load
+			GenericMethods.pageLoadWait(1000);
 
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -729,9 +727,6 @@ public class ValidationTests extends BaseClass
 			//Calling Login method
 			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
 					loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -836,6 +831,9 @@ public class ValidationTests extends BaseClass
 
 			//*******************************Validation test ends here
 
+			//waiting for page load
+			GenericMethods.pageLoadWait(1000);
+			
 		} 
 		catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -869,9 +867,6 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -1034,6 +1029,9 @@ public class ValidationTests extends BaseClass
 			GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);			
 
 			//**********Duplicate code Ends here
+			
+			//waiting for page load
+			GenericMethods.pageLoadWait(1000);
 
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -1069,9 +1067,6 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
-			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
