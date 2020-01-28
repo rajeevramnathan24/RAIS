@@ -1,15 +1,14 @@
 package testSuite;
 
 
-
 public class ValidationTestPack {
 
 	//Validation Tests
-	public final static boolean validationTC1_runStatus = true; 
+	public final static boolean validationTC1_runStatus = false; 
 	public final static String validationTC1_testName = "Default value verification"; 
 	public final static String validationTC1_testDescription = "Verify default values of Login Screen";
 	
-	public final static boolean validationTC2_runStatus = true; 
+	public final static boolean validationTC2_runStatus = false; 
 	public final static String validationTC2_testName = "Default value verification"; 
 	public final static String validationTC2_testDescription = "Verify Forgot password feature";
 	
@@ -36,4 +35,10 @@ public class ValidationTestPack {
 	public final static boolean validationTC8_runStatus = false;
 	public final static String validationTC8_testName = "Entity Attribute page validation and default value verification"; 
 	public final static String validationTC8_testDescription = "Verify default and validation messages for Entity Attribute page";
+	
+	public final static boolean validationTC9_runStatus = true;
+	public final static String validationTC9_testName = "Business Entity presence and its singular label validation"; 
+	public final static String validationTC9_testDescription = "Verify the presence of Business Entity; validate the singular label on Entity Detail page";
+	
+	
 }

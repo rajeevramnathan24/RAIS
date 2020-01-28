@@ -25,9 +25,9 @@ import pageLocators_Elements.RAIS.UserListPage;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -1296,6 +1296,122 @@ public class ValidationTests extends BaseClass
 
 	}
 
+	//#9
+	@Test(priority=9,enabled=ValidationTestPack.validationTC9_runStatus)
+	public void BusinessEntity_Validation(){
+
+		try {
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc(ValidationTestPack.validationTC9_testName,ValidationTestPack.validationTC9_testDescription);
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//				
+
+			//Clicking on Element
+			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+			//waiting for link to load and then click
+			GenericMethods.elementClickable(wd, dashboardnew.entities_XPath);
+			GenericMethods.waitforElement(wd, dashboardnew.entities_XPath);
+
+			//Clicking on Element
+			GenericMethods.elementClick(wd, dashboardnew.entities_XPath);
+
+			//****************Verify Entity landing page 
+			//wait for page load
+			GenericMethods.pageLoadWait(250);
+
+			//*******************************Validation test starts here
+
+			//Column header filter starts here
+//			RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
+//					entListingPage.entityListingTableColHeader_TXT_XPath,RaisTestData.EntityAttb_SingularData );
+			
+			//Declaring array to store Business entities 
+			
+			  String[] sBusinessEntities = { "Academic Qualification",
+			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit",
+			  "Annual Dose", "Associated Equipment Status", "Attended Course",
+			  "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
+			  "Department", "Department Status", "District", "Dose", "Equipment",
+			  "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
+			  "Equipment Status", "Equipment Type", "Expert", "Expert Task", "Facility",
+			  "Facility Status", "Field", "Frequency In Month", "Gender",
+			  "Inspection Schedule", "Inventory Status", "Isotope Production",
+			  "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
+			  "Partner Agency","Person", "Person Status", "Physical Barrier",
+			  "Physical Form", "Practice", "Professional Degree",
+			  "Professional Qualification", "Radiation Generator",
+			  "Radiation Generator Model", "Radiation Generator Status",
+			  "Radiation Generator Type", "Region", "Regulatory Authority",
+			  "Sealed Source", "Sealed Source Model", "Sealed Source Status",
+			  "Security Group", "Status", "Time Unit", "Training Course",
+			  "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
+			  
+			  
+			//iterating for loop to validate business entities 
+			  
+			  for (int i = 0; i<= sBusinessEntities.length; i++)
+			  {
+				  RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,entListingPage.entityListingTableColHeader_TXT_XPath,sBusinessEntities[i]);
+
+				  // wait for page load
+				  GenericMethods.pageLoadWait(500);
+
+
+				  // Clicking on business entity name 
+				  RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
+			
+				  // wait for page load
+				  GenericMethods.pageLoadWait(2500);
+
+				  String singularTextboxnew = wd.findElement(By.xpath("//*[@id='Name']")).getAttribute("value");
+				  GenericMethods.pageLoadWait(2500);
+				  
+				  //System.out.println(wd.findElement(By.xpath("//*[@id='Name']")).getAttribute("value"));
+				  Assert.assertEquals(singularTextboxnew,sBusinessEntities[i]);
+
+			//Click on Cancel button
+				  
+			
+			  }
+
+			//after for loop exit, click on Logout 
+			
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+			//verifying logo on RAIS Page
+			Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+		}
+
+	}
+
+	
+	//#10 
+	
+	//#11 
+	
 	//Test case Ends here *********************************
 
 
