@@ -311,7 +311,7 @@ public class SanityTestPack_Final extends BaseClass
 					RaisTestData.raisAdminUserPwd, loginPage.loginBtn_XPath);
 			
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
 
 			//verifying labels/ buttons on Dashboard page
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.dashbrdAppLogo_XPath),
@@ -320,8 +320,8 @@ public class SanityTestPack_Final extends BaseClass
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.dashbrdAppLogoFullFrm_XPath),
 					dashboardnew.LP_APPLOGO_FULLName_Txt);	
 			
-			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.dashboardUnderDevelopment_XPath),
-					dashboardnew.LP_APP_UNDERDEVELOPMENT_MSG_Txt);	
+			/*Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.dashboardUnderDevelopment_XPath),
+					dashboardnew.LP_APP_UNDERDEVELOPMENT_MSG_Txt);*/	
 			
 			//verify menu name
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.dashboard_XPath),
@@ -399,7 +399,7 @@ public class SanityTestPack_Final extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -678,7 +678,7 @@ public class SanityTestPack_Final extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -961,7 +961,7 @@ public class SanityTestPack_Final extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 			
 			//Thread.sleep(3000);
 			
@@ -1211,7 +1211,7 @@ public class SanityTestPack_Final extends BaseClass
 				GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
 						loginPage.loginBtn_XPath);
 				//Waiting until element to load
-				GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
+				//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
 				
 				//Clicking on Element
 				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -1348,7 +1348,7 @@ public class SanityTestPack_Final extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 			
 			//Thread.sleep(3000);
 			
@@ -2144,7 +2144,7 @@ public class SanityTestPack_Final extends BaseClass
 			Thread.sleep(2000);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
@@ -2245,7 +2245,7 @@ public class SanityTestPack_Final extends BaseClass
 			Thread.sleep(2000);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
@@ -2341,7 +2341,7 @@ public class SanityTestPack_Final extends BaseClass
 						password, loginPage.loginBtn_XPath);
 
 				//Waiting until element to load
-				GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+				//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 				//Clicking on Element
 				GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
@@ -2650,7 +2650,7 @@ public class SanityTestPack_Final extends BaseClass
 			Thread.sleep(2000);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
 			
 			//Clicking on Element
 			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);

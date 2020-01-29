@@ -116,7 +116,7 @@ public class CRUD_Operation_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -318,7 +318,7 @@ public class CRUD_Operation_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -492,7 +492,7 @@ public class CRUD_Operation_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 			
 			//Thread.sleep(3000);
 			
@@ -705,7 +705,7 @@ public class CRUD_Operation_Tests extends BaseClass
 				GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
 						loginPage.loginBtn_XPath);
 				//Waiting until element to load
-				GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
+				//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);
 				
 				//Clicking on Element
 				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);

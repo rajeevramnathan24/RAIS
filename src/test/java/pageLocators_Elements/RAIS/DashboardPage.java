@@ -11,7 +11,7 @@ public class DashboardPage {
 	public String dashbrdAppLogoFullFrm_XPath = "//span[@class='app-logo-text']";	 
 	
 	//dashboard is under developement
-	public String dashboardUnderDevelopment_XPath = "//*[@id='dashboard']//h3[contains(text(),'Dashboard is under development')]";
+//	public String dashboardUnderDevelopment_XPath = "//*[@id='dashboard']//h3[contains(text(),'Dashboard is under development')]";
 
 	//Top menus
 	public String mainMenu_XPath = "//*[@class='navbarCollapse']";

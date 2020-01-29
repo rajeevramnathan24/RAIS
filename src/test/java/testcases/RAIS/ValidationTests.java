@@ -1331,51 +1331,46 @@ public class ValidationTests extends BaseClass
 			
 			//Declaring array to store Business entities 
 			
+			//"Dose", "Equipment", "Equipment Status", "Status"
 			  String[] sBusinessEntities = { "Academic Qualification",
-			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit",
-			  "Annual Dose", "Associated Equipment Status", "Attended Course",
-			  "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
-			  "Department", "Department Status", "District", "Dose", "Equipment",
+			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
+			  "Attended Course", "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
+			  "Department", "Department Status", "District",
 			  "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
-			  "Equipment Status", "Equipment Type", "Expert", "Expert Task", "Facility",
+			  "Equipment Type", "Expert", "Expert Task", "Facility",
 			  "Facility Status", "Field", "Frequency In Month", "Gender",
 			  "Inspection Schedule", "Inventory Status", "Isotope Production",
 			  "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
 			  "Partner Agency","Person", "Person Status", "Physical Barrier",
 			  "Physical Form", "Practice", "Professional Degree",
-			  "Professional Qualification", "Radiation Generator",
-			  "Radiation Generator Model", "Radiation Generator Status",
-			  "Radiation Generator Type", "Region", "Regulatory Authority",
+			  "Professional Qualification", "Radiation Generator", "Radiation Generator Model",
+			  "Radiation Generator Status", "Radiation Generator Type", "Region", "Regulatory Authority",
 			  "Sealed Source", "Sealed Source Model", "Sealed Source Status",
-			  "Security Group", "Status", "Time Unit", "Training Course",
+			  "Security Group", "Time Unit", "Training Course",
 			  "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
-			  
 			  
 			//iterating for loop to validate business entities 
 			  
-			  for (int i = 0; i<= sBusinessEntities.length; i++)
+			  for (int i = 0; i< sBusinessEntities.length; i++)
 			  {
+				  
 				  RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,entListingPage.entityListingTableColHeader_TXT_XPath,sBusinessEntities[i]);
 
 				  // wait for page load
 				  GenericMethods.pageLoadWait(500);
 
-
 				  // Clicking on business entity name 
 				  RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
 			
 				  // wait for page load
-				  GenericMethods.pageLoadWait(2500);
-
-				  String singularTextboxnew = wd.findElement(By.xpath("//*[@id='Name']")).getAttribute("value");
-				  GenericMethods.pageLoadWait(2500);
+				  GenericMethods.pageLoadWait(2000);
 				  
-				  //System.out.println(wd.findElement(By.xpath("//*[@id='Name']")).getAttribute("value"));
-				  Assert.assertEquals(singularTextboxnew,sBusinessEntities[i]);
+				  Assert.assertEquals(GenericMethods.getTextBoxContent(wd, "//*[@id='Name']"),sBusinessEntities[i]);
+				  GenericMethods.pageLoadWait(1000);
 
 			//Click on Cancel button
-				  
-			
+				  GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+				  GenericMethods.pageLoadWait(1000);			
 			  }
 
 			//after for loop exit, click on Logout 
