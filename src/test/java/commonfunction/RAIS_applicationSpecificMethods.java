@@ -1424,4 +1424,34 @@ public class RAIS_applicationSpecificMethods  {
 		}
 	}
 
+	//Create custom XPath
+	public static String createCustomXpath(String prefix_Xpath,  String insertTxt,String suffix_Xpath) {
+
+		//Initialising string to be returned
+		String finalCustomXpath= "incorrect Xpath";
+		
+		try {
+			
+			//retrieving the text value of the element
+			finalCustomXpath = prefix_Xpath + insertTxt + suffix_Xpath ;
+
+			//Return the value of string
+			return finalCustomXpath;
+						
+
+		} catch (NoSuchElementException e) {
+
+			e.printStackTrace();
+
+			//return null if error
+			return finalCustomXpath;
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+
+			//return null if error
+			return finalCustomXpath;
+		}  		
+	}
+	
 }

@@ -142,4 +142,8 @@ public class RaisTestData {
 	
 	public static String chkBoxSelected = "Check Box selected";
 	public static String chkBoxNOTSelected = "Check Box not selected";
+	
+	//Linked form
+	public static String linkedFormName = "New Form";
+	public static String sectionTitle = "Section 2";
 }
