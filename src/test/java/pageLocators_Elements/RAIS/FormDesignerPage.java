@@ -20,17 +20,20 @@ public class FormDesignerPage {
 	public String addSectionPopUp_title_XPath =commonPopUpxpath+ "//div//input[@id='title']";
 	public String addSectionColSelect3_XPath = frmDesgnCommonxpath +"//div//(button[@class='select-column'])[2]"; // Not working
 	
-	public String addSectionColSelectnewbutton2_XPath = "//button[@class='select-column'][2]";// this will work. Button to create 1 section
+	
+	public String addSectionColSelectnewbutton2_XPath =commonPopUpxpath+ "//form//div[@class='form-group'][2]//div//button[@class='select-column'][2]//span";//
+	//public String addSectionColSelectnewbutton2_XPath = "*//button[@class='select-column'][2]//span//span[@class='icon-bar'][2]";// this will work. Button to create 1 section
 	public String addSectionColSelectnewbutton3_XPath = "//button[@class='select-column'][3]"; // this will work for button to create 3 sections
 	public String addSectionSaveBtn_XPath = commonPopUpxpath+"//button[text()='Save']"; // save button for saving sections
 	
 	//After saving sections, below is to click column link
-	public String colProp1_XPath = "//div[@class='column-section-wrap form-section']//div[@class='row']//div[@class='col-sm-6 col-flex-1 design-section-3'][1]//div//div//a[text()='Column Properties']";
+	public String colProp1_XPath = commonPopUpxpath + 
+			"//[@class='form-group'][2]//div[@class='row']//div[@class='col-sm-6 col-flex-1 design-section-3'][1]//div//div//a[text()='Column Properties']";
 	public String colProp2_XPath = "//*[@class='column-section-wrap form-section']//div[@class'row']//div[@class='col-sm-6 col-flex-1 design-section-3'][1]//div//div//a[text()='Column Properties']";
 	public String colProp3_XPath = "//div[@class='col-sm-6 col-flex-1 design-section-3'][2]//a[text()='Column Properties']"; 
 	
-	public String colProp1_Temp_XPath="//*[@class='column-section-wrap form-section']/div/div[1]/div/div/a";
-	public String colProp2_Temp_XPath="//*[@class='column-section-wrap form-section']/div/div[2]/div/div/a";
+	public String colProp1_Temp_XPath=frmDesgnCommonxpath + "//form//div[3]//div[@class='col-sm-6 col-flex-1 design-section-2'][1]//a[text()='Column Properties']"; //		+"//*[@class='col-sm-6 col-flex-1 design-section-2'][1]//div//a[text()='Column Properties']";
+	public String colProp2_Temp_XPath=frmDesgnCommonxpath + "//form//div[3]//div[@class='col-sm-6 col-flex-1 design-section-2'][2]//a[text()='Column Properties']";
 	public String colProp3_Temp_XPath="//*[@class='column-section-wrap form-section']/div/div[3]/div/div/a";
 	
 	//select attributes for column prop from popup
@@ -40,9 +43,9 @@ public class FormDesignerPage {
 		public String frmDesgn_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";
 		
 		//value to select for multi select
-		public String selectAttrib_ChkBox_dropdown_XPath = "//*[text()='chkBoxlblFrmBldr']";
-		public String selectAttrib_Numeric_dropdown_XPath = "//*[text()='nmriclblFrmBldr']";
-		public String selectAttrib_Text_dropdown_XPath = "//*[text()='txtlblFrmBldr']";
+		public String selectAttrib_ChkBox_dropdown_XPath = "//*[text()='Sample Checkbox']";
+		public String selectAttrib_Numeric_dropdown_XPath = "//*[text()='Sample Numeric field']";
+		public String selectAttrib_Text_dropdown_XPath = "//*[text()='Sample Text field']";
 		public String selectAttrib_popPageSaveBtn_XPath = "/html/body/div[6]/div[3]/div/div/div[3]/div/button[2]"; // save button for saving sections
 		
 		
