@@ -74,7 +74,7 @@ public class RAIS_applicationSpecificMethods  {
 				for(WebElement Cell:Cells){
 
 					//check if flag is true first and then check for corresponding text value
-					if ((exitLoop ==true) && Cell.getText().contains(cellTextValue) ) {
+					if ((exitLoop ==true) && Cell.getText().equals(cellTextValue) ) {
 
 						//click on the particular cell value
 						Cell.click();
