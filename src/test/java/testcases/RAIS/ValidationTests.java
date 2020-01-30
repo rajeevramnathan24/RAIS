@@ -1331,11 +1331,11 @@ public class ValidationTests extends BaseClass
 			
 			//Declaring array to store Business entities 
 			
-			//"Dose", "Equipment", "Equipment Status", "Status"
-			  String[] sBusinessEntities = { "Academic Qualification",
+			// 
+			  String[] sBusinessEntities = { "Academic Qualification", 
 			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
 			  "Attended Course", "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
-			  "Department", "Department Status", "District",
+			  "Department", "Department Status", "District", "Dose", "Equipment", "Equipment Status", "Status",
 			  "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
 			  "Equipment Type", "Expert", "Expert Task", "Facility",
 			  "Facility Status", "Field", "Frequency In Month", "Gender",
