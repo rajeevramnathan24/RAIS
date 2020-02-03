@@ -1,7 +1,6 @@
 package commonfunction;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 import org.openqa.selenium.By;
@@ -13,6 +12,9 @@ import org.testng.Assert;
 
 import constants.RaisTestData;
 import pageLocators_Elements.RAIS.AddNewAttributePage;
+import pageLocators_Elements.RAIS.AddNewEntityPage;
+import pageLocators_Elements.RAIS.DashboardPage;
+import pageLocators_Elements.RAIS.EntityListingPage;
 
 
 public class RAIS_applicationSpecificMethods  {
@@ -1453,5 +1455,97 @@ public class RAIS_applicationSpecificMethods  {
 			return finalCustomXpath;
 		}  		
 	}
+	
+	//Create custom XPath for DASHBOARD Page
+		public static String dashboardSubMenuDynamicXpath(String insertTxt) {
+
+			//Initialising string to be returned
+			String finalCustomXpath= "incorrect Xpath";
+			
+			try {
+				
+				//retrieving the text value of the element
+				finalCustomXpath = "//*[@id='sub-menu']//div[]//div//ul//li//a[text()='" + insertTxt + "']" ;
+
+				//Return the value of string
+				return finalCustomXpath;
+							
+
+			} catch (NoSuchElementException e) {
+
+				e.printStackTrace();
+
+				//return null if error
+				return finalCustomXpath;
+
+			}	catch (Exception e) {
+				e.printStackTrace();
+
+				//return null if error
+				return finalCustomXpath;
+			}  		
+		}
+		
+		
+	//delete entity method
+		public static void deleteEntity(WebDriver wdelete ,String entityName) {
+			//delete entity starts from here
+			
+			DashboardPage dashboardPage = new DashboardPage();
+			EntityListingPage entListPage = new EntityListingPage();
+			AddNewEntityPage addEntPage = new AddNewEntityPage();
+
+			//Clicking on Element
+			GenericMethods.waitforElement(wdelete, dashboardPage.administration_XPath);
+			GenericMethods.elementClickable(wdelete, dashboardPage.administration_XPath);
+			
+			//wait for page load
+			GenericMethods.pageLoadWait(1000);
+			GenericMethods.elementClick(wdelete, dashboardPage.administration_XPath);
+
+			//waiting for link to load and then click
+			GenericMethods.elementClickable(wdelete, dashboardPage.entities_XPath);
+			GenericMethods.waitforElement(wdelete, dashboardPage.entities_XPath);
+
+			//Clicking on Element
+			GenericMethods.elementClick(wdelete, dashboardPage.entities_XPath);			
+			
+			///Delete starts here
+			//wait for page load
+			GenericMethods.pageLoadWait(2000);
+			
+			RAIS_applicationSpecificMethods.columnHeaderFilter(wdelete,entListPage.entityListingTableColHeader_XPath,
+					entListPage.entityListingTableColHeader_TXT_XPath,entityName);
+			
+			//Clicking on specific entity created
+			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wdelete,entListPage.entityListingTable_XPath, 
+					entityName);
+						
+			//wait for page load
+			GenericMethods.pageLoadWait(1000);
+			
+			//clicking on entity details page delete button
+			GenericMethods.waitforElement(wdelete, addEntPage.deleteBtn_XPath);
+			GenericMethods.elementClickable(wdelete, addEntPage.deleteBtn_XPath);
+			GenericMethods.elementClick(wdelete, addEntPage.deleteBtn_XPath);
+			
+			
+			//clicking on yes button
+			//Waiting for delete popup page
+			GenericMethods.waitforElement(wdelete, addEntPage.delEntity_popUpYesBtn_XPath);	
+			GenericMethods.elementClickable(wdelete, addEntPage.delEntity_popUpYesBtn_XPath);
+			GenericMethods.elementClick(wdelete, addEntPage.delEntity_popUpYesBtn_XPath);			
+			
+			//Waiting for delete popup page
+			GenericMethods.waitforElement(wdelete, addEntPage.addnewEntity_SuccessMsg_XPath);	
+			GenericMethods.elementClickable(wdelete, addEntPage.addnewEntity_SuccessMsg_XPath);
+											
+//			//Waiting for button to load and click
+			GenericMethods.waitforElement(wdelete, entListPage.addNewEntityBtn_XPath);	
+			GenericMethods.elementClickable(wdelete, entListPage.addNewEntityBtn_XPath);
+
+			//**************************************************Delete ENDS HERE	
+			
+		}
 	
 }

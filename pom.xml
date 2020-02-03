@@ -131,7 +131,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           <version>3.0.0-M3</version>
            <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>testng.xml</suiteXmlFile>
+            <suiteXmlFile>ValidationTest.xml</suiteXmlFile>
+            <suiteXmlFile>CRUD_OperationTest.xml</suiteXmlFile>
+            <suiteXmlFile>E2ETest.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
 			

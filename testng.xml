@@ -17,7 +17,7 @@
  
  <test name="RAIS Test Suite Run for Chrome Browser">
  	<classes>
- 		<class name="testcases.RAIS.E2ETests">
+ 		<class name="testcases.RAIS.CRUD_Operation_Tests">
  		<parameter name="browserType" value="Chrome"/>
  		</class>
  		

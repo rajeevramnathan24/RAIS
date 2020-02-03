@@ -643,9 +643,9 @@ case "Link":
 		public static String currentLocalTime() {
 			try {
 				//current time
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+				DateTimeFormatter time = DateTimeFormatter.ofPattern("HHmmss");
 				LocalTime rawFormat = LocalTime.now();
-				String currentTime = rawFormat.format(formatter);
+				String currentTime =rawFormat.format(time);
 
 				//return current time
 				return currentTime;

@@ -62,6 +62,8 @@ public class E2ETests extends BaseClass
 	EntityFormListingPage entityFrmListingPage = new EntityFormListingPage();
 	AddNewEntityFormDetailsPage entityFrmDetailspage = new AddNewEntityFormDetailsPage ();
 	
+	//passcurrent time
+	private static String localTime = GenericMethods.currentLocalTime();
 
 	TestSuite RunTestCase = new TestSuite();
 
@@ -472,6 +474,14 @@ public class E2ETests extends BaseClass
 	public void E2E_FormDesigner(){
 
 		try {
+			
+			//Setting entity names
+			String internalName = RaisTestData.Entity_FormBuilder_InternalNameData + localTime;
+			String DescripTxt = RaisTestData.Entity_DescriptionData + localTime;
+			String singularName = RaisTestData.Entity_FormBuilder_SingularData ;
+			String pluralName = RaisTestData.Entity_FormBuilder__PluralData ;
+			
+			
 
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(E2E_TestPack.e2eTC2_testName,E2E_TestPack.e2eTC2_testDescription);
@@ -513,16 +523,16 @@ public class E2ETests extends BaseClass
 			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
 
 			//input entity internal name
-			GenericMethods.sendText(wd, addEntityPage.addNewEntity_internalNameTxtBox_XPath, RaisTestData.Entity_FormBuilder_InternalNameData);
+			GenericMethods.sendText(wd, addEntityPage.addNewEntity_internalNameTxtBox_XPath, internalName);
 
 			//input entity Description name
-			GenericMethods.sendText(wd, addEntityPage.addNewEntity_DescTxtBox_XPath, RaisTestData.Entity_DescriptionData);
+			GenericMethods.sendText(wd, addEntityPage.addNewEntity_DescTxtBox_XPath, DescripTxt);
 
 			//input entity Singular name
-			GenericMethods.sendText(wd, addEntityPage.addNewEntity_SingTxtBox_XPath, RaisTestData.Entity_FormBuilder_SingularData);
+			GenericMethods.sendText(wd, addEntityPage.addNewEntity_SingTxtBox_XPath, singularName);
 
 			//input entity Plural name
-			GenericMethods.sendText(wd, addEntityPage.addNewEntity_PluTxtBox_XPath, RaisTestData.Entity_FormBuilder__PluralData);
+			GenericMethods.sendText(wd, addEntityPage.addNewEntity_PluTxtBox_XPath, pluralName);
 
 			//input entity group name
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd,addEntityPage.addNewEntity_grpDropDown_XPath, RaisTestData.Entity_GroupData);
@@ -552,13 +562,13 @@ public class E2ETests extends BaseClass
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
-					entListingPage.entityListingTableColHeader_TXT_XPath,RaisTestData.Entity_FormBuilder_SingularData );
+					entListingPage.entityListingTableColHeader_TXT_XPath,singularName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(500);
 
 			//Clicking on specific Role created
-			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , RaisTestData.Entity_FormBuilder_SingularData);
+			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , singularName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(6000);
@@ -722,20 +732,23 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(1000);
 			GenericMethods.elementClick(wd, dashboardnew.invent_Resources_XPath);
 
+			//String newEntityCreatedXPATH = RAIS_applicationSpecificMethods.dashboardSubMenuDynamicXpath(pluralName);
+			
 			//waiting for link to load and then click
 			GenericMethods.elementClickable(wd, dashboardnew.newEntityCreated_XPath);
 			GenericMethods.waitforElement(wd, dashboardnew.newEntityCreated_XPath);
 
 			//Clicking on Element
+			//RAIS_applicationSpecificMethods.roleSelect_Click(wd, "sub-menu", newEntityCreatedXPATH);
 			GenericMethods.elementClick(wd, dashboardnew.newEntityCreated_XPath);
 			
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
 			
 			System.out.println("waiting newly created entity page to load");
-
-
-//**************
+			
+			
+//************** below is temporariliy not used
 			//initialising dyanmic xpath
 			String dynamicTextBox_Xpath = null ;String dynamic_CheckBox_Xpath = null ; String dynamicNumericBox_Xpath = null ;
 			
@@ -833,7 +846,12 @@ public class E2ETests extends BaseClass
 				//Clicking on Element				
 				
 				System.out.println("data visible on column");
-
+				
+				//New delete entity method starts from here
+				RAIS_applicationSpecificMethods.deleteEntity(wd, singularName);
+				
+				//**************************************************Delete ENDS HERE	
+				
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
 
@@ -843,38 +861,6 @@ public class E2ETests extends BaseClass
 
 		finally {
 			
-//			
-//			//Delete entity
-/////Delete entity starts below
-//			
-//			//wait for page load
-//			GenericMethods.pageLoadWait(500);
-//
-//			//Column header filter starts here
-//			RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
-//					entListingPage.entityListingTableColHeader_TXT_XPath,RaisTestData.Entity_FormBuilder_SingularData );
-//
-//			//wait for page load
-//			GenericMethods.pageLoadWait(500);
-//
-//			//Clicking on specific Role created
-//			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , RaisTestData.Entity_FormBuilder_SingularData);
-//
-//			//wait for page load
-//			GenericMethods.pageLoadWait(3000);
-//			//wait for page load
-//			GenericMethods.pageLoadWait(1000);
-//			GenericMethods.elementClick(wd, addEntityPage.deleteBtn_XPath);
-//
-//			//Waiting for delete popup page
-//			GenericMethods.elementClick(wd, addEntityPage.delEntity_popUpYesBtn_XPath);				
-//
-//			System.out.println("deleted entity");
-//			
-//			//Delete entity ends here
-//			
-//			
-
 			//Logout user
 			RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
 
@@ -887,8 +873,8 @@ public class E2ETests extends BaseClass
 
 	}
 
-	//#2 - continued for 2
-	@Test(priority=3,enabled=false)
+	//#99 - continued for 99
+	@Test(priority=99,enabled=false)
 	public void e2e_FormDesigner2() {
 		
 		String calibrationXpath = "//*[@id='main-menu']//a[contains(text(),'Calibrations')]";

@@ -123,7 +123,7 @@ public class TestData_creation extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Waiting until element to load
-			GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
 
 			//Thread.sleep(3000);
 
