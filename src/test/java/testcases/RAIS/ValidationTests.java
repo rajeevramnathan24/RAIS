@@ -1342,25 +1342,24 @@ public class ValidationTests extends BaseClass
 			//Declaring array to store Business entities 
 			
 			// 
-			  String[] sBusinessEntities = { "Academic Qualification", 
-			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
-			  "Attended Course", "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
-			  "Department", "Department Status", "District", "Dose", "Equipment", "Equipment Status", "Status",
-			  "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
-			  "Equipment Type", "Expert", "Expert Task", "Facility",
-			  "Facility Status", "Field", "Frequency In Month", "Gender",
-			  "Inspection Schedule", "Inventory Status", "Isotope Production",
-			  "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
-			  "Partner Agency","Person", "Person Status", "Physical Barrier",
-			  "Physical Form", "Practice", "Professional Degree",
-			  "Professional Qualification", "Radiation Generator", "Radiation Generator Model",
-			  "Radiation Generator Status", "Radiation Generator Type", "Region", "Regulatory Authority",
-			  "Sealed Source", "Sealed Source Model", "Sealed Source Status",
-			  "Security Group", "Time Unit", "Training Course",
-			  "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
+			String[] sBusinessEntities = { "Academic Qualification", 
+                    "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
+                    "Attended Course", "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
+                    "Department", "Department Status", "District", "Dose", "Equipment", "Equipment Status", "Status",
+                    "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
+                    "Equipment Type", "Expert", "Expert Task", "Facility",
+                    "Facility Status", "Field", "Frequency In Month", "Gender",
+                    "Inspection Schedule", "Inventory Status", "Isotope Production",
+                    "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
+                    "Partner Agency","Person", "Person Status", "Physical Barrier",
+                    "Physical Form", "Practice", "Professional Degree",
+                    "Professional Qualification", "Radiation Generator", "Radiation Generator Model ",
+                    "Radiation Generator Status", "Radiation Generator Type", "Region", "Regulatory Authority",
+                    "Sealed Source", "Sealed Source Model", "Sealed Source Status",
+                    "Security Group", "Time Unit", "Training Course", "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
 			  
-			//iterating for loop to validate business entities 
-			  
+			//iterating for loop to validate business entities
+			
 			  for (int i = 0; i< sBusinessEntities.length; i++)
 			  {
 				  
