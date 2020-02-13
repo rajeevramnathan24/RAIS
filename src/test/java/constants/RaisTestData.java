@@ -68,15 +68,15 @@ public class RaisTestData {
 
 	public static String chkBox_internalName = "chkBoxFrmBldrAuto";
 	public static String chkBox_toolTip = "chkBoxtooltipFrmBldr";
-	public static String chkBox_label = "Sample Checkbox";
+	public static String chkBox_label = "Radioactive Material";
 	
 	public static String numeric_internalName = "nmricFrmBldrAuto";
 	public static String numeric_toolTip = "nmrictooltipFrmBldr";
-	public static String numeric_label = "Sample Numeric field";
+	public static String numeric_label = "Postal Code";
 		
 	public static String text_internalName = "txtFrmBldrAuto";
 	public static String text_toolTip = "txttooltipFrmBldr";
-	public static String text_label = "Sample Text field";	
+	public static String text_label = "City Name";	
 	
 	public static String date_internalName = "dteFrmBldrAuto";
 	public static String date_toolTip = "dtetooltipFrmBldr";
@@ -146,4 +146,22 @@ public class RaisTestData {
 	//Linked form
 	public static String linkedFormName = "New Form";
 	public static String sectionTitle = "Section 2";
+	
+	//Business Entities
+	 public static String[] businessEntityList = { "Academic Qualification", 
+			  "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
+			  "Attended Course", "Authority Type", "Booleans", "Branch", "Calibration", "Category", "Country",
+			  "Department", "Department Status", "District", "Dose", "Equipment", "Equipment Status", "Status",
+			  "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
+			  "Equipment Type", "Expert", "Expert Task", "Facility",
+			  "Facility Status", "Field", "Frequency In Month", "Gender",
+			  "Inspection Schedule", "Inventory Status", "Isotope Production",
+			  "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
+			  "Partner Agency","Person", "Person Status", "Physical Barrier",
+			  "Physical Form", "Practice", "Professional Degree",
+			  "Professional Qualification", "Radiation Generator", "Radiation Generator Model",
+			  "Radiation Generator Status", "Radiation Generator Type", "Region", "Regulatory Authority",
+			  "Sealed Source", "Sealed Source Model", "Sealed Source Status",
+			  "Security Group", "Time Unit", "Training Course",
+			  "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
 }

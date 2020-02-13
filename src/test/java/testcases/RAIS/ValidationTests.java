@@ -184,6 +184,9 @@ public class ValidationTests extends BaseClass
 			SettingRptTestName_TestDesc(ValidationTestPack.validationTC2_testName,
 					ValidationTestPack.validationTC2_testDescription);
 
+			GenericMethods.pageLoadWait(2000);
+			
+			
 			//Clicking on forgot password link
 			GenericMethods.elementClick(wd, loginPage.frgtPwd_XPath);
 
@@ -458,7 +461,7 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
+			
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
 			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
@@ -470,6 +473,9 @@ public class ValidationTests extends BaseClass
 
 			//Clicking on Element
 			GenericMethods.elementClick(wd, dashboardnew.FunctionalRoles_XPath);
+
+			//wait for page load
+			GenericMethods.pageLoadWait(500);
 
 			//****************Verify Functional roles page 
 			//verify label name
@@ -605,7 +611,7 @@ public class ValidationTests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
+			
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
 			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
@@ -617,6 +623,10 @@ public class ValidationTests extends BaseClass
 
 			//Clicking on Element
 			GenericMethods.elementClick(wd, dashboardnew.securityRoles_XPath);
+
+			//wait for page load
+			GenericMethods.pageLoadWait(500);
+			
 
 			//****************Verify Security roles landing page 
 			//verify label/ button name
@@ -909,7 +919,7 @@ public class ValidationTests extends BaseClass
 			GenericMethods.elementClick(wd, entListingPage.addNewEntityBtn_XPath);
 
 			//wait for page load
-			GenericMethods.pageLoadWait(500);
+			GenericMethods.pageLoadWait(1000);
 
 			//clicking on add new entity - save button
 			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);

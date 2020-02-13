@@ -67,7 +67,8 @@ public class DashboardPage {
 	
 	//Data roles xpath
 	//public String FunctionalRoles_XPath = "//a[@href='/Administration/FunctionalRole']";	
-	public String FunctionalRoles_XPath = "//*[@id='main-menu']//a[@href='/Administration/FunctionalRole']";
+	//public String FunctionalRoles_XPath = "//*[@id='main-menu']//a[@href='/Administration/FunctionalRole']";
+	public String FunctionalRoles_XPath = "//*[@id='main-menu']//a[text()='Functional Roles']"	;
 	
 	//Security roles xpath
 	//public String securityRoles_XPath = "//a[@href='/Administration/SecurityProfile']";	
@@ -85,6 +86,9 @@ public class DashboardPage {
 	//xpath for newly created entity
 	//public String newEntityCreated_XPath = "//*[@id='main-menu']//a[text()='"+RaisTestData.Entity_PluralData +"']"	;
 	public String newEntityCreated_XPath = "//*[@id='main-menu']//a[contains(text(),'PluralDataFormBuilderAutoUser')]";
+	
+	public String prefixBusinessEntity_XPath = "//*[@id='main-menu']//a[contains(text(),'";
+	public String suffixBusinessEntity_XPath = "')]";
 	
 	
 	

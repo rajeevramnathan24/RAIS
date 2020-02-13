@@ -6,23 +6,24 @@ public class AddNewEntityFormDetailsPage {
 	public String cancelBtn_XPath = "//*[@id='entity-form']//button[text()='Cancel']";
 	
 	//labels and buttons
-	public String entityFormDetailsPage_Checkbox_XPath = "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Sample Checkbox']";
-	public String entityFormDetailsPage_Txt_XPath="//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='Sample Text field']";
-	public String entityFormDetailsPage_Numeric_XPath = "//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='Sample Numeric field']";
+	public String entityFormDetailsPage_Checkbox_XPath = "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Radioactive Material']";
+	public String entityFormDetailsPage_Txt_XPath="//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='City Name']";
+	public String entityFormDetailsPage_Numeric_XPath = "//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='Postal Code']";
+	//public String entityFormDetailsPage_Numeric_XPath = "//*[@id='entity-form']//div//div//div//div[1]//form//div[2]//div[2]//div//div[2]//div//div[2]//div//div//div[1]//label[text()='Postal Code']";
 	
+	//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]
 	
-
-
-
 	//Numeric field txt xpath
 	public String entityFormDetailsPage_inputNumericFld_XPath = "//*[@id='nmricFrmBldrAuto']";
 
 	//Text field txt xpath
 	public String entityFormDetailsPage_inputTextFld_XPath = "//*[@id='txtFrmBldrAuto']";
-
 	
 	//Name field txt xpath
 		public String entityFormDetailsPage_inputNameFld_XPath = "//*[@id='Name']";
+		
+		//Name field name xpath
+				public String entityFormDetailsPage_inputFld_XPath = "//*[@id='Field']";
 
 	//Multi select dropdown
 	public String restriction_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";

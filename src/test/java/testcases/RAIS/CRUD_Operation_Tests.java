@@ -840,6 +840,9 @@ public class CRUD_Operation_Tests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
+			
+			//Waiting for popup to load
+			GenericMethods.pageLoadWait(1000);
 
 			//Clicking on Element
 			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
@@ -851,7 +854,10 @@ public class CRUD_Operation_Tests extends BaseClass
 			GenericMethods.waitforElement(wd, dashboardnew.entities_XPath);
 
 			//Clicking on Element
-			GenericMethods.elementClick(wd, dashboardnew.entities_XPath);			
+			GenericMethods.elementClick(wd, dashboardnew.entities_XPath);
+			
+			//Waiting for popup to load
+			GenericMethods.pageLoadWait(1000);
 			
 			//********************************Add new Entity starts here
 			//Waiting for button to load and click

@@ -1548,4 +1548,377 @@ public class RAIS_applicationSpecificMethods  {
 			
 		}
 	
+	//Verify grid values
+		//Method to select specific permission or restriction from table
+		public static String gridGetText(WebDriver wdpr, String tableType, String cellTextValue) {
+
+			//flag is used to exit loop
+			boolean exitLoop=true;
+			String gridText = null;
+
+			//assigning table locators in webelement
+			WebElement table = wdpr.findElement(By.xpath((tableType)));
+
+			//assigning row elements to webelement
+			List<WebElement> allrows = table.findElements(By.tagName("tr"));
+
+			//looping between each row
+			for(WebElement row: allrows){
+
+				//check if flag is true from previous iterations
+				if(exitLoop == true) {
+					List<WebElement> Cells = row.findElements(By.tagName("td"));
+
+
+					//looping for every element in the row
+					for(WebElement Cell:Cells){
+
+						//check if flag is true first and then check for corresponding text value
+						if ((exitLoop ==true) && Cell.getText().equals(cellTextValue) ) {
+
+							//click on the particular cell value
+							gridText = Cell.getText();
+							
+							//below is used to highlight only when flag is true
+							GenericMethods.highLightElement(wdpr, cellTextValue, GenericMethods.elementClickHighlight);
+
+							//setting flag to false to exit if and for loop
+							exitLoop = false;	            	
+						}	
+
+					}
+
+
+				}
+			}
+			return gridText;
+
+		}
+
+		//Custom Attribute Input data
+		//clicking on table filter and enter particular text
+		public static void CreateBusinessattributeData(WebDriver watb, String typeOfAttribute, String linkedEntity ) {
+
+			//Initialising Attribute page name below
+			AddNewAttributePage CustaddAttbtInput = new AddNewAttributePage();
+
+			//selecting datatype from dropdown as per value passed
+			valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_dataTypedropDown_XPath, typeOfAttribute);
+			
+			switch (typeOfAttribute) {
+			case "Checkbox":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+				break;
+
+			case "Numeric":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input label name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				//subtype input
+				valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_subTypedropDown_XPath, CustaddAttbtInput.subTypeList[0]);
+
+				
+				break;
+
+			case "Text":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input label name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				//input number of lines 
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_noOfLinesTxtBox_XPath, RaisTestData.text_lines);
+
+				//subtype input
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_lengthTxtBox_XPath, RaisTestData.text_length);
+
+				
+				break;
+
+			case "Date":
+				
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+				break;
+
+			case "Guid":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+
+				break;
+
+			case "Image":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+				break;
+
+			case "Lookup":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+				
+				//input linked entity
+				valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_linkedEntitydropDown_XPath, linkedEntity);
+
+				
+				
+
+				break;
+
+			case "Lookup with Value":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+				
+				//input linked entity
+				valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_linkedEntitydropDown_XPath, linkedEntity);
+				
+				//input subtype
+				valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_subTypedropDown_XPath, CustaddAttbtInput.subTypeList[0]);
+				
+				//length input
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_lengthTxtBox_XPath, RaisTestData.text_length);
+
+				
+
+
+				break;
+
+			case "Memo":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+				
+
+				break;
+
+			case "Multi lookup":
+				
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+				
+				//input linked entity
+				valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_linkedEntitydropDown_XPath, linkedEntity);
+
+				
+
+
+				break;
+
+			case "Multiple documents":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+				break;
+
+			case "Multiple Users":
+				
+				
+				
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, RaisTestData.multiUsers_internalName);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, RaisTestData.multiUsers_toolTip);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, RaisTestData.multiUsers_label);
+
+				
+
+
+				break;
+
+			case "RAN":
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, RaisTestData.ran_toolTip);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, RaisTestData.ran_label);
+
+				
+
+				break;
+
+			case "Single document":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+
+				break;
+
+			case "Time Interval":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+
+				break;
+
+			case "User":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, RaisTestData.user_internalName);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, RaisTestData.user_toolTip);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, RaisTestData.user_label);
+
+				
+
+				break;
+
+			case "Workflow Action":
+
+				//input internal name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_internalNameTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_tooTipTxtBox_XPath, linkedEntity);
+
+				//input tool tip name
+				GenericMethods.sendText(watb, CustaddAttbtInput.addNewAttB_labelTxtBox_XPath, linkedEntity);
+
+				
+
+
+				break;
+				
+			case "Select":
+
+				
+				break;
+
+			default:
+				break;
+			}	
+
+			//mandatory input
+			valueSelectfromDropDown(watb, CustaddAttbtInput.addNewAttB_mandInputdropDown_XPath, CustaddAttbtInput.mandInputList[0]);
+
+			//click on show in listview
+			GenericMethods.elementClick(watb, CustaddAttbtInput.addNewAttB_showinList_CheckBox_XPath);
+			
+			//click on show in history
+			GenericMethods.elementClick(watb, CustaddAttbtInput.addNewAttB_showHist_CheckBox_XPath);
+
+			
+			//Waiting until element to load
+			GenericMethods.waitforElement(watb, CustaddAttbtInput.SaveBtn_XPath);	
+			GenericMethods.elementClickable(watb, CustaddAttbtInput.SaveBtn_XPath);
+			GenericMethods.waitforvisibilityOfElement(watb, CustaddAttbtInput.SaveBtn_XPath);
+
+			//wait for page load
+			GenericMethods.pageLoadWait(500);
+			GenericMethods.elementClick(watb, CustaddAttbtInput.SaveBtn_XPath);
+			GenericMethods.pageLoadWait(300);
+
+		}
+
+		
 }

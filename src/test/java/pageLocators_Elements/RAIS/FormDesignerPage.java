@@ -43,9 +43,9 @@ public class FormDesignerPage {
 		public String frmDesgn_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";
 		
 		//value to select for multi select
-		public String selectAttrib_ChkBox_dropdown_XPath = "//*[text()='Sample Checkbox']";
-		public String selectAttrib_Numeric_dropdown_XPath = "//*[text()='Sample Numeric field']";
-		public String selectAttrib_Text_dropdown_XPath = "//*[text()='Sample Text field']";
+		public String selectAttrib_ChkBox_dropdown_XPath = "//*[text()='Radioactive Material']";
+		public String selectAttrib_Numeric_dropdown_XPath = "//*[text()='Postal Code']";
+		public String selectAttrib_Text_dropdown_XPath = "//*[text()='City Name']";
 		public String selectAttrib_popPageSaveBtn_XPath = "/html/body/div[6]/div[3]/div/div/div[3]/div/button[2]"; // save button for saving sections
 		
 		

@@ -473,16 +473,13 @@ public class E2ETests extends BaseClass
 	@Test(priority=2,enabled=E2E_TestPack.e2eTC2_runStatus)
 	public void E2E_FormDesigner(){
 
+		//Setting entity names
+		String internalName = RaisTestData.Entity_FormBuilder_InternalNameData + localTime;
+		String DescripTxt = RaisTestData.Entity_DescriptionData + localTime;
+		String singularName = RaisTestData.Entity_FormBuilder_SingularData ;
+		String pluralName = RaisTestData.Entity_FormBuilder__PluralData ;
+		
 		try {
-			
-			//Setting entity names
-			String internalName = RaisTestData.Entity_FormBuilder_InternalNameData + localTime;
-			String DescripTxt = RaisTestData.Entity_DescriptionData + localTime;
-			String singularName = RaisTestData.Entity_FormBuilder_SingularData ;
-			String pluralName = RaisTestData.Entity_FormBuilder__PluralData ;
-			
-			
-
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(E2E_TestPack.e2eTC2_testName,E2E_TestPack.e2eTC2_testDescription);
 
@@ -571,7 +568,7 @@ public class E2ETests extends BaseClass
 			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , singularName);
 
 			//wait for page load
-			GenericMethods.pageLoadWait(6000);
+			GenericMethods.pageLoadWait(3000);
 			
 //			//Waiting until element to load
 //			GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
@@ -678,6 +675,8 @@ public class E2ETests extends BaseClass
 			//Clicking on column prop 2 to add text field
 			GenericMethods.elementClick(wd, frmDesign.colProp2_Temp_XPath);	
 			
+			GenericMethods.pageLoadWait(500);
+			
 			RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Text_dropdown_XPath);
 			
 			//wait for page load
@@ -688,6 +687,8 @@ public class E2ETests extends BaseClass
 			
 			RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Numeric_dropdown_XPath);
 			
+			
+			GenericMethods.pageLoadWait(500);
 			//Clicking on column prop 1
 			GenericMethods.elementClick(wd, frmDesign.selectAttrib_popPageSaveBtn_XPath);
 			GenericMethods.pageLoadWait(500);
@@ -821,19 +822,21 @@ public class E2ETests extends BaseClass
 				//waiting for link to load and then click
 				GenericMethods.elementClickable(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);
 				GenericMethods.waitforElement(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);
-				GenericMethods.elementClick(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);
 				
 				//input data on sample numeric and text fields
-				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath, "Test Name");
+				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath, "Inspection Form");
+				
+				//selecting checkbox
+				GenericMethods.elementClick(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);				
 				
 				//wait for page load
 				GenericMethods.pageLoadWait(1000);
 								
 				//input data on sample numeric and text fields
-				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath,"Sample data");
+				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath,"Vienna");
 				
 				//input data on sample numeric and text fields
-				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath, "333");
+				GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath, "1060");
 				
 						
 				// Clicking on save butto
@@ -847,10 +850,11 @@ public class E2ETests extends BaseClass
 				
 				System.out.println("data visible on column");
 				
-				//New delete entity method starts from here
-				RAIS_applicationSpecificMethods.deleteEntity(wd, singularName);
+				Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "Vienna"),
+						"Vienna");
 				
-				//**************************************************Delete ENDS HERE	
+				Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "1060"),
+						"1060");
 				
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -860,6 +864,12 @@ public class E2ETests extends BaseClass
 		}
 
 		finally {
+			
+			//New delete entity method starts from here
+			RAIS_applicationSpecificMethods.deleteEntity(wd, singularName);
+			
+			//**************************************************Delete ENDS HERE	
+			
 			
 			//Logout user
 			RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
@@ -873,6 +883,384 @@ public class E2ETests extends BaseClass
 
 	}
 
+	//#3
+	@Test(priority=3,enabled=E2E_TestPack.e2eTC3_runStatus)
+	public void E2E_BusinessEntityFormDesigner(){
+
+			//Setting entity names
+			
+			String bSingularName = RaisTestData.businessEntityList[9] ;
+			String bPluralName = RaisTestData.businessEntityList[9] ;
+			
+			try {
+				//Setting Test name and description on report
+				SettingRptTestName_TestDesc(E2E_TestPack.e2eTC3_testName,E2E_TestPack.e2eTC3_testDescription);
+
+				//Calling Login method
+				GenericMethods.loginApplication
+				(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+						password, loginPage.loginBtn_XPath);
+
+				//Waiting until element to load
+				//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+
+				//Clicking on Element
+				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+				GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+				//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, dashboardnew.entities_XPath);
+				GenericMethods.waitforElement(wd, dashboardnew.entities_XPath);
+
+				//Clicking on Element
+				GenericMethods.elementClick(wd, dashboardnew.entities_XPath);			
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(500);
+
+				//Column header filter starts here
+				RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
+						entListingPage.entityListingTableColHeader_TXT_XPath,bSingularName);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(500);
+
+				//Clicking on specific Role created
+				RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , bSingularName);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(3000);
+				
+//				//Waiting until element to load
+//				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+//				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+//				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+
+				//Clicking on attribute link on left pane
+				RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.Attb_Text);
+				//GenericMethods.elementClick(wd, addEntityPage.attributeLink_XPath);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+
+				//Wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				//***Attribute creation method
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[0]);
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.pageLoadWait(1000);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				//Wait for page load
+				GenericMethods.pageLoadWait(3000);
+				
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[10]);
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.pageLoadWait(1000);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				//Wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[13]);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(2000);
+
+				//Clicking on attribute link on left pane
+				RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.LinkedForms_Text);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on specific form - main form
+				RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,linkedFrmListing.linkdFrmListingPageTable_XPath , RaisTestData.linkedFormName);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				System.out.println("Form opened");
+				
+				GenericMethods.pageLoadWait(500);
+				GenericMethods.elementClick(wd, frmDesign.addSectionBtn_XPath);
+				
+				GenericMethods.pageLoadWait(500);
+				GenericMethods.sendText(wd, frmDesign.addSectionPopUp_title_XPath, RaisTestData.sectionTitle);
+										
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, frmDesign.addSectionColSelectnewbutton2_XPath);
+				//GenericMethods.elementClick(wd, frmDesign.addSectionColSelectnewbutton3_XPath);
+				
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, frmDesign.addSectionSaveBtn_XPath);
+				
+				System.out.println("2 sections created");
+				
+				///Adding colproperties on first section
+				
+				GenericMethods.pageLoadWait(500);
+				
+				//Clicking on column prop 1
+				GenericMethods.elementClick(wd, frmDesign.colProp1_Temp_XPath);
+							
+				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Text_dropdown_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on column prop 2 to add numeric field
+				//GenericMethods.elementClick(wd, frmDesign.colProp2_Temp_XPath);	
+				
+				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Numeric_dropdown_XPath);
+				
+				//Clicking on column prop 1
+				GenericMethods.elementClick(wd, frmDesign.selectAttrib_popPageSaveBtn_XPath);
+				GenericMethods.pageLoadWait(500);
+				
+				//***************End of adding col prop
+				
+//				///Adding colproperties on 2nd section
+//				
+//				GenericMethods.pageLoadWait(600);
+//				
+//				//Clicking on column prop 2 to add text field
+//				GenericMethods.elementClick(wd, frmDesign.colProp2_Temp_XPath);	
+//				
+//				GenericMethods.pageLoadWait(1000);
+//				
+//				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Text_dropdown_XPath);
+//				
+//				//wait for page load
+//				GenericMethods.pageLoadWait(1000);
+//				
+//				//Clicking on column prop 2 to add numeric field
+//				//GenericMethods.elementClick(wd, frmDesign.colProp2_Temp_XPath);	
+//				
+//				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Numeric_dropdown_XPath);
+//				
+//				
+//				GenericMethods.pageLoadWait(500);
+//				//Clicking on column prop 1
+//				GenericMethods.elementClick(wd, frmDesign.selectAttrib_popPageSaveBtn_XPath);
+//				GenericMethods.pageLoadWait(500);
+				
+				//***************End of adding col prop
+				
+				///Adding colproperties on 3rd section
+				
+//				GenericMethods.pageLoadWait(500);
+//				
+//				//Clicking on column prop 1
+//				GenericMethods.elementClick(wd, frmDesign.colProp3_Temp_XPath);		
+//				
+//				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Numeric_dropdown_XPath);
+//				
+//				//Clicking on column prop 1
+//				GenericMethods.elementClick(wd, frmDesign.selectAttrib_popPageSaveBtn_XPath);
+//				GenericMethods.pageLoadWait(500);
+				
+				//***************End of adding col prop
+				
+				//GenericMethods.sendText(wd, frmDesign.mainFrmPage_TitleTxtbox_XPath, "TestformTitle");
+				
+				GenericMethods.pageLoadWait(500);
+				GenericMethods.elementClick(wd, frmDesign.mainFrmPage_SaveBtn_XPath);
+				
+				//Waiting for button to load and click
+				GenericMethods.waitforElement(wd, linkedFrmListing.addNewFormBtn_XPath);	
+				GenericMethods.elementClickable(wd, linkedFrmListing.addNewFormBtn_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				wd.navigate().refresh();
+				GenericMethods.pageLoadWait(1000);
+							
+				//Clicking on Element
+				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+				GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+				//String newEntityCreatedXPATH = RAIS_applicationSpecificMethods.dashboardSubMenuDynamicXpath(pluralName);
+				
+				String businessEntityName = RAIS_applicationSpecificMethods.createCustomXpath(dashboardnew.prefixBusinessEntity_XPath, bPluralName
+						, dashboardnew.suffixBusinessEntity_XPath);
+				
+				//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, businessEntityName);
+				GenericMethods.waitforElement(wd, businessEntityName);
+
+				//Clicking on Element
+				//RAIS_applicationSpecificMethods.roleSelect_Click(wd, "sub-menu", newEntityCreatedXPATH);
+				GenericMethods.elementClick(wd, businessEntityName);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				
+				
+	//************** below is temporariliy not used
+				//initialising dyanmic xpath
+				String dynamicTextBox_Xpath = null ;String dynamic_CheckBox_Xpath = null ; String dynamicNumericBox_Xpath = null ;
+				
+				dynamicTextBox_Xpath = RAIS_applicationSpecificMethods.createCustomXpath
+						(entityFrmListingPage.generic_Prefix_EntityFrmListingColHeader1_XPath, 
+								RaisTestData.text_label, 
+								entityFrmListingPage.generic_Suffix_EntityFrmListingColHeader1_XPath);			
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, dynamicTextBox_Xpath, 
+						RaisTestData.text_label), RaisTestData.text_label);
+				
+				
+				
+				dynamic_CheckBox_Xpath = RAIS_applicationSpecificMethods.createCustomXpath
+						(entityFrmListingPage.generic_Prefix_EntityFrmListingColHeader1_XPath, 
+								RaisTestData.chkBox_label, 
+								entityFrmListingPage.generic_Suffix_EntityFrmListingColHeader1_XPath);
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, dynamic_CheckBox_Xpath, 
+						RaisTestData.chkBox_label), RaisTestData.chkBox_label);
+				
+				
+				dynamicNumericBox_Xpath = RAIS_applicationSpecificMethods.createCustomXpath
+						(entityFrmListingPage.generic_Prefix_EntityFrmListingColHeader1_XPath, 
+								RaisTestData.numeric_label, 
+								entityFrmListingPage.generic_Suffix_EntityFrmListingColHeader1_XPath);
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, dynamicNumericBox_Xpath, 
+						RaisTestData.numeric_label), RaisTestData.numeric_label);
+				
+				
+			//waiting for link to load and then click
+					GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
+					GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//Clicking on Element
+					GenericMethods.elementClick(wd, entityFrmListingPage.addNewBtn_XPath);
+					
+					//page wait
+					GenericMethods.pageLoadWait(2000);
+					
+					//TO be ocntinued
+					//verify check box label
+//					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath),
+//							RaisTestData.chkBox_label);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//verify sample text field label and relevant input field
+					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityFrmDetailspage.entityFormDetailsPage_Txt_XPath),
+							RaisTestData.text_label);
+					Assert.assertEquals(GenericMethods.verifyTextBoxProperty(wd, entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath, 12,
+							RaisTestData.verifiedTextBoxProperty), RaisTestData.verifiedTextBoxProperty);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//verify numeric field label and relevant input field
+					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityFrmDetailspage.entityFormDetailsPage_Numeric_XPath),
+							RaisTestData.numeric_label);
+					Assert.assertEquals(GenericMethods.verifyTextBoxProperty(wd, entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath, 50,
+							RaisTestData.verifiedTextBoxProperty), RaisTestData.verifiedTextBoxProperty);
+					
+					
+					
+					//verification of fields ends above
+					
+					//input data into sample check box fields
+					//waiting for link to load and then click
+					GenericMethods.elementClickable(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath);
+					GenericMethods.waitforElement(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath);
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath, "Main Branch");
+					
+					//input data on dropdown fields
+					//GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputFld_XPath, "Hospital");
+					RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, entityFrmDetailspage.entityFormDetailsPage_inputFld_XPath, "Hospital");
+					
+					
+					//selecting checkbox
+//					GenericMethods.elementClick(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);				
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+									
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath,"Vienna");
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath, "1060");
+					
+							
+					// Clicking on save butto
+					GenericMethods.elementClickable(wd, entityFrmDetailspage.SaveBtn_XPath);
+					GenericMethods.waitforElement(wd, entityFrmDetailspage.SaveBtn_XPath);
+					GenericMethods.elementClick(wd, entityFrmDetailspage.SaveBtn_XPath);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);				
+					//Clicking on Element				
+					
+					System.out.println("data visible on column");
+					
+					Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "Vienna"),
+							"Vienna");
+					
+					Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "1060"),
+							"1060");
+					
+			}catch (NoSuchElementException  noElement) {
+				noElement.printStackTrace();
+
+			}catch (Exception  e) {
+				e.printStackTrace();
+			}
+
+			finally {
+				
+				//No delete of business entity required here
+				
+				
+				//Logout user
+				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+				//verifying logo on RIAS Page
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+				//page refresh
+				wd.navigate().refresh();
+			}
+
+		}
+
+	
 	//#99 - continued for 99
 	@Test(priority=99,enabled=false)
 	public void e2e_FormDesigner2() {

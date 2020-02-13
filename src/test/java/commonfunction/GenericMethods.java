@@ -217,12 +217,7 @@ public class GenericMethods  {
 		try {
 
 			//below is used to highlight only when flag is true
-			highLightElement(wc, clickElement, elementClickHighlight);
-
-			//waiting for element
-			//waitforElement(wc, clickElement);
-			//waitforPresenceOfElement(wc, clickElement);
-			//elementClickable(wc, clickElement);			
+			highLightElement(wc, clickElement, elementClickHighlight);		
 			
 			//Adding implicit wait
 			wc.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
@@ -395,7 +390,7 @@ case "Link":
 			if (highlight == true) {
 
 				//waiting for user experience
-				Thread.sleep(1000);
+				Thread.sleep(300);
 
 				//highlighting element
 				JavascriptExecutor js = (JavascriptExecutor) wHighlight;
@@ -606,7 +601,7 @@ case "Link":
 			try {				
 				
 				//below is used to highlight only when flag is true
-				highLightElement(wdmenu, menuItem, elementClickHighlight);
+				//highLightElement(wdmenu, menuItem, elementClickHighlight);
 				
 				//Selecting Left role pane xpath and clicking on particular selected role
 				WebElement mainleftpaneRoleXpath = wdmenu.findElement(By.xpath(menuItem));
