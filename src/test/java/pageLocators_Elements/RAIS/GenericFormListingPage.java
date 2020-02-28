@@ -1,6 +1,6 @@
 package pageLocators_Elements.RAIS;
 
-public class EntityFormListingPage {
+public class GenericFormListingPage {
 	//Add new form btn
 	public String addNewBtn_XPath = "//*[@id='entity-details']//button[text()='Add New']";
 	//public String noEntityForm_XPath = "//*[@id='entity-details']//table//tbody//tr[td[contains(., 'No Entity details found')]]";
@@ -17,15 +17,13 @@ public class EntityFormListingPage {
 	public String securityProfileLandingPageColHeaderField_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[contains(text(),'Fields')]]";
 	public String securityProfileLandingPageColHeaderRestrict_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[contains(text(),'Restrictions')]]";
 	
-	public String nameLabel_XPath = "//*[@id='entity-details']//table//thead//tr//th//a[span[contains(text(),'Name')]]//span//button";
+	public String nameLabel_XPath = "//*[@id='securityprofile']//label[contains(., 'No security profiles found')]";
 	
 	public String securityProfileTableList_XPath = "//*[@class='k-grid-table']";
 	
-	//Name filter
+	//EntityFilter
 	public String secProfListingTableColHeader_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[text()='Name']]//span//button";
-	public String NameColHeader_TXT_XPath = "//*[@id='entity-details']//table//thead//tr//th[2]//div//div//input[@class='k-textbox']";
-	public String CityNameColHeader_XPath = "//*[@id='entity-details']//table//thead//tr//th[2]//a[span[text()='City Name']]//span//button";
-	//public String entityListingTableColHeader_TXT_XPath = "//*[@id='entity']//table//thead//tr[2]//th//div//div//input[@class='k-textbox']";
+	public String secProfListingTableColHeader_TXT_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//div//div//input[@class='k-textbox']";
 	
 	
 	

@@ -86,10 +86,16 @@ public class DashboardPage {
 	//xpath for newly created entity
 	//public String newEntityCreated_XPath = "//*[@id='main-menu']//a[text()='"+RaisTestData.Entity_PluralData +"']"	;
 	public String newEntityCreated_XPath = "//*[@id='main-menu']//a[contains(text(),'PluralDataFormBuilderAutoUser')]";
+	public String AmpUnit_XPath = "//*[@id='main-menu']//a[contains(text(),'Amperage Units')]";
 	
 	public String prefixBusinessEntity_XPath = "//*[@id='main-menu']//a[contains(text(),'";
 	public String suffixBusinessEntity_XPath = "')]";
 	
+	//Facility xpath
+	public String facility_XPath = "//*[@id='main-menu']/li[4]/div/div[2]/ul/li[3]/a[text()='Facilities']";
+	
+	//District xpath
+	public String district_XPath = "//*[@id='main-menu']/li[4]/div/div[2]/ul/li[1]/a[text()='Districts']";
 	
 	
 	

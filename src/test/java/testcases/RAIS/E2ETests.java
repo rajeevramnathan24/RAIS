@@ -856,6 +856,8 @@ public class E2ETests extends BaseClass
 				Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "1060"),
 						"1060");
 				
+				
+				
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
 
@@ -864,6 +866,9 @@ public class E2ETests extends BaseClass
 		}
 
 		finally {
+			
+			
+			
 			
 			//New delete entity method starts from here
 			RAIS_applicationSpecificMethods.deleteEntity(wd, singularName);
@@ -883,8 +888,465 @@ public class E2ETests extends BaseClass
 
 	}
 
-	//#3
+	//#3 - Latest one use this
 	@Test(priority=3,enabled=E2E_TestPack.e2eTC3_runStatus)
+	public void E2E_FormDesigner_Business(){
+
+			//Test Data Details - IMP
+			String singularName = RaisTestData.businessEntityList[3];   ///Amperage Unit Business entity singular name listed on entities list
+			String pluralName = dashboardnew.AmpUnit_XPath ;			///Amperage Units Business entity plural name listed main menu
+			
+			//Attribute details
+			String attb_chkbox = addAttbt.attributeValueList[0];
+			String attb_numeric_Int = addAttbt.attributeValueList[10];
+			String attb_txtbox = addAttbt.attributeValueList[13];
+			
+			//increment/ add attb xpath to be added in form designer screen column properties
+			String columnPropDropdown [] = {
+					frmDesign.selectAttrib_ChkBox_dropdown_XPath,
+					frmDesign.selectAttrib_Text_dropdown_XPath,
+					frmDesign.selectAttrib_Numeric_dropdown_XPath
+					};
+			
+			//on form designer page, below attribute names are used
+			
+			//System attribute - not to be altered
+			String frmName = entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath;	//Label Name - Name	
+			String frmNameValue = "mA";
+			
+			//Business attribute - this should not be altered
+			String frmFactor = entityFrmDetailspage.entityFormDetailsPage_FactorFld_XPath;	//Label Name - Factor	
+			String frmFactorValue = "1";
+			
+			//Custom attribute starts here
+			String frmChkBoxLabel = RaisTestData.chkBox_label;		//Custom attribute label name
+			String frmChkBox = entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath;	//Label Name - Radioactive Material		
+			
+			String frmNumericLabel = RaisTestData.numeric_label;
+			String frmNumeric = entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath;	//Label Name - Postal code
+			String frmNumericValue = "1060"; 
+			
+			String frmTextLabel = RaisTestData.text_label;
+			String frmTextFld = entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath;	//Label Name - City Name
+			String frmTextValue = "Unit Current"; 
+			
+			//number of attributes X - button from form designer - to be included in for loop - count depends on number of attributes
+			String deleteAttb_frmDesigner = frmDesign.delete_Attrb_4_XPath;
+			
+			
+			try {
+				//Setting Test name and description on report
+				SettingRptTestName_TestDesc(E2E_TestPack.e2eTC3_testName,E2E_TestPack.e2eTC3_testDescription);
+
+				//Calling Login method
+				GenericMethods.loginApplication
+				(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+						password, loginPage.loginBtn_XPath);
+
+				//Waiting until element to load
+				//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+
+				//Clicking on Element
+				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+				GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+				//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, dashboardnew.entities_XPath);
+				GenericMethods.waitforElement(wd, dashboardnew.entities_XPath);
+
+				//Clicking on Element
+				GenericMethods.elementClick(wd, dashboardnew.entities_XPath);			
+
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(500);
+//					
+
+				//Waiting for button to load and click
+				GenericMethods.waitforElement(wd, entListingPage.addNewEntityBtn_XPath);	
+				GenericMethods.elementClickable(wd, entListingPage.addNewEntityBtn_XPath);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(500);
+
+				//Column header filter starts here
+				RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
+						entListingPage.entityListingTableColHeader_TXT_XPath,singularName);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(500);
+
+				//Clicking on specific Role created
+				RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , singularName);
+
+				//wait for page load
+				GenericMethods.pageLoadWait(3000);
+				
+				//Clicking on attribute link on left pane
+				RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.Attb_Text);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+
+				//Wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				//*************************************************************************Attribute creation method - add attributes here
+				
+				//****************************Attrb 1 starts
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[0]);  ///CheckBox
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.pageLoadWait(1000);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				//Wait for page load
+				GenericMethods.pageLoadWait(2000);
+				//****************************Attrb 1 Ends
+				
+				//****************************Attrb 2 starts
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[10]);   ///Numeric
+				
+				//Waiting until element to load
+				GenericMethods.waitforElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);	
+				GenericMethods.elementClickable(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.waitforvisibilityOfElement(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				GenericMethods.pageLoadWait(1000);
+				
+				//Add data for check box
+				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
+				//Wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				//****************************Attrb 2 Ends
+				
+				//****************************Attrb 3 starts - LAST ATTB
+				
+				RAIS_applicationSpecificMethods.attributeDataInput(wd, addAttbt.attributeValueList[13]);  ///Textbox
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(2000);
+				
+				//****************************Attrb 3 Ends
+
+				//*****************************************************Design form starts here
+				//Clicking on attribute link on left pane
+				RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.LinkedForms_Text);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on specific form - main form
+				RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,linkedFrmListing.linkdFrmListingPageTable_XPath , RaisTestData.linkedFormName);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				System.out.println("Form opened");
+								
+				System.out.println("Adding data to only 1 section");
+				
+				///Adding colproperties on first section
+				
+				GenericMethods.pageLoadWait(1000);
+				
+				//Clicking on column prop 1
+				GenericMethods.elementClick(wd, frmDesign.oneSection_ColProp_XPath);
+				
+				//Page load
+				GenericMethods.pageLoadWait(250);
+				
+				//***********************************************************************Drop down select of attribute starts here
+							
+				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_ChkBox_dropdown_XPath);
+				
+				//Page load
+				//GenericMethods.pageLoadWait(500);
+				
+				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Text_dropdown_XPath);
+				
+				//wait for page load
+				//GenericMethods.pageLoadWait(250);
+				
+				//Clicking on column prop 2 to add numeric field
+				//GenericMethods.elementClick(wd, frmDesign.colProp2_Temp_XPath);	
+				
+				RAIS_applicationSpecificMethods.multiSelectList(wd, frmDesign.frmDesgn_DropdnClick_Xpath, frmDesign.selectAttrib_Numeric_dropdown_XPath);
+				
+				
+				//GenericMethods.pageLoadWait(500);
+				//Clicking on column prop 1
+				GenericMethods.elementClick(wd, frmDesign.selectAttrib_popPageSaveBtn_XPath);
+				GenericMethods.pageLoadWait(1000);
+				
+				//clicking on main form page save button
+				GenericMethods.elementClick(wd, frmDesign.mainFrmPage_SaveBtn_XPath);
+				
+				//Waiting for button to load and click
+				GenericMethods.waitforElement(wd, linkedFrmListing.addNewFormBtn_XPath);	
+				GenericMethods.elementClickable(wd, linkedFrmListing.addNewFormBtn_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				wd.navigate().refresh();
+				GenericMethods.pageLoadWait(1000);
+							
+				//*************************************************Open business entity from main menu starts here
+				//Clicking on Element
+				GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+				GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+				//String newEntityCreatedXPATH = RAIS_applicationSpecificMethods.dashboardSubMenuDynamicXpath(pluralName);
+				
+				//waiting for link to load and then click
+				GenericMethods.elementClickable(wd, dashboardnew.AmpUnit_XPath);
+				GenericMethods.waitforElement(wd, dashboardnew.AmpUnit_XPath);
+
+				//Clicking on Element
+				//RAIS_applicationSpecificMethods.roleSelect_Click(wd, "sub-menu", newEntityCreatedXPATH);
+				GenericMethods.elementClick(wd, dashboardnew.AmpUnit_XPath);
+				
+				//wait for page load
+				GenericMethods.pageLoadWait(1000);
+				
+				System.out.println("waiting newly created entity page to load");
+				
+			//waiting for link to load and then click
+					GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
+					GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//Clicking on Element
+					GenericMethods.elementClick(wd, entityFrmListingPage.addNewBtn_XPath);
+					
+					//page wait
+					GenericMethods.pageLoadWait(1000);
+					
+					//verification of fields ends above
+					
+					//input data into form starts here *******************************************************************************
+					//waiting for link to load and then click
+					GenericMethods.elementClickable(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);
+					GenericMethods.waitforElement(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath, "mA");
+					
+					//selecting checkbox
+					GenericMethods.elementClick(wd, entityFrmDetailspage.entityFormDetailsPage_Checkbox_XPath);	
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_FactorFld_XPath,"1");
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputNumericFld_XPath, "1060");
+					
+					//input data on sample numeric and text fields
+					GenericMethods.sendText(wd, entityFrmDetailspage.entityFormDetailsPage_inputTextFld_XPath,"Unit Current");
+					
+							
+					// Clicking on save butto
+					GenericMethods.elementClickable(wd, entityFrmDetailspage.SaveBtn_XPath);
+					GenericMethods.waitforElement(wd, entityFrmDetailspage.SaveBtn_XPath);
+					GenericMethods.elementClick(wd, entityFrmDetailspage.SaveBtn_XPath);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);				
+					//Clicking on Element				
+					
+					System.out.println("data visible on column");
+					
+					Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "mA"),
+							"mA");
+					
+					Assert.assertEquals(RAIS_applicationSpecificMethods.gridGetText(wd, entityFrmListingPage.securityProfileTableList_XPath, "1"),
+							"1");
+					
+					GenericMethods.pageLoadWait(5000);///////////////// *****************************************************************************logical break
+					
+					//***********************************************************************Delete entity attrb starts here
+					RAIS_applicationSpecificMethods.mainMenu_SubMenu_Click(wd, dashboardnew.administration_XPath, dashboardnew.AmpUnit_XPath);
+					
+					//Click on column filter
+					RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entityFrmListingPage.CityNameColHeader_XPath,
+							entityFrmListingPage.NameColHeader_TXT_XPath,"Unit Current");
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+
+					//Apply filter of unit current
+					RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , "Unit Current");
+
+					//wait for page load
+					GenericMethods.pageLoadWait(2000);
+					
+					//clicking on delete button and wait for successmsg
+					RAIS_applicationSpecificMethods.Delete_And_Wait(wd, addEntityPage.deleteBtn_XPath, addEntityPage.delEntity_popUpYesBtn_XPath, 
+							addEntityPage.addnewEntity_SuccessMsg_XPath);
+					
+					//clicking on admin and entities link
+					RAIS_applicationSpecificMethods.mainMenu_SubMenu_Click(wd, dashboardnew.administration_XPath, dashboardnew.entities_XPath);
+					
+					//Click on column filter
+					RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
+							entListingPage.entityListingTableColHeader_TXT_XPath,singularName);
+					
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+
+					//Apply filter of unit current
+					RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , singularName);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(2000);
+
+					//Clicking on attribute link on left pane
+					RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.LinkedForms_Text);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//Clicking on specific form - main form
+					RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,linkedFrmListing.linkdFrmListingPageTable_XPath , RaisTestData.linkedFormName);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(2000);
+					
+					//****************************clicking on delete button for all 3 fields
+					GenericMethods.elementClick(wd, frmDesign.delete_Attrb_4_XPath);
+					GenericMethods.elementClick(wd, frmDesign.delete_Attrb_4_XPath);
+					GenericMethods.elementClick(wd, frmDesign.delete_Attrb_4_XPath);
+					
+					GenericMethods.pageLoadWait(500);
+					GenericMethods.waitforElement(wd, frmDesign.mainFrmPage_SaveBtn_XPath);	
+					GenericMethods.elementClickable(wd, frmDesign.mainFrmPage_SaveBtn_XPath);
+					GenericMethods.elementClick(wd, frmDesign.mainFrmPage_SaveBtn_XPath);
+					
+//					wait for page load
+					GenericMethods.pageLoadWait(2000);
+//					GenericMethods.waitforElement(wd, addEntityPage.attributeLink_XPath);	
+//					GenericMethods.elementClickable(wd, addEntityPage.attributeLink_XPath);
+					
+					
+					
+					//Clicking on attribute link on left pane
+					RAIS_applicationSpecificMethods.roleSelect_Click(wd,addEntityPage.attributeLink_XPath , RaisTestData.Attb_Text);
+					
+					//*****************************************************Delete  attribute1 step
+					//wait for page load
+					GenericMethods.pageLoadWait(1000);
+					
+					//Click on column filter
+					RAIS_applicationSpecificMethods.columnHeaderFilter(wd,addAttbt.attrbListingColHeader_XPath,
+							addAttbt.attrbListingColHeader_TXT_XPath,RaisTestData.text_label);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+
+					//Apply filter of Cityname
+					RAIS_applicationSpecificMethods.LinkClickonGrid(wd,addAttbt.attrbListingTable_XPath , RaisTestData.text_label);
+					
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+					
+					//clicking on delete button and wait for successmsg
+					RAIS_applicationSpecificMethods.Delete_And_Wait(wd, addAttbt.deleteBtn_XPath, addAttbt.delEntity_popUpYesBtn_XPath, 
+							addAttbt.Attrb_SuccessMsg_XPath);
+					
+					//clicking on clear filter
+					GenericMethods.elementClick(wd, addAttbt.ClearbuttonFilter_XPath);
+					
+					//*****************************************************Delete  attribute2 step
+					//Input text without clicking on column header - No need to click on filter as filter input field is already opened
+					GenericMethods.sendText(wd, addAttbt.attrbListingColHeader_TXT_XPath,RaisTestData.numeric_label);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+
+					//Apply filter of Postal code
+					RAIS_applicationSpecificMethods.LinkClickonGrid(wd,addAttbt.attrbListingTable_XPath , RaisTestData.numeric_label);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+					
+					//clicking on delete button and wait for successmsg
+					RAIS_applicationSpecificMethods.Delete_And_Wait(wd, addAttbt.deleteBtn_XPath, addAttbt.delEntity_popUpYesBtn_XPath, 
+							addAttbt.Attrb_SuccessMsg_XPath);
+					
+					//clicking on clear filter
+					GenericMethods.elementClick(wd, addAttbt.ClearbuttonFilter_XPath);
+					
+					//*****************************************************Delete  attribute3 step
+					//Input text without clicking on column header - No need to click on filter as filter input field is already opened
+					GenericMethods.sendText(wd, addAttbt.attrbListingColHeader_TXT_XPath,RaisTestData.chkBox_label);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+
+					//Apply filter of checkbox
+					RAIS_applicationSpecificMethods.LinkClickonGrid(wd,addAttbt.attrbListingTable_XPath , RaisTestData.chkBox_label);
+
+					//wait for page load
+					GenericMethods.pageLoadWait(500);
+					
+					//clicking on delete button and wait for successmsg
+					RAIS_applicationSpecificMethods.Delete_And_Wait(wd, addAttbt.deleteBtn_XPath, addAttbt.delEntity_popUpYesBtn_XPath, 
+							addAttbt.Attrb_SuccessMsg_XPath);
+					
+					//clicking on clear filter
+					GenericMethods.elementClick(wd, addAttbt.ClearbuttonFilter_XPath);					
+					
+					
+			}catch (NoSuchElementException  noElement) {
+				noElement.printStackTrace();
+
+			}catch (Exception  e) {
+				e.printStackTrace();
+			}
+
+			finally {
+				
+				
+				
+					
+				//Logout user
+				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+				//verifying logo on RIAS Page
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+				//page refresh
+				wd.navigate().refresh();
+			}
+
+		}
+
+	
+	//#3 - Do not use
+	@Test(priority=88,enabled=false)
 	public void E2E_BusinessEntityFormDesigner(){
 
 			//Setting entity names
@@ -1260,6 +1722,75 @@ public class E2ETests extends BaseClass
 
 		}
 
+	//#4
+	@Test(priority=4,enabled=false)
+	public void E2E_VerifyUserAccess() {
+		
+		try {
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc(E2E_TestPack.e2eTC2_testName,E2E_TestPack.e2eTC2_testDescription);
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Menu click to open Facility
+			RAIS_applicationSpecificMethods.MenuSelect_Click(wd, dashboardnew.invent_Resources_XPath, dashboardnew.district_XPath);
+
+			//************************Add new data in entity
+			//launch add new entity page
+			RAIS_applicationSpecificMethods.addNewEntityData(wd, entityFrmListingPage.addNewBtn_XPath);
+			
+			//input list data
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='Region']", "north");
+			
+			//input Name data into fields
+			RAIS_applicationSpecificMethods.inputEntityData(wd,entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath,RaisTestData.PRACTICE_MEDICAL_DATA);
+			
+			GenericMethods.tabfromElement(wd, entityFrmDetailspage.entityFormDetailsPage_inputNameFld_XPath);
+			
+			//click on save
+			RAIS_applicationSpecificMethods.ClickOnSave(wd, entityFrmDetailspage.SaveBtn_XPath);
+			
+			
+			//************************Add new data in entity ends
+			
+			
+			
+			
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			
+			GenericMethods.pageLoadWait(1000);
+			
+			//delete entity data starts from here
+			RAIS_applicationSpecificMethods.deleteDistrictsData(wd, RaisTestData.PRACTICE_MEDICAL_DATA);
+			
+			//**************************************************Delete ENDS HERE	
+			
+			
+			//Logout user
+			//RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+			//verifying logo on RIAS Page
+			//Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			//wd.navigate().refresh();
+		}
+		
+		
+		
+	}
+	
+	
 	
 	//#99 - continued for 99
 	@Test(priority=99,enabled=false)

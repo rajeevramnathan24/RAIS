@@ -34,6 +34,11 @@ public class FormDesignerPage {
 	
 	public String colProp1_Temp_XPath=frmDesgnCommonxpath + "//form//div[3]//div[@class='col-sm-6 col-flex-1 design-section-2'][1]//a[text()='Column Properties']"; //		+"//*[@class='col-sm-6 col-flex-1 design-section-2'][1]//div//a[text()='Column Properties']";
 	public String colProp2_Temp_XPath=frmDesgnCommonxpath + "//form//div[3]//div[@class='col-sm-6 col-flex-1 design-section-2'][2]//a[text()='Column Properties']";
+	
+	//generic one section
+	public String oneSection_ColProp_XPath = frmDesgnCommonxpath + "//form//div[2]//div[@class='col-sm-12 col-flex-1 design-section-1'][1]//a[text()='Column Properties']";
+	public String delete_Attrb_4_XPath = frmDesgnCommonxpath + "//form//div[2]//div[@class='col-sm-12 col-flex-1 design-section-1']//div//div[4]//span[1]//button";
+	
 	public String colProp3_Temp_XPath="//*[@class='column-section-wrap form-section']/div/div[3]/div/div/a";
 	
 	//select attributes for column prop from popup

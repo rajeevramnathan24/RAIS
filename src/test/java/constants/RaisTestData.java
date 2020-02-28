@@ -164,4 +164,8 @@ public class RaisTestData {
 			  "Sealed Source", "Sealed Source Model", "Sealed Source Status",
 			  "Security Group", "Time Unit", "Training Course",
 			  "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
+	 
+	 //Dummy practices
+	 public static String PRACTICE_MEDICAL_DATA = "Practice Medical1";
+	 public static String PRACTICE_IND_DATA = "Practice Industry";
 }

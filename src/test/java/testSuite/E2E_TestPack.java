@@ -14,7 +14,7 @@ public class E2E_TestPack {
 	
 	public final static boolean e2eTC3_runStatus = false;
 	public final static String e2eTC3_testName = "Verify Form builder scenario for Business Entity"; 
-	public final static String e2eTC3_testDescription = "For Business Entity, add attributes, design form using them and verify form builder feature";
+	public final static String e2eTC3_testDescription = "For Business Entity, add custom attributes, design form using them and verify form builder feature";
 	
 	public final static boolean e2eTC4_runStatus = false; 
 	public final static String e2eTC4_testName = "??";

@@ -22,6 +22,9 @@ public class AddNewEntityFormDetailsPage {
 	//Name field txt xpath
 		public String entityFormDetailsPage_inputNameFld_XPath = "//*[@id='Name']";
 		
+	//Factor field xpath
+		public String entityFormDetailsPage_FactorFld_XPath = "//*[@id='Factor']";
+		
 		//Name field name xpath
 				public String entityFormDetailsPage_inputFld_XPath = "//*[@id='Field']";
 

@@ -4,7 +4,7 @@ public class AddNewAttributePage {
 	//Add new security profile page
 	public String SaveBtn_XPath = "//button[text()='Save']";
 	public String cancelBtn_XPath = "//button[text()='Cancel']";
-	//public String deleteBtn_XPath = "//button[text()='Delete']";
+	public String deleteBtn_XPath = "//button[text()='Delete']";
 
 	//labels and buttons
 	//header
@@ -135,6 +135,17 @@ public class AddNewAttributePage {
 
 	//Add attribute listing page
 	public String attributeListingPage_AddnewAttbBtn_XPath = "//*[@id='add-entity']//button[text()='Add New Attribute']";
+	
+	public String attrbListingColHeader_XPath = "//*[@id='add-entity']//table//thead//tr//th[1]//span//button";
+	public String attrbListingColHeader_TXT_XPath = "//*[@id='add-entity']//table//thead//tr//th//div//div//input[@class='k-textbox']";
+	
+	public String attrbListingTable_XPath = "//*[@class='k-grid-table']";
+	
+	//success message
+	public String Attrb_SuccessMsg_XPath = "//div[@id='message-body']";
+	
+	//CLear button on filter
+	public String ClearbuttonFilter_XPath = "//*[@id='add-entity']//table//thead//tr//th//div//div//div//button";
 
 
 
