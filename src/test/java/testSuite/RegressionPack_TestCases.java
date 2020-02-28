@@ -15,16 +15,7 @@ public class RegressionPack_TestCases {
 	public final static boolean TC10_runStatus = false;
 	public final static boolean TC11_runStatus = false;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	// Test case Names and description
 	public final static String TC1_testName = "Default value verification"; 

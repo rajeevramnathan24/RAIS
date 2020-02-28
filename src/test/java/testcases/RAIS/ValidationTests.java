@@ -1,6 +1,7 @@
 package testcases.RAIS;
 
 import org.testng.annotations.Test;
+import org.testng.xml.IWeaveXml;
 
 import testSuite.*;
 
@@ -25,9 +26,11 @@ import pageLocators_Elements.RAIS.UserListPage;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -51,6 +54,9 @@ public class ValidationTests extends BaseClass
 	EntityListingPage entListingPage = new EntityListingPage();
 	AddNewEntityPage addEntityPage = new AddNewEntityPage();
 	AddNewAttributePage addAttbt = new AddNewAttributePage();
+
+	//passcurrent time
+	private static String localTime = GenericMethods.currentLocalTime();
 
 	TestSuite RunTestCase = new TestSuite();
 
@@ -1353,10 +1359,107 @@ public class ValidationTests extends BaseClass
                     "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
                     "Partner Agency","Person", "Person Status", "Physical Barrier",
                     "Physical Form", "Practice", "Professional Degree",
-                    "Professional Qualification", "Radiation Generator", "Radiation Generator Model ",
+                    "Professional Qualification", "Radiation Generator", "Radiation Generator Model",
                     "Radiation Generator Status", "Radiation Generator Type", "Region", "Regulatory Authority",
                     "Sealed Source", "Sealed Source Model", "Sealed Source Status",
                     "Security Group", "Time Unit", "Training Course", "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year" };
+			  
+			//iterating for loop to validate business entities
+			
+			  for (int i = 49; i< sBusinessEntities.length; i++)
+			  {
+				  
+				  RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,entListingPage.entityListingTableColHeader_TXT_XPath,sBusinessEntities[i]);
+
+				  // wait for page load
+				  GenericMethods.pageLoadWait(500);
+
+				  // Clicking on business entity name 
+				  RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
+			
+				  // wait for page load
+				  GenericMethods.pageLoadWait(1500);
+				  
+				  Assert.assertEquals(GenericMethods.getTextBoxContent(wd, "//*[@id='Name']"), sBusinessEntities[i]);
+				  GenericMethods.pageLoadWait(1000);
+
+			//Click on Cancel button
+				  GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+				  GenericMethods.pageLoadWait(500);			
+			  }
+
+			//after for loop exit, click on Logout 
+			
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+			//verifying logo on RAIS Page
+			Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+		}
+
+	}
+	
+	//#10 
+	@Test(priority=10,enabled=ValidationTestPack.validationTC10_runStatus)
+	public void BusinessEntity_CRUD(){
+
+		try {
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc(ValidationTestPack.validationTC10_testName,ValidationTestPack.validationTC10_testDescription);
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Clicking on Element
+			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
+			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
+			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+
+			//waiting for link to load and then click
+			GenericMethods.elementClickable(wd, dashboardnew.entities_XPath);
+			GenericMethods.waitforElement(wd, dashboardnew.entities_XPath);
+
+			//Clicking on Element
+			GenericMethods.elementClick(wd, dashboardnew.entities_XPath);
+
+			//****************Verify Entity landing page 
+			//wait for page load
+			GenericMethods.pageLoadWait(250);
+
+			//*******************************Validation test starts here
+
+			//Column header filter starts here
+//			RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,
+//					entListingPage.entityListingTableColHeader_TXT_XPath,RaisTestData.EntityAttb_SingularData );
+			
+			//Declaring array to store Business entities 
+			
+			String[] sBusinessEntities = { "Academic Qualification", 
+                    "Academic Qualification Degree", "Activity Unit", "Amperage Unit", "Annual Dose", "Associated Equipment Status",
+                    "Attended Course", "Authority Type", "Boolean", "Branch", "Calibration", "Category", "Country",
+                    "Department", "Department Status", "District", "Dose", "Status", "Equipment & Source", "Equipment Manufacturing", "Equipment Model",
+                    "Equipment Type", "Expert", "Expert Task", "Facility", "Facility Status", "Field", "Frequency In Month", "Gender",
+                    "Inspection Schedule", "Inventory Status", "Isotope Production", "Manufacturer", "Monitoring Status", "Nuclide", "Officer","Operation",
+                    "Partner Agency","Person", "Person Status", "Physical Barrier", "Physical Form", "Practice", "Professional Degree",
+                    "Professional Qualification", "Region", "Regulatory Authority", "Sealed Source", "Sealed Source Model", "Sealed Source Status",
+                    "Security Group", "Time Unit", "Training Course", "Unsealed Source", "Voltage Unit", "Wave Form", "Worker", "Year", 
+                    "Radiation Generator", "Radiation Generator Model", "Radiation Generator Status", "Radiation Generator Type", "Equipment", "Equipment Status"};
 			  
 			//iterating for loop to validate business entities
 			
@@ -1372,13 +1475,59 @@ public class ValidationTests extends BaseClass
 				  RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
 			
 				  // wait for page load
-				  GenericMethods.pageLoadWait(2000);
+				  GenericMethods.pageLoadWait(1500);
 				  
-				  Assert.assertEquals(GenericMethods.getTextBoxContent(wd, "//*[@id='Name']"),sBusinessEntities[i]);
-				  GenericMethods.pageLoadWait(1000);
+				 
+				 //storing the initially present value   
+				  //String actualName = GenericMethods.getTextBoxContent(wd, "//*[@id='Name']");
+				  
+				  GenericMethods.sendText(wd, "//*[@id='Name']", localTime);
 
-			//Click on Cancel button
-				  GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+
+				  GenericMethods.tabfromElement(wd, "//*[@id='Name']");				  
+				  GenericMethods.pageLoadWait(500);
+
+				  //Click on Save button - 1st Time
+				  GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
+				  
+
+				  GenericMethods.pageLoadWait(2500);
+				  
+				  RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,entListingPage.entityListingTableColHeader_TXT_XPath,sBusinessEntities[i]);
+				  RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
+				  
+			
+				  //To clear already present contents of the Singular name text box
+				  WebElement ele =  wd.findElement(By.id("Name"));
+				  ele.click();
+				  GenericMethods.pageLoadWait(1500);
+				  ele.clear();
+				  
+				  ele.sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), Keys.DELETE);
+				  ele.sendKeys(sBusinessEntities[i]);
+				  GenericMethods.pageLoadWait(1500);
+				 
+				  //GenericMethods.tabfromElement(wd, "//*[@id='Name']");
+				  //wd.findElement(By.id("Name")).clear();				  
+				  
+				  GenericMethods.tabfromElement(wd, "//*[@id='Name']");				  
+				  GenericMethods.pageLoadWait(500);
+
+			//Click on Save button
+				  GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
+				  
+				  //Search the last modified business entity and click on it
+				  //RAIS_applicationSpecificMethods.columnHeaderFilter(wd,entListingPage.entityListingTableColHeader_XPath,entListingPage.entityListingTableColHeader_TXT_XPath,sBusinessEntities[i]);
+				  //RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,entListingPage.entityListingTable_XPath , sBusinessEntities[i]);
+				  
+				/*
+				 * GenericMethods.pageLoadWait(1050); GenericMethods.sendText(wd,
+				 * "//*[@id='Name']",actualName); GenericMethods.tabfromElement(wd,
+				 * "//*[@id='Name']");
+				 * 
+				 * //Click on Save button after restoring the original value
+				 * GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
+				 */				  
 				  GenericMethods.pageLoadWait(1000);			
 			  }
 
@@ -1405,9 +1554,6 @@ public class ValidationTests extends BaseClass
 		}
 
 	}
-
-	
-	//#10 
 	
 	//#11 
 	

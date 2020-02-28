@@ -36,9 +36,12 @@ public class ValidationTestPack {
 	public final static String validationTC8_testName = "Entity Attribute page validation and default value verification"; 
 	public final static String validationTC8_testDescription = "Verify default and validation messages for Entity Attribute page";
 	
-	public final static boolean validationTC9_runStatus = true;
+	public final static boolean validationTC9_runStatus = false;  //getting stuck for Radiation Generator Model & Radiation Generator 
 	public final static String validationTC9_testName = "Business Entity presence and its singular label validation"; 
 	public final static String validationTC9_testDescription = "Verify the presence of Business Entity; validate the singular label on Entity Detail page";
 	
+	public final static boolean validationTC10_runStatus = true;
+	public final static String validationTC10_testName = "Business Entities CRUD operation and validation"; 
+	public final static String validationTC10_testDescription = "Verify that user can update the business entities and revert the changes";
 	
 }

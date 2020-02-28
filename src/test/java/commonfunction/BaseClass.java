@@ -43,7 +43,8 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class BaseClass {
 
 	//CONFIG FILE PATH
-	public static final String PROJ_FOLDER_PATH = "C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
+		//public static final String PROJ_FOLDER_PATH = "C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
+		public static final String PROJ_FOLDER_PATH = "E:\\IAEA - RAIS\\Automation\\RAIS+Automation\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
 
 	public static final String CONFIG_FILE_PATH = "config.properties";
 

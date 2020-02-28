@@ -464,7 +464,7 @@ public class TestData_creation extends BaseClass
 	}
 
 	//#2
-	@Test(priority=2,enabled=false)
+	@Test(priority=2,enabled=true)
 	public void TestData_Entity_AttributeCreation(){
 
 		try {
@@ -1157,7 +1157,7 @@ public class TestData_creation extends BaseClass
 	}
 
 	//#44 - Single Business Entity Creation only- No form designer
-	@Test(priority=3,enabled=true)
+	@Test(priority=3,enabled=false)
 	public void BUSINESS_ENTITYCREATION_FORMDESIGNER(){
 
 			//Setting entity names
