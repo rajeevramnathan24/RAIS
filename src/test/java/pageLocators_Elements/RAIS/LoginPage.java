@@ -28,6 +28,11 @@ public class LoginPage {
 	public String pwdValidationError_XPath = "//*[@id='Password-error']";
 	public String invalidCredValidationMsg_XPath = "//*[@class='error-message']";
 	
+	//primary user/ secondary user login page
+	public String primaryUser_Dropdown_Xpath = "//*[@id='UserAccount']";
+	
+	//submit button
+	public String submitBtn_XPath = "//button[contains(text(),'Submit')]";
 	
 	
 	
@@ -45,6 +50,7 @@ public class LoginPage {
 	public String USERNAME_VALIDATIONMSG_Txt = "Username is required";
 	public String PWD_VALIDATIONMSG_Txt = "Password is required";
 	public String INVALID_CREDENTIALS_Txt = "Please enter the valid credentials.";
+	public String PRIMARY_Txt = "Primary";
 	
 	
 }

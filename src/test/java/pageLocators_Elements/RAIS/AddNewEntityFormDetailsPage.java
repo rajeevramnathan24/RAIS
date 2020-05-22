@@ -4,37 +4,66 @@ public class AddNewEntityFormDetailsPage {
 	//Add new security profile page
 	public String SaveBtn_XPath = "//*[@id='entity-form']//button[text()='Save']";
 	public String cancelBtn_XPath = "//*[@id='entity-form']//button[text()='Cancel']";
-	
+	public String deleteBtn_XPath = "//*[@id='entity-form']//button[text()='Delete']";
+
 	//labels and buttons
 	public String entityFormDetailsPage_Checkbox_XPath = "//*[@id='entity-form']//label[@id='chkBoxFrmBldrAuto']//span[text()='Radioactive Material']";
 	public String entityFormDetailsPage_Txt_XPath="//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='City Name']";
 	public String entityFormDetailsPage_Numeric_XPath = "//*[@id='entity-form']//form//div[2]//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]//label[text()='Postal Code']";
 	//public String entityFormDetailsPage_Numeric_XPath = "//*[@id='entity-form']//div//div//div//div[1]//form//div[2]//div[2]//div//div[2]//div//div[2]//div//div//div[1]//label[text()='Postal Code']";
-	
+
 	//div[@class='col-sm-6 col-flex-1 renderer-section-2'][2]
-	
+
 	//Numeric field txt xpath
 	public String entityFormDetailsPage_inputNumericFld_XPath = "//*[@id='nmricFrmBldrAuto']";
 
 	//Text field txt xpath
 	public String entityFormDetailsPage_inputTextFld_XPath = "//*[@id='txtFrmBldrAuto']";
-	
-	//Name field txt xpath
-		public String entityFormDetailsPage_inputNameFld_XPath = "//*[@id='Name']";
-		
-	//Factor field xpath
-		public String entityFormDetailsPage_FactorFld_XPath = "//*[@id='Factor']";
-		
-		//Name field name xpath
-				public String entityFormDetailsPage_inputFld_XPath = "//*[@id='Field']";
 
+	//Name field txt xpath
+	public String entityFormDetailsPage_inputNameFld_XPath = "//*[@id='Name']";
+
+	//Factor field xpath
+	public String entityFormDetailsPage_FactorFld_XPath = "//*[@id='Factor']";
+
+	//Name field name xpath
+	public String entityFormDetailsPage_inputFld_XPath = "//*[@id='Field']";
+
+	//Gender drop down
+	public String entityFormDetailsPage_genderFld_Xpath = "//*[@id='Gender']";
+	
+	//Authority drop down
+	public String entityFormDetailsPage_authorityFld_Xpath = "//*[@id='Authority']";
+	//public String entityFormDetailsPage_AuthHyperLink_XPath = "//*[@id='entity-form']//div[@class='column-section']//div[3]//span[contains(text(),'Authority')]";
+	public String entityFormDetailsPage_AuthHyperLink_XPath =  "//*[@id='entity-form']/div/div/div/div[1]/form/div/div[2]/div/div/div/div[3]/div/div/div[2]/span/a";
+	
+	//Email field name Xpath
+	public String entityFormDetailsPage_emailFld_Xpath = "//*[@id='Email']";
+	
+	//Legal basis
+	public String entityFormDetailsPage_legalBasisFld_Xpath = "//*[@id='LegalBasis']";
+	
+	//Chairperson xpath
+	public String entityFormDetailsPage_ChairPrsonFld_Xpath = "//*[@id='ChairPerson']";
+	
 	//Multi select dropdown
 	public String restriction_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";
+	
+	//multiselect drop down for FR value select on User mgmt screen
+	public String userMgmt_FRdrpdwn_Xpath = "//*[@id='user']//div[@class='mul-input col-form-control']";
 
 	//value to select for multi select
 	public String restriction_add_dropdown_XPath = "//*[contains(text(),'Address')]";
 	public String restriction_dept_dropdown_XPath = "//*[contains(text(),'Department')]";
+	public String LicenseeFR_MultiSelect_XPath = "//*[contains(text(),'License')]";
+	public String Regulator_MultiSelect_XPath = "//*[text()='Regulator']";
+	public String userMgmt_MultiSelectFR_XPath = "//*[@id='userForm']//div[@class='mul-input col-form-control']//label[contains(text(),'Licensee')]";
+	public String userMgmt_MultiSelectFR_XPath1 = "//*[@id='userForm']///div//div[2]//div//div//div[2]//label[contains(text(),'Licensee')]";
 
+	//FR concatenate
+	public String FR_prefix = "//*[text()='";
+	public String FR_suffix = "']";
+	
 	//radio button text click
 	public String rdobtnEdit_XPath = "//*[@id='securityprofile']//span[contains(text(),'Edit')]";
 
@@ -45,10 +74,10 @@ public class AddNewEntityFormDetailsPage {
 	public String restrictRequired_MsgXPath = "//*[@id='securityprofile']//p[contains(text(),'Restriction is required')]"	;
 
 	//success message
-	public String addnewSP_SuccessMsg_XPath = "//div[@id='message-body']";
-	public String deleteSP_PopTitleXPath = "//*[@id='max-width-dialog-title']";
-	public String delSPRole_PopupMSGTxt_XPath= "//div[@class='dialog-content']";
-	public String delSPRole_PopupNoBtn_XPath = "//div[@class='dialog-action']"; 
+	public String form_SuccessMsg_XPath = "//div[@id='message-body']";
+	public String form_PopTitleXPath = "//*[@id='max-width-dialog-title']";
+	public String form_PopupMSGTxt_XPath= "//div[@class='dialog-content']";
+	public String form_PopupNoBtn_XPath = "//div[@class='dialog-action']"; 
 
 	//Pop message yes/ no buttons
 	public String popUpNoBtn_XPath = "//button[contains(text(),'No')]";
@@ -88,6 +117,9 @@ public class AddNewEntityFormDetailsPage {
 	public String ADDNEW_SP_FLD_REQD_TXT = "Fields are required";
 	public String ADDNEW_SP_RESTRICT_REQD_TXT = "Restriction is required";
 
+	//officer task name
+	public String LICENSE_Txt = "License";
+	
 	//Buttons
 	public String SAVE_BTN_Txt = "Save";
 	public String CANCEL_BTN_Txt = "Cancel";

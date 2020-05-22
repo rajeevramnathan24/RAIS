@@ -22,7 +22,8 @@ public class DashboardPage {
 	//public String loggedinUser_XPath = "//*[@class='nav-item dropdown']//div[@class='nav-link show']//div[contains(text(),'Administrator')]";
 	//public String loggedinUser_XPath = "//*[@class='app-login dropdown-toggle']"	;
 	
-	public String loggedinUser_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div";
+	//public String loggedinUser_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div";
+	public String loggedinUser_XPath = "//*[@id='account-settings']";
 	
 	
 	public String xx = "//a[text()='Logout']/@href";

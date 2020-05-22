@@ -15,7 +15,7 @@ public class DataRoles_FunctionalRolesPage {
 	//public String addNewPermissionRestrictBtn_XPath = "//*[@id=\"datarole\"]/div/div[2]/div/div[1]/div/button[3]";
 	public String addNewPermissionRestrictBtn_XPath = "//*[@id='AddNewPermission']";
 	//public String addNewPermissionRestrictBtn_XPath = "//button[@title='Add New Permissions']";
-	public String FunctionalRolePermissionRestrictBtn_XPath = "//button[text()='Add New Permission ']";
+	public String FunctionalRolePermissionRestrictBtn_XPath = "//button[text()='Add New Permission']";
 	public String functionalRoleaddNewPermissionRestrictBtn_XPath = "//button[normalize-space(text())='Add New Permission']";
 	//Loader xpath
 	public String loader_Xpath = "//div[@class='loading']";

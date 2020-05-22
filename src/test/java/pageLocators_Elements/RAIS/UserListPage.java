@@ -13,7 +13,10 @@ public class UserListPage {
 	
 	public String userListTable_XPath = "//*[@class='k-grid-table']";
 	
-	
+	public String Dyamic_GridTable_Prefix_Xpath = "//*[@id='users']//table//thead//tr//th[";
+	public String Dynamic_GridTable_Suffix1_Xpath = "]//a[span[contains(text(),'";
+	public String Dynamic_GridTable_Suffix2_Xpath = "')]]//span//button";
+	public String Dynamic_GridTable_TxtInput_Suffix_Xpath = "]//div//div//input[@class='k-textbox']";
 	
 	
 	

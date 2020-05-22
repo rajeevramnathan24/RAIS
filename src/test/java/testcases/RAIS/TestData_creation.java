@@ -464,7 +464,7 @@ public class TestData_creation extends BaseClass
 	}
 
 	//#2
-	@Test(priority=2,enabled=false)
+	@Test(priority=2,enabled=true)
 	public void TestData_Entity_AttributeCreation(){
 
 		try {
@@ -505,8 +505,8 @@ public class TestData_creation extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//clicking on entity - save button
-			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
-			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
+//			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
+//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
 
 			//input entity internal name
 			GenericMethods.sendText(wd, addEntityPage.addNewEntity_internalNameTxtBox_XPath, "TestDataSetupInternalName" + localTime);
@@ -532,7 +532,7 @@ public class TestData_creation extends BaseClass
 
 			//clicking on entity - save button
 			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
-			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
+//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
 			GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
 
 			//Add entity completed and below is for selecting particular entity
@@ -572,7 +572,7 @@ public class TestData_creation extends BaseClass
 
 
 			//Loop to create attributes for all types
-			for (int i = 0; i <= 16; i++) { 
+			for (int i = 0; i <= 17; i++) { 
 
 				//Temp code insert here
 				//Waiting until element to load
@@ -596,7 +596,7 @@ public class TestData_creation extends BaseClass
 				GenericMethods.pageLoadWait(2000);
 				GenericMethods.elementClick(wd, addEntityPage.attributeListingPage_AddnewAttbBtn_XPath);
 
-				if (addAttbt.attributeValueList[i] != "User") {
+				if (addAttbt.EntityattributeValueList[i] != "User" ) {
 
 					//Wait for page load
 					GenericMethods.pageLoadWait(600);

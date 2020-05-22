@@ -73,7 +73,8 @@ public class AddNewAttributePage {
 	public String attributeValueList [] = 
 		{		"Checkbox", 
 				"Date",
-				"Guid",
+				"Date Time",
+				"Checkbox List",
 				"Image",
 				"Lookup",
 				"Lookup with Value",
@@ -88,6 +89,27 @@ public class AddNewAttributePage {
 				"Time Interval",
 				"User",
 				"Workflow Action"};
+	
+	//Entity Attribute list
+	//Attributes
+		public String EntityattributeValueList [] = 
+			{		"Checkbox", 
+					"Date",
+					"Date Time",
+					"Checkbox List",
+					"Image",
+					"Lookup",
+					"Lookup with Value",
+					"Memo",
+					"Multi lookup",
+					"Multiple documents",
+					"Multiple Users",
+					"Numeric",
+					"RAN",
+					"Single document",
+					"Text",
+					"Time Interval",
+					"User"};
 
 	public String mandInputList [] = {"Mandatory","Recommended","Optional"};
 

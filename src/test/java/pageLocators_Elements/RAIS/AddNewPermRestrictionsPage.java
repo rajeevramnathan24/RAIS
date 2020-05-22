@@ -59,13 +59,14 @@ public class AddNewPermRestrictionsPage {
 
 	//Delete dialog content
 	public String delDataRolePermRestrct_PopupMSGCONTENT_XPath= "//div[@class='dialog-content']";
-	
+
 	//Delete popup msg xpath
 	public String delDataRolePermRestrict_btnNO_XPath= "//button[contains(text(),'No')]";
 	public String delDataRolePermRestrict_btnYES_XPath= "//button[contains(text(),'Yes')]";
-	
+
 	//success message
 	public String addnewPermRestrict_SuccessMsg_XPath = "//div[@id='message-success']";
+	
 
 	//	
 	//	//validation for practice drop down
@@ -118,13 +119,27 @@ public class AddNewPermRestrictionsPage {
 	public String entityGroup_label_XPath = "//label[contains(text(),'Entity Group')]";
 
 	//District Dropdown xpath
-	public String entityGroup_dropdown_XPath = "//select[@id='entityGroupId']";
+	public String entityGroup_dropdown_XPath = "//*[@id='entityGroupId']";
 
 	//Facility Label xpath
 	public String entities_label_XPath = "//label[contains(text(),'Entities')]";
 
-	
+	//Multi select dropdown
+	public String MultiSelectDropdnClick_Xpath = "//*[@class='mul-input col-form-control']";
 
+	//value to select for multi select
+	public String MultiDropdwnValue_prefix_XPath = "//*[text()='";
+//	public String MultiDropdwnValue_prefix_XPath = "//*[@id='add-edit-functionalRolePermission']//div[text()='";
+
+	public String MultiDropdwnValue_suffix_XPath = "']";
+	
+	
+	//Check box select
+	public String val_Checkbox_XPath = "//*[@id='add-edit-functionalRolePermission']//label[@id='validate']//span[text()='Validate']";
+	public String view_Checkbox_XPath = "//*[@id='view']";
+	public String add_Checkbox_XPath = "//*[@id='add']";
+	public String edit_Checkbox_XPath = "//*[@id='edit']";
+	public String del_Checkbox_XPath = "//*[@id='delete']";
 
 
 
@@ -154,6 +169,8 @@ public class AddNewPermRestrictionsPage {
 
 	//successful save msg
 	public String DATAROLE_PERM_RESTRCT_SUCCESS_MSG_Txt="New permission to the Data Role has been added successfully.";
-	
+
 	public String DELETEROLE_PERMRESTRCT_SUCCESSMSG_TXT = "Permission to the Data Role has been deleted successfully.";
+	
+	public String NEWPERMISSION_SUCCESSMSG_TXT = "New permission to the Functional Role has been added successfully";
 }

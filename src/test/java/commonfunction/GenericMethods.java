@@ -2,7 +2,8 @@ package commonfunction;
 
 
 import java.util.concurrent.TimeUnit;
-
+import java.util.function.Predicate;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -12,8 +13,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -21,7 +24,7 @@ import org.testng.annotations.Parameters;
 
 public class GenericMethods  {
 
-	public static boolean elementClickHighlight = false;
+	public static boolean elementClickHighlight = true;
 	public static boolean elementAssert;
 
 
@@ -37,7 +40,7 @@ public class GenericMethods  {
 			sendText(wdl, pwdXpath, pwdText);
 
 			elementClick(wdl, loginBtnxPath);
-			
+
 			//Adding implicit wait
 			wdl.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
 
@@ -79,25 +82,25 @@ public class GenericMethods  {
 	//Method to wait for presence of element to be loaded
 	public static void waitforPresenceOfElement(WebDriver wdprs, String presenceElement) {
 
-			try {
+		try {
 
-				//Initializing explicit wait
-				WebDriverWait wait = new WebDriverWait(wdprs, 20);
+			//Initializing explicit wait
+			WebDriverWait wait = new WebDriverWait(wdprs, 20);
 
-				//Wait for the visibility of element
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(presenceElement)));
+			//Wait for the visibility of element
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(presenceElement)));
 
-			} catch (NoSuchElementException e) {
-				e.printStackTrace();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
 
-			}	catch (Exception e) {
-				e.printStackTrace();
-			}  
-		}
-	
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}  
+	}
+
 	//Method to refresh to overcome staleness
 	public static void waitforElementRefresh(WebDriver wdRef, String refreshElement) {
-		
+
 		try {
 
 			//Initializing explicit wait
@@ -113,7 +116,7 @@ public class GenericMethods  {
 			e.printStackTrace();
 		}  
 	}
-	
+
 	//Method to wait for element to be clickable
 	public static void elementClickable(WebDriver wdc, String elementClickable) {
 
@@ -157,23 +160,23 @@ public class GenericMethods  {
 	//Method to wait for element to be visible
 	public static void waitforvisibilityOfElement(WebDriver wdv, String visibleElement) {
 
-			try {
+		try {
 
-				//Initializing explicit wait
-				WebDriverWait wait = new WebDriverWait(wdv, 20);
+			//Initializing explicit wait
+			WebDriverWait wait = new WebDriverWait(wdv, 20);
 
-				//Wait for the visibility of element
-				wait.until(ExpectedConditions.visibilityOf(wdv.findElement(By.xpath(visibleElement))));		
+			//Wait for the visibility of element
+			wait.until(ExpectedConditions.visibilityOf(wdv.findElement(By.xpath(visibleElement))));		
 
-			} catch (NoSuchElementException e) {
-				e.printStackTrace();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
 
-			}	catch (Exception e) {
-				e.printStackTrace();
-			}  
-		}
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}  
+	}
 
-	
+
 	//Method to send text
 	public static void sendText(WebDriver wc, String clickElement, Object valueToSend) {
 
@@ -181,6 +184,32 @@ public class GenericMethods  {
 
 			//Clicking on element
 			wc.findElement(By.xpath(clickElement)).sendKeys(valueToSend.toString());
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+
+	//Method to send text via id
+	public static void sendText_removeblank(WebDriver wc, String clickElement, Object valueToSend) {
+
+		try {
+
+			//Clicking on element*******************************
+			//				WebElement wid = wc.findElement(By.id(clickElement));
+			//				wid.click();
+			//				wid.sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), Keys.DELETE);
+			//				wid.sendKeys(valueToSend.toString());
+
+			//Clicking on element*******************************
+
+			wc.findElement(By.xpath(clickElement)).click();
+			wc.findElement(By.xpath(clickElement)).sendKeys(valueToSend.toString());
+			wc.findElement(By.xpath(clickElement)).click();
+
 
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
@@ -218,13 +247,13 @@ public class GenericMethods  {
 
 			//below is used to highlight only when flag is true
 			highLightElement(wc, clickElement, elementClickHighlight);		
-			
+
 			//Adding implicit wait
 			wc.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
-			
+
 			//Clicking on element
 			wc.findElement(By.xpath(clickElement)).click();
-			
+
 			//Adding implicit wait
 			wc.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
 
@@ -235,9 +264,9 @@ public class GenericMethods  {
 			e.printStackTrace();
 		} 
 	}
-	
+
 	public static void tabfromElement(WebDriver wtab, String tabFromElement) {
-		
+
 		//Clicking on element
 		wtab.findElement(By.xpath(tabFromElement)).sendKeys(Keys.TAB);
 	}
@@ -306,66 +335,66 @@ public class GenericMethods  {
 	}
 
 	public static boolean objProp(String objType, WebDriver wObj, String objXpath, OptionalInt maxLength, java.util.Optional<String> objClickable) {
-		
+
 		Boolean objectPropertyFLag = false;
-		
+
 		switch(objType) {
-		
+
 		case "Text":
-			
+
 			if (wObj.findElement(By.xpath(objXpath)).isEnabled()
 					&& wObj.findElement(By.xpath(objXpath)).isDisplayed())
-						
+
 				//&& maxLength == Integer.valueOf(wObj.findElement(By.xpath(objXpath)).getAttribute("maxlength")))
-					{
+			{
 
 				//setting return flag as true
 				objectPropertyFLag = true;
 			}
-			
+
 		case "Label":
-			
+
 			if (wObj.findElement(By.xpath(objXpath)).isEnabled()
 					&& wObj.findElement(By.xpath(objXpath)).isDisplayed())	{
 
 				//setting return flag as true
 				objectPropertyFLag = true;
 			}
-			
-case "Link":
-			
+
+		case "Link":
+
 			if (wObj.findElement(By.xpath(objXpath)).isEnabled()
 					&& wObj.findElement(By.xpath(objXpath)).isDisplayed())	{
 
 				//setting return flag as true
 				objectPropertyFLag = true;
 			}
-			
-		
+
+
 		}
-		
+
 		//Return flag value
 		return objectPropertyFLag;
-		
+
 	}
-	
+
 	//Method reads the text value of element and returns text
 	public static String getActualTxt(WebDriver wa, String actualXpath) {
 
 		//Initialising string to be returned
 		String ActualText=null;
-		
+
 		try {
-			
+
 			//below is used to highlight only when flag is true
 			highLightElement(wa, actualXpath, elementClickHighlight);
-			
+
 			//retrieving the text value of the element
 			ActualText = wa.findElement(By.xpath(actualXpath)).getText();
 
 			//Return the value of string
 			return ActualText;
-						
+
 
 		} catch (NoSuchElementException e) {
 
@@ -439,19 +468,19 @@ case "Link":
 
 	//Pageload wait time
 	public static void pageLoadWait(int loadTime) {
-			
-				try {
-					try {
-						Thread.sleep(loadTime);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} catch (IllegalArgumentException e) {
-					// TODO: handle exception
-				}
+
+		try {
+			try {
+				Thread.sleep(loadTime);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IllegalArgumentException e) {
+			// TODO: handle exception
+		}
 	}
-	
+
 	public static boolean verifyLabelBtnObjProperty(WebDriver wrlbBtn, String labelBtnXpath ) {
 
 		//Initialising return flag as false
@@ -481,7 +510,7 @@ case "Link":
 			return objProperty;
 		} 
 	}
-	
+
 	public static String verifyTextBoxProperty(WebDriver wTxt, String txtBoxXpath, int maxLengthOfTxtBox, String verifiedtxtboxProperty ) {
 
 		//Initialising return flag as false
@@ -495,7 +524,7 @@ case "Link":
 			//Verify all properties of label or button
 			if (wTxt.findElement(By.xpath(txtBoxXpath)).isEnabled()
 					&& wTxt.findElement(By.xpath(txtBoxXpath)).isDisplayed() 
-					
+
 					//commenting this temporarily
 					//&& maxLengthOfTxtBox == Integer.valueOf(wTxt.findElement(By.xpath(txtBoxXpath)).getAttribute("maxlength"))
 					) {
@@ -514,7 +543,7 @@ case "Link":
 			return textBoxProperty;
 		} 
 	}
-	
+
 	public static String verifycheckBoxProperty(WebDriver wlbBtnDisabled, String labelBtnXpathDisabled, String LabelBtnTextDisabled, Boolean checkBoxStatus ) {
 
 		//Initialising return flag as false
@@ -525,17 +554,17 @@ case "Link":
 			//below is used to highlight only when flag is true
 			highLightElement(wlbBtnDisabled, labelBtnXpathDisabled, elementClickHighlight);
 
-				//Verify all properties of label or button
-				if (wlbBtnDisabled.findElement(By.xpath(labelBtnXpathDisabled)).isEnabled() == checkBoxStatus) {
+			//Verify all properties of label or button
+			if (wlbBtnDisabled.findElement(By.xpath(labelBtnXpathDisabled)).isEnabled() == checkBoxStatus) {
 
-					//setting return flag as true
-					disabledlabelButtonText = LabelBtnTextDisabled;
-				} else if (wlbBtnDisabled.findElement(By.xpath(labelBtnXpathDisabled)).isEnabled() == checkBoxStatus) {
+				//setting return flag as true
+				disabledlabelButtonText = LabelBtnTextDisabled;
+			} else if (wlbBtnDisabled.findElement(By.xpath(labelBtnXpathDisabled)).isEnabled() == checkBoxStatus) {
 
-					//setting return flag as true
-					disabledlabelButtonText = LabelBtnTextDisabled;
-				}							
-			
+				//setting return flag as true
+				disabledlabelButtonText = LabelBtnTextDisabled;
+			}							
+
 			//return property value
 			return disabledlabelButtonText;
 
@@ -593,104 +622,188 @@ case "Link":
 	}
 
 	// Method to select roles/ functions from left navigation pane
-		public static boolean menuName(WebDriver wdmenu, String menuItem, String menuText) {	
+	public static boolean menuName(WebDriver wdmenu, String menuItem, String menuText) {	
 
-			//initialising menuItem
-			boolean menuPresent = false;
-			
-			try {				
-				
-				//below is used to highlight only when flag is true
-				//highLightElement(wdmenu, menuItem, elementClickHighlight);
-				
-				//Selecting Left role pane xpath and clicking on particular selected role
-				WebElement mainleftpaneRoleXpath = wdmenu.findElement(By.xpath(menuItem));
-				
-				//Creating list of webelements returned from left pane				
-				List<WebElement> menuList = mainleftpaneRoleXpath.findElements(By.xpath("//*[@class='nav-item ']"));
-				
-				//Iterating the role list webelement until match is found
-				for (WebElement specificMenu : menuList) {
+		//initialising menuItem
+		boolean menuPresent = false;
 
-					//locate specific role with text
-					if (specificMenu.findElement(By.tagName("a")).getText().equalsIgnoreCase(menuText)) {
+		try {				
 
-						//Clicking on specific role
-						menuPresent = true;
-						
-					}
-				} 
-				//return true if present
-				return menuPresent;
+			//below is used to highlight only when flag is true
+			//highLightElement(wdmenu, menuItem, elementClickHighlight);
 
-			} catch (NoSuchElementException e) {
-				e.printStackTrace();
-				return menuPresent;
+			//Selecting Left role pane xpath and clicking on particular selected role
+			WebElement mainleftpaneRoleXpath = wdmenu.findElement(By.xpath(menuItem));
 
-			}	catch (Exception e) {
-				e.printStackTrace();
-				return menuPresent;
-			}  
-		}
-	
+			//Creating list of webelements returned from left pane				
+			List<WebElement> menuList = mainleftpaneRoleXpath.findElements(By.xpath("//*[@class='nav-item ']"));
+
+			//Iterating the role list webelement until match is found
+			for (WebElement specificMenu : menuList) {
+
+				//locate specific role with text
+				if (specificMenu.findElement(By.tagName("a")).getText().equalsIgnoreCase(menuText)) {
+
+					//Clicking on specific role
+					menuPresent = true;
+
+				}
+			} 
+			//return true if present
+			return menuPresent;
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return menuPresent;
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+			return menuPresent;
+		}  
+	}
+
+
+	//current time
+	public static String currentLocalTime() {
+		try {
+			//current time
+			DateTimeFormatter time = DateTimeFormatter.ofPattern("HHmmss");
+			LocalTime rawFormat = LocalTime.now();
+			String currentTime =rawFormat.format(time);
+
+			//return current time
+			return currentTime;
+
+		} catch (NoSuchElementException e) {
+
+			e.printStackTrace();
+
+			//return null if error
+			return null;
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+
+			//return null if error
+			return null;
+		}  	
+	}
+
+	//Method reads the content of textbox and return it
+	public static String getTextBoxContent(WebDriver wtx, String txtXpath) {
+
+		//Initialising string to be returned
+		String ActualTextcontent=null;
+
+		try {
+
+			//below is used to highlight only when flag is true
+			highLightElement(wtx, txtXpath, elementClickHighlight);
+
+			//retrieving the text value of the element
+			ActualTextcontent = wtx.findElement(By.xpath(txtXpath)).getAttribute("value");
+
+			//Return the value of string
+			return ActualTextcontent;
+
+
+		} catch (NoSuchElementException e) {
+
+			e.printStackTrace();
+
+			//return null if error
+			return null;
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+
+			//return null if error
+			return null;
+		}  		
+	}
+
+	//Javascript PageWait condition
+	public static void JSPageWait(WebDriver wb) {
 		
-		//current time
-		public static String currentLocalTime() {
-			try {
-				//current time
-				DateTimeFormatter time = DateTimeFormatter.ofPattern("HHmmss");
-				LocalTime rawFormat = LocalTime.now();
-				String currentTime =rawFormat.format(time);
+		//Initializing JS wait
+		//WebDriverWait wait = new WebDriverWait(wb, 30);
 
-				//return current time
-				return currentTime;
+		//Wait for the visibility of element
+//		wait.until((ExpectedCondition<Boolean>) JDriver ->
+//		((JavascriptExecutor) JDriver).executeScript("return window.document.hasHomeMounted").equals("complete"));		
+		
+		//Page wait
+		pageLoadWait(1000);
+		
+		//starting java script page wait
+		
+		WebDriverWait wait = new WebDriverWait(wb, Duration.ofSeconds(30));
+		JavascriptExecutor js = (JavascriptExecutor) wb;
+		String readyState = js.executeScript("return document.readyState").toString();
+		System.out.println(readyState);
 				
-			} catch (NoSuchElementException e) {
+		wait.until((ExpectedCondition<Boolean>) wd ->
+		   ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+		
+        //wait.Until(ExpectedConditions.jsReturnsValue("return window.document.hasHomeMounted").equals("complete"));
+		
+		//For java application
+//		((JavascriptExecutor) JDriver).executeScript("return document.readyState").equals("complete"));	
 
-				e.printStackTrace();
+		//					or use the below code
+		//					wait.until(ExpectedConditions.jsReturnsValue("return document.readyState==\"complete\";"));	
 
-				//return null if error
-				return null;
+	}
 
-			}	catch (Exception e) {
-				e.printStackTrace();
+	//Using Predicate JS
+	public static void PredicateJS(WebDriver wp) {
+		Predicate<WebDriver> pageLoaded = wd -> ((JavascriptExecutor) wd).executeScript(
+		        "return document.readyState").equals("complete");
+//		new FluentWait<WebDriver>(wp).until(pageLoaded);
+		
+	}
+	
+	//FluentWait
+	public static void fluentWaitPageLoad(WebDriver wft) {
+		
+//		Wait<WebDriver> wait = new FluentWait<WebDriver>(wft)
+//				.withTimeout(Duration.ofSeconds(30))
+//				.pollingEvery(Duration.ofSeconds(5))
+//				.ignoring(Exception.class);
+//		WebElement clickseleniumlink = wait.until(new Function<WebDriver, WebElement>(){
+//		
+//			public WebElement apply(WebDriver driver ) {
+//				return driver.findElement(By.xpath("Test"));
+//			}
+//		});
+	}
+	
+	//Javascript element click
+	//Method to click on any element, button etc
+		public static void JClickonElement(WebDriver wj, String clickElement) {
 
-				//return null if error
-				return null;
-			}  	
-		}
-
-		//Method reads the content of textbox and return it
-		public static String getTextBoxContent(WebDriver wtx, String txtXpath) {
-
-			//Initialising string to be returned
-			String ActualTextcontent=null;
-			
 			try {
-				
+
 				//below is used to highlight only when flag is true
-				highLightElement(wtx, txtXpath, elementClickHighlight);
-				
-				//retrieving the text value of the element
-				ActualTextcontent = wtx.findElement(By.xpath(txtXpath)).getAttribute("value");
+				highLightElement(wj, clickElement, elementClickHighlight);		
 
-				//Return the value of string
-				return ActualTextcontent;
-							
+				//Adding implicit wait
+				wj.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
+
+				//Java script click on element
+				JavascriptExecutor executor = (JavascriptExecutor) wj;
+			     executor.executeScript("arguments[0].click();", wj.findElement(By.xpath(clickElement)));
+
+				//Adding implicit wait
+				wj.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
 
 			} catch (NoSuchElementException e) {
-
 				e.printStackTrace();
-
-				//return null if error
-				return null;
 
 			}	catch (Exception e) {
 				e.printStackTrace();
-
-				//return null if error
-				return null;
-			}  		
+			} 
 		}
 
+	
 }

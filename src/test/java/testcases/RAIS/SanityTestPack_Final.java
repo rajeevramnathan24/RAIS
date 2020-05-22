@@ -329,13 +329,13 @@ public class SanityTestPack_Final extends BaseClass
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.regulatoryProcess_XPath),
 					RaisTestData.RegProcessText);
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.inventResources_XPath),
-					RaisTestData.InvenResourceText);
+					RaisTestData.InventResourceMainMenu);
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.reportStats_XPath),
 					RaisTestData.RptStatsText);
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.settings_XPath),
 					RaisTestData.SettingsText);
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, dashboardnew.administration_XPath),
-					RaisTestData.AdministrationText);
+					RaisTestData.AdministrationMainMenu);
 			
 			//verify top menu bar using assert true for similar match of text
 			assertTrue(GenericMethods.getActualTxt(wd, dashboardnew.notification_XPath).contains(RaisTestData.NotificationText));

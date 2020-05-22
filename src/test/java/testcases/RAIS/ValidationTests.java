@@ -1558,8 +1558,7 @@ public class ValidationTests extends BaseClass
 	//#11 
 	
 	//Test case Ends here *********************************
-
-
+			
 	//After each method reporting pass/ fail in report
 	@AfterMethod
 	public void getResult(ITestResult result) {

@@ -21,12 +21,22 @@ public class AddNewUserDetailsPage {
 	public String addnewUser_selectUser_XPath = "//*[@name='selectUser']";
 	public String addnewUser_userName_XPath = "//*[@name='username']";
 	
+	//DataRole Xpath
+	public String addnewUser_DataRole_Xpath = "//*[@name='dataRole']";
+	public String addnewUser_DataRoleid_Xpath = "//*[@id='dataRole']";
+	
 	//dropdown details
 	public String addnewUser_orgType_XPath = "//*[@id='organisationType']";
 	public String addnewUser_org_XPath = "//*[@id='organisation']";
 	
 	//radio button text click
 	public String addnewUser_rdobtnAuth_XPath = "//*[@id='authentication']//span[text()='Edit']";
+	public String addnewUser_ExternalrdobtnAuth_XPath = "//*[@id='authentication']//label[2]//span[contains(text(),'External')]";
+	public String addnewUser_InternalrdobtnAuth_XPath = "//*[@id='authentication']//label[2]//span[contains(text(),'Internal')]";
+	
+	//Status xpath
+	public String addNewUserDetail_statusActive_XPath = "//*[@id='status']//label[1]//span[contains(text(),'Activate')]";
+	public String addNewUserDetail_statusDeact_XPath = "//*[@id='status']//label[2]//span[contains(text(),'Deactivate')]";
 	
 	//Validation msgs xpath
 	public String orgTypeRequired_MsgXPath = "//*[@id='user']//p[text()='Organisation Type is required.']"	;
@@ -37,6 +47,11 @@ public class AddNewUserDetailsPage {
 	public String funcRoleRequired_MsgXPath = "//*[@id='user']//p[text()='Please select at least 1 Functional Role.']"	;
 	public String dataRoleRequired_MsgXPath = "//*[@id='user']//p[text()='Data Role is required.']"	;
 	public String statusRequired_MsgXPath = "//*[@id='user']//p[text()='Please select status.']"	;
+	public String secUserLeftLink_Xpath = "//*[@id='user']//button//span[text()='Create Sub Account']";
+	public String secUserNameid_Xpath = "//*[@id='name']";
+	public String secUserNameSaveBtn_Xpath = "//div[@class='dialog-action']//div//button[text()='Save']";
+	
+	
 	
 	
 	//Page Constants *********************************************************************
