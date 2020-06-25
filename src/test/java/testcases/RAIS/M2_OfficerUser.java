@@ -9,7 +9,6 @@ import commonfunction.BaseClass;
 import commonfunction.GenericMethods;
 import commonfunction.RAIS_applicationSpecificMethods;
 import constants.RaisTestData;
-import net.bytebuddy.description.type.TypeDescription.Generic;
 import pageLocators_Elements.RAIS.AddNewAttributePage;
 import pageLocators_Elements.RAIS.AddNewEntityFormDetailsPage;
 import pageLocators_Elements.RAIS.AddNewEntityPage;
@@ -32,7 +31,9 @@ import pageLocators_Elements.RAIS.UserListPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import java.security.GeneralSecurityException;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
 import org.testng.Assert;
@@ -100,21 +101,20 @@ public class M2_OfficerUser extends BaseClass
 	public static String Primay_EntityInternalName = "PrimaryUserEntityInternalName"+localTime;
 	public static String primary_EntityNameSingular = "EntityPrimarySingular"+localTime;
 	public static String primary_EntityNamePlural = "EntityPrimaryPlural"+localTime;
-	
+
 	//Test data details
 	public static String OfficerEntityName = RaisTestData.businessEntityList[37]; //Officer Entity
 	public static String UsersEntity = RaisTestData.businessEntityList[64]; // User Entity
-		
-	
+
+
 	//User creation details
 	//Internal/ external user
-	public static String userType = RaisTestData.INTERNAL_USER;
-	
+	public static String userType = RaisTestData.INTERNAL_USER;	
 	//User screen
 	public String orgTypeName = RaisTestData.REG_AUTHORITY_DATA;
-	public static String AuthType = RaisTestData.AUTH_TYPE_DATA+localTime; // Authority and Org type data
-	
-	public static String externalOfficerName = "RAIS_Test1"+userType; //Officer Name
+	public static String AuthType = RaisTestData.AUTH_TYPE_DATA; // Authority and Org type data
+
+	public static String externalOfficerName = "Officer"+userType; //Officer Name
 	public static String userEmail = "RAIS_Test1@e-zest.in";//pallavi.parbat@e-zest.in		vishalparbat@gmail.com
 	public static String UserID = "RAIS_Test1"; //User Name // PP //VP
 	public static String secUserName = "RAIS_Test1secondary";
@@ -125,13 +125,13 @@ public class M2_OfficerUser extends BaseClass
 	public static String Sec_EntityInternalName = "SecondaryUserEntityInternalName"+localTime;
 	public static String Sec_EntityNameSingular = "EntitySecondarySingular"+localTime;
 	public static String Sec_EntityNamePlural = "EntitySecondaryPlural"+localTime;
-	
+
 	//FR Test data
 	public static String fr_PrimExt_A = RaisTestData.FR_Prim_ext_A+localTime;
 	public static String fr_SecExt_A = RaisTestData.FR_Sec_ext_A+localTime;
 	public static String fr_SecExt_D = RaisTestData.FR_Sec_ext_D;
 	public static String DR = RaisTestData.DATAROLE_ALL_DATA;
-	
+
 
 	public boolean TestData_primUserEntity, TestData_secUserEntity = false;
 	public boolean flag_FR_PrimExtUser, flag_FR_PrimSecUser = false;
@@ -142,16 +142,16 @@ public class M2_OfficerUser extends BaseClass
 	//Data role functional role Menu
 	public static String dataRoleMenu = RaisTestData.dataRole;
 	public static String funcRoleMenu = RaisTestData.functionalRole;
-	
+
 	//Authority business entity name
 	public static String Auth_OrgEntity = RaisTestData.businessEntityList[65]; // User Entity	
-	
+
 	//Optional text
 	public String Optional = RaisTestData.OPTIONAL_TEXT;
-	
-	
-		
-	
+
+
+
+
 	//Before class ################################
 	@Parameters({"browserType"})
 	@BeforeClass
@@ -195,99 +195,99 @@ public class M2_OfficerUser extends BaseClass
 
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc("Test Data Creation","Creation of Test Data");
-			
+
 			//Calling Login method
 			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
 					loginPage.loginBtn_XPath);
-						
-			
+
+
 			//Entity 1 creation started********************************************************************************
 			System.out.println("entity1 creation started");
-			
+
 			//calling entity creation method and set flag value
 			TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Primay_EntityInternalName, primary_EntityNameSingular, primary_EntityNamePlural, 
 					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Inventory);
-			
+
 			System.out.println("entity1 creation complete");
-			
+
 			//Entity 2 creation started*****************************
 			System.out.println("entity2 creation started");
-			
+
 			//calling entity creation method and set flag value
 			TestData_secUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Sec_EntityInternalName, Sec_EntityNameSingular, Sec_EntityNamePlural, 
 					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Resources);
-			
+
 			System.out.println("entity2 creation complete");
 			//Entity creation Complete********************************************************************************
 
-			
-			
-			
-			
+
+
+
+
 			//FR creation for primary started********************************************************************************
 			//FR for primary user started
 			System.out.println("FR creation for primary started");
-			
+
 			flag_FR_PrimExtUser = RAIS_applicationSpecificMethods.createFR(wd, fr_PrimExt_A, RaisTestData.Entity_GroupData, primary_EntityNameSingular, 
 					true, true, true, true);
-			
+
 			//FR 2 secondary creation started*****************************
 			//FR for secondary user started
 			System.out.println("FR creation for secondary started");
-			
+
 			flag_FR_PrimSecUser = RAIS_applicationSpecificMethods.createFR(wd, fr_SecExt_A, RaisTestData.Entity_GroupData, Sec_EntityNameSingular, 
 					true, true, true, true);
-			
-			
+
+
 			System.out.println("FR creation complete");
 			//FR creation Complete********************************************************************************
 			//*****************************Secondary FR role Ends here
-			
-					
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
 			//Adding data to Authority & Org starts here*************************************************
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
-			
+
 			//AuthType test data starts here for primary user
 			//Clicking on Authority & organisation menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CommonTblSubMenu, 4, Auth_OrgEntity);
-			
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CommonTblSubMenu, Auth_OrgEntity);
+
 			//calling generic method to call Authority and Organisations entity data input
-			flag_AuthType = RAIS_applicationSpecificMethods.createEntityRecord(wd, Auth_OrgEntity, Optional, AuthType, Optional);
+			flag_AuthType = RAIS_applicationSpecificMethods.createEntityRecord(wd, Auth_OrgEntity, Optional, AuthType, Optional,RaisTestData.ADD_MODE_TEXT );
 			//Adding data to Authority & Org ends here*************************************************
-			
-			
-						
-			
-			
-			
-			
+
+
+
+
+
+
+
 			// OFFICER creation page ******************************************************************************************
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName, 1, OfficerEntityName);
-			
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName, OfficerEntityName);
+
 			//calling generic method to call Officer entity data input
-			flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, OfficerEntityName, externalOfficerName, AuthType, userEmail);
-		
+			flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, OfficerEntityName, externalOfficerName, AuthType, userEmail,RaisTestData.ADD_MODE_TEXT);
+
 			System.out.println("officer external record creation complete");
-			
+
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
-			
+
 			// OFFICER creation completed ****************************************************************************************
-						
-			
-			
-			
+
+
+
+
 		}catch (NoSuchElementException  noElement) {
 
 			TestData_primUserEntity = false;
@@ -317,7 +317,7 @@ public class M2_OfficerUser extends BaseClass
 
 	//#2 - Officer User creation
 	@Test(priority=2,enabled=false)
-	public void ExternalUser_PrimaryUserCreation() {
+	public void User_PrimaryUserCreation() {
 
 		//Setting Test name and description on report
 		SettingRptTestName_TestDesc("Creation of Primary External user","Primary Extenal User is successfully created");
@@ -329,32 +329,32 @@ public class M2_OfficerUser extends BaseClass
 
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
-						
+
 			//////////*******************************************Add new Primary user starts here
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, UserMgmtSubMenu, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, UserMgmtSubMenu, UsersEntity);
 
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
-						
+
 			//Waiting until element to load and click on Add new button
 			GenericMethods.waitforElement(wd, UserListingPage.addNewUserBtn_XPath);
 			GenericMethods.elementClickable(wd, UserListingPage.addNewUserBtn_XPath);
 			GenericMethods.elementClick(wd, UserListingPage.addNewUserBtn_XPath);
-			
+
 			System.out.println("user creation started");
-			
+
 			//Create primary user
-			flag_primary = RAIS_applicationSpecificMethods.createUser(wd, "Primary",userType,
+			flag_primary = RAIS_applicationSpecificMethods.createUser(wd, RaisTestData.primary,userType,
 					orgTypeName, AuthType, externalOfficerName, UserID, fr_PrimExt_A, DR);
-			
-			
+
+
 			//wait for page load
 			GenericMethods.JSPageWait(wd);
-			
+
 			//End of primary user creation
-			
+
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
 
@@ -383,248 +383,68 @@ public class M2_OfficerUser extends BaseClass
 	//#3 - Secondary 
 	@Test(priority=3,enabled=false)
 	public void ExternalUser_SecondaryUserCreation() {
-		
+
 		//Setting Test name and description on report
-				SettingRptTestName_TestDesc("Creation of Secondary External user","Secondary External User is successfully created");
+		SettingRptTestName_TestDesc("Creation of Secondary External user","Secondary External User is successfully created");
 
-				try {
-					
-					/// **********************************************secondary usercreation starts
-					
-					//Calling Login method
-					GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
-							loginPage.loginBtn_XPath);
-
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					//Clicking on User menu
-					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, UserMgmtSubMenu, 1, UsersEntity);
-								
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					//Waiting until element to load and click on Add new button
-					GenericMethods.waitforElement(wd, UserListingPage.addNewUserBtn_XPath);
-					GenericMethods.elementClickable(wd, UserListingPage.addNewUserBtn_XPath);
-								
-					//Column header filter starts here
-					RAIS_applicationSpecificMethods.DynamicGridFilter(wd, UserListingPage.Dyamic_GridTable_Prefix_Xpath, 1,
-							UserListingPage.Dynamic_GridTable_Suffix1_Xpath, UserListingPage.USERLIST_COLHEADER_NAME_Txt, 
-							UserListingPage.Dynamic_GridTable_Suffix2_Xpath, UserListingPage.Dynamic_GridTable_TxtInput_Suffix_Xpath, externalOfficerName);
-
-					//wait for page load
-					GenericMethods.JSPageWait(wd);			
-					
-					//Clicking on specific Role created
-					RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,UserListingPage.userListTable_XPath , externalOfficerName);
-								
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					//Waiting until element to load and click on Add new button
-					GenericMethods.waitforElement(wd, AddNewUserPage.cancelBtn_XPath);
-					GenericMethods.elementClickable(wd, AddNewUserPage.cancelBtn_XPath);
-					
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					//click on secondary sub account
-					GenericMethods.elementClick(wd, AddNewUserPage.secUserLeftLink_Xpath);
-					
-					//input secondary user name
-					GenericMethods.sendText(wd, AddNewUserPage.secUserNameid_Xpath, secUserName);
-					
-					//clicking on save button
-					GenericMethods.elementClick(wd, AddNewUserPage.secUserNameSaveBtn_Xpath);
-					
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					flag_secondary = RAIS_applicationSpecificMethods.createUser(wd, Optional, orgTypeName,userType,
-							AuthType, externalOfficerName, UserID, fr_SecExt_A, DR);			
-					
-					//*****************************************************End of secondary user creation					
-
-
-				}catch (NoSuchElementException  noElement) {
-					noElement.printStackTrace();
-
-				}catch (Exception  e) {
-					e.printStackTrace();
-
-				} finally {
-
-
-					//wait for page load
-					GenericMethods.pageLoadWait(2000);
-
-					//Logout user
-					RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
-
-					//verifying logo on RIAS Page
-					Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
-
-					//page refresh
-					wd.navigate().refresh();
-				}
-		
-	}
-	
-	
-	
-	//4 - Primary User login creation
-	@Test(priority=4, enabled=false)
-	public void VerifyPrimaryUserlogin() {
-		
-		//Setting Test name and description on report
-		SettingRptTestName_TestDesc("Verify Primary user access","Verify entity level access of Primary Extenal User after it is successfully created");
-		
 		try {
 
-			switch (userType) {
-			case "External":
-				
-				//Calling Login method
-				GenericMethods.loginApplication(wd, loginPage.userId_XPath, UserID, loginPage.pwd_XPath, password,
-						loginPage.loginBtn_XPath);
+			/// **********************************************secondary usercreation starts
 
-				//wait for page load
-				GenericMethods.JSPageWait(wd);
-				
-				//selecting user from drop down
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, loginPage.primaryUser_Dropdown_Xpath,loginPage.PRIMARY_Txt);
-				
-				//click on submit button
-				GenericMethods.elementClick(wd, loginPage.submitBtn_XPath);
-				
-				//page wait
-				GenericMethods.JSPageWait(wd);
-				
-				//verify menu
-				//Clicking on User menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName, 1, primary_EntityNamePlural);
-				
-				//Page wait
-				GenericMethods.JSPageWait(wd);
-				GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
-				GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
-				
-				
-				break;
-				
-			case "Internal":
-				
-				//page wait
-				GenericMethods.JSPageWait(wd);
-				
-				//clicking on internal tab
-				GenericMethods.elementClick(wd,loginPage.internalLogin_XPath);
-				
-				//page wait
-				GenericMethods.JSPageWait(wd);
-				
-				//clicking on windows auth button
-				GenericMethods.elementClick(wd,loginPage.winAuthBtn_XPath);
-				
-				//page wait
-				GenericMethods.JSPageWait(wd);
-				
-				//calling robot class
-				RAIS_applicationSpecificMethods.windowsAuthscreen_Login();
-				
-				//page wait
-				GenericMethods.JSPageWait(wd);
-				
-				System.out.println("loggedin");
-				
-				//selecting user from drop down
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, loginPage.primaryUser_Dropdown_Xpath,loginPage.PRIMARY_Txt);
-				
-				//click on submit button
-				GenericMethods.elementClick(wd, loginPage.submitBtn_XPath);
-				
-				//verify menu
-				//Clicking on User menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu	, 2, entitiesMenu);
-				
-				//Page wait
-				GenericMethods.JSPageWait(wd);
-				GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
-				GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
-				
-				break;
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
 
-			default:
-				break;
-			}
-			
-			
+			//wait for page load
+			GenericMethods.JSPageWait(wd);
 
+			//Clicking on User menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, UserMgmtSubMenu, UsersEntity);
 
-	}catch (NoSuchElementException  noElement) {
-		noElement.printStackTrace();
+			//wait for page load
+			GenericMethods.JSPageWait(wd);
 
-	}catch (Exception  e) {
-		e.printStackTrace();
+			//Waiting until element to load and click on Add new button
+			GenericMethods.waitforElement(wd, UserListingPage.addNewUserBtn_XPath);
+			GenericMethods.elementClickable(wd, UserListingPage.addNewUserBtn_XPath);
 
-	} finally {
+			//Column header filter starts here
+			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, UserListingPage.Dyamic_GridTable_Prefix_Xpath, 1,
+					UserListingPage.Dynamic_GridTable_Suffix1_Xpath, UserListingPage.USERLIST_COLHEADER_NAME_Txt, 
+					UserListingPage.Dynamic_GridTable_Suffix2_Xpath, UserListingPage.Dynamic_GridTable_TxtInput_Suffix_Xpath, externalOfficerName);
 
+			//wait for page load
+			GenericMethods.JSPageWait(wd);			
 
-		if (userType == "External") {
-			
-		
-		
-		//wait for page load
-		GenericMethods.pageLoadWait(2000);
-		GenericMethods.JSPageWait(wd);
+			//Clicking on specific Role created
+			RAIS_applicationSpecificMethods.perm_restrict_Select_Click(wd,UserListingPage.userListTable_XPath , externalOfficerName);
 
-		//Logout user
-		RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//wait for page load
+			GenericMethods.JSPageWait(wd);
 
-		//verifying logo on RIAS Page
-		Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+			//Waiting until element to load and click on Add new button
+			GenericMethods.waitforElement(wd, AddNewUserPage.cancelBtn_XPath);
+			GenericMethods.elementClickable(wd, AddNewUserPage.cancelBtn_XPath);
 
-		//page refresh
-		wd.navigate().refresh();
-		}
-	}
-	}
-	
-	//5 - Secondary User login creation
-	@Test(priority=5, enabled=false)
-	public void SecondaryUserlogin() {
-			
-		//Setting Test name and description on report
-				SettingRptTestName_TestDesc("Verify Secondary user access","Verify entity level access of Secondary Extenal User after it is successfully created");
-				
-				try {
+			//wait for page load
+			GenericMethods.JSPageWait(wd);
 
-					//Calling Login method
-					GenericMethods.loginApplication(wd, loginPage.userId_XPath, UserID, loginPage.pwd_XPath, password,
-							loginPage.loginBtn_XPath);
+			//click on secondary sub account
+			GenericMethods.elementClick(wd, AddNewUserPage.secUserLeftLink_Xpath);
 
-					//wait for page load
-					GenericMethods.JSPageWait(wd);
-					
-					//selecting user from drop down
-					RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, loginPage.primaryUser_Dropdown_Xpath, secUserName);
-					
-					//click on submit button
-					GenericMethods.elementClick(wd, loginPage.submitBtn_XPath);
-					
-					//page wait
-					GenericMethods.JSPageWait(wd);
-					
-					//verify menu
-					//Clicking on User menu
-					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, ResrcSubMenuName, 1, Sec_EntityNamePlural);
-					
-					//Page wait
-					GenericMethods.JSPageWait(wd);
-					GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
-					GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
+			//input secondary user name
+			GenericMethods.sendText(wd, AddNewUserPage.secUserNameid_Xpath, secUserName);
 
+			//clicking on save button
+			GenericMethods.elementClick(wd, AddNewUserPage.secUserNameSaveBtn_Xpath);
+
+			//wait for page load
+			GenericMethods.JSPageWait(wd);
+
+			flag_secondary = RAIS_applicationSpecificMethods.createUser(wd, Optional, orgTypeName,userType,
+					AuthType, externalOfficerName, UserID, fr_SecExt_A, DR);			
+
+			//*****************************************************End of secondary user creation					
 
 
 		}catch (NoSuchElementException  noElement) {
@@ -648,9 +468,402 @@ public class M2_OfficerUser extends BaseClass
 			//page refresh
 			wd.navigate().refresh();
 		}
+	}
+
+	//4 - Primary User login creation
+	@Test(priority=4, enabled=false)
+	public void VerifyPrimaryUserlogin() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify Primary user access","Verify entity level access of Primary Extenal User after it is successfully created");
+
+		try {
+
+			//calling method for primary_secondary login
+			RAIS_applicationSpecificMethods.primary_secondary_Login(wd, userType, UserID, password, RaisTestData.primary);
+
+			if(userType == "External") {
+
+				//verify menu
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName, primary_EntityNamePlural);				
+
+			} else {
+
+				System.out.println("loggedin");
+
+				//verify menu
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu, primary_EntityNamePlural);
+
+			}
+
+			//Page wait
+			GenericMethods.JSPageWait(wd);
+			GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
+			GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);			
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			if (userType == "External") {
+
+				//wait for page load
+				GenericMethods.pageLoadWait(2000);
+				GenericMethods.JSPageWait(wd);
+
+				//Logout user
+				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+				//verifying logo on RIAS Page
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+				//page refresh
+				wd.navigate().refresh();
+			}
 		}
+	}
+
+	//5 - Secondary User login creation
+	@Test(priority=5, enabled=false)
+	public void SecondaryUserlogin() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify Secondary user access","Verify entity level access of Secondary Extenal User after it is successfully created");
+
+		try {
+
+			//calling method for primary_secondary login
+			RAIS_applicationSpecificMethods.primary_secondary_Login(wd, userType, UserID, password, secUserName);
+
+			if (userType == "External") {
+
+				//verify menu
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, ResrcSubMenuName, Sec_EntityNamePlural);
+
+			} else {
+
+				//verify menu
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu	, Sec_EntityNamePlural);
+
+			}
+
+			//Page wait
+			GenericMethods.JSPageWait(wd);
+			GenericMethods.waitforElement(wd, entityFrmListingPage.addNewBtn_XPath);
+			GenericMethods.elementClickable(wd, entityFrmListingPage.addNewBtn_XPath);
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+			//execute for external secondary only
+
+			if(userType =="External") {
+
+				//wait for page load
+				GenericMethods.pageLoadWait(2000);
+
+				//Logout user
+				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+
+				//verifying logo on RIAS Page
+				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+				//page refresh
+				wd.navigate().refresh();
+			}
+		}
+	}
+
+	//6 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=6, enabled=true)
+	public void BusinessEntity_RecordCRUD_Operations_Admin_CommonTable() {
 		
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+		try {
+			
+			//Entities under common tables with 1 field
+			String BEname [] = RaisTestData.singleFldBE_Admin_CommonTbl;
+			
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CommonTblSubMenu,BEname[i]);
+
+				//***********************************************Create entity record
+				//calling generic method to call Officer entity data input
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here						
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+				//Edit entity record
+				//calling generic method to call Officer entity data edit
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+				////***********************************************delete starts here
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+				//delete entity record data
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			//				//Logout user
+			//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//
+			//				//verifying logo on RIAS Page
+			//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+
+		}
+	}
+
+	//7 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=7, enabled=false)
+	public void BusinessEntity_RecordCRUD_Operations_Admin_Cust() {
+			
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+			try {
+				
+				//Initialising entity names
+				String BEname [] = RaisTestData.singleFldBE_Admin_Custom;
+				
+				//Calling Login method
+				GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+						loginPage.loginBtn_XPath);
+
+				for(int i=0;i<BEname.length;i++) {
+
+					//wait for page load
+					GenericMethods.JSPageWait(wd);
+
+					//Clicking on User menu
+					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu,BEname[i]);
+
+					//***********************************************Create entity record
+					//calling generic method to call Officer entity data input
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+					////**********************************************EDIT MODE STARTS Here						
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+					//Edit entity record
+					//calling generic method to call Officer entity data edit
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+					////***********************************************delete starts here
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+					//delete entity record data
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+				}
+
+
+			}catch (NoSuchElementException  noElement) {
+				noElement.printStackTrace();
+
+			}catch (Exception  e) {
+				e.printStackTrace();
+
+			} finally {
+
+
+				//				//Logout user
+				//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+				//
+				//				//verifying logo on RIAS Page
+				//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+				//page refresh
+				wd.navigate().refresh();
+
+			}
+		}
+
+		
+	//8 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=8, enabled=false)
+	public void BusinessEntity_RecordCRUD_Operations_InvRes_Inv() {
+				
+				//Setting Test name and description on report
+				SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+				try {
+					
+					//Initialising entity names
+					String BEname [] = RaisTestData.singleFldBE_Inv_Inv;
+					
+					//Calling Login method
+					GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+							loginPage.loginBtn_XPath);
+
+					for(int i=0;i<BEname.length;i++) {
+
+						//wait for page load
+						GenericMethods.JSPageWait(wd);
+
+						//Clicking on User menu
+						RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName,BEname[i]);
+
+						//***********************************************Create entity record
+						//calling generic method to call Officer entity data input
+						flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+						////**********************************************EDIT MODE STARTS Here						
+						//Grid filter and click on entity record listing page
+						RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+						//Edit entity record
+						//calling generic method to call Officer entity data edit
+						flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+						////***********************************************delete starts here
+						//Grid filter and click on entity record listing page
+						RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+						//delete entity record data
+						RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+					}
+
+
+				}catch (NoSuchElementException  noElement) {
+					noElement.printStackTrace();
+
+				}catch (Exception  e) {
+					e.printStackTrace();
+
+				} finally {
+
+
+					//				//Logout user
+					//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+					//
+					//				//verifying logo on RIAS Page
+					//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+					//page refresh
+					wd.navigate().refresh();
+
+				}
+			}
+
+	//9 - Single Attribute Business Entity - Entity record CRUD operations
+		@Test(priority=9, enabled=false)
+		public void BusinessEntity_RecordCRUD_Operations_InvRes_Res() {
+					
+					//Setting Test name and description on report
+					SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+					try {
+						
+						//Initialising entity names
+						String BEname [] = RaisTestData.singleFldBE_Inv_Res;
+						
+						//Calling Login method
+						GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+								loginPage.loginBtn_XPath);
+
+						for(int i=0;i<BEname.length;i++) {
+
+							//wait for page load
+							GenericMethods.JSPageWait(wd);
+
+							//Clicking on User menu
+							RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, ResrcSubMenuName,BEname[i]);
+
+							//***********************************************Create entity record
+							//calling generic method to call Officer entity data input
+							flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+							////**********************************************EDIT MODE STARTS Here						
+							//Grid filter and click on entity record listing page
+							RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+							//Edit entity record
+							//calling generic method to call Officer entity data edit
+							flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+							////***********************************************delete starts here
+							//Grid filter and click on entity record listing page
+							RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+							//delete entity record data
+							RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+						}
+
+
+					}catch (NoSuchElementException  noElement) {
+						noElement.printStackTrace();
+
+					}catch (Exception  e) {
+						e.printStackTrace();
+
+					} finally {
+
+
+						//				//Logout user
+						//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+						//
+						//				//verifying logo on RIAS Page
+						//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+						//page refresh
+						wd.navigate().refresh();
+
+					}
+				}
+
 	
+	
+	
+	
+
 	//#22
 	@Test(priority=22,enabled=E2E_TestPack.e2eTC2_runStatus)
 	public void E2E_FormDesigner(){
@@ -1564,7 +1777,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(1000);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -1644,7 +1857,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -1776,7 +1989,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, ExpertEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, ExpertEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -1865,7 +2078,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(500);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -1929,7 +2142,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on Officer menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, ExpertEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, ExpertEntityName);
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 2,
@@ -1951,7 +2164,7 @@ public class M2_OfficerUser extends BaseClass
 
 			//Deleting Authority test data ******************************************************2
 			//Clicking on Authority menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CustomizesubMenuName,3 , PartnerAgencyEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CustomizesubMenuName , PartnerAgencyEntity);
 
 			//Delete officer here
 			//Column header filter starts here
@@ -2014,7 +2227,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, 2, FacilityEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, FacilityEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -2139,7 +2352,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(500);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			//			GenericMethods.pageLoadWait(1000);
@@ -2200,7 +2413,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on facility entity
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, 2, FacilityEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, FacilityEntityName);
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 2,
@@ -2280,7 +2493,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
 
 			//Clicking on workers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenuName, subMenuName, position, entityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenuName, subMenuName, entityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -2417,7 +2630,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(1000);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -2497,7 +2710,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -2561,7 +2774,7 @@ public class M2_OfficerUser extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on Officer menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 3,
@@ -2583,7 +2796,7 @@ public class M2_OfficerUser extends BaseClass
 
 			//Deleting Authority test data ******************************************************2
 			//Clicking on Authority menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CommonTablesubMenuName,4 , Auth_OrgEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CommonTablesubMenuName , Auth_OrgEntity);
 
 			//Delete officer here
 			//Column header filter starts here
@@ -3081,7 +3294,7 @@ public class M2_OfficerUser extends BaseClass
 		(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 				password, loginPage.loginBtn_XPath);
 
-		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "INVENTORY & RESOURCES", "Inventory", 1, "Unsealed Sources");
+		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "INVENTORY & RESOURCES", "Inventory", "Unsealed Sources");
 		//		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "ADMINISTRATION", "User Management", 1, "Web Service Account");
 		//		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "ADMINISTRATION", "Common Tables", 3, "Workflows");
 

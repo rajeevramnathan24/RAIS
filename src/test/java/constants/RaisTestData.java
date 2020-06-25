@@ -176,7 +176,7 @@ public class RaisTestData {
 
 	//Business Entities
 	public static String[] businessEntityList = { "Academic Qualification",  //0th value
-			"Academic Qualification Degree", 			//1st
+			"Academic Degrees", 			//1st
 			"Activity Unit", 				//2nd value
 			"Amperage Unit", //3
 			"Annual Dose", //4
@@ -203,7 +203,7 @@ public class RaisTestData {
 			"Expert Task", //25
 			"Facilities",//26
 			"Facility Status", //27
-			"Field", //28
+			"Fields", //28
 			"Frequency In Month", //29
 			"Gender",//30
 			"Inspection Schedule", //31
@@ -242,12 +242,48 @@ public class RaisTestData {
 			"Users",//64
 			"Authorities and Organizations", //65
 			"Entities"};//66
+	
+	public static String [] singleFldBE_Admin_CommonTbl = {"Booleans",
+			"Categories of Sealed Sources",
+			"Countries",
+			"Emergency Response Level", //"Enforcement Statuses",
+			"Event Causes", //"Extent of Events", - failing
+			"Fields","Gender",
+			"Health Consequences",
+			"Monitoring Statuses",
+			"Package Categories",
+			"Package Types",
+			"Person Statuses",
+			"Physical Barriers",
+			"Physical Forms",
+			"Practice Categories",
+			"Professional Degrees", //"Radiological Consequences",
+			"Regulatory Reference Statuses",
+			"Regulatory Reference Types",
+			"Report Types",
+			"Security Groups", //"Source Statuses",
+			"Source Transfer Types",
+			"Wave Forms"};
+	
+	public static String[] singleFldBE_Admin_Custom = 
+//		{"Non-Compliance Major Categories",
+//		"Dose Extremity Organ Lists"}; - failing
+				{"Non-Compliance Major Categories",
+						"Source Transport Mode",
+				"Partner Agency Service Providers",
+				"Inspection Statuses"};
+	
+	
+	public static String [] singleFldBE_Inv_Inv = {"Officer Tasks",	"Responses"};
+	
+	public static String [] singleFldBE_Inv_Res = {"Worker Statuses"};
 
 	//Dummy practices
 	public static String PRACTICE_MEDICAL_DATA = "Practice Medical1";
 	public static String PRACTICE_IND_DATA = "Practice Industry";
 	
 	public static String OPTIONAL_TEXT = "";
+	public static String ADD_MODE_TEXT = "Add";
 
 	//Officer name
 	public static String OFFICER_NAME_DATA = "ExternalOfficer";
@@ -263,6 +299,9 @@ public class RaisTestData {
 	public static String FACILITY_USERNAME_DATA = "FacilityStatusTestData";
 	public static String EXTERNAL_USER = "External";
 	public static String INTERNAL_USER = "Internal";
+	
+	public static String primary = "Primary";
+	public static String secondary = "Secondary";
 	
 	//Expert Data
 	public static String EXPERT_USERNAME_DATA = "ExpertOfficer";

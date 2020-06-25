@@ -128,9 +128,9 @@ public class AddNewEntityFormDetailsPage {
 
 	//New SP msgs
 	public String DELSP_POPUP_CONF_MSG_Txt="Confirmation";
-	public String ADDNEWSP_SUCESSMSG_TXT = "New Security Profile has been added successfully.";
-	public String UPDATESP_SUCESSMSG_TXT = "Security Profile has been updated successfully.";
-	public String DELSP_SUCESSMSG_TXT = "Security Profile has been deleted successfully.";
+	public String ADDNEWRECORD_SUCESSMSG_TXT = "Record created successfully";
+	public String UPDATERECORD_SUCESSMSG_TXT = "Record updated successfully";
+	public String DELRECORD_SUCCESSMSG_TXT = "Record deleted successfully";
 
 	public String DELSP_POPMSG_Txt = "Do you really want to delete this security profile?";
 

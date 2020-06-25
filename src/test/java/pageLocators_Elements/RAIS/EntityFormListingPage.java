@@ -12,11 +12,18 @@ public class EntityFormListingPage {
 	
 	public String generic_Suffix_EntityFrmListingColHeader1_XPath = "')]]";
 	
+	//Main xpath for col header
 	public String Dyamic_GridTable_Prefix_Xpath = "//*[@id='entity-details']//table//thead//tr//th[";
+		
+	//below 2 are for col header filter and button click
 	public String Dynamic_GridTable_Suffix1_Xpath = "]//a[span[contains(text(),'";
 	public String Dynamic_GridTable_Suffix2_Xpath = "')]]//span//button";
-	public String Dynamic_GridTable_TxtInput_Suffix_Xpath = "]//div//div//input[@class='k-textbox']";
 	
+	
+	//below is to extract text for col header
+	public String Dynamic_colHeaderName_Text_Suffix2_Xpath = "]//a//span";
+	
+	public String Dynamic_GridTable_TxtInput_Suffix_Xpath = "]//div//div//input[@class='k-textbox']";
 	
 	
 	public String securityProfileLandingPageColHeader1_XPath = "//*[@id='entity-details']//table//thead//tr//th//a[span[contains(text(),'Name')]]";

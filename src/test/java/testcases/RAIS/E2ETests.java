@@ -1384,7 +1384,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(1000);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -1464,7 +1464,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -1596,7 +1596,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, ExpertEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, ExpertEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -1685,7 +1685,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(500);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -1749,7 +1749,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on Officer menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, ExpertEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, ExpertEntityName);
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 2,
@@ -1771,7 +1771,7 @@ public class E2ETests extends BaseClass
 
 			//Deleting Authority test data ******************************************************2
 			//Clicking on Authority menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CustomizesubMenuName,3 , PartnerAgencyEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CustomizesubMenuName , PartnerAgencyEntity);
 
 			//Delete officer here
 			//Column header filter starts here
@@ -1834,7 +1834,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on Officers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, 2, FacilityEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, FacilityEntityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(2000);
@@ -1959,7 +1959,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(500);
 
 			//Clicking on User menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 			//wait for page load
 //			GenericMethods.pageLoadWait(1000);
@@ -2020,7 +2020,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//Clicking on facility entity
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, 2, FacilityEntityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, ResourceSubMenuName, FacilityEntityName);
 
 			//Column header filter starts here
 			RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 2,
@@ -2100,7 +2100,7 @@ public class E2ETests extends BaseClass
 			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
 
 			//Clicking on workers menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenuName, subMenuName, position, entityName);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenuName, subMenuName, entityName);
 
 			//wait for page load
 			GenericMethods.pageLoadWait(1000);
@@ -2237,7 +2237,7 @@ public class E2ETests extends BaseClass
 				GenericMethods.pageLoadWait(1000);
 
 				//Clicking on Officers menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 				//wait for page load
 				GenericMethods.pageLoadWait(2000);
@@ -2317,7 +2317,7 @@ public class E2ETests extends BaseClass
 				GenericMethods.pageLoadWait(2000);
 
 				//Clicking on User menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, 1, UsersEntity);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, AdminMainMenuName, UserMgmtsubMenuName, UsersEntity);
 
 				//wait for page load
 				GenericMethods.pageLoadWait(1000);
@@ -2381,7 +2381,7 @@ public class E2ETests extends BaseClass
 				GenericMethods.pageLoadWait(2000);
 
 				//Clicking on Officer menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, 1, OfficerEntityName);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, InvResmainMenuName, InvsubMenuName, OfficerEntityName);
 
 				//Column header filter starts here
 				RAIS_applicationSpecificMethods.DynamicGridFilter(wd, entityFrmListingPage.Dyamic_GridTable_Prefix_Xpath, 3,
@@ -2403,7 +2403,7 @@ public class E2ETests extends BaseClass
 
 				//Deleting Authority test data ******************************************************2
 				//Clicking on Authority menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CommonTablesubMenuName,4 , Auth_OrgEntity);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd,AdminMainMenuName, CommonTablesubMenuName , Auth_OrgEntity);
 
 				//Delete officer here
 				//Column header filter starts here
@@ -2901,7 +2901,7 @@ public class E2ETests extends BaseClass
 		(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 				password, loginPage.loginBtn_XPath);
 
-		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "INVENTORY & RESOURCES", "Inventory", 1, "Unsealed Sources");
+		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "INVENTORY & RESOURCES", "Inventory", "Unsealed Sources");
 		//		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "ADMINISTRATION", "User Management", 1, "Web Service Account");
 		//		RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "ADMINISTRATION", "Common Tables", 3, "Workflows");
 

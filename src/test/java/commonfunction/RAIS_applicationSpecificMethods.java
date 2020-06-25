@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import constants.RaisTestData;
 import pageLocators_Elements.RAIS.AddNewAttributePage;
@@ -24,6 +25,7 @@ import pageLocators_Elements.RAIS.DashboardPage;
 import pageLocators_Elements.RAIS.DataRoles_FunctionalRolesPage;
 import pageLocators_Elements.RAIS.EntityFormListingPage;
 import pageLocators_Elements.RAIS.EntityListingPage;
+import pageLocators_Elements.RAIS.LoginPage;
 import pageLocators_Elements.RAIS.UserListPage;
 
 
@@ -219,6 +221,42 @@ public class RAIS_applicationSpecificMethods  {
 		GenericMethods.elementClick(wFlt, GridColHeader);
 
 		GenericMethods.sendText(wFlt, GridTextInput, filterText);
+
+	}
+
+	//Dynamic column header and click 21Jun
+	public static void EntityRecordGridFilter_Click(WebDriver wGrid,int position,String filterText) {
+
+		//initialisting entity form listing page
+		EntityFormListingPage entFrmListPage = new EntityFormListingPage();
+
+		//Fetch col header name w.r.t position into the string
+		String ColName = entFrmListPage.Dyamic_GridTable_Prefix_Xpath + position +entFrmListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
+
+		//Get text name of the header
+		ColName = GenericMethods.getActualTxt(wGrid, ColName);
+
+		//concatenate prefix, suffix, col header name, position to form xpath
+		String GridColHeader = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_Suffix1_Xpath
+				+ColName+entFrmListPage.Dynamic_GridTable_Suffix2_Xpath;
+
+		//create dynamic dynamic xpath of text field
+		String GridTextInput_xpath = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+
+		//clicking on filter icon on the grid
+		GenericMethods.elementClick(wGrid, GridColHeader);
+
+		//input text value to search
+		GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);			
+
+		//Clicking on specific Role created
+		perm_restrict_Select_Click(wGrid,entFrmListPage.securityProfileTableList_XPath , filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);	
 
 	}
 
@@ -2005,9 +2043,41 @@ public class RAIS_applicationSpecificMethods  {
 
 
 	// Method to click on top menu
-	public static void Generic_Menu_subMenu_Click(WebDriver wdMenu, String MainMenuName, String subMenu, int colposition, String childMenu) {	
+	public static void Generic_Menu_subMenu_Click(WebDriver wdMenu, String MainMenuName, String subMenu, String childMenu) {	
 
-		boolean flag = true;
+		//Setting flag to exit loop
+		boolean flag = true; int colposition=0;
+
+		//Setting column position
+		if(subMenu == "Inventory" || subMenu == "User Management") {
+
+			colposition = 1;
+		} 
+
+		//setting col position for other menus
+		switch (subMenu) {
+
+		case "Resources":
+
+			colposition = 2;
+
+			break;
+
+		case "Customization":
+
+			colposition = 3;
+
+			break;
+
+		case "Common Tables":
+
+			colposition = 4;
+
+			break;
+
+		default:
+			break;
+		}
 
 		try {
 
@@ -2025,7 +2095,8 @@ public class RAIS_applicationSpecificMethods  {
 					System.out.println(headerName.findElement(By.tagName("a")).getText());
 					headerName.click();
 
-					GenericMethods.pageLoadWait(600);
+//					GenericMethods.pageLoadWait(600);
+					GenericMethods.JSPageWait(wdMenu);
 
 					List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
 
@@ -2292,11 +2363,12 @@ public class RAIS_applicationSpecificMethods  {
 
 
 		try {
-			//wait for page load
+			//page wait
 			GenericMethods.pageLoadWait(1000);
+			GenericMethods.JSPageWait(went);
 
 			//Clicking on Officers menu
-			Generic_Menu_subMenu_Click(went, RaisTestData.AdministrationMainMenu, RaisTestData.CustomizeSubMenu, 3, RaisTestData.businessEntityList[66]);
+			Generic_Menu_subMenu_Click(went, RaisTestData.AdministrationMainMenu, RaisTestData.CustomizeSubMenu, RaisTestData.businessEntityList[66]);
 
 			//********************************Add new Entity starts here
 			//Waiting for button to load and click
@@ -2382,7 +2454,7 @@ public class RAIS_applicationSpecificMethods  {
 
 			//Clicking on Officers menu
 			Generic_Menu_subMenu_Click(wFuncRole, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					1, RaisTestData.functionalRole);
+					RaisTestData.functionalRole);
 
 			//Clicking on add new data role
 			GenericMethods.elementClick(wFuncRole, DRFR_Page.FR_addNewRoleBtn);
@@ -2494,21 +2566,29 @@ public class RAIS_applicationSpecificMethods  {
 
 
 	//Generic method to add entity record data in any form
-	public static boolean createEntityRecord(WebDriver wRecordEntity, String businessEntityName, String officerNameinput, String AuthTypeinput, String emailInput) {
+	public static boolean createEntityRecord(WebDriver wRecordEntity, String businessEntityName, String officerNameinput, String AuthTypeinput, String emailInput, String mode) {
 
 		//Initialising form name
 		AddNewEntityFormDetailsPage addEntityRecordPage = new AddNewEntityFormDetailsPage();
 		EntityFormListingPage entityListing = new EntityFormListingPage();
 
+		//initialising soft assert
+		SoftAssert sa= new SoftAssert();
+
 		try {
 
-			//wait for page load
-			GenericMethods.JSPageWait(wRecordEntity);
+			//only for Add new record mode
+			if(mode=="Add") {
 
-			//Waiting until element to load and click on Add new button
-			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
-			GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
-			GenericMethods.elementClick(wRecordEntity, entityListing.addNewBtn_XPath);
+				//wait for page load
+				GenericMethods.JSPageWait(wRecordEntity);
+
+				//Waiting until element to load and click on Add new button
+				GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
+				GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
+				GenericMethods.elementClick(wRecordEntity, entityListing.addNewBtn_XPath);
+
+			}
 
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
@@ -2567,6 +2647,18 @@ public class RAIS_applicationSpecificMethods  {
 
 				break;
 
+			case "NameOnly":
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+
+				//Tab from element
+				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath);
+
+
+				break;
+
+
 			default:
 				break;
 			}
@@ -2577,7 +2669,22 @@ public class RAIS_applicationSpecificMethods  {
 
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
-			GenericMethods.pageLoadWait(1000);
+
+			//verify for add and edit messages
+			//			if(mode =="Add") {
+			//				
+			//			//verifying the Delete popup message
+			//				sa.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
+			//					addEntityRecordPage.ADDNEWRECORD_SUCESSMSG_TXT);
+			//			
+			//			} else {
+			//				
+			//				//verifying the Delete popup message
+			//				sa.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
+			//						addEntityRecordPage.UPDATERECORD_SUCESSMSG_TXT);
+			//			}
+			//			
+			//			sa.assertAll();
 
 			//waiting for link to load and then click
 			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
@@ -2589,6 +2696,7 @@ public class RAIS_applicationSpecificMethods  {
 
 
 			return true;
+
 		}catch (NoSuchElementException  noElement) {
 
 			noElement.printStackTrace();
@@ -2630,16 +2738,33 @@ public class RAIS_applicationSpecificMethods  {
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wUser, createUserPage.addnewUser_org_XPath, orgName);
 
 			//Only for primary user
-			if (userCategory == "Primary" && userType == "External") {
-				
-				//External user
-				GenericMethods.elementClick(wUser, createUserPage.addnewUser_ExternalrdobtnAuth_XPath);
-				
-			}else if (userCategory == "Primary" && userType == "Internal") {
-				
-				//External user
-				GenericMethods.elementClick(wUser, createUserPage.addnewUser_InternalrdobtnAuth_XPath);
+			if (userCategory == "Primary") {
+
+				//Check for external user condition
+				if(userType == "External"){
+
+					//External user radio button click
+					GenericMethods.elementClick(wUser, createUserPage.addnewUser_ExternalrdobtnAuth_XPath);
+
+				}else{
+
+					//Internal user radio button click
+					GenericMethods.elementClick(wUser, createUserPage.addnewUser_InternalrdobtnAuth_XPath);
+
+				}
 			}
+
+			//			//Only for primary user
+			//			if (userCategory == "Primary" && userType == "External") {
+			//				
+			//				//External user
+			//				GenericMethods.elementClick(wUser, createUserPage.addnewUser_ExternalrdobtnAuth_XPath);
+			//				
+			//			}else if (userCategory == "Primary" && userType == "Internal") {
+			//				
+			//				//External user
+			//				GenericMethods.elementClick(wUser, createUserPage.addnewUser_InternalrdobtnAuth_XPath);
+			//			}
 
 			//Enter officer name
 			GenericMethods.sendText(wUser, createUserPage.addnewUser_selectUser_XPath, typeUserName);
@@ -2697,37 +2822,37 @@ public class RAIS_applicationSpecificMethods  {
 
 	//Robotclass to handle windows authentication
 	public static void windowsAuthscreen_Login() {
-		
+
 		try {
 			Robot rbc = new Robot();
-			
+
 			//RAIS_Test1	
-			
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
-			
+
 			//Enter username
 			rbc.keyPress(KeyEvent.VK_R); rbc.keyRelease(KeyEvent.VK_R);	
 			rbc.keyPress(KeyEvent.VK_A); rbc.keyRelease(KeyEvent.VK_A);
 			rbc.keyPress(KeyEvent.VK_I); rbc.keyRelease(KeyEvent.VK_I);
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
-			
+
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
-			
+
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
 			rbc.keyPress(KeyEvent.VK_MINUS); rbc.keyRelease(KeyEvent.VK_MINUS);
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
 			rbc.keyPress(KeyEvent.VK_T); rbc.keyRelease(KeyEvent.VK_T);
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_E); rbc.keyRelease(KeyEvent.VK_E);	
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
 			rbc.keyPress(KeyEvent.VK_T); rbc.keyRelease(KeyEvent.VK_T);
@@ -2735,64 +2860,152 @@ public class RAIS_applicationSpecificMethods  {
 
 			//input tab
 			rbc.keyPress(KeyEvent.VK_TAB); rbc.keyRelease(KeyEvent.VK_TAB);
-			
+
 			//password input   RPS%zst$ts@rs%2020
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_R); rbc.keyRelease(KeyEvent.VK_R);	
 			rbc.keyPress(KeyEvent.VK_P); rbc.keyRelease(KeyEvent.VK_P);
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
 			rbc.keyPress(KeyEvent.VK_5); rbc.keyRelease(KeyEvent.VK_5);
-			
+
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_Z); rbc.keyRelease(KeyEvent.VK_Z);	
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
 			rbc.keyPress(KeyEvent.VK_T); rbc.keyRelease(KeyEvent.VK_T);
-			
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
 			rbc.keyPress(KeyEvent.VK_4); rbc.keyRelease(KeyEvent.VK_4);
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_T); rbc.keyRelease(KeyEvent.VK_T);	
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
-			
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
 			rbc.keyPress(KeyEvent.VK_2); rbc.keyRelease(KeyEvent.VK_2);
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_R); rbc.keyRelease(KeyEvent.VK_R);	
 			rbc.keyPress(KeyEvent.VK_S); rbc.keyRelease(KeyEvent.VK_S);
-			
+
 			//Clicking on shift
 			rbc.keyPress(KeyEvent.VK_SHIFT);
 			rbc.keyPress(KeyEvent.VK_5); rbc.keyRelease(KeyEvent.VK_5);
 			//Releasing shift
 			rbc.keyRelease(KeyEvent.VK_SHIFT);
-			
+
 			rbc.keyPress(KeyEvent.VK_2); rbc.keyRelease(KeyEvent.VK_2);	
 			rbc.keyPress(KeyEvent.VK_0); rbc.keyRelease(KeyEvent.VK_0);
 			rbc.keyPress(KeyEvent.VK_2); rbc.keyRelease(KeyEvent.VK_2);	
 			rbc.keyPress(KeyEvent.VK_0); rbc.keyRelease(KeyEvent.VK_0);
-			
+
 			//Clicking tab
 			rbc.keyPress(KeyEvent.VK_TAB); rbc.keyRelease(KeyEvent.VK_TAB);
-			
+
 			//clicking on signon
 			rbc.keyPress(KeyEvent.VK_ENTER); rbc.keyRelease(KeyEvent.VK_ENTER);
-			
-			
+
+
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			// TODO: handle exception
 		}
-		
+
+	}
+
+	//Primary & secondary login
+	public static void primary_secondary_Login (WebDriver drvPS, String userType, String userName, String pwd, String userDropDown) {
+
+		//Initialise login page
+		LoginPage lgnPage = new LoginPage();
+
+		//page wait
+		GenericMethods.JSPageWait(drvPS);
+
+		if(userType == "External") {
+
+			//Calling Login method
+			GenericMethods.loginApplication(drvPS, lgnPage.userId_XPath, userName, lgnPage.pwd_XPath, pwd, lgnPage.loginBtn_XPath);
+
+		} else {
+
+			//clicking on internal tab
+			GenericMethods.elementClick(drvPS,lgnPage.internalLogin_XPath);
+
+			//page wait
+			GenericMethods.JSPageWait(drvPS);
+
+			//clicking on windows auth button
+			GenericMethods.elementClick(drvPS,lgnPage.winAuthBtn_XPath);
+
+			//page wait
+			GenericMethods.JSPageWait(drvPS);
+
+			//calling robot class
+			RAIS_applicationSpecificMethods.windowsAuthscreen_Login();
+
+		}
+
+		//wait for page load
+		GenericMethods.JSPageWait(drvPS);
+
+		//selecting user from drop down
+		RAIS_applicationSpecificMethods.valueSelectfromDropDown(drvPS, lgnPage.primaryUser_Dropdown_Xpath,userDropDown);
+
+		//click on submit button
+		GenericMethods.elementClick(drvPS, lgnPage.submitBtn_XPath);
+
+		//page wait
+		GenericMethods.JSPageWait(drvPS);		
+
+	}
+
+	//Delete entity record for CRUD operations
+	public static void deleteEntityRecord(WebDriver wdEntityRecord) {
+
+		//initialisting entity form listing page
+		AddNewEntityFormDetailsPage entRecordpage = new AddNewEntityFormDetailsPage ();
+
+		//initialising soft assert
+		SoftAssert sa= new SoftAssert();
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting until element to load and click on delete button
+		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.deleteBtn_XPath);
+		GenericMethods.elementClick(wdEntityRecord, entRecordpage.deleteBtn_XPath);
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting for delete popup page
+		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);	
+		GenericMethods.elementClickable(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);
+		GenericMethods.elementClick(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);			
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting for delete popup page
+		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);	
+		GenericMethods.elementClickable(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
+
+		//verifying the Delete popup message
+		//		sa.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
+		//				entRecordpage.DELRECORD_SUCCESSMSG_TXT);
+		//		
+		//		sa.assertAll();
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
 	}
 }
