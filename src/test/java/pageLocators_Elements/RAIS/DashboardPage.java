@@ -23,7 +23,7 @@ public class DashboardPage {
 	//public String loggedinUser_XPath = "//*[@class='app-login dropdown-toggle']"	;
 	
 	//public String loggedinUser_XPath = "/html/body/div[1]/div[1]/div/div/nav/div/ul/li[4]/div";
-	public String loggedinUser_XPath = "//*[@id='account-settings']";
+	public String loggedinUser_XPath = "//*[@id='navbarCollapse']/ul[1]/li/div/div/span[1]";
 	
 	
 	public String xx = "//a[text()='Logout']/@href";
@@ -35,6 +35,10 @@ public class DashboardPage {
 	public String logout_XPath = "//*[@class='nav-link show']//ul//li//a[text()='Logout']";
 	public String profile_XPath = "//*[contains(@href,'Profile')]";	
 	//public String logout_XPath = "//*[contains(@href,'Logout')]";
+	
+	//logout text logout!!! xpath
+	public String logoutPage_XPath = "/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div/div/div[1]/h3";
+	public String reLogin_XPath = "/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div/div/div[2]/div[2]/a";
 	
 	public String newlogOut_XPath1 = "//*[@class='nav-item dropdown']//div//ul//li//a[@href='/Home/Profile']";
 	public String newlogOut_XPath2 = "//*[@class='nav-item dropdown']//div//ul//li//a[text()='Logout']";
@@ -123,4 +127,5 @@ public class DashboardPage {
 	public String LP_LOGGEDIN_AS_ADMIN_Txt = "Administrator ";
 	public String LP_MY_PROFILE_Txt = "My Profile";
 	public String LP_LOGOUT_Txt = "Logout";
+	public String LP_SUCCESS_LOGOUT= "Logged Out. !!";
 }

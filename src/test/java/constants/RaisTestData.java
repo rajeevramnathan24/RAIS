@@ -1,6 +1,7 @@
 package constants;
 
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RaisTestData {
 
@@ -20,14 +21,14 @@ public class RaisTestData {
 
 
 	//Dashboard page constants
-	public static String DashboardText = "DASHBOARD";
-	public static String RegProcessText = "REGULATORY PROCESSES";
-	public static String InventResourceMainMenu = "INVENTORY & RESOURCES";
+	public static String DashboardText = "Dashboard"; //"DASHBOARD";
+	public static String RegProcessText = "Regulatory Processes"; //"REGULATORY PROCESSES";
+	public static String InventResourceMainMenu = "Inventory & Resources"; //"INVENTORY & RESOURCES";
 	public static String InventorySubMenuText = "Inventory";
 	public static String ResourcesSubMenuText = "Resources";
 	public static String RptStatsText = "REPORTS & STATISTICS";
-	public static String SettingsText = "SETTINGS";
-	public static String AdministrationMainMenu = "ADMINISTRATION";
+	public static String SettingsText = "Settings"; //"SETTINGS";
+	public static String AdministrationMainMenu = "Administration"; //"ADMINISTRATION";
 	public static String UserMgmtSubMenuText = "User Management";
 	public static String ToolsSubMenu = "Tools";
 	public static String CustomizeSubMenu = "Customization";
@@ -45,6 +46,7 @@ public class RaisTestData {
 	public static String FuncRole_Test = "FunctionalRoleAutomationUser";
 	public static String SecurityRole_Test = "SecurityRoleAutomationUser";
 	public static String Dup_DataRole_Test = "All Data";
+	public static String OWNF_DataRole_Test = "Own Facility";
 	public static String Dup_FuncRole_Test = "Licensee";
 	public static String Attb_Text = "Attributes";
 	public static String EntityDetail_Text = "Entity Detail";
@@ -272,12 +274,24 @@ public class RaisTestData {
 						"Source Transport Mode",
 				"Partner Agency Service Providers",
 				"Inspection Statuses"};
+		
+	public static ArrayList<String> menuSubMenu  = new ArrayList<String>(Arrays.asList("Admin_ComMenu","Admin_CustMenu","InvRes_InvMenu","InvRes_ResMenu"));
 	
+	public static ArrayList<String> entName = new ArrayList<String>(Arrays.asList("Officer Tasks",	"Responses"));
 	
 	public static String [] singleFldBE_Inv_Inv = {"Officer Tasks",	"Responses"};
 	
 	public static String [] singleFldBE_Inv_Res = {"Worker Statuses"};
+	
+	public static String [] Group_singleFldBE_Menu = {"Admin_ComMenu","Admin_CustMenu","InvRes_InvMenu","InvRes_ResMenu"};
 
+	
+	public static String [] twoFldBE_Admin_CommonTbl = {"Radiation Generator Types"};//,"Types of Associated Equipments"};
+	
+	public static String [] twoFldBE_Admin_Custom = {"Person Tasks"};
+	
+	public static String [] twoFldBE_Inv_Res = {"Worker Tasks"};
+	
 	//Dummy practices
 	public static String PRACTICE_MEDICAL_DATA = "Practice Medical1";
 	public static String PRACTICE_IND_DATA = "Practice Industry";
@@ -332,7 +346,8 @@ public class RaisTestData {
 	public static String DATAROLE_ALL_DATA = "All Data";
 	public static String DATAROLE_SECURITY = "Security";
 	
-	
+	//updated text
+	public static String UPDATED_TXT = "Updated";
 
 
 

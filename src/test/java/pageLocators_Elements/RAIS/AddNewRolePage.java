@@ -24,11 +24,12 @@ public class AddNewRolePage {
 	
 	//public String addBtn_XPath = "//button[text()='Save']";
 	public String addBtn_XPath = "//div[@class='dialog-action']//div//button[text()='Save']";
+	public String SaveBtn_XPath = "//div[@id='datarole']//div//button[2][text()='Save']";
 	
 	//public String addBtn_XPath = "//button[@title='Save']";
 	
 	//public String cancelBtn_XPath = "//button[text()='Cancel']";
-	public String cancelBtn_XPath = "//div[@class='dialog-action']//div//button[text()='Cancel']";
+	public String cancelBtn_XPath = "//div[@id='datarole']//div//button[text()='Cancel']";
 	
 	//success message
 	public String addnewRole_SuccessMsg_XPath = "//div[@id='message-success']";
@@ -36,6 +37,8 @@ public class AddNewRolePage {
 	//validation msgXPath
 	public String nameRequired_MsgXPath = "//div[@class='dialog-content']//p[contains(text(),'Name is required.')]"	;//							"//*p[contains(text(),'Name is required.')]";
 	public String duplicateName_MsgXPath = "//p[contains(text(),'This Name already exists. Please enter a different Name')]";
+	//24-Aug
+	public String validMsgXpath = "//*[@id='name-helper-text']";
 	
 	
 	
@@ -65,6 +68,7 @@ public class AddNewRolePage {
 	public String ADDNEWROLE_SUCESSMSG_TXT = "New Data Role has been added successfully.";
 	public String EDITNEWROLE_SUCESSMSG_TXT = "Data Role has been updated successfully.";
 	public String DELETEROLE_SUCCESSMSG_TXT = "Data Role has been deleted successfully.";
+	public String DUPDR_TXT = "Duplicate data not allowed.";
 	
 	public String ADDNEWFUNC_ROLE_Txt = "Functional Role has been updated successfully.";
 	public String UPDATEFUNC_ROLE_Txt = "Functional Role has been updated successfully.";

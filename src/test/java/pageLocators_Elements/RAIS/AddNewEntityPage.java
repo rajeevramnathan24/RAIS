@@ -2,9 +2,9 @@ package pageLocators_Elements.RAIS;
 
 public class AddNewEntityPage {
 	//Add new security profile page
-	public String SaveBtn_XPath = "//button[text()='Save']";
-	public String cancelBtn_XPath = "//button[text()='Cancel']";
-	public String deleteBtn_XPath = "//button[text()='Delete']";
+	public String SaveBtn_XPath = "//*[@id='add-entity']//button[text()='Save']";
+	public String cancelBtn_XPath = "//*[@id='add-entity']//button[text()='Cancel']";
+	public String deleteBtn_XPath = "//*[@id='add-entity']//button[text()='Delete']";
 
 	//labels and buttons
 	public String addNewEntity_name_XPath = "//*[@id='add-entity']//label[contains(text(),'Internal Name')]";
@@ -75,9 +75,9 @@ public class AddNewEntityPage {
 	public String delEntity_PopupNoBtn_XPath = "//div[@class='dialog-action']"; 
 
 	//Pop message yes/ no buttons
-	public String delEntity_popUpNoBtn_XPath = "//button[contains(text(),'No')]";
-	public String delEntity_popUpYesBtn_XPath = "//button[contains(text(),'Yes')]";
-
+	public String delEntity_popUpNoBtn_XPath = "//*[@id='add-entity']//button[contains(text(),'No')]";
+	public String delEntity_popUpYesBtn_XPath = "//*[@id='add-entity']/div/div[2]/div/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
+	//*[@id='add-entity']/div/div[2]/div/div/div[2]/div/div/div[2]/div[2]/div/button[2]
 
 	//Attribute link
 	public String attributeLink_XPath = "add-entity";
@@ -89,7 +89,8 @@ public class AddNewEntityPage {
 	public String addnewEntity_closeMsg_Xpath = "//*[@id='message-success']//span//a[@id='close-btn-success']";
 
 	
-
+//Entity link on left menu pane
+	public String entDetailPage_XPath = "//*[@id='add-entity']/div/div[1]/div/div[2]/div[2]/div/div[1]/ul/li[1]/a/span";
 
 
 

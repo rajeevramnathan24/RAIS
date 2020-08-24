@@ -14,6 +14,9 @@ public class EntityFormListingPage {
 	
 	//Main xpath for col header
 	public String Dyamic_GridTable_Prefix_Xpath = "//*[@id='entity-details']//table//thead//tr//th[";
+	
+	//For entity listing page
+	public String EntityListing_GridTable_Prefix_Xpath = "//*[@id='entity']//table//thead//tr//th[";
 		
 	//below 2 are for col header filter and button click
 	public String Dynamic_GridTable_Suffix1_Xpath = "]//a[span[contains(text(),'";

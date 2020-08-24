@@ -314,6 +314,9 @@ public class GenericMethods  {
 		boolean isEnabled = false;
 		try {
 
+			//below is used to highlight only when flag is true
+			highLightElement(wen, elementEnabled, elementClickHighlight);
+			
 			//Verify if element is enabled
 			if(wen.findElement(By.xpath(elementEnabled)).isEnabled()) {
 
@@ -740,7 +743,7 @@ public class GenericMethods  {
 		WebDriverWait wait = new WebDriverWait(wb, Duration.ofSeconds(30));
 		JavascriptExecutor js = (JavascriptExecutor) wb;
 		String readyState = js.executeScript("return document.readyState").toString();
-		System.out.println(readyState);
+//		System.out.println(readyState);
 				
 		wait.until((ExpectedCondition<Boolean>) wd ->
 		   ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));

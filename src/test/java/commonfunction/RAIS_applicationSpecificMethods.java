@@ -2,15 +2,21 @@ package commonfunction;
 
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -2088,14 +2094,14 @@ public class RAIS_applicationSpecificMethods  {
 			//Iterating the role list webelement until match is found
 			for (WebElement headerName : menuList) {				
 
-				System.out.println(headerName);
+				//				System.out.println(headerName);
 				//locate specific role with text
 				if ((flag==true) && headerName.findElement(By.tagName("a")).getText().equals(MainMenuName)) {
 
 					System.out.println(headerName.findElement(By.tagName("a")).getText());
 					headerName.click();
 
-//					GenericMethods.pageLoadWait(600);
+					//					GenericMethods.pageLoadWait(600);
 					GenericMethods.JSPageWait(wdMenu);
 
 					List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
@@ -2356,25 +2362,27 @@ public class RAIS_applicationSpecificMethods  {
 	//Create entity
 	public static boolean createEntity(WebDriver went,String internalName, String singularName, String pluralName, 
 			String entityGroup, String entityRole,
-			String publishNav1, String publishNav2) {
+			String publishNav1, String publishNav2, String mode) {
 
 		EntityListingPage entityListingPage = new EntityListingPage();
 		AddNewEntityPage addNewEntityPage = new AddNewEntityPage();
 
 
-		try {
-			//page wait
-			GenericMethods.pageLoadWait(1000);
-			GenericMethods.JSPageWait(went);
+		try {			
 
-			//Clicking on Officers menu
-			Generic_Menu_subMenu_Click(went, RaisTestData.AdministrationMainMenu, RaisTestData.CustomizeSubMenu, RaisTestData.businessEntityList[66]);
+			//applicable for only add entity
+			if (mode=="Add") {
 
-			//********************************Add new Entity starts here
-			//Waiting for button to load and click
-			GenericMethods.waitforElement(went, entityListingPage.addNewEntityBtn_XPath);
-			GenericMethods.elementClickable(went, entityListingPage.addNewEntityBtn_XPath);
-			GenericMethods.elementClick(went, entityListingPage.addNewEntityBtn_XPath);
+				//page wait
+				GenericMethods.JSPageWait(went);
+
+				//********************************Add new Entity starts here
+				//Waiting for button to load and click
+				GenericMethods.waitforElement(went, entityListingPage.addNewEntityBtn_XPath);
+				GenericMethods.elementClickable(went, entityListingPage.addNewEntityBtn_XPath);
+				GenericMethods.elementClick(went, entityListingPage.addNewEntityBtn_XPath);
+
+			}		
 
 			//page wait
 			GenericMethods.JSPageWait(went);
@@ -2383,13 +2391,17 @@ public class RAIS_applicationSpecificMethods  {
 			GenericMethods.waitforElement(went, addNewEntityPage.cancelBtn_XPath);
 			GenericMethods.elementClickable(went, addNewEntityPage.cancelBtn_XPath);
 
-			//GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
-			//input entity internal name
-			GenericMethods.sendText(went, addNewEntityPage.addNewEntity_internalNameTxtBox_XPath, internalName);
+			//Applicable only for add mode
+			if (mode== "Add") {
 
-			//input entity Description name
-			GenericMethods.sendText(went, addNewEntityPage.addNewEntity_DescTxtBox_XPath,
-					RaisTestData.Entity_DescriptionData);
+				//GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
+				//input entity internal name
+				GenericMethods.sendText(went, addNewEntityPage.addNewEntity_internalNameTxtBox_XPath, internalName);
+
+				//input entity Description name
+				GenericMethods.sendText(went, addNewEntityPage.addNewEntity_DescTxtBox_XPath,
+						RaisTestData.Entity_DescriptionData);			
+			}
 
 			//input entity Singular name
 			GenericMethods.sendText(went, addNewEntityPage.addNewEntity_SingTxtBox_XPath, singularName);
@@ -2397,15 +2409,20 @@ public class RAIS_applicationSpecificMethods  {
 			//input entity Plural name
 			GenericMethods.sendText(went, addNewEntityPage.addNewEntity_PluTxtBox_XPath, pluralName);
 
-			//input entity group name
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_grpDropDown_XPath, entityGroup);
+			//Applicable only for add mode
+			if (mode == "Add") {
 
-			//input entity role name
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_roleDropDown_XPath, entityRole);
+				//input entity group name
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_grpDropDown_XPath, entityGroup);
 
-			//input entity publish navigation name
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi1DropDown_XPath, publishNav1);
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, publishNav2);
+				//input entity role name
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_roleDropDown_XPath, entityRole);
+
+				//input entity publish navigation name
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi1DropDown_XPath, publishNav1);
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, publishNav2);
+
+			}			
 
 			//clicking on entity - save button
 			GenericMethods.waitforElement(went, addNewEntityPage.SaveBtn_XPath);
@@ -2419,9 +2436,19 @@ public class RAIS_applicationSpecificMethods  {
 			GenericMethods.waitforElement(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath);
 			GenericMethods.elementVisible(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath);
 
-			//verifying the success message
-			Assert.assertEquals(GenericMethods.getActualTxt(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath),
-					addNewEntityPage.ADDNEWENT_SUCESSMSG_TXT);
+			//Applicable for add mode
+			if(mode=="Add") {
+				//verifying the add record success message
+				Assert.assertEquals(GenericMethods.getActualTxt(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath),
+						addNewEntityPage.ADDNEWENT_SUCESSMSG_TXT);
+			}else {
+				//verifying the update record success message
+				Assert.assertEquals(GenericMethods.getActualTxt(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath),
+						addNewEntityPage.UPDENT_SUCESSMSG_TXT);
+			}
+
+			//page wait
+			GenericMethods.JSPageWait(went);
 
 			//Setting return value true
 			return true;			
@@ -2572,6 +2599,10 @@ public class RAIS_applicationSpecificMethods  {
 		AddNewEntityFormDetailsPage addEntityRecordPage = new AddNewEntityFormDetailsPage();
 		EntityFormListingPage entityListing = new EntityFormListingPage();
 
+		//setting common variable value to reroute
+		Boolean entitywith2Input = false;
+		Boolean entitywith1Input = false;
+
 		//initialising soft assert
 		SoftAssert sa= new SoftAssert();
 
@@ -2647,6 +2678,14 @@ public class RAIS_applicationSpecificMethods  {
 
 				break;
 
+
+			case "Booleans":
+
+				//set flag value as true
+				entitywith1Input = true;
+
+				break;
+
 			case "NameOnly":
 
 				//Input Name
@@ -2662,6 +2701,26 @@ public class RAIS_applicationSpecificMethods  {
 			default:
 				break;
 			}
+
+			if (businessEntityName == "Radiation Generator Types" || businessEntityName == "Types of Associated Equipments"
+					||businessEntityName =="Person Tasks" ||businessEntityName == "Worker Tasks") {
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+
+				//select value from drop down
+				valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_practiceFld_XPath, AuthTypeinput);	
+
+			} else if(entitywith1Input == true) {
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+
+				//Tab from element
+				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath);
+
+			}
+
 			//Waiting until element to load and click on Add new button
 			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
 			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
@@ -2710,6 +2769,71 @@ public class RAIS_applicationSpecificMethods  {
 
 	}
 
+	//method to return menu and submenu based on input
+	public static String [] menuSubMenuName(String groupName) {
+
+		//initialising string to return
+		//String Full_List[] = null;
+		String BEname []  = null;
+		String mainMenu = null;
+		String subMenu = null;
+
+		switch (groupName) {
+		case "Admin_ComMenu":
+
+			//Initialising entity names
+			BEname  = RaisTestData.singleFldBE_Admin_CommonTbl;
+			mainMenu = RaisTestData.AdministrationMainMenu;;
+			subMenu = RaisTestData.CommonTablesSubMenu;
+
+			break;
+
+		case "Admin_CustMenu":
+
+			//Initialising entity names
+			BEname  = RaisTestData.singleFldBE_Admin_Custom;
+			//			 mainMenu = adminMainMenu;
+			//			 subMenu = CustomizeSubMenu;
+
+			break;
+
+		case "InvRes_InvMenu":
+
+			//Initialising entity names
+			BEname  = RaisTestData.singleFldBE_Inv_Inv;
+			//			 mainMenu = invenResMainMenu;
+			//			 subMenu = InvSubMenuName;
+
+			break;
+
+		case "InvRes_ResMenu":
+
+			//Initialising entity names
+			BEname  = RaisTestData.singleFldBE_Inv_Res;
+			//			 mainMenu = invenResMainMenu;
+			//			 subMenu = ResrcSubMenuName;
+
+			break;
+
+		default:
+			break;
+
+		}
+
+		return new String[] {mainMenu,subMenu};
+
+
+	}
+
+
+	public static List<Object> getmenuSubmenuName() {
+
+		String name = "abs";
+		int age = 123;
+		boolean b = true;
+
+		return Arrays.asList(name, age, b);
+	}
 
 	//User creation method
 	public static boolean createUser(WebDriver wUser, String userCategory,String userType, String orgType, String orgName,String typeUserName, String userID, String FR, String DR) {
@@ -2999,6 +3123,10 @@ public class RAIS_applicationSpecificMethods  {
 		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);	
 		GenericMethods.elementClickable(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
 
+		//verifying the success message
+		Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
+				entRecordpage.DELRECORD_SUCCESSMSG_TXT);
+
 		//verifying the Delete popup message
 		//		sa.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
 		//				entRecordpage.DELRECORD_SUCCESSMSG_TXT);
@@ -3008,4 +3136,297 @@ public class RAIS_applicationSpecificMethods  {
 		//page wait
 		GenericMethods.JSPageWait(wdEntityRecord);
 	}
+
+
+	//Pass entity menu location and perform add/ edit and delete functions
+
+	public static void entityAdd_Edit_Delete(WebDriver wAddEditDel, String publishMenu, String publishSubmenu, String entityName, 
+			String inputFld1,String inputFld2,String inputFld3,String modeType) {
+
+		try {
+			//set flag for add/ edit
+			boolean flagAddEdit = false;
+
+			//Clicking on User menu
+			Generic_Menu_subMenu_Click(wAddEditDel, publishMenu, publishSubmenu, entityName);
+			//***********************************************Create entity record
+			//calling generic method to call Officer entity data input
+			flagAddEdit = RAIS_applicationSpecificMethods.createEntityRecord(wAddEditDel, entityName, inputFld1, inputFld2,
+					inputFld3, modeType);
+			////**********************************************EDIT MODE STARTS Here						
+			//Grid filter and click on entity record listing page
+			EntityRecordGridFilter_Click(wAddEditDel, 2, inputFld1);
+
+			//String creation for edit mode
+			String editModeinput;
+
+
+			//Edit entity record
+			//calling generic method to call Officer entity data edit
+			flagAddEdit = RAIS_applicationSpecificMethods.createEntityRecord(wAddEditDel, entityName, "localTime", "Optional",
+					"Optional", "Optional");
+			////***********************************************delete starts here
+			//Grid filter and click on entity record listing page
+			EntityRecordGridFilter_Click(wAddEditDel, 2, "TestAuto" + "localTime");
+			//delete entity record data
+			deleteEntityRecord(wAddEditDel);
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		}	
+	}
+
+	//drag drop using jscript
+	public void dragDrop(WebDriver driver, String src, String dst) {
+		String js = String.format("$('%s').simulateDragDrop({ dropTarget: '%s'});",src,dst);
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("dragndrop_js" + js);
+	}
+
+	//Dynamic column header and click 22-Aug only for entity listing page
+	public static void EntityListingGridFilter_Click(WebDriver wGrid,int position,String filterText) {
+
+		//initialisting entity form listing page
+		EntityFormListingPage entListPage = new EntityFormListingPage();
+
+		//Fetch col header name w.r.t position into the string
+		String ColName = entListPage.EntityListing_GridTable_Prefix_Xpath + position +entListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
+
+		//Get text name of the header
+		ColName = GenericMethods.getActualTxt(wGrid, ColName);
+
+		//concatenate prefix, suffix, col header name, position to form xpath
+		String GridColHeader = entListPage.EntityListing_GridTable_Prefix_Xpath +position+entListPage.Dynamic_GridTable_Suffix1_Xpath
+				+ColName+entListPage.Dynamic_GridTable_Suffix2_Xpath;
+
+		//create dynamic dynamic xpath of text field
+		String GridTextInput_xpath = entListPage.EntityListing_GridTable_Prefix_Xpath +position+entListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+
+		//clicking on filter icon on the grid
+		GenericMethods.elementClick(wGrid, GridColHeader);
+
+		//input text value to search
+		GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);			
+
+		//Clicking on specific Role created
+		perm_restrict_Select_Click(wGrid,entListPage.securityProfileTableList_XPath , filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);	
+
+	}
+
+	//Delete individual entity method - 22-Aug
+	//Delete entity record for CRUD operations
+	public static void deleteEntity(WebDriver wdEntityRecord) {
+
+		//initialisting entity form listing page
+		AddNewEntityPage entpage = new AddNewEntityPage ();
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting until element to load and click on delete button
+		GenericMethods.elementClick(wdEntityRecord, entpage.deleteBtn_XPath);
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting for delete popup page
+		GenericMethods.JClickonElement(wdEntityRecord, entpage.delEntity_popUpYesBtn_XPath);			
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+
+		//Waiting for delete popup page
+		GenericMethods.waitforElement(wdEntityRecord, entpage.addnewEntity_SuccessMsg_XPath);	
+		GenericMethods.elementClickable(wdEntityRecord, entpage.addnewEntity_SuccessMsg_XPath);
+
+		//verifying the success message
+		Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entpage.addnewEntity_SuccessMsg_XPath),
+				entpage.DELENT_SUCESSMSG_TXT);
+
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
+	}
+
+	//Logout method new 23-Aug
+	public static void logout(WebDriver wLgout) {
+
+		//Initialise page
+		DashboardPage HomePage = new DashboardPage();			
+
+		//New code
+		//page wait
+		GenericMethods.JSPageWait(wLgout);
+
+		//Click on top icon to expand logout menu
+		GenericMethods.elementClick(wLgout, HomePage.loggedinUser_XPath);
+
+		//page wait
+		GenericMethods.JSPageWait(wLgout);
+
+		//Click on logout menu
+		GenericMethods.elementClick(wLgout, HomePage.logout_XPath);
+
+		//page wait
+		GenericMethods.JSPageWait(wLgout);
+
+		//verifying logout screen text
+		Assert.assertEquals(GenericMethods.getActualTxt(wLgout, HomePage.logoutPage_XPath),
+				HomePage.LP_SUCCESS_LOGOUT);
+
+		//click on login back to land on login page
+		GenericMethods.elementClick(wLgout, HomePage.reLogin_XPath);	
+
+		//page wait
+		GenericMethods.JSPageWait(wLgout);
+
+		//page refresh
+		wLgout.navigate().refresh();
+
+	}
+
+	// Method to select roles/ functions from left navigation pane
+	public static void DRFR_Edit_Delete(WebDriver wdi,String roleName, String mode) {	
+
+		//initialising DR & FR page
+		DataRoles_FunctionalRolesPage DR_FRPage = new DataRoles_FunctionalRolesPage();
+
+		try {
+
+			//Assigning to list webelemt
+			List<WebElement> roleList = wdi.findElements(By.xpath(DR_FRPage.edit_delPREFIX_XPath));
+
+			String edit_Delete;
+
+			//Iterating between the list webelements
+			for (int i=0; i<roleList.size();i++) {
+
+				//print index
+				System.out.println(i);
+
+				WebElement roleName1 = roleList.get(i);
+
+				//Compare the DR/ FR which needs to be clicked based on the param
+				if (roleName1.findElement(By.tagName("a")).getText().equals(roleName)) {
+
+					//Increment counter to append to prefix + suffix
+					int position=i+1;
+
+					//Print index and role
+					System.out.println(i);
+					System.out.println(roleList.get(1));
+
+					//Click on the selected link
+					roleName1.click();
+
+					if (mode=="Edit") {
+
+						//create dynamic xpath
+						edit_Delete = DR_FRPage.edit_delPREFIX_XPath+"["+position+DR_FRPage.edit_Suffix_XPath;
+						
+						//pagewait
+						GenericMethods.JSPageWait(wdi);
+
+						//clicking on role name		
+						GenericMethods.elementClick(wdi, edit_Delete);
+						
+					} else if(mode=="Delete") {
+
+						//create dynamic xpath for delete
+						edit_Delete = DR_FRPage.edit_delPREFIX_XPath+"["+position+DR_FRPage.delete_Suffix_XPath;	
+						
+						//pagewait
+						GenericMethods.JSPageWait(wdi);
+
+						//clicking on role name		
+						GenericMethods.elementClick(wdi, edit_Delete);
+					}
+
+					//pagewait
+					GenericMethods.JSPageWait(wdi);
+
+				}
+			}		
+
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}  
+	}
+
+	//Method for save and verify in DR / FR areas
+	public static void DR_FR_Input_Save_Verify(WebDriver wsave,String inputText, String verifyText) {
+
+		//Initialise DRFR page
+		AddNewRolePage DRFR_Add_Verify = new AddNewRolePage();
+
+		try {
+
+			//input role name and internal name
+			GenericMethods.sendText(wsave, DRFR_Add_Verify.inputroleName_XPath, inputText);
+
+			//clicking on add role button			
+			GenericMethods.tabfromElement(wsave, DRFR_Add_Verify.inputroleName_XPath);
+			System.out.println("clicked on addrole");
+
+			//page load and click
+			GenericMethods.elementClick(wsave, DRFR_Add_Verify.SaveBtn_XPath);
+
+			//waiting for success message
+			GenericMethods.waitforElement(wsave, DRFR_Add_Verify.addnewRole_SuccessMsg_XPath);
+			GenericMethods.elementVisible(wsave, DRFR_Add_Verify.addnewRole_SuccessMsg_XPath);
+
+			//verifying the success message
+			Assert.assertEquals(GenericMethods.getActualTxt(wsave, DRFR_Add_Verify.addnewRole_SuccessMsg_XPath),
+					verifyText);
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}  
+
+	}
+
+	//Delete method for DR or FR
+	public static void delete_DR_FR(WebDriver wdDRFR, String deleteMsg ) {
+
+		//INitialise page
+		DataRoles_FunctionalRolesPage deleteDRFR = new DataRoles_FunctionalRolesPage();
+		
+		//page wait
+		GenericMethods.JSPageWait(wdDRFR);
+
+		//Waiting for delete popup page
+		GenericMethods.JClickonElement(wdDRFR, deleteDRFR.deletePopupMsgYesBtn_XPath);			
+
+		//page wait
+		GenericMethods.JSPageWait(wdDRFR);
+
+		//Waiting for delete popup page
+		GenericMethods.waitforElement(wdDRFR, deleteDRFR.TopMessage_SuccessMsg_XPath);	
+		GenericMethods.elementClickable(wdDRFR, deleteDRFR.TopMessage_SuccessMsg_XPath);
+
+		//verifying the success message
+		Assert.assertEquals(GenericMethods.getActualTxt(wdDRFR, deleteDRFR.TopMessage_SuccessMsg_XPath),
+				deleteMsg);
+
+		//page wait
+		GenericMethods.JSPageWait(wdDRFR);
+	}
 }
+
+

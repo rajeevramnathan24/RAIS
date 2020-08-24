@@ -1,5 +1,6 @@
 package testSuite;
 
+import java.util.HashMap;
 
 public class E2E_TestPack {
 
@@ -35,4 +36,12 @@ public class E2E_TestPack {
 	public final static boolean e2eTC10_runStatus = false; 
 	public final static String e2eTC10_testName = "Verify Calibration record creation with inventory with History";
 	public final static String e2eTC10_testDescription = "Verify Administrator is successfully able to add new record with inventory with History";
+	
+	public static void TClist () {
+		
+	
+	
+	HashMap<Integer, String> hm = new HashMap<Integer, String>(); 
+    hm.put(1, "Ram"); 
+}
 }

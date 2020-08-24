@@ -14,6 +14,7 @@ public class DataRoles_FunctionalRolesPage {
 	//Add new permission/ restrictions btn xpath
 	//public String addNewPermissionRestrictBtn_XPath = "//*[@id=\"datarole\"]/div/div[2]/div/div[1]/div/button[3]";
 	public String addNewPermissionRestrictBtn_XPath = "//*[@id='AddNewPermission']";
+	public String addNewRestrictBtn_XPath = "//*[@id='AddNewRestriction']";
 	//public String addNewPermissionRestrictBtn_XPath = "//button[@title='Add New Permissions']";
 	public String FunctionalRolePermissionRestrictBtn_XPath = "//button[text()='Add New Permission']";
 	public String functionalRoleaddNewPermissionRestrictBtn_XPath = "//button[normalize-space(text())='Add New Permission']";
@@ -76,8 +77,9 @@ public class DataRoles_FunctionalRolesPage {
 	
 	
 //delete confirmation page on top
+	public String TopMessage_SuccessMsg_XPath = "//div[@id='message-body']";
 	public String deletePopupMsg_XPath = "//div[@id='max-width-dialog-title']";
-	public String deletePopupMsgYesBtn_XPath = "//button[contains(text(),'Yes')]";
+	public String deletePopupMsgYesBtn_XPath = "//*[@id='datarole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	public String deletePopupMsgNoBtn_XPath = "//button[contains(text(),'No')]";
 	public String delDataRolePerm_PopupMSGTxt_XPath= "//div[@class='dialog-content']";
     
@@ -90,11 +92,12 @@ public class DataRoles_FunctionalRolesPage {
 	
 	public String restrct_XPath = "";
 	
+	//edit delete link on DR & FR page
+	public String edit_delPREFIX_XPath = "//*[@id='datarole']/div/div[1]/div/div[2]/div[2]/div/div[1]/ul/li";
+	public String edit_Suffix_XPath = "]/div/button[1]";
+	public String delete_Suffix_XPath = "]/div/button[2]";
 	
-	
-	
-	
-	
+	//public String delEntity_popUpYesBtn_XPath = "//*[@id='datarole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	
 	
 	
@@ -117,5 +120,8 @@ public class DataRoles_FunctionalRolesPage {
 				+ "Are you sure you want to delete this role?";
 		public String DELETE_FUNCROLE_POPMSG_Txt="Deleting this role will delete all the permissions associated with it. "
 				+ "Are you sure you want to delete this role?";
+		
+		public String DEL_DR_CONFIRM_MSG_Txt = "Data Role has been deleted successfully.";
+		public String DEL_FR_CONFIRM_MSG_Txt = "Functional Role has been deleted successfully.";
 	
 }

@@ -32,10 +32,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -206,7 +208,7 @@ public class M2_OfficerUser extends BaseClass
 
 			//calling entity creation method and set flag value
 			TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Primay_EntityInternalName, primary_EntityNameSingular, primary_EntityNamePlural, 
-					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Inventory);
+					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Inventory,"Add");
 
 			System.out.println("entity1 creation complete");
 
@@ -215,7 +217,7 @@ public class M2_OfficerUser extends BaseClass
 
 			//calling entity creation method and set flag value
 			TestData_secUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Sec_EntityInternalName, Sec_EntityNameSingular, Sec_EntityNamePlural, 
-					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Resources);
+					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Resources,"Add");
 
 			System.out.println("entity2 creation complete");
 			//Entity creation Complete********************************************************************************
@@ -591,17 +593,17 @@ public class M2_OfficerUser extends BaseClass
 	}
 
 	//6 - Single Attribute Business Entity - Entity record CRUD operations
-	@Test(priority=6, enabled=true)
+	@Test(priority=6, enabled=false)
 	public void BusinessEntity_RecordCRUD_Operations_Admin_CommonTable() {
-		
+
 		//Setting Test name and description on report
 		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
 
 		try {
-			
+
 			//Entities under common tables with 1 field
 			String BEname [] = RaisTestData.singleFldBE_Admin_CommonTbl;
-			
+
 			//Calling Login method
 			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
 					loginPage.loginBtn_XPath);
@@ -660,27 +662,210 @@ public class M2_OfficerUser extends BaseClass
 	//7 - Single Attribute Business Entity - Entity record CRUD operations
 	@Test(priority=7, enabled=false)
 	public void BusinessEntity_RecordCRUD_Operations_Admin_Cust() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+		try {
+
+			//Initialising entity names
+			String BEname [] = RaisTestData.singleFldBE_Admin_Custom;
+
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu,BEname[i]);
+
+				//***********************************************Create entity record
+				//calling generic method to call Officer entity data input
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here						
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+				//Edit entity record
+				//calling generic method to call Officer entity data edit
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+				////***********************************************delete starts here
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+				//delete entity record data
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			//				//Logout user
+			//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//
+			//				//verifying logo on RIAS Page
+			//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+
+		}
+	}
+
+
+	//8 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=8, enabled=false)
+	public void BusinessEntity_RecordCRUD_Operations_InvRes_Inv() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+
+		try {
+
+			//Initialising entity names
+			String BEname [] = RaisTestData.singleFldBE_Inv_Inv;
+
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName,BEname[i]);
+
+				//***********************************************Create entity record
+				//calling generic method to call Officer entity data input
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here						
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
+
+				//Edit entity record
+				//calling generic method to call Officer entity data edit
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+
+				////***********************************************delete starts here
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
+
+				//delete entity record data
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			//				//Logout user
+			//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//
+			//				//verifying logo on RIAS Page
+			//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+
+		}
+	}
+
+	//9 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=9, enabled=true)
+	public void BusinessEntity_RecordCRUD_Operations_InvRes_Res() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record having 1 attribute","Verify Business entity with one field, record can be added, edited and deleted successfully");
+
+		try {
 			
-			//Setting Test name and description on report
-			SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+						
+			String BEname [] = null ;
+			String mainMenu= null;
+			String subMenu= null;
+			
+				//Initialising and assigning group name to string
+			String groupName [] = RaisTestData.Group_singleFldBE_Menu;
 
-			try {
-				
-				//Initialising entity names
-				String BEname [] = RaisTestData.singleFldBE_Admin_Custom;
-				
-				//Calling Login method
-				GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
-						loginPage.loginBtn_XPath);
+			for (int i=0;i<groupName.length;i++) {
 
-				for(int i=0;i<BEname.length;i++) {
+				switch (groupName[i]) {
+				case "Admin_ComMenu":
+					
+					//Initialising entity names
+					 BEname  = RaisTestData.singleFldBE_Admin_CommonTbl;
+					 mainMenu = adminMainMenu;
+					 subMenu = CommonTblSubMenu;
+
+					break;
+
+				case "Admin_CustMenu":
+					
+					//Initialising entity names
+					 BEname  = RaisTestData.singleFldBE_Admin_Custom;
+					 mainMenu = adminMainMenu;
+					 subMenu = CustomizeSubMenu;
+
+					break;
+
+				case "InvRes_InvMenu":
+					
+					//Initialising entity names
+					 BEname  = RaisTestData.singleFldBE_Inv_Inv;
+					 mainMenu = invenResMainMenu;
+					 subMenu = InvSubMenuName;
+
+					break;
+
+				case "InvRes_ResMenu":
+
+					//Initialising entity names
+					 BEname  = RaisTestData.singleFldBE_Inv_Res;
+					 mainMenu = invenResMainMenu;
+					 subMenu = ResrcSubMenuName;
+					
+					break;
+
+				default:
+					break;
+				}
+				
+				//Iterate for length of entity names in the string
+				for(int entyCount=0;entyCount<BEname.length;entyCount++) {
 
 					//wait for page load
 					GenericMethods.JSPageWait(wd);
 
 					//Clicking on User menu
-					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu,BEname[i]);
-
+					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenu, subMenu,BEname[entyCount]);
+					
 					//***********************************************Create entity record
 					//calling generic method to call Officer entity data input
 					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
@@ -698,10 +883,214 @@ public class M2_OfficerUser extends BaseClass
 					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
 
 					//delete entity record data
-					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
-
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);		
 				}
+			}
 
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			//				//Logout user
+			//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//
+			//				//verifying logo on RIAS Page
+			//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+
+		}
+	}
+
+	//10 - 2 field attribute business entity - CRUD operations
+	@Test(priority=10, enabled=false)
+	public void BusinessEntity_2AttributesCRUD_Operations() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record having 2 attribute","Verify Business entity with two attributes, record can be added, edited and deleted successfully");
+
+		try {
+			
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+						
+			String BEname [] = null ;
+			String mainMenu= null;
+			String subMenu= null;
+			
+				//Initialising and assigning group name to string
+			String groupName [] = RaisTestData.Group_singleFldBE_Menu;
+
+			for (int i=0;i<groupName.length;i++) {
+
+				switch (groupName[i]) {
+				case "Admin_ComMenu":
+					
+					//Initialising entity names
+					 BEname  = RaisTestData.twoFldBE_Admin_CommonTbl;
+					 mainMenu = adminMainMenu;
+					 subMenu = CommonTblSubMenu;
+
+					break;
+
+				case "Admin_CustMenu":
+					
+					//No data
+
+					break;
+
+				case "InvRes_InvMenu":
+					
+					//Initialising entity names
+					 BEname  = RaisTestData.twoFldBE_Admin_Custom;
+					 mainMenu = invenResMainMenu;
+					 subMenu = InvSubMenuName;
+
+					break;
+
+				case "InvRes_ResMenu":
+
+					//Initialising entity names
+					 BEname  = RaisTestData.twoFldBE_Inv_Res;
+					 mainMenu = invenResMainMenu;
+					 subMenu = ResrcSubMenuName;
+					
+					break;
+
+				default:
+					break;
+				}
+				
+				//Iterate for length of entity names in the string
+				for(int entyCount=0;entyCount<BEname.length;entyCount++) {
+
+					//wait for page load
+					GenericMethods.JSPageWait(wd);
+
+					//Clicking on User menu
+					RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, mainMenu, subMenu,BEname[entyCount]);
+					
+					//***********************************************Create entity record
+					//calling generic method to call Officer entity data input
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], "1TestAuto", "Dental Xray",Optional, RaisTestData.ADD_MODE_TEXT);
+
+					////**********************************************EDIT MODE STARTS Here						
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "1TestAuto");
+
+					//Edit entity record
+					//calling generic method to call Officer entity data edit
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], localTime, "Dental Xray", Optional, Optional);
+
+					////***********************************************delete starts here
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "1TestAuto"+localTime);
+
+					//delete entity record data
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);		
+				}
+			}
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+
+			//				//Logout user
+			//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
+			//
+			//				//verifying logo on RIAS Page
+			//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
+
+			//page refresh
+			wd.navigate().refresh();
+
+		}
+	}
+
+	
+	//11 - Single Attribute Business Entity - Entity record CRUD operations
+		@Test(priority=11, enabled=false)
+		public void WorkFlowDraft() {
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Verify WF drag drop","Verify WF drag drop");
+
+			try {
+				
+				//Calling Login method
+				GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+						loginPage.loginBtn_XPath);
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CustomizeSubMenu,"Workflows");
+							
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				GenericMethods.elementClick(wd, "//*[@id='workflows']/div/div/div/div[2]/div/div[2]/div/div[1]/table/tbody/tr[1]/td[5]/span");
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				
+				
+				System.out.println(GenericMethods.getActualTxt(wd, "//*[@id='workflow-designer']//div//a[@id='controlStartEvent']"));
+				
+				System.out.println(GenericMethods.getActualTxt(wd, "//*[@id='workflow-designer']//div[1]//div[@class='col-sm-9']"));
+				
+				//WebElement wfControlfrom = wd.findElement(By.xpath("//*[@id='controlStartEvent']//a[.='Cancel Dependent Activity']"));
+				
+				
+				//*[@id='workflow-designer']/div[1]/div[1]/div/div/ul/li[1]
+//				WebElement wfControlfrom = wd.findElement(By.xpath("//*[@id='workflow-designer']/div[1]/div[1]/div/div/ul/li[1]"));
+				WebElement wfControlfrom = wd.findElement(By.xpath("//*[@id='workflow-designer']//div//a[@id='controlStartEvent']")); //*[@class='canvas']"
+				WebElement wfControlTo = wd.findElement(By.xpath("//*[@id='workflow-designer']//div[1]//div[@class='col-sm-9']"));
+				
+				System.out.println(wfControlfrom.getLocation().getX());
+				System.out.println(wfControlfrom.getLocation().getY());
+				
+				System.out.println(wfControlTo.getLocation().getX());
+				System.out.println(wfControlTo.getLocation().getY());
+				int canvasXlocation = wfControlTo.getLocation().getX();
+				int canvasYlocation = wfControlTo.getLocation().getY();
+				
+				int xFinal = (wfControlfrom.getLocation().getX() - wfControlTo.getLocation().getX())+10;
+				int yFinal = (wfControlfrom.getLocation().getY() - wfControlTo.getLocation().getY())+10;
+				
+				//*[@id='workflow-designer']/div[1]/div[2]/div/div
+				
+				//Using Action class for drag and drop.		
+		         Actions act=new Actions(wd);			
+		         
+		         GenericMethods.pageLoadWait(3000);
+
+			//Dragged and dropped.		
+//		         act.clickAndHold(wfControlfrom).moveToElement(wfControlTo).release(wfControlTo).build();
+//		         act.dragAndDropBy(wfControlfrom, canvasXlocation,canvasYlocation).perform();
+		         
+		         
+		         act.dragAndDrop(wfControlfrom, wfControlTo).build().perform();
+		         act.clickAndHold(wfControlfrom).moveToElement(wfControlTo).release(wfControlTo).build();
+		         
+		       //wait for page load
+					GenericMethods.JSPageWait(wd);
+				
+			System.out.println("drop success");	
 
 			}catch (NoSuchElementException  noElement) {
 				noElement.printStackTrace();
@@ -725,145 +1114,10 @@ public class M2_OfficerUser extends BaseClass
 		}
 
 		
-	//8 - Single Attribute Business Entity - Entity record CRUD operations
-	@Test(priority=8, enabled=false)
-	public void BusinessEntity_RecordCRUD_Operations_InvRes_Inv() {
-				
-				//Setting Test name and description on report
-				SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
-
-				try {
-					
-					//Initialising entity names
-					String BEname [] = RaisTestData.singleFldBE_Inv_Inv;
-					
-					//Calling Login method
-					GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
-							loginPage.loginBtn_XPath);
-
-					for(int i=0;i<BEname.length;i++) {
-
-						//wait for page load
-						GenericMethods.JSPageWait(wd);
-
-						//Clicking on User menu
-						RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName,BEname[i]);
-
-						//***********************************************Create entity record
-						//calling generic method to call Officer entity data input
-						flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
-
-						////**********************************************EDIT MODE STARTS Here						
-						//Grid filter and click on entity record listing page
-						RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
-
-						//Edit entity record
-						//calling generic method to call Officer entity data edit
-						flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
-
-						////***********************************************delete starts here
-						//Grid filter and click on entity record listing page
-						RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
-
-						//delete entity record data
-						RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
-
-					}
-
-
-				}catch (NoSuchElementException  noElement) {
-					noElement.printStackTrace();
-
-				}catch (Exception  e) {
-					e.printStackTrace();
-
-				} finally {
-
-
-					//				//Logout user
-					//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
-					//
-					//				//verifying logo on RIAS Page
-					//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
-
-					//page refresh
-					wd.navigate().refresh();
-
-				}
-			}
-
-	//9 - Single Attribute Business Entity - Entity record CRUD operations
-		@Test(priority=9, enabled=false)
-		public void BusinessEntity_RecordCRUD_Operations_InvRes_Res() {
-					
-					//Setting Test name and description on report
-					SettingRptTestName_TestDesc("Verify CRUD OPerations of Business Entity Record","Verify Business entity, record can be added, edited and deleted successfully");
-
-					try {
-						
-						//Initialising entity names
-						String BEname [] = RaisTestData.singleFldBE_Inv_Res;
-						
-						//Calling Login method
-						GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
-								loginPage.loginBtn_XPath);
-
-						for(int i=0;i<BEname.length;i++) {
-
-							//wait for page load
-							GenericMethods.JSPageWait(wd);
-
-							//Clicking on User menu
-							RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, ResrcSubMenuName,BEname[i]);
-
-							//***********************************************Create entity record
-							//calling generic method to call Officer entity data input
-							flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
-
-							////**********************************************EDIT MODE STARTS Here						
-							//Grid filter and click on entity record listing page
-							RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto");
-
-							//Edit entity record
-							//calling generic method to call Officer entity data edit
-							flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
-
-							////***********************************************delete starts here
-							//Grid filter and click on entity record listing page
-							RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
-
-							//delete entity record data
-							RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
-
-						}
-
-
-					}catch (NoSuchElementException  noElement) {
-						noElement.printStackTrace();
-
-					}catch (Exception  e) {
-						e.printStackTrace();
-
-					} finally {
-
-
-						//				//Logout user
-						//				RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
-						//
-						//				//verifying logo on RIAS Page
-						//				Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
-
-						//page refresh
-						wd.navigate().refresh();
-
-					}
-				}
-
 	
 	
 	
 	
-
 	//#22
 	@Test(priority=22,enabled=E2E_TestPack.e2eTC2_runStatus)
 	public void E2E_FormDesigner(){

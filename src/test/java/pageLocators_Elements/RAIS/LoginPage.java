@@ -6,7 +6,8 @@ public class LoginPage {
 	//Locator details
 	public String userId_XPath = "//*[@id='Username']";
 	public String pwd_XPath = "//*[@id='Password']";
-	public String loginBtn_XPath = "//button[contains(text(),'Login')]";
+//	public String loginBtn_XPath = "//button[contains(text(),'Login')]";
+	public String loginBtn_XPath = "//*[@id='btnLogIn']";
 	public String RIASHeaderLabel_XPath = "//*[@class='form-signin-heading']";
 	
 	public String externalLogin_XPath = "//*[contains(@href,'#local-login')]";
