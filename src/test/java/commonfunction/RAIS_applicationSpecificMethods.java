@@ -233,36 +233,41 @@ public class RAIS_applicationSpecificMethods  {
 	//Dynamic column header and click 21Jun
 	public static void EntityRecordGridFilter_Click(WebDriver wGrid,int position,String filterText) {
 
-		//initialisting entity form listing page
-		EntityFormListingPage entFrmListPage = new EntityFormListingPage();
+		try {
+			//initialisting entity form listing page
+			EntityFormListingPage entFrmListPage = new EntityFormListingPage();
 
-		//Fetch col header name w.r.t position into the string
-		String ColName = entFrmListPage.Dyamic_GridTable_Prefix_Xpath + position +entFrmListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
+			//Fetch col header name w.r.t position into the string
+			String ColName = entFrmListPage.Dyamic_GridTable_Prefix_Xpath + position +entFrmListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
 
-		//Get text name of the header
-		ColName = GenericMethods.getActualTxt(wGrid, ColName);
+			//Get text name of the header
+			ColName = GenericMethods.getActualTxt(wGrid, ColName);
 
-		//concatenate prefix, suffix, col header name, position to form xpath
-		String GridColHeader = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_Suffix1_Xpath
-				+ColName+entFrmListPage.Dynamic_GridTable_Suffix2_Xpath;
+			//concatenate prefix, suffix, col header name, position to form xpath
+			String GridColHeader = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_Suffix1_Xpath
+					+ColName+entFrmListPage.Dynamic_GridTable_Suffix2_Xpath;
 
-		//create dynamic dynamic xpath of text field
-		String GridTextInput_xpath = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+			//create dynamic dynamic xpath of text field
+			String GridTextInput_xpath = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
 
-		//clicking on filter icon on the grid
-		GenericMethods.elementClick(wGrid, GridColHeader);
+			//clicking on filter icon on the grid
+			GenericMethods.elementClick(wGrid, GridColHeader);
 
-		//input text value to search
-		GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
+			//input text value to search
+			GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
 
-		//wait for page load
-		GenericMethods.JSPageWait(wGrid);			
+			//wait for page load
+			GenericMethods.JSPageWait(wGrid);			
 
-		//Clicking on specific Role created
-		perm_restrict_Select_Click(wGrid,entFrmListPage.securityProfileTableList_XPath , filterText);
+			//Clicking on specific Role created
+			perm_restrict_Select_Click(wGrid,entFrmListPage.securityProfileTableList_XPath , filterText);
 
-		//wait for page load
-		GenericMethods.JSPageWait(wGrid);	
+			//wait for page load
+			GenericMethods.JSPageWait(wGrid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 
 	}
 
@@ -2101,7 +2106,7 @@ public class RAIS_applicationSpecificMethods  {
 					System.out.println(headerName.findElement(By.tagName("a")).getText());
 					headerName.click();
 
-					//					GenericMethods.pageLoadWait(600);
+					//GenericMethods.pageLoadWait(600);
 					GenericMethods.JSPageWait(wdMenu);
 
 					List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
@@ -2120,6 +2125,9 @@ public class RAIS_applicationSpecificMethods  {
 								if ((flag==true) && childName.findElement(By.tagName("a")).getText().equals(childMenu)) {
 
 									System.out.println(childName.findElement(By.tagName("a")).getText());
+									
+//									//GenericMethods.pageLoadWait(600);
+//									GenericMethods.JSPageWait(wdMenu);
 
 									WebElement childElement = childName.findElement(By.tagName("a"));
 
@@ -2127,9 +2135,21 @@ public class RAIS_applicationSpecificMethods  {
 
 									jscrollClick.executeScript("arguments[0].scrollIntoView()", childElement);
 
+//									//GenericMethods.pageLoadWait(600);
+//									GenericMethods.JSPageWait(wdMenu);
+									
+//									System.out.println(childName.findElement(By.tagName("a")));
+									
+//									String childMenuName = childName.findElement(By.tagName("a")).toString();
+//									System.out.println(childMenuName);
+									
+									
 									//Clicking on specific child
-									//									childName.click();
-									childElement.click();
+//									childElement.click();
+//									GenericMethods.JClickonElement(wdMenu, childMenuName);
+									JavascriptExecutor executor = (JavascriptExecutor) wdMenu;
+								     executor.executeScript("arguments[0].click();", childName.findElement(By.tagName("a")));
+//									GenericMethods.JClickonElement(wdMenu, childElement);
 
 									//setting flag as false
 									flag= false;
@@ -2603,30 +2623,20 @@ public class RAIS_applicationSpecificMethods  {
 		Boolean entitywith2Input = false;
 		Boolean entitywith1Input = false;
 
-		//initialising soft assert
-		SoftAssert sa= new SoftAssert();
-
 		try {
+			
+			//wait for page load
+			GenericMethods.JSPageWait(wRecordEntity);
 
 			//only for Add new record mode
 			if(mode=="Add") {
 
-				//wait for page load
-				GenericMethods.JSPageWait(wRecordEntity);
-
 				//Waiting until element to load and click on Add new button
-				GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
-				GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
+//				GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
+//				GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
 				GenericMethods.elementClick(wRecordEntity, entityListing.addNewBtn_XPath);
 
 			}
-
-			//wait for page load
-			GenericMethods.JSPageWait(wRecordEntity);
-
-			//Waiting until element to load and click on Add new button
-			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
-			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
 
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
@@ -2720,40 +2730,40 @@ public class RAIS_applicationSpecificMethods  {
 				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath);
 
 			}
+			
+			//wait for page load
+			GenericMethods.JSPageWait(wRecordEntity);
 
 			//Waiting until element to load and click on Add new button
-			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
-			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
+//			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
+//			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
 			GenericMethods.elementClick(wRecordEntity, addEntityRecordPage.SaveBtn_XPath);
 
+			//waiting for success message
+			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath);
+			GenericMethods.elementVisible(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath);
+
+			if (mode=="Add") {
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
+						addEntityRecordPage.ADDNEWRECORD_SUCESSMSG_TXT);
+			} else {
+			
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
+						addEntityRecordPage.UPDATERECORD_SUCESSMSG_TXT);
+			}
+			
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
-
-			//verify for add and edit messages
-			//			if(mode =="Add") {
-			//				
-			//			//verifying the Delete popup message
-			//				sa.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
-			//					addEntityRecordPage.ADDNEWRECORD_SUCESSMSG_TXT);
-			//			
-			//			} else {
-			//				
-			//				//verifying the Delete popup message
-			//				sa.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
-			//						addEntityRecordPage.UPDATERECORD_SUCESSMSG_TXT);
-			//			}
-			//			
-			//			sa.assertAll();
-
+			
 			//waiting for link to load and then click
-			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
-			GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);			
+//			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
+//			GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);			
 
 			//wait for page load
-			GenericMethods.JSPageWait(wRecordEntity);
-			GenericMethods.pageLoadWait(1000);
-
-
+//			GenericMethods.JSPageWait(wRecordEntity);
+			
 			return true;
 
 		}catch (NoSuchElementException  noElement) {
@@ -3097,44 +3107,31 @@ public class RAIS_applicationSpecificMethods  {
 
 		//initialisting entity form listing page
 		AddNewEntityFormDetailsPage entRecordpage = new AddNewEntityFormDetailsPage ();
-
-		//initialising soft assert
-		SoftAssert sa= new SoftAssert();
-
+		
+		//*****************
 		//page wait
-		GenericMethods.JSPageWait(wdEntityRecord);
+				GenericMethods.JSPageWait(wdEntityRecord);
 
-		//Waiting until element to load and click on delete button
-		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.deleteBtn_XPath);
-		GenericMethods.elementClick(wdEntityRecord, entRecordpage.deleteBtn_XPath);
+				//Waiting until element to load and click on delete button
+				GenericMethods.elementClick(wdEntityRecord, entRecordpage.deleteBtn_XPath);
 
-		//page wait
-		GenericMethods.JSPageWait(wdEntityRecord);
+				//page wait
+				GenericMethods.JSPageWait(wdEntityRecord);
 
-		//Waiting for delete popup page
-		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);	
-		GenericMethods.elementClickable(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);
-		GenericMethods.elementClick(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);			
+				//Waiting for delete popup page
+				GenericMethods.JClickonElement(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);			
 
-		//page wait
-		GenericMethods.JSPageWait(wdEntityRecord);
+				//Waiting for delete popup page
+				GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);	
+				GenericMethods.elementClickable(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
 
-		//Waiting for delete popup page
-		GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);	
-		GenericMethods.elementClickable(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
+						entRecordpage.DELRECORD_SUCCESSMSG_TXT);
 
-		//verifying the success message
-		Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
-				entRecordpage.DELRECORD_SUCCESSMSG_TXT);
-
-		//verifying the Delete popup message
-		//		sa.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
-		//				entRecordpage.DELRECORD_SUCCESSMSG_TXT);
-		//		
-		//		sa.assertAll();
-
-		//page wait
-		GenericMethods.JSPageWait(wdEntityRecord);
+				//page wait
+				GenericMethods.JSPageWait(wdEntityRecord);		
+		
 	}
 
 

@@ -45,7 +45,7 @@ public class EntityFormListingPage {
 	public String CityNameColHeader_XPath = "//*[@id='entity-details']//table//thead//tr//th[2]//a[span[text()='City Name']]//span//button";
 	public String OfficerNameColHeader_XPath = "//*[@id='entity-details']//table//thead//tr//th[3]//div//div//input[@class='k-textbox']";
 	//public String entityListingTableColHeader_TXT_XPath = "//*[@id='entity']//table//thead//tr[2]//th//div//div//input[@class='k-textbox']";
-	
+	public String emptyRecordsGrid_XPath = "//*[@id='entity-details']/div/div[3]/div/div[2]/div/div[1]/table/tbody/tr/td";
 	
 	
 	
@@ -71,7 +71,7 @@ public class EntityFormListingPage {
 		//Security page
 	public String SP_ROLELIST_TBLID_Txt = "securityprofiles";
 		public String SP_ADDNEW_PROFILE_Txt ="Add New Profile";
-		public String NO_SECURITYPROFILE_Txt = "No security profiles found";
+		public String NO_RECORDS_Txt = "No Records Found";
 		public String NAME_COLHEADER_NAME_Txt = "Name";
 		public String SP_COLHEADER_ENTITY_Txt = "Entity";
 		public String SP_COLHEADER_FIELD_Txt = "Fields";

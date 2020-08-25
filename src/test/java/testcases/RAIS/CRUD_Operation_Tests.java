@@ -16,6 +16,7 @@ import pageLocators_Elements.RAIS.AddNewSecurityProfilePage;
 import pageLocators_Elements.RAIS.AddNewUserDetailsPage;
 import pageLocators_Elements.RAIS.DashboardPage;
 import pageLocators_Elements.RAIS.DataRoles_FunctionalRolesPage;
+import pageLocators_Elements.RAIS.EntityFormListingPage;
 import pageLocators_Elements.RAIS.EntityListingPage;
 import pageLocators_Elements.RAIS.ForgotPasswordPage;
 import pageLocators_Elements.RAIS.LoginPage;
@@ -51,6 +52,7 @@ public class CRUD_Operation_Tests extends BaseClass
 	AddNewUserDetailsPage AddNewUserPage = new AddNewUserDetailsPage();
 	EntityListingPage entListingPage = new EntityListingPage();
 	AddNewEntityPage addEntityPage = new AddNewEntityPage();
+	EntityFormListingPage entityRecordListing = new EntityFormListingPage();
 
 	TestSuite RunTestCase = new TestSuite();
 
@@ -815,7 +817,7 @@ public class CRUD_Operation_Tests extends BaseClass
 	public void verifyDefaultroleDR_Permissions_Restrictions() {
 
 		try {
-			
+
 			String ownFacility = RaisTestData.OWNF_DataRole_Test;
 			String Optional = RaisTestData.OPTIONAL_TEXT;
 
@@ -836,39 +838,39 @@ public class CRUD_Operation_Tests extends BaseClass
 
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wd);
-			
+
 			//Click on add role button
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.DR_addNewRoleBtn);
-			
+
 			//input same name
 			GenericMethods.sendText(wd, AddNewDataRole.inputroleName_XPath, ownFacility);
-			
+
 			//give tab
 			GenericMethods.tabfromElement(wd, AddNewDataRole.inputroleName_XPath);
-						
+
 			//verify the validation message
 			Assert.assertEquals(GenericMethods.getActualTxt(wd, AddNewDataRole.validMsgXpath),
 					AddNewDataRole.DUPLICATENAME_MSG_TXT);
-			
+
 			//Click on cancel button
 			GenericMethods.elementClick(wd, AddNewDataRole.cancelBtn_XPath);
 
 			//clicking on left data role
 			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, ownFacility, Optional);
-			
+
 			//clicking on permissions tab
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRolePermTab_XPath);
 
 			// verify the button statuses
 			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.FunctionalRolePermissionRestrictBtn_XPath), "Disabled");
-			
+
 			//clicking on Restrictions tab
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRoleRestrictionTab_XPath);
 
 			// verify the button statuses
 			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.addNewRestrictBtn_XPath), "Disabled");
-			
-			
+
+
 
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -888,6 +890,95 @@ public class CRUD_Operation_Tests extends BaseClass
 
 
 	}
+
+	//#7 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=7, enabled=CRUDOperationTestDetails.crudOpTC7_runStatus)
+	public void BusinessEntity_RecordCRUD_Operations_Admin_CommonTable() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC7_testName,CRUDOperationTestDetails.crudOpTC7_testDescription);
+
+		try {
+			
+			//Test data
+			String singleFieldInput = RaisTestData.oneInputField;
+			String inputData = RaisTestData.demoData;
+			String optional = RaisTestData.OPTIONAL_TEXT;
+
+			//Entities under common tables with 1 field
+			String BEname [] =RaisTestData.singleFldBE_Admin_CommonTbl;// {"Extent of Events","Enforcement Statuses","Radiological Consequences","Source Statuses"};"Countries","Gender","Fields","Workflow Statuses"
+
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				wd.navigate().refresh();
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.CommonTablesSubMenu,BEname[i]);
+
+				//***********************************************Create entity record "Workflow Statuses"
+				//calling generic method to call Officer entity data input
+				Boolean flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, inputData, 
+						optional, optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here	
+
+				if(flag_createEntity == true) {
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData);
+
+					//Edit entity record
+					//calling generic method to call Officer entity data edit
+					flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, localTime, 
+							optional, optional, optional);
+
+
+					////***********************************************delete starts here
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//delete entity record data
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);	
+
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//verify the validation message
+					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityRecordListing.emptyRecordsGrid_XPath),
+							entityRecordListing.NO_RECORDS_Txt);									
+
+				} else {
+					System.out.println("Entity creation failed");
+				}
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+
+		}
+	}
+
+
+
+
 
 	//Test case Ends here *********************************
 

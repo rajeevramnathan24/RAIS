@@ -84,7 +84,7 @@ public class AddNewEntityFormDetailsPage {
 
 	//Pop message yes/ no buttons
 	public String popUpNoBtn_XPath = "//button[contains(text(),'No')]";
-	public String popUpYesBtn_XPath = "//button[contains(text(),'Yes')]";
+	public String popUpYesBtn_XPath = "//*[@id='entity-form']/div/div[2]/div[2]/div/div/div[2]/div[2]/div/button[2]";
 
 
 

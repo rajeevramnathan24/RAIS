@@ -809,4 +809,16 @@ public class GenericMethods  {
 		}
 
 	
+	//js webelement click method
+	public static void JSWebElementClick(WebDriver wJS, WebElement elementClick) {
+		
+		try {
+			JavascriptExecutor executor = (JavascriptExecutor) wJS;
+//		     executor.executeScript("arguments[0].click();", elementClick)));
+		     
+		  } catch (Exception e) {
+		     
+		  }
+	}
+		
 }

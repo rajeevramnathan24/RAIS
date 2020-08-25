@@ -25,9 +25,12 @@ public class CRUDOperationTestDetails {
 	public final static String crudOpTC5_testName = "Entity builder CRUD Operations"; 
 	public final static String crudOpTC5_testDescription = "Verify CRUD Operations for Entity creation page";
 	
-	public final static boolean crudOpTC6_runStatus = true;
+	public final static boolean crudOpTC6_runStatus = false;
 	public final static String crudOpTC6_testName = "Verify default DR role Permissions-Restrictions"; 
 	public final static String crudOpTC6_testDescription = "Verify Permission and Restrictions for default DR roles for - All data & Own facility";
 
-	
+	public final static boolean crudOpTC7_runStatus = true;
+	public final static String crudOpTC7_testName = "Verify CRUD operations for Admin-Common Table menus with one field value input"; 
+	public final static String crudOpTC7_testDescription = "Verify CRUD operations for Admin-Common Table menus with one field value input";
+
 }

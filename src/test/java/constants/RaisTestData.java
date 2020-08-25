@@ -245,6 +245,9 @@ public class RaisTestData {
 			"Authorities and Organizations", //65
 			"Entities"};//66
 	
+	//Single field BE
+	public static String oneInputField = "NameOnly";
+	public static String demoData = "1Demo Data";
 	public static String [] singleFldBE_Admin_CommonTbl = {"Booleans",
 			"Categories of Sealed Sources",
 			"Countries",
@@ -265,7 +268,8 @@ public class RaisTestData {
 			"Report Types",
 			"Security Groups", //"Source Statuses",
 			"Source Transfer Types",
-			"Wave Forms"};
+			"Wave Forms",
+			"Workflow Statuses"};
 	
 	public static String[] singleFldBE_Admin_Custom = 
 //		{"Non-Compliance Major Categories",
