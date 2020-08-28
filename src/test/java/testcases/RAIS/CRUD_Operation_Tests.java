@@ -54,6 +54,40 @@ public class CRUD_Operation_Tests extends BaseClass
 	AddNewEntityPage addEntityPage = new AddNewEntityPage();
 	EntityFormListingPage entityRecordListing = new EntityFormListingPage();
 
+	//Common Test data used across test cases
+	String dataRoleName = RaisTestData.DataRole_Test;
+	String functionalRoleName = RaisTestData.FuncRole_Test;
+	String DR_MenuName = RaisTestData.dataRole;
+	String FR_MenuName = RaisTestData.functionalRole;
+	
+	String addMode = RaisTestData.ADD_MODE_TEXT;
+	String editMode = RaisTestData.EDIT_MODE_TEXT;
+	String deleteMode = RaisTestData.DELETE_MODE_TEXT;
+	String Optional = RaisTestData.OPTIONAL_TEXT;
+	String updatedText = RaisTestData.UPDATED_TXT;
+	String ownFacility = RaisTestData.OWNF_DataRole_Test;
+	String singleFieldInput = RaisTestData.oneInputField;
+	String inputData = RaisTestData.demoData;
+	String optional = RaisTestData.OPTIONAL_TEXT;
+
+	//Entity creation test data
+	//Common data setup
+	String entityInternalName = "TestEntity"+localTime;
+	String singLabelName = "TestEntitySingularName"+localTime;
+	String pluralLabelName = "TestEntityPluralName"+localTime;			
+	String commonGroup = RaisTestData.Entity_GroupData;
+	String MainMenuInv_Res = RaisTestData.Entity_Publish_Inv_Res;
+	String subMenu = RaisTestData.Entity_PublishNav_Inventory;
+
+	//specific data
+	String inventoryRole = RaisTestData.Entity_RoleData;
+	String masterRole = RaisTestData.Entity_MasterRole;
+	String invHistoryRole = RaisTestData.Entity_InvWithHistoryRole;
+
+
+
+
+
 	TestSuite RunTestCase = new TestSuite();
 
 	//passcurrent time
@@ -113,8 +147,6 @@ public class CRUD_Operation_Tests extends BaseClass
 
 		try {
 
-			String dataRoleName = RaisTestData.DataRole_Test;
-
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC1_testName,CRUDOperationTestDetails.crudOpTC1_testDescription);
 
@@ -128,7 +160,7 @@ public class CRUD_Operation_Tests extends BaseClass
 
 			//Clicking on entities menu
 			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					RaisTestData.dataRole);
+					DR_MenuName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -137,7 +169,7 @@ public class CRUD_Operation_Tests extends BaseClass
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.DR_addNewRoleBtn);
 
 			//Calling common method to input save and verify
-			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, dataRoleName, AddNewDataRole.ADDNEWROLE_SUCESSMSG_TXT);
+			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, dataRoleName, AddNewDataRole.ADDNEWROLE_SUCESSMSG_TXT,DR_MenuName);
 
 			//page refresh
 			wd.navigate().refresh();
@@ -146,12 +178,12 @@ public class CRUD_Operation_Tests extends BaseClass
 
 			//Edit starts here****************************************************************************			
 			//clicking on left data role
-			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName, "Edit");
+			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName, editMode,DR_MenuName);
 
 			System.out.println("clicked on edit");
 
 			//Calling common method to input save and verify
-			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, localTime, AddNewDataRole.EDITNEWROLE_SUCESSMSG_TXT);
+			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, localTime, AddNewDataRole.EDITNEWROLE_SUCESSMSG_TXT,DR_MenuName);
 
 			//page refresh
 			wd.navigate().refresh();
@@ -160,12 +192,12 @@ public class CRUD_Operation_Tests extends BaseClass
 
 			//delete starts here****************************************************************************				
 			//clicking on left data role
-			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName+localTime, "Delete");
+			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName+localTime, deleteMode,DR_MenuName);
 
 			System.out.println("clicked on delete");
 
 			//calling delete DRFR method and verify message
-			RAIS_applicationSpecificMethods.delete_DR_FR(wd, dataRolesfunctionalRolesPage.DEL_DR_CONFIRM_MSG_Txt);
+			RAIS_applicationSpecificMethods.delete_DR_FR(wd, dataRolesfunctionalRolesPage.DEL_DR_CONFIRM_MSG_Txt,DR_MenuName);
 
 			//page refresh
 			wd.navigate().refresh();
@@ -204,142 +236,49 @@ public class CRUD_Operation_Tests extends BaseClass
 			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
 
-			//Waiting until element to load
-			//GenericMethods.waitforElement(wd, dashboardnew.dashboardUnderDevelopment_XPath);				
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
 
-			//Clicking on Element
-			GenericMethods.waitforElement(wd, dashboardnew.administration_XPath);
-			GenericMethods.elementClickable(wd, dashboardnew.administration_XPath);
-			GenericMethods.elementClick(wd, dashboardnew.administration_XPath);
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
+					FR_MenuName);
 
-			//waiting for link to load and then click
-			GenericMethods.elementClickable(wd, dashboardnew.FunctionalRoles_XPath);
-			GenericMethods.waitforElement(wd, dashboardnew.FunctionalRoles_XPath);
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
 
-			//Clicking on Element
-			GenericMethods.elementClick(wd, dashboardnew.FunctionalRoles_XPath);
-
-
-
-			//********************************Add new role starts here
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-
-			//Clicking on add new data role
+			//Clicking on add new functional role
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FR_addNewRoleBtn);
 
-			//input role name and internal name
-			GenericMethods.sendText(wd, AddNewDataRole.inputroleName_XPath, RaisTestData.FuncRole_Test);
+			//Calling common method to input save and verify
+			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, functionalRoleName, AddNewDataRole.ADDNEWFUNC_ROLE_Txt,FR_MenuName);
 
-			//clicking on add role button			
-			GenericMethods.tabfromElement(wd, AddNewDataRole.inputroleName_XPath);
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-			GenericMethods.elementClick(wd, AddNewDataRole.addBtn_XPath);
-
-			//waiting for success message
-			GenericMethods.waitforElement(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);	
-			GenericMethods.elementVisible(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);
-
-			//verifying the success message
-			Assert.assertEquals(GenericMethods.getActualTxt(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath),
-					AddNewDataRole.ADDNEWFUNC_ROLE_Txt);
-
-			//********************************Add new role Ends here
-
-			//**************************************************EDIT STARTS HERE
+			//page refresh
+			wd.navigate().refresh();
 
 
-			//**************************Duplicate check starts here
+			//Edit starts here****************************************************************************			
+			//clicking on left data role
+			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, functionalRoleName, editMode,FR_MenuName);
 
+			System.out.println("clicked on edit");
 
-			//**************************Duplicate check ends here
+			//Calling common method to input save and verify
+			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, localTime, AddNewDataRole.UPDATEFUNC_ROLE_Txt,FR_MenuName);
 
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
+			//page refresh
+			wd.navigate().refresh();
 
-			//Clicking on specific Role created
-			RAIS_applicationSpecificMethods.roleSelect_Click(wd,dataRolesfunctionalRolesPage.FUNC_ROLE_Txt , RaisTestData.FuncRole_Test);
+			//delete starts here****************************************************************************				
+			//clicking on left data role
+			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, functionalRoleName+localTime, deleteMode,FR_MenuName);
 
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
+			System.out.println("clicked on delete");
 
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FR_editRoleBtn_XPath);
+			//calling delete DRFR method and verify message
+			RAIS_applicationSpecificMethods.delete_DR_FR(wd, dataRolesfunctionalRolesPage.DEL_FR_CONFIRM_MSG_Txt,FR_MenuName);
 
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-
-			//input role name and internal name
-			//GenericMethods.clearElement(wd, AddNewDataRole.inputroleName_XPath);
-			GenericMethods.sendText(wd, AddNewDataRole.inputroleName_XPath, ExecutionDay());
-
-			//clicking on add role button
-			GenericMethods.tabfromElement(wd, AddNewDataRole.inputroleName_XPath);
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-			GenericMethods.elementClick(wd, AddNewDataRole.editBtn_XPath);
-
-			//waiting for success message
-			GenericMethods.waitforElement(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);	
-			GenericMethods.elementVisible(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);
-
-			//verifying the success message
-			Assert.assertEquals(GenericMethods.getActualTxt(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath),
-					AddNewDataRole.UPDATEFUNC_ROLE_Txt);
-
-			//**************************************************EDIT ENDS HERE
-
-
-			//**************************************************DELETE STARTS HERE
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-
-			//Clicking on specific Role created
-			RAIS_applicationSpecificMethods.roleSelect_Click(wd,dataRolesfunctionalRolesPage.FUNC_ROLE_Txt , RaisTestData.FuncRole_Test + ExecutionDay());
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FR_deleteRoleBtn_XPath);
-
-			//Waiting for delete popup page
-			GenericMethods.waitforElement(wd, dataRolesfunctionalRolesPage.deletePopupMsg_XPath);	
-			GenericMethods.elementClickable(wd, dataRolesfunctionalRolesPage.deletePopupMsgYesBtn_XPath);
-
-			//verifying the Delete popup message
-			Assert.assertEquals(GenericMethods.getActualTxt(wd, dataRolesfunctionalRolesPage.delDataRolePerm_PopupMSGTxt_XPath),
-					dataRolesfunctionalRolesPage.DELETE_FUNCROLE_POPMSG_Txt);
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);			
-			//clicking on No button
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.deletePopupMsgNoBtn_XPath);
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);	
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FR_deleteRoleBtn_XPath);
-
-			//Waiting for delete popup page
-			GenericMethods.waitforElement(wd, dataRolesfunctionalRolesPage.deletePopupMsg_XPath);	
-			GenericMethods.elementClickable(wd, dataRolesfunctionalRolesPage.deletePopupMsgYesBtn_XPath);
-
-			//wait for page load
-			GenericMethods.pageLoadWait(2000);
-
-			//clicking on Yes button
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.deletePopupMsgYesBtn_XPath);
-
-			//waiting for success message
-			GenericMethods.waitforElement(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);	
-			GenericMethods.elementVisible(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath);
-
-			//verifying the success message
-			Assert.assertEquals(GenericMethods.getActualTxt(wd, AddNewDataRole.addnewRole_SuccessMsg_XPath),
-					AddNewDataRole.DELETEFUNC_ROLE_Txt);
-
-			//**************************************************Delete ENDS HERE		
+			//page refresh
+			wd.navigate().refresh();	
 
 
 
@@ -353,13 +292,9 @@ public class CRUD_Operation_Tests extends BaseClass
 		finally {
 
 			//Logout user
-			RAIS_applicationSpecificMethods.logoutUser(wd, dashboardnew.loggedinUser_XPath, dashboardnew.logout_XPath);
-
-			//verifying logo on RIAS Page
-			Assert.assertEquals(GenericMethods.verifyLabel_ButtonProperty(wd, loginPage.RIASHeaderLabel_XPath, loginPage.RAIS_Txt),loginPage.RAIS_Txt);
-
-			//page refresh
-			wd.navigate().refresh();
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+			
 		}
 
 	}
@@ -716,20 +651,12 @@ public class CRUD_Operation_Tests extends BaseClass
 
 	//#CRUD5
 	@Test(priority=5,enabled=CRUDOperationTestDetails.crudOpTC5_runStatus)
-	public void Entity_CRUD_Operations(){
+	public void Entity_Type_Inventory_CRUD_Operations(){
 
 		try {
 
-			//Test data setup
-			String entityInternalName = "TestEntity"+localTime;
-			String singLabelName = "TestEntitySingularName"+localTime;
-			String pluralLabelName = "TestEntityPluralName"+localTime;
-			String Optional = RaisTestData.OPTIONAL_TEXT;
-			String commonGroup = RaisTestData.Entity_GroupData;
-			String inventoryRole = RaisTestData.Entity_RoleData;
-			String MainMenuInv_Res = RaisTestData.Entity_Publish_Inv_Res;
-			String subMenu = RaisTestData.Entity_PublishNav_Inventory;
-			String updatedText = RaisTestData.UPDATED_TXT;
+			//Initialising creation flag
+			Boolean entityPresent = false;
 
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC5_testName,CRUDOperationTestDetails.crudOpTC5_testDescription);
@@ -747,7 +674,7 @@ public class CRUD_Operation_Tests extends BaseClass
 					RaisTestData.businessEntityList[66]);
 
 			Boolean TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, entityInternalName, singLabelName, pluralLabelName, 
-					commonGroup, inventoryRole, MainMenuInv_Res, subMenu,"Add");
+					commonGroup, inventoryRole, MainMenuInv_Res, subMenu,RaisTestData.ADD_MODE_TEXT);
 
 			//Page refresh for DOM
 			wd.navigate().refresh();
@@ -774,6 +701,12 @@ public class CRUD_Operation_Tests extends BaseClass
 				TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Optional, updatedText, updatedText, 
 						Optional, Optional, Optional, Optional,Optional);
 
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertTrue(entityPresent);
+
 			}else {
 
 				System.out.println("Entity creation failed");
@@ -782,11 +715,24 @@ public class CRUD_Operation_Tests extends BaseClass
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
 
-			//check if entity creation is sucessfull
+			//check if entity creation is successfull
 			if (TestData_primUserEntity == true) {
 
 				//delete entity record data
 				RAIS_applicationSpecificMethods.deleteEntity(wd);	
+
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityListingGridFilter_Click(wd, 1, singLabelName+updatedText);
+
+				//verify the validation message
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, entListingPage.entityNoRecordsonGrid_XPath),
+						entListingPage.NO_ENTITY_RECORDS_Txt);
+
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertFalse(entityPresent);
 
 				System.out.println("deleted success");
 
@@ -818,9 +764,6 @@ public class CRUD_Operation_Tests extends BaseClass
 
 		try {
 
-			String ownFacility = RaisTestData.OWNF_DataRole_Test;
-			String Optional = RaisTestData.OPTIONAL_TEXT;
-
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC6_testName,CRUDOperationTestDetails.crudOpTC6_testDescription);
 
@@ -834,7 +777,7 @@ public class CRUD_Operation_Tests extends BaseClass
 
 			//Clicking on entities menu
 			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					RaisTestData.dataRole);
+					DR_MenuName);
 
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wd);
@@ -856,19 +799,19 @@ public class CRUD_Operation_Tests extends BaseClass
 			GenericMethods.elementClick(wd, AddNewDataRole.cancelBtn_XPath);
 
 			//clicking on left data role
-			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, ownFacility, Optional);
+			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, ownFacility, Optional,DR_MenuName);
 
 			//clicking on permissions tab
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRolePermTab_XPath);
 
 			// verify the button statuses
-			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.FunctionalRolePermissionRestrictBtn_XPath), "Disabled");
+			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.FunctionalRolePermissionRestrictBtn_XPath));
 
 			//clicking on Restrictions tab
 			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRoleRestrictionTab_XPath);
 
 			// verify the button statuses
-			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.addNewRestrictBtn_XPath), "Disabled");
+			Assert.assertFalse(GenericMethods.elementEnabled(wd, dataRolesfunctionalRolesPage.addNewRestrictBtn_XPath));
 
 
 
@@ -899,11 +842,6 @@ public class CRUD_Operation_Tests extends BaseClass
 		SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC7_testName,CRUDOperationTestDetails.crudOpTC7_testDescription);
 
 		try {
-			
-			//Test data
-			String singleFieldInput = RaisTestData.oneInputField;
-			String inputData = RaisTestData.demoData;
-			String optional = RaisTestData.OPTIONAL_TEXT;
 
 			//Entities under common tables with 1 field
 			String BEname [] =RaisTestData.singleFldBE_Admin_CommonTbl;// {"Extent of Events","Enforcement Statuses","Radiological Consequences","Source Statuses"};"Countries","Gender","Fields","Workflow Statuses"
@@ -976,7 +914,383 @@ public class CRUD_Operation_Tests extends BaseClass
 		}
 	}
 
+	//#8 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=8, enabled=CRUDOperationTestDetails.crudOpTC8_runStatus)
+	public void BusinessEntity_RecordCRUD_Operations_Inv_Res_Inventory() {
 
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC8_testName,CRUDOperationTestDetails.crudOpTC8_testDescription);
+
+		try {
+
+			//Entities under common tables with 1 field
+			String BEname [] =RaisTestData.singleFldBE_Inv_Inv;
+
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				wd.navigate().refresh();
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.InventResourceMainMenu, RaisTestData.InventorySubMenuText,BEname[i]);
+
+				//***********************************************Create entity record "Workflow Statuses"
+				//calling generic method to call Officer entity data input
+				Boolean flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, inputData, 
+						optional, optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here	
+
+				if(flag_createEntity == true) {
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData);
+
+					//Edit entity record
+					//calling generic method to call Officer entity data edit
+					flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, localTime, 
+							optional, optional, optional);
+
+
+					////***********************************************delete starts here
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//delete entity record data
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);	
+
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//verify the validation message
+					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityRecordListing.emptyRecordsGrid_XPath),
+							entityRecordListing.NO_RECORDS_Txt);									
+
+				} else {
+					System.out.println("Entity creation failed");
+				}
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+
+		}
+	}
+
+	//#9 - Single Attribute Business Entity - Entity record CRUD operations
+	@Test(priority=9, enabled=CRUDOperationTestDetails.crudOpTC9_runStatus)
+	public void BusinessEntity_RecordCRUD_Operations_Inv_Res_Resources() {
+
+		//Setting Test name and description on report
+		SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC9_testName,CRUDOperationTestDetails.crudOpTC9_testDescription);
+
+		try {
+
+			//Entities under common tables with 1 field
+			String BEname [] =RaisTestData.singleFldBE_Inv_Res;
+
+			//Calling Login method
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
+					loginPage.loginBtn_XPath);
+
+			for(int i=0;i<BEname.length;i++) {
+
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				wd.navigate().refresh();
+
+				//Clicking on User menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.InventResourceMainMenu, RaisTestData.InventorySubMenuText,BEname[i]);
+
+				//***********************************************Create entity record "Workflow Statuses"
+				//calling generic method to call Officer entity data input
+				Boolean flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, inputData, 
+						optional, optional, RaisTestData.ADD_MODE_TEXT);
+
+				////**********************************************EDIT MODE STARTS Here	
+
+				if(flag_createEntity == true) {
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData);
+
+					//Edit entity record
+					//calling generic method to call Officer entity data edit
+					flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, localTime, 
+							optional, optional, optional);
+
+
+					////***********************************************delete starts here
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//delete entity record data
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);	
+
+					//Grid filter and click on entity record listing page
+					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+
+					//verify the validation message
+					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityRecordListing.emptyRecordsGrid_XPath),
+							entityRecordListing.NO_RECORDS_Txt);									
+
+				} else {
+					System.out.println("Entity creation failed");
+				}
+
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+
+		} finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+
+		}
+	}
+
+	//#CRUD10
+	@Test(priority=10,enabled=CRUDOperationTestDetails.crudOpTC10_runStatus)
+	public void Entity_Type_Master_CRUD_Operations(){
+
+		try {
+
+			//Initialising entity creation flag
+			Boolean entityPresent = false;
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC10_testName,CRUDOperationTestDetails.crudOpTC10_testDescription);
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.CustomizeSubMenu, 
+					RaisTestData.businessEntityList[66]);
+
+			Boolean TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, entityInternalName, singLabelName, pluralLabelName, 
+					commonGroup, masterRole, MainMenuInv_Res, subMenu,RaisTestData.ADD_MODE_TEXT);
+
+			//Page refresh for DOM
+			wd.navigate().refresh();
+
+			//clicking on left entity detail link
+			GenericMethods.elementClick(wd, addEntityPage.entDetailPage_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//click on cancel
+			GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Check if entity is created
+			if (TestData_primUserEntity ==true) {
+
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityListingGridFilter_Click(wd, 1, singLabelName);
+
+				//starting edit entity
+				TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Optional, updatedText, updatedText, 
+						Optional, Optional, Optional, Optional,Optional);
+
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertTrue(entityPresent);
+
+			}else {
+
+				System.out.println("Entity creation failed");
+			}
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//check if entity creation is successfull
+			if (TestData_primUserEntity == true) {
+
+				//delete entity record data
+				RAIS_applicationSpecificMethods.deleteEntity(wd);	
+
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityListingGridFilter_Click(wd, 1, singLabelName+updatedText);
+
+				//verify the validation message
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, entListingPage.entityNoRecordsonGrid_XPath),
+						entListingPage.NO_ENTITY_RECORDS_Txt);
+
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertFalse(entityPresent);
+
+				System.out.println("deleted success");
+
+			}else {
+				System.out.println("Entity creation failed");
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+		}
+
+	}		
+
+	//#CRUD11
+	@Test(priority=11,enabled=CRUDOperationTestDetails.crudOpTC11_runStatus)
+	public void Entity_Type_InvWithHistory_CRUD_Operations(){
+
+		try {
+
+			//Initialising entity creation flag
+			Boolean entityPresent = false;
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC11_testName,CRUDOperationTestDetails.crudOpTC11_testDescription);
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.CustomizeSubMenu, 
+					RaisTestData.businessEntityList[66]);
+
+			Boolean TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, entityInternalName, singLabelName, pluralLabelName, 
+					commonGroup, invHistoryRole, MainMenuInv_Res, subMenu,RaisTestData.ADD_MODE_TEXT);
+
+			//Page refresh for DOM
+			wd.navigate().refresh();
+
+			//clicking on left entity detail link
+			GenericMethods.elementClick(wd, addEntityPage.entDetailPage_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//click on cancel
+			GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Check if entity is created
+			if (TestData_primUserEntity ==true) {
+
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityListingGridFilter_Click(wd, 1, singLabelName);
+
+				//starting edit entity
+				TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Optional, updatedText, updatedText, 
+						Optional, Optional, Optional, Optional,Optional);
+
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertTrue(entityPresent);
+
+			}else {
+
+				System.out.println("Entity creation failed");
+			}
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//check if entity creation is successfull
+			if (TestData_primUserEntity == true) {
+
+				//delete entity record data
+				RAIS_applicationSpecificMethods.deleteEntity(wd);	
+
+				//Grid filter and click on entity record listing page
+				RAIS_applicationSpecificMethods.EntityListingGridFilter_Click(wd, 1, singLabelName+updatedText);
+
+				//verify the validation message
+				Assert.assertEquals(GenericMethods.getActualTxt(wd, entListingPage.entityNoRecordsonGrid_XPath),
+						entListingPage.NO_ENTITY_RECORDS_Txt);
+
+				//verify if created entity is available in menu
+				entityPresent = RAIS_applicationSpecificMethods.verifyItemPresentinMenu(wd, MainMenuInv_Res, subMenu,singLabelName);
+
+				// verify the button statuses
+				Assert.assertFalse(entityPresent);
+
+				System.out.println("deleted success");
+
+			}else {
+				System.out.println("Entity creation failed");
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+		}
+
+	}		
 
 
 

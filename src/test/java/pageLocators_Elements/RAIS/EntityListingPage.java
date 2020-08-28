@@ -15,6 +15,8 @@ public class EntityListingPage {
 	public String entityListingTableColHeader_XPath = "//*[@id='entity']//table//thead//tr//th//a[span[text()='Entity Name']]//span//button";
 	public String entityListingTableColHeader_TXT_XPath = "//*[@id='entity']//table//thead//tr//th//div//div//input[@class='k-textbox']";
 	
+	public String entityNoRecordsonGrid_XPath = "//*[@id='entity']/div/div[2]/div/div[1]/div/div[2]/div/div[1]/table/tbody/tr/td";
+	
 	
 	
 	
@@ -30,5 +32,6 @@ public class EntityListingPage {
 		public String ENT_LIST_COLHEADER_DESC_Txt = "Description";
 		public String ENT_LIST_COLHEADER_TYPE_Txt = "Type";
 		public String ENT_LIST_COLHEADER_GRP_Txt = "Group";
+		public String NO_ENTITY_RECORDS_Txt = "No entity available";
 
 }

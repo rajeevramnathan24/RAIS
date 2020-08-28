@@ -65,6 +65,8 @@ public class RaisTestData {
 	public static String Entity_PluralData = "TestPluralNameAutomationUser";
 	public static String Entity_GroupData = "Common";
 	public static String Entity_RoleData = "Inventory";
+	public static String Entity_MasterRole = "Master";
+	public static String Entity_InvWithHistoryRole = "Inventory With History";
 	public static String Entity_PublishNavigation1Data = "Inventory & Resources";
 	public static String Entity_PublishNavigation2Data = "Inventory";
 	
@@ -248,7 +250,9 @@ public class RaisTestData {
 	//Single field BE
 	public static String oneInputField = "NameOnly";
 	public static String demoData = "1Demo Data";
-	public static String [] singleFldBE_Admin_CommonTbl = {"Booleans",
+	public static String [] singleFldBE_Admin_CommonTbl = {
+			"Academic Degrees",
+			"Booleans",
 			"Categories of Sealed Sources",
 			"Countries",
 			"Emergency Response Level", //"Enforcement Statuses",
@@ -283,9 +287,9 @@ public class RaisTestData {
 	
 	public static ArrayList<String> entName = new ArrayList<String>(Arrays.asList("Officer Tasks",	"Responses"));
 	
-	public static String [] singleFldBE_Inv_Inv = {"Officer Tasks",	"Responses"};
+	public static String [] singleFldBE_Inv_Inv = {"Officer Tasks",	"Responses", "Sources"};
 	
-	public static String [] singleFldBE_Inv_Res = {"Worker Statuses"};
+	public static String [] singleFldBE_Inv_Res = {"Facility Statuses","Regions","Worker Statuses"};
 	
 	public static String [] Group_singleFldBE_Menu = {"Admin_ComMenu","Admin_CustMenu","InvRes_InvMenu","InvRes_ResMenu"};
 
@@ -302,7 +306,9 @@ public class RaisTestData {
 	
 	public static String OPTIONAL_TEXT = "";
 	public static String ADD_MODE_TEXT = "Add";
-
+	public static String EDIT_MODE_TEXT = "Edit";
+	public static String DELETE_MODE_TEXT = "Delete";
+	
 	//Officer name
 	public static String OFFICER_NAME_DATA = "ExternalOfficer";
 	public static String INTERNAL_OFFICER_NAME_DATA = "internalOfficer";

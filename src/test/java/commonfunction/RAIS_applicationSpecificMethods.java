@@ -2442,15 +2442,23 @@ public class RAIS_applicationSpecificMethods  {
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi1DropDown_XPath, publishNav1);
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, publishNav2);
 
-			}			
+			}
+			
+			// verify the check box statuses
+			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableWF_XPath));
+			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableHistory_XPath));
+			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enabledocument_XPath));
+			
+			if (mode!= "Add") {
+				
+				// verify the check box statuses
+				Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableRAN_XPath));
+			}
 
 			//clicking on entity - save button
 			GenericMethods.waitforElement(went, addNewEntityPage.SaveBtn_XPath);
 			GenericMethods.elementClickable(went, addNewEntityPage.SaveBtn_XPath);
 			GenericMethods.elementClick(went, addNewEntityPage.SaveBtn_XPath);
-
-			//page wait
-			GenericMethods.JSPageWait(went);
 
 			//waiting for success message
 			GenericMethods.waitforElement(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath);
@@ -3239,8 +3247,8 @@ public class RAIS_applicationSpecificMethods  {
 		//Waiting for delete popup page
 		GenericMethods.JClickonElement(wdEntityRecord, entpage.delEntity_popUpYesBtn_XPath);			
 
-		//page wait
-		GenericMethods.JSPageWait(wdEntityRecord);
+//		//page wait
+//		GenericMethods.JSPageWait(wdEntityRecord);
 
 		//Waiting for delete popup page
 		GenericMethods.waitforElement(wdEntityRecord, entpage.addnewEntity_SuccessMsg_XPath);	
@@ -3292,15 +3300,26 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	// Method to select roles/ functions from left navigation pane
-	public static void DRFR_Edit_Delete(WebDriver wdi,String roleName, String mode) {	
+	public static void DRFR_Edit_Delete(WebDriver wdi,String roleName, String mode, String roleType) {	
 
 		//initialising DR & FR page
 		DataRoles_FunctionalRolesPage DR_FRPage = new DataRoles_FunctionalRolesPage();
 
 		try {
+			
+			String DR_FR_RoleName = "";
+			
+			if(roleType == "Data Roles") {
+			
+				DR_FR_RoleName= DR_FRPage.edit_delPREFIX_XPath;
+			
+			} else {
+				
+				DR_FR_RoleName = DR_FRPage.FR_edit_delPREFIX_XPath;
+			}
 
 			//Assigning to list webelemt
-			List<WebElement> roleList = wdi.findElements(By.xpath(DR_FRPage.edit_delPREFIX_XPath));
+			List<WebElement> roleList = wdi.findElements(By.xpath(DR_FR_RoleName));
 
 			String edit_Delete;
 
@@ -3308,7 +3327,7 @@ public class RAIS_applicationSpecificMethods  {
 			for (int i=0; i<roleList.size();i++) {
 
 				//print index
-				System.out.println(i);
+//				System.out.println(i);
 
 				WebElement roleName1 = roleList.get(i);
 
@@ -3319,8 +3338,8 @@ public class RAIS_applicationSpecificMethods  {
 					int position=i+1;
 
 					//Print index and role
-					System.out.println(i);
-					System.out.println(roleList.get(1));
+					//System.out.println(i);
+					//System.out.println(roleList.get(1));
 
 					//Click on the selected link
 					roleName1.click();
@@ -3328,7 +3347,7 @@ public class RAIS_applicationSpecificMethods  {
 					if (mode=="Edit") {
 
 						//create dynamic xpath
-						edit_Delete = DR_FRPage.edit_delPREFIX_XPath+"["+position+DR_FRPage.edit_Suffix_XPath;
+						edit_Delete = DR_FR_RoleName+"["+position+DR_FRPage.edit_Suffix_XPath;
 						
 						//pagewait
 						GenericMethods.JSPageWait(wdi);
@@ -3339,7 +3358,7 @@ public class RAIS_applicationSpecificMethods  {
 					} else if(mode=="Delete") {
 
 						//create dynamic xpath for delete
-						edit_Delete = DR_FRPage.edit_delPREFIX_XPath+"["+position+DR_FRPage.delete_Suffix_XPath;	
+						edit_Delete = DR_FR_RoleName+"["+position+DR_FRPage.delete_Suffix_XPath;	
 						
 						//pagewait
 						GenericMethods.JSPageWait(wdi);
@@ -3364,7 +3383,7 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//Method for save and verify in DR / FR areas
-	public static void DR_FR_Input_Save_Verify(WebDriver wsave,String inputText, String verifyText) {
+	public static void DR_FR_Input_Save_Verify(WebDriver wsave,String inputText, String verifyText, String roleType) {
 
 		//Initialise DRFR page
 		AddNewRolePage DRFR_Add_Verify = new AddNewRolePage();
@@ -3377,9 +3396,18 @@ public class RAIS_applicationSpecificMethods  {
 			//clicking on add role button			
 			GenericMethods.tabfromElement(wsave, DRFR_Add_Verify.inputroleName_XPath);
 			System.out.println("clicked on addrole");
-
-			//page load and click
-			GenericMethods.elementClick(wsave, DRFR_Add_Verify.SaveBtn_XPath);
+			
+			if(roleType == "Data Roles") {
+				
+				//page load and click
+				GenericMethods.elementClick(wsave, DRFR_Add_Verify.SaveBtn_XPath);				
+				
+			} else {
+				
+				//page load and click
+				GenericMethods.elementClick(wsave, DRFR_Add_Verify.FRSaveBtn_XPath);
+				
+			}		
 
 			//waiting for success message
 			GenericMethods.waitforElement(wsave, DRFR_Add_Verify.addnewRole_SuccessMsg_XPath);
@@ -3399,16 +3427,24 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//Delete method for DR or FR
-	public static void delete_DR_FR(WebDriver wdDRFR, String deleteMsg ) {
+	public static void delete_DR_FR(WebDriver wdDRFR, String deleteMsg, String roleType ) {
 
-		//INitialise page
+		//Initialise page
 		DataRoles_FunctionalRolesPage deleteDRFR = new DataRoles_FunctionalRolesPage();
 		
 		//page wait
 		GenericMethods.JSPageWait(wdDRFR);
+		
+		if (roleType =="Data Roles" ) {
 
-		//Waiting for delete popup page
-		GenericMethods.JClickonElement(wdDRFR, deleteDRFR.deletePopupMsgYesBtn_XPath);			
+			//Waiting for delete popup page
+			GenericMethods.JClickonElement(wdDRFR, deleteDRFR.deletePopupMsgYesBtn_XPath);	
+			
+		} else {
+			
+			//Waiting for delete popup page
+			GenericMethods.JClickonElement(wdDRFR, deleteDRFR.FR_deletePopupMsgYesBtn_XPath);
+		}
 
 		//page wait
 		GenericMethods.JSPageWait(wdDRFR);
@@ -3424,6 +3460,129 @@ public class RAIS_applicationSpecificMethods  {
 		//page wait
 		GenericMethods.JSPageWait(wdDRFR);
 	}
+
+	// Method to click on top menu
+		public static Boolean verifyItemPresentinMenu(WebDriver wdMenu, String MainMenuName, String subMenu, String childMenu) {	
+
+			//Setting flag to exit loop
+			boolean flag = true; int colposition=0;
+			
+			//Return flag
+			boolean elementPresent = false;
+
+			//Setting column position
+			if(subMenu == "Inventory" || subMenu == "User Management") {
+
+				colposition = 1;
+			} 
+
+			//setting col position for other menus
+			switch (subMenu) {
+
+			case "Resources":
+
+				colposition = 2;
+
+				break;
+
+			case "Customization":
+
+				colposition = 3;
+
+				break;
+
+			case "Common Tables":
+
+				colposition = 4;
+
+				break;
+
+			default:
+				break;
+			}
+
+			try {
+				
+				//pagerefresh
+				wdMenu.navigate().refresh();
+				
+				//page wait
+				GenericMethods.JSPageWait(wdMenu);
+
+				//Creating list of webelements returned from left pane				
+				List<WebElement> menuList = wdMenu.findElements(By.xpath("//div//ul[@id='main-menu']/li"));
+				//List<WebElement> rolesList = mainleftpaneRoleXpath.findElements(By.xpath("//*[@id=\"datarole\"]/div/div[1]/div/div/div[2]/ul/li"));
+
+				//Iterating the role list webelement until match is found
+				for (WebElement headerName : menuList) {				
+
+					//				System.out.println(headerName);
+					//locate specific role with text
+					if ((flag==true) && headerName.findElement(By.tagName("a")).getText().equals(MainMenuName)) {
+
+						System.out.println(headerName.findElement(By.tagName("a")).getText());
+						headerName.click();
+
+						//GenericMethods.pageLoadWait(600);
+						GenericMethods.JSPageWait(wdMenu);
+
+						List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
+
+						for (WebElement subHeaderName : subMenuList) {
+
+							if ((flag==true) && subHeaderName.findElement(By.tagName("a")).getText().equals(subMenu)) {
+
+								//subHeaderName.click();
+								System.out.println(subHeaderName.findElement(By.tagName("a")).getText());
+
+								List<WebElement> childMenuList = subHeaderName.findElements(By.xpath("//ul[@class='sub-menu-column']//li"));
+
+								for (WebElement childName : childMenuList) {
+
+									if ((flag==true) && childName.findElement(By.tagName("a")).getText().equals(childMenu)) {
+
+										System.out.println(childName.findElement(By.tagName("a")).getText());
+										
+//										 //setting return type flag
+									     elementPresent = true;
+									    
+									   //calling element highligt
+										GenericMethods.highLightWebElement(wdMenu, childName.findElement(By.tagName("a")), GenericMethods.elementClickHighlight);
+									     
+										//setting flag as false
+										flag= false;
+									}
+
+								}
+
+							}
+						} 
+					}
+				}
+				
+				//pagerefresh
+				wdMenu.navigate().refresh();
+				
+				//return flag value
+				return elementPresent;				
+				
+				
+			} catch (NoSuchElementException e) {
+				e.printStackTrace();
+				
+				//return flag value
+				return elementPresent;
+
+			}	catch (Exception e) {
+				e.printStackTrace();
+				
+				//return flag value
+				return elementPresent;
+			}  
+		}
+
+
+
 }
 
 

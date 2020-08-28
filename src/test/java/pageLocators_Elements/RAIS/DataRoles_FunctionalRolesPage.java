@@ -80,6 +80,7 @@ public class DataRoles_FunctionalRolesPage {
 	public String TopMessage_SuccessMsg_XPath = "//div[@id='message-body']";
 	public String deletePopupMsg_XPath = "//div[@id='max-width-dialog-title']";
 	public String deletePopupMsgYesBtn_XPath = "//*[@id='datarole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
+	public String FR_deletePopupMsgYesBtn_XPath = "//*[@id='functionalrole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	public String deletePopupMsgNoBtn_XPath = "//button[contains(text(),'No')]";
 	public String delDataRolePerm_PopupMSGTxt_XPath= "//div[@class='dialog-content']";
     
@@ -94,8 +95,11 @@ public class DataRoles_FunctionalRolesPage {
 	
 	//edit delete link on DR & FR page
 	public String edit_delPREFIX_XPath = "//*[@id='datarole']/div/div[1]/div/div[2]/div[2]/div/div[1]/ul/li";
+	public String FR_edit_delPREFIX_XPath = "//*[@id='functionalrole']/div/div[1]/div/div[2]/div[2]/div/div[1]/ul/li";
 	public String edit_Suffix_XPath = "]/div/button[1]";
 	public String delete_Suffix_XPath = "]/div/button[2]";
+	
+	
 	
 	//public String delEntity_popUpYesBtn_XPath = "//*[@id='datarole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	

@@ -44,10 +44,11 @@ public class AddNewEntityPage {
 		public String addNewEntity_pubNavi2DropDown_XPath = "//*[@id='navigationId']";		
 	
 	//Check box label	
-	public String addNewEntity_enableWF_XPath = "//label[@id='CanHaveWorkflows']//span[contains(text(),'WorkFlows')]";	
-	public String addNewEntity_enableRAN_XPath = "//label[@id='hasRAN']//span[contains(text(),'RAN')]";		
-	public String addNewEntity_enableHistory_XPath = "//label[@id='MaintainHistory']//span[contains(text(),'History')]";
-	public String addNewEntity_enabledocument_XPath = "//label[@id='CanHaveDocumentAttachment']//span[contains(text(),'Document')]";
+	public String addNewEntity_enableWF_XPath = "//label[@id='CanHaveWorkflows']//span[contains(text(),'Enable WorkFlows')]";	
+	public String addNewEntity_enableHistory_XPath = "//label[@id='MaintainHistory']//span[contains(text(),'Enable History')]";
+	public String addNewEntity_enabledocument_XPath = "//label[@id='CanHaveDocumentAttachment']//span[contains(text(),'Enable Document Attachments')]";
+	public String addNewEntity_enableRAN_XPath = "//label[@id='hasRAN']//span[contains(text(),'Enable RAN')]";		
+	
 	
 	//Check box tick
 	public String addNewEntity_enableWFCheckBox_XPath = "//label[@id='CanHaveWorkflows']//span//input[@type='checkbox']";

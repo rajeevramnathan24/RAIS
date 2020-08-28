@@ -3,6 +3,9 @@ package commonfunction;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+
+import javax.xml.xpath.XPath;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +21,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
@@ -821,4 +825,48 @@ public class GenericMethods  {
 		  }
 	}
 		
+	//Highlighting element for demos
+		public static void highLightWebElement(WebDriver wlight, WebElement WebelementToHiglight, boolean highlight){
+
+			try {
+				//below is used to highlight only when flag is true
+				if (highlight == true) {
+
+					//waiting for user experience
+					Thread.sleep(300);
+
+					//highlighting element
+					JavascriptExecutor js = (JavascriptExecutor) wlight;
+					js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');",
+							WebelementToHiglight);
+
+					//setting value as false
+					highlight = false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	//method to verify actual and expected text
+	public static void verifytext(WebDriver wdEA, String xpathOfExpectedText, String ActualText) {
+		
+		
+		try {
+			
+			//below is used to highlight only when flag is true
+			highLightElement(wdEA, xpathOfExpectedText, elementClickHighlight);
+			
+			//verifying actual and expected message
+			Assert.assertEquals(getActualTxt(wdEA, xpathOfExpectedText), ActualText);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Assertion failed");
+		}
+		
+		
+	}
+	
 }

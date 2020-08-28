@@ -25,6 +25,7 @@ public class AddNewRolePage {
 	//public String addBtn_XPath = "//button[text()='Save']";
 	public String addBtn_XPath = "//div[@class='dialog-action']//div//button[text()='Save']";
 	public String SaveBtn_XPath = "//div[@id='datarole']//div//button[2][text()='Save']";
+	public String FRSaveBtn_XPath = "//div[@id='functionalrole']//div//button[2][text()='Save']";
 	
 	//public String addBtn_XPath = "//button[@title='Save']";
 	
@@ -70,7 +71,7 @@ public class AddNewRolePage {
 	public String DELETEROLE_SUCCESSMSG_TXT = "Data Role has been deleted successfully.";
 	public String DUPDR_TXT = "Duplicate data not allowed.";
 	
-	public String ADDNEWFUNC_ROLE_Txt = "Functional Role has been updated successfully.";
+	public String ADDNEWFUNC_ROLE_Txt = "New Functional Role has been added successfully.";
 	public String UPDATEFUNC_ROLE_Txt = "Functional Role has been updated successfully.";
 	public String DELETEFUNC_ROLE_Txt = "Functional Role has been deleted successfully.";
 	
