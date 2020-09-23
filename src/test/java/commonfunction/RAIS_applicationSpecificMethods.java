@@ -1,11 +1,17 @@
 package commonfunction;
 
+import java.awt.AWTException;
+import java.awt.HeadlessException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import javax.xml.xpath.XPath;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,13 +32,19 @@ import pageLocators_Elements.RAIS.AddNewEntityFormDetailsPage;
 import pageLocators_Elements.RAIS.AddNewEntityPage;
 import pageLocators_Elements.RAIS.AddNewPermRestrictionsPage;
 import pageLocators_Elements.RAIS.AddNewRolePage;
+import pageLocators_Elements.RAIS.AddNewSecurityProfilePage;
 import pageLocators_Elements.RAIS.AddNewUserDetailsPage;
 import pageLocators_Elements.RAIS.DashboardPage;
 import pageLocators_Elements.RAIS.DataRoles_FunctionalRolesPage;
 import pageLocators_Elements.RAIS.EntityFormListingPage;
 import pageLocators_Elements.RAIS.EntityListingPage;
 import pageLocators_Elements.RAIS.LoginPage;
+import pageLocators_Elements.RAIS.SecurityProfilePage;
 import pageLocators_Elements.RAIS.UserListPage;
+import pageLocators_Elements.RAIS.Workflow_AuthorizationPage;
+import pageLocators_Elements.RAIS.Workflow_Inspection_Parent_ChildPage;
+import pageLocators_Elements.RAIS.Workflow_PaymentPage;
+import testcases.RAIS.WF_FollowupAction_Tests;
 
 
 public class RAIS_applicationSpecificMethods  {
@@ -250,8 +262,14 @@ public class RAIS_applicationSpecificMethods  {
 			//create dynamic dynamic xpath of text field
 			String GridTextInput_xpath = entFrmListPage.Dyamic_GridTable_Prefix_Xpath +position+entFrmListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
 
+			//wait for element to load
+			GenericMethods.waitforElement(wGrid, GridColHeader);
+
 			//clicking on filter icon on the grid
 			GenericMethods.elementClick(wGrid, GridColHeader);
+
+			//wait for element to load
+			GenericMethods.waitforElement(wGrid, GridTextInput_xpath);
 
 			//input text value to search
 			GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
@@ -265,7 +283,7 @@ public class RAIS_applicationSpecificMethods  {
 			//wait for page load
 			GenericMethods.JSPageWait(wGrid);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}	
 
@@ -2074,6 +2092,18 @@ public class RAIS_applicationSpecificMethods  {
 
 			break;
 
+		case "Authorizations":
+
+			colposition = 1;
+
+			break;
+
+		case "Inspections":
+
+			colposition = 3;
+
+			break;
+
 		case "Customization":
 
 			colposition = 3;
@@ -2125,9 +2155,9 @@ public class RAIS_applicationSpecificMethods  {
 								if ((flag==true) && childName.findElement(By.tagName("a")).getText().equals(childMenu)) {
 
 									System.out.println(childName.findElement(By.tagName("a")).getText());
-									
-//									//GenericMethods.pageLoadWait(600);
-//									GenericMethods.JSPageWait(wdMenu);
+
+									//									//GenericMethods.pageLoadWait(600);
+									//									GenericMethods.JSPageWait(wdMenu);
 
 									WebElement childElement = childName.findElement(By.tagName("a"));
 
@@ -2135,21 +2165,21 @@ public class RAIS_applicationSpecificMethods  {
 
 									jscrollClick.executeScript("arguments[0].scrollIntoView()", childElement);
 
-//									//GenericMethods.pageLoadWait(600);
-//									GenericMethods.JSPageWait(wdMenu);
-									
-//									System.out.println(childName.findElement(By.tagName("a")));
-									
-//									String childMenuName = childName.findElement(By.tagName("a")).toString();
-//									System.out.println(childMenuName);
-									
-									
+									//									//GenericMethods.pageLoadWait(600);
+									//									GenericMethods.JSPageWait(wdMenu);
+
+									//									System.out.println(childName.findElement(By.tagName("a")));
+
+									//									String childMenuName = childName.findElement(By.tagName("a")).toString();
+									//									System.out.println(childMenuName);
+
+
 									//Clicking on specific child
-//									childElement.click();
-//									GenericMethods.JClickonElement(wdMenu, childMenuName);
+									//									childElement.click();
+									//									GenericMethods.JClickonElement(wdMenu, childMenuName);
 									JavascriptExecutor executor = (JavascriptExecutor) wdMenu;
-								     executor.executeScript("arguments[0].click();", childName.findElement(By.tagName("a")));
-//									GenericMethods.JClickonElement(wdMenu, childElement);
+									executor.executeScript("arguments[0].click();", childName.findElement(By.tagName("a")));
+									//									GenericMethods.JClickonElement(wdMenu, childElement);
 
 									//setting flag as false
 									flag= false;
@@ -2382,11 +2412,48 @@ public class RAIS_applicationSpecificMethods  {
 	//Create entity
 	public static boolean createEntity(WebDriver went,String internalName, String singularName, String pluralName, 
 			String entityGroup, String entityRole,
-			String publishNav1, String publishNav2, String mode) {
+			String publishNav1, String publishNav2, String mode, String pageName) {
 
 		EntityListingPage entityListingPage = new EntityListingPage();
 		AddNewEntityPage addNewEntityPage = new AddNewEntityPage();
 
+		//Common test data for entity creation
+		String addNewEntityBtn_EntityListingPage = entityListingPage.addNewEntityBtn_XPath;
+		String topMessageXpath = addNewEntityPage.addnewEntity_SuccessMsg_XPath;
+		String saveButton = null;
+
+		//select savebutton xpath as per pagename
+
+		switch (pageName) {
+
+		case "Entities":
+
+			saveButton = addNewEntityPage.EntityPageSaveBtn_XPath;
+
+			break;
+
+		case "Functional Roles":
+
+			saveButton = addNewEntityPage.FRSaveBtn_XPath;
+
+			break;
+
+		case "Data Roles":
+
+			saveButton = addNewEntityPage.DRSaveBtn_XPath;
+
+			break;
+
+		case "Security Profiles":
+
+			saveButton = addNewEntityPage.SRSaveBtn_XPath;
+
+			break;
+
+		default:
+
+			break;
+		}
 
 		try {			
 
@@ -2398,18 +2465,18 @@ public class RAIS_applicationSpecificMethods  {
 
 				//********************************Add new Entity starts here
 				//Waiting for button to load and click
-				GenericMethods.waitforElement(went, entityListingPage.addNewEntityBtn_XPath);
-				GenericMethods.elementClickable(went, entityListingPage.addNewEntityBtn_XPath);
-				GenericMethods.elementClick(went, entityListingPage.addNewEntityBtn_XPath);
+				GenericMethods.waitforElement(went, addNewEntityBtn_EntityListingPage);
+				GenericMethods.elementClickable(went, addNewEntityBtn_EntityListingPage);
+				GenericMethods.elementClick(went, addNewEntityBtn_EntityListingPage);
+
+				//GenericMethods.waitforElement(went, entityListingPage.addNewEntityBtn_XPath);
+				//GenericMethods.elementClickable(went, entityListingPage.addNewEntityBtn_XPath);
+				//GenericMethods.elementClick(went, entityListingPage.addNewEntityBtn_XPath);
 
 			}		
 
 			//page wait
 			GenericMethods.JSPageWait(went);
-
-			//clicking on entity - save button
-			GenericMethods.waitforElement(went, addNewEntityPage.cancelBtn_XPath);
-			GenericMethods.elementClickable(went, addNewEntityPage.cancelBtn_XPath);
 
 			//Applicable only for add mode
 			if (mode== "Add") {
@@ -2443,35 +2510,33 @@ public class RAIS_applicationSpecificMethods  {
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, publishNav2);
 
 			}
-			
+
 			// verify the check box statuses
 			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableWF_XPath));
 			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableHistory_XPath));
 			Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enabledocument_XPath));
-			
+
 			if (mode!= "Add") {
-				
+
 				// verify the check box statuses
 				Assert.assertTrue(GenericMethods.elementEnabled(went, addNewEntityPage.addNewEntity_enableRAN_XPath));
 			}
 
 			//clicking on entity - save button
-			GenericMethods.waitforElement(went, addNewEntityPage.SaveBtn_XPath);
-			GenericMethods.elementClickable(went, addNewEntityPage.SaveBtn_XPath);
-			GenericMethods.elementClick(went, addNewEntityPage.SaveBtn_XPath);
+			GenericMethods.elementClick(went, saveButton);
 
 			//waiting for success message
-			GenericMethods.waitforElement(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath);
-			GenericMethods.elementVisible(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath);
+			GenericMethods.waitforElement(went, topMessageXpath);
+			GenericMethods.elementVisible(went, topMessageXpath);
 
 			//Applicable for add mode
 			if(mode=="Add") {
 				//verifying the add record success message
-				Assert.assertEquals(GenericMethods.getActualTxt(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath),
+				Assert.assertEquals(GenericMethods.getActualTxt(went, topMessageXpath),
 						addNewEntityPage.ADDNEWENT_SUCESSMSG_TXT);
 			}else {
 				//verifying the update record success message
-				Assert.assertEquals(GenericMethods.getActualTxt(went, addNewEntityPage.addnewEntity_SuccessMsg_XPath),
+				Assert.assertEquals(GenericMethods.getActualTxt(went, topMessageXpath),
 						addNewEntityPage.UPDENT_SUCESSMSG_TXT);
 			}
 
@@ -2621,18 +2686,24 @@ public class RAIS_applicationSpecificMethods  {
 
 
 	//Generic method to add entity record data in any form
-	public static boolean createEntityRecord(WebDriver wRecordEntity, String businessEntityName, String officerNameinput, String AuthTypeinput, String emailInput, String mode) {
+	public static boolean createEntityRecord(WebDriver wRecordEntity, String businessEntityName, String nameInput, 
+			String nameInput2, String emailInput, String mode, String formName) {
 
 		//Initialising form name
 		AddNewEntityFormDetailsPage addEntityRecordPage = new AddNewEntityFormDetailsPage();
 		EntityFormListingPage entityListing = new EntityFormListingPage();
 
 		//setting common variable value to reroute
-		Boolean entitywith2Input = false;
 		Boolean entitywith1Input = false;
+		boolean entityCreationFLag = false;
+
+		String addButton,saveButton;
+
+		addButton = entityListing.addNewBtn_XPath;
+		saveButton = saveBtnGenericPopUp(formName);
 
 		try {
-			
+
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
 
@@ -2640,21 +2711,18 @@ public class RAIS_applicationSpecificMethods  {
 			if(mode=="Add") {
 
 				//Waiting until element to load and click on Add new button
-//				GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
-//				GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
-				GenericMethods.elementClick(wRecordEntity, entityListing.addNewBtn_XPath);
+				//				GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
+				//				GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);
+				GenericMethods.elementClick(wRecordEntity, addButton);
 
 			}
-
-			//wait for page load
-			GenericMethods.JSPageWait(wRecordEntity);
 
 			switch (businessEntityName) {
 
 			case "Authorities and Organizations":
 
 				//Input Name
-				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, AuthTypeinput);
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput2);
 
 				//Legal basis data
 				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_legalBasisFld_Xpath, RaisTestData.LEGAL_BASIS_DATA);
@@ -2666,11 +2734,46 @@ public class RAIS_applicationSpecificMethods  {
 
 				break;
 
+			case "Facilities":
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput2);
+
+				//Legal basis data
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_legalBasisFld_Xpath, RaisTestData.LEGAL_BASIS_DATA);
+
+				//Chair person data
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_ChairPrsonFld_Xpath, RaisTestData.CHAIRPERSON_DATA);
+				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_ChairPrsonFld_Xpath);
+
+
+				break;
+
+			case "Practices":
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
+
+				//inspection data
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.inspFrequency_XPath, nameInput2);
+
+				//input inspection id type
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.inspFrequencyID_XPath, 
+						RaisTestData.year_LinkedEntity);
+
+				//input practice category type
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.practiceCat_XPath, 
+						RaisTestData.suppliers_PracticeCat);
+
+				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.practiceCat_XPath);
+
+				break;
+
 
 			case "Officers":
 
 				//input officer name
-				GenericMethods.sendText_removeblank(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+				GenericMethods.sendText_removeblank(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
 
 				//wait for page load
 				GenericMethods.JSPageWait(wRecordEntity);
@@ -2679,7 +2782,7 @@ public class RAIS_applicationSpecificMethods  {
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_genderFld_Xpath, RaisTestData.GENDER_FEMALE_DATA);
 
 				//input Authority type
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_authorityFld_Xpath, AuthTypeinput);
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_authorityFld_Xpath, nameInput2);
 
 				//Officer value to select from drop, assign to string
 				String officerTask = RAIS_applicationSpecificMethods.createCustomXpath(addEntityRecordPage.FR_prefix, addEntityRecordPage.LICENSE_Txt, 
@@ -2704,10 +2807,20 @@ public class RAIS_applicationSpecificMethods  {
 
 				break;
 
+			case "Districts":
+
+				//Input Name
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
+
+				//select value from drop down
+				valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_region_Xpath, nameInput2);
+
+				break;
+
 			case "NameOnly":
 
 				//Input Name
-				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
 
 				//Tab from element
 				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath);
@@ -2724,65 +2837,75 @@ public class RAIS_applicationSpecificMethods  {
 					||businessEntityName =="Person Tasks" ||businessEntityName == "Worker Tasks") {
 
 				//Input Name
-				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
 
 				//select value from drop down
-				valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_practiceFld_XPath, AuthTypeinput);	
+				valueSelectfromDropDown(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_practiceFld_XPath, nameInput2);	
 
 			} else if(entitywith1Input == true) {
 
 				//Input Name
-				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, officerNameinput);
+				GenericMethods.sendText(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, nameInput);
 
 				//Tab from element
 				GenericMethods.tabfromElement(wRecordEntity, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath);
 
 			}
-			
+
 			//wait for page load
 			GenericMethods.JSPageWait(wRecordEntity);
 
-			//Waiting until element to load and click on Add new button
-//			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
-//			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
-			GenericMethods.elementClick(wRecordEntity, addEntityRecordPage.SaveBtn_XPath);
+			if(formName == "" ) {
+
+				//Waiting until element to load and click on Add new button
+				//			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
+				//			GenericMethods.elementClickable(wRecordEntity, addEntityRecordPage.cancelBtn_XPath);
+				GenericMethods.elementClick(wRecordEntity, saveButton);
+
+			} else {
+
+				//click on regular save button
+				GenericMethods.JClickonElement(wRecordEntity, saveButton);
+
+				entityCreationFLag = true;
+			}
 
 			//waiting for success message
 			GenericMethods.waitforElement(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath);
-			GenericMethods.elementVisible(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath);
+			//GenericMethods.elementVisible(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath);
 
 			if (mode=="Add") {
 				//verifying the success message
 				Assert.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
 						addEntityRecordPage.ADDNEWRECORD_SUCESSMSG_TXT);
-			} else {
-			
+			} else if (mode=="Edit"){
+
 				//verifying the success message
 				Assert.assertEquals(GenericMethods.getActualTxt(wRecordEntity, addEntityRecordPage.form_SuccessMsg_XPath),
 						addEntityRecordPage.UPDATERECORD_SUCESSMSG_TXT);
 			}
-			
-			//wait for page load
-			GenericMethods.JSPageWait(wRecordEntity);
-			
-			//waiting for link to load and then click
-//			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
-//			GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);			
 
 			//wait for page load
-//			GenericMethods.JSPageWait(wRecordEntity);
-			
-			return true;
+			GenericMethods.JSPageWait(wRecordEntity);
+
+			//waiting for link to load and then click
+			//			GenericMethods.waitforElement(wRecordEntity, entityListing.addNewBtn_XPath);
+			//			GenericMethods.elementClickable(wRecordEntity, entityListing.addNewBtn_XPath);			
+
+			//wait for page load
+			//			GenericMethods.JSPageWait(wRecordEntity);
+
+			return entityCreationFLag;
 
 		}catch (NoSuchElementException  noElement) {
 
 			noElement.printStackTrace();
-			return false;
+			return entityCreationFLag;
 
 		}catch (Exception  e) {
 
 			e.printStackTrace();
-			return false;
+			return entityCreationFLag;
 		}
 
 	}
@@ -3058,7 +3181,7 @@ public class RAIS_applicationSpecificMethods  {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			// TODO: handle exception
+
 		}
 
 	}
@@ -3111,35 +3234,49 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//Delete entity record for CRUD operations
-	public static void deleteEntityRecord(WebDriver wdEntityRecord) {
+	public static void deleteEntityRecord(WebDriver wdEntityRecord, String msgType) {
 
 		//initialisting entity form listing page
 		AddNewEntityFormDetailsPage entRecordpage = new AddNewEntityFormDetailsPage ();
-		
+
 		//*****************
 		//page wait
-				GenericMethods.JSPageWait(wdEntityRecord);
+		GenericMethods.JSPageWait(wdEntityRecord);
 
-				//Waiting until element to load and click on delete button
-				GenericMethods.elementClick(wdEntityRecord, entRecordpage.deleteBtn_XPath);
+		//Waiting until element to load and click on delete button
+		GenericMethods.elementClick(wdEntityRecord, entRecordpage.deleteBtn_XPath);
 
-				//page wait
-				GenericMethods.JSPageWait(wdEntityRecord);
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);
 
-				//Waiting for delete popup page
-				GenericMethods.JClickonElement(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);			
+		//Waiting for delete popup page
+		GenericMethods.JClickonElement(wdEntityRecord, entRecordpage.popUpYesBtn_XPath);	
 
-				//Waiting for delete popup page
-				GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);	
-				GenericMethods.elementClickable(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
 
-				//verifying the success message
-				Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
-						entRecordpage.DELRECORD_SUCCESSMSG_TXT);
 
-				//page wait
-				GenericMethods.JSPageWait(wdEntityRecord);		
-		
+		if (msgType == "Success") {
+			//Waiting for delete popup page
+			GenericMethods.waitforElement(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath);
+			//verifying the success message
+			Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.form_SuccessMsg_XPath),
+					entRecordpage.DELRECORD_SUCCESSMSG_TXT);
+
+		} else if (msgType == "Error") {
+
+			//Waiting for delete popup page
+			//GenericMethods.waitforElement(wdEntityRecord, entRecordpage.topErrorMsg);
+
+			//page wait
+			GenericMethods.JSPageWait(wdEntityRecord);
+
+			//verify the error msg on the top
+			Assert.assertEquals(GenericMethods.getActualTxt(wdEntityRecord, entRecordpage.topErrorMsg),
+					entRecordpage.topErrorMsg_Txt);
+
+		}
+		//page wait
+		GenericMethods.JSPageWait(wdEntityRecord);		
+
 	}
 
 
@@ -3157,7 +3294,7 @@ public class RAIS_applicationSpecificMethods  {
 			//***********************************************Create entity record
 			//calling generic method to call Officer entity data input
 			flagAddEdit = RAIS_applicationSpecificMethods.createEntityRecord(wAddEditDel, entityName, inputFld1, inputFld2,
-					inputFld3, modeType);
+					inputFld3, modeType, null);
 			////**********************************************EDIT MODE STARTS Here						
 			//Grid filter and click on entity record listing page
 			EntityRecordGridFilter_Click(wAddEditDel, 2, inputFld1);
@@ -3169,12 +3306,12 @@ public class RAIS_applicationSpecificMethods  {
 			//Edit entity record
 			//calling generic method to call Officer entity data edit
 			flagAddEdit = RAIS_applicationSpecificMethods.createEntityRecord(wAddEditDel, entityName, "localTime", "Optional",
-					"Optional", "Optional");
+					"Optional", "Optional", null);
 			////***********************************************delete starts here
 			//Grid filter and click on entity record listing page
 			EntityRecordGridFilter_Click(wAddEditDel, 2, "TestAuto" + "localTime");
 			//delete entity record data
-			deleteEntityRecord(wAddEditDel);
+			deleteEntityRecord(wAddEditDel, null);
 
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -3198,21 +3335,32 @@ public class RAIS_applicationSpecificMethods  {
 		//initialisting entity form listing page
 		EntityFormListingPage entListPage = new EntityFormListingPage();
 
+		//Initialising string as per page
+		String gridTablePrefix_Xpath = entListPage.EntityListing_GridTable_Prefix_Xpath;;
+
 		//Fetch col header name w.r.t position into the string
-		String ColName = entListPage.EntityListing_GridTable_Prefix_Xpath + position +entListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
+		String ColName = gridTablePrefix_Xpath + position +entListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
 
 		//Get text name of the header
 		ColName = GenericMethods.getActualTxt(wGrid, ColName);
 
 		//concatenate prefix, suffix, col header name, position to form xpath
-		String GridColHeader = entListPage.EntityListing_GridTable_Prefix_Xpath +position+entListPage.Dynamic_GridTable_Suffix1_Xpath
+		String GridColHeader = gridTablePrefix_Xpath +position+entListPage.Dynamic_GridTable_Suffix1_Xpath
 				+ColName+entListPage.Dynamic_GridTable_Suffix2_Xpath;
 
 		//create dynamic dynamic xpath of text field
-		String GridTextInput_xpath = entListPage.EntityListing_GridTable_Prefix_Xpath +position+entListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+		String GridTextInput_xpath = gridTablePrefix_Xpath +position+entListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);
 
 		//clicking on filter icon on the grid
 		GenericMethods.elementClick(wGrid, GridColHeader);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wGrid);
+		//		GenericMethods.waitforElement(wGrid, GridTextInput_xpath);
+		//		GenericMethods.elementClickable(wGrid, GridTextInput_xpath);
 
 		//input text value to search
 		GenericMethods.sendText(wGrid, GridTextInput_xpath, filterText);
@@ -3247,8 +3395,8 @@ public class RAIS_applicationSpecificMethods  {
 		//Waiting for delete popup page
 		GenericMethods.JClickonElement(wdEntityRecord, entpage.delEntity_popUpYesBtn_XPath);			
 
-//		//page wait
-//		GenericMethods.JSPageWait(wdEntityRecord);
+		//		//page wait
+		//		GenericMethods.JSPageWait(wdEntityRecord);
 
 		//Waiting for delete popup page
 		GenericMethods.waitforElement(wdEntityRecord, entpage.addnewEntity_SuccessMsg_XPath);	
@@ -3306,15 +3454,15 @@ public class RAIS_applicationSpecificMethods  {
 		DataRoles_FunctionalRolesPage DR_FRPage = new DataRoles_FunctionalRolesPage();
 
 		try {
-			
+
 			String DR_FR_RoleName = "";
-			
+
 			if(roleType == "Data Roles") {
-			
+
 				DR_FR_RoleName= DR_FRPage.edit_delPREFIX_XPath;
-			
+
 			} else {
-				
+
 				DR_FR_RoleName = DR_FRPage.FR_edit_delPREFIX_XPath;
 			}
 
@@ -3327,7 +3475,7 @@ public class RAIS_applicationSpecificMethods  {
 			for (int i=0; i<roleList.size();i++) {
 
 				//print index
-//				System.out.println(i);
+				//				System.out.println(i);
 
 				WebElement roleName1 = roleList.get(i);
 
@@ -3348,18 +3496,18 @@ public class RAIS_applicationSpecificMethods  {
 
 						//create dynamic xpath
 						edit_Delete = DR_FR_RoleName+"["+position+DR_FRPage.edit_Suffix_XPath;
-						
+
 						//pagewait
 						GenericMethods.JSPageWait(wdi);
 
 						//clicking on role name		
 						GenericMethods.elementClick(wdi, edit_Delete);
-						
+
 					} else if(mode=="Delete") {
 
 						//create dynamic xpath for delete
 						edit_Delete = DR_FR_RoleName+"["+position+DR_FRPage.delete_Suffix_XPath;	
-						
+
 						//pagewait
 						GenericMethods.JSPageWait(wdi);
 
@@ -3396,17 +3544,17 @@ public class RAIS_applicationSpecificMethods  {
 			//clicking on add role button			
 			GenericMethods.tabfromElement(wsave, DRFR_Add_Verify.inputroleName_XPath);
 			System.out.println("clicked on addrole");
-			
+
 			if(roleType == "Data Roles") {
-				
+
 				//page load and click
 				GenericMethods.elementClick(wsave, DRFR_Add_Verify.SaveBtn_XPath);				
-				
+
 			} else {
-				
+
 				//page load and click
 				GenericMethods.elementClick(wsave, DRFR_Add_Verify.FRSaveBtn_XPath);
-				
+
 			}		
 
 			//waiting for success message
@@ -3431,17 +3579,17 @@ public class RAIS_applicationSpecificMethods  {
 
 		//Initialise page
 		DataRoles_FunctionalRolesPage deleteDRFR = new DataRoles_FunctionalRolesPage();
-		
+
 		//page wait
 		GenericMethods.JSPageWait(wdDRFR);
-		
+
 		if (roleType =="Data Roles" ) {
 
 			//Waiting for delete popup page
 			GenericMethods.JClickonElement(wdDRFR, deleteDRFR.deletePopupMsgYesBtn_XPath);	
-			
+
 		} else {
-			
+
 			//Waiting for delete popup page
 			GenericMethods.JClickonElement(wdDRFR, deleteDRFR.FR_deletePopupMsgYesBtn_XPath);
 		}
@@ -3462,127 +3610,1559 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	// Method to click on top menu
-		public static Boolean verifyItemPresentinMenu(WebDriver wdMenu, String MainMenuName, String subMenu, String childMenu) {	
+	public static Boolean verifyItemPresentinMenu(WebDriver wdMenu, String MainMenuName, String subMenu, String childMenu) {	
 
-			//Setting flag to exit loop
-			boolean flag = true; int colposition=0;
+		//Setting flag to exit loop
+		boolean flag = true; int colposition=0;
+
+		//Return flag
+		boolean elementPresent = false;
+
+		//Setting column position
+		if(subMenu == "Inventory" || subMenu == "User Management") {
+
+			colposition = 1;
+		} 
+
+		//setting col position for other menus
+		switch (subMenu) {
+
+		case "Resources":
+
+			colposition = 2;
+
+			break;
+
+		case "Customization":
+
+			colposition = 3;
+
+			break;
+
+		case "Common Tables":
+
+			colposition = 4;
+
+			break;
+
+		default:
+			break;
+		}
+
+		try {
+
+			//pagerefresh
+			wdMenu.navigate().refresh();
+
+			//page wait
+			GenericMethods.JSPageWait(wdMenu);
+
+			//Creating list of webelements returned from left pane				
+			List<WebElement> menuList = wdMenu.findElements(By.xpath("//div//ul[@id='main-menu']/li"));
+			//List<WebElement> rolesList = mainleftpaneRoleXpath.findElements(By.xpath("//*[@id=\"datarole\"]/div/div[1]/div/div/div[2]/ul/li"));
+
+			//Iterating the role list webelement until match is found
+			for (WebElement headerName : menuList) {				
+
+				//				System.out.println(headerName);
+				//locate specific role with text
+				if ((flag==true) && headerName.findElement(By.tagName("a")).getText().equals(MainMenuName)) {
+
+					System.out.println(headerName.findElement(By.tagName("a")).getText());
+					headerName.click();
+
+					//GenericMethods.pageLoadWait(600);
+					GenericMethods.JSPageWait(wdMenu);
+
+					List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
+
+					for (WebElement subHeaderName : subMenuList) {
+
+						if ((flag==true) && subHeaderName.findElement(By.tagName("a")).getText().equals(subMenu)) {
+
+							//subHeaderName.click();
+							System.out.println(subHeaderName.findElement(By.tagName("a")).getText());
+
+							List<WebElement> childMenuList = subHeaderName.findElements(By.xpath("//ul[@class='sub-menu-column']//li"));
+
+							for (WebElement childName : childMenuList) {
+
+								if ((flag==true) && childName.findElement(By.tagName("a")).getText().equals(childMenu)) {
+
+									System.out.println(childName.findElement(By.tagName("a")).getText());
+
+									//										 //setting return type flag
+									elementPresent = true;
+
+									//calling element highligt
+									GenericMethods.highLightWebElement(wdMenu, childName.findElement(By.tagName("a")), GenericMethods.elementClickHighlight);
+
+									//setting flag as false
+									flag= false;
+								}
+
+							}
+
+						}
+					} 
+				}
+			}
+
+			//pagerefresh
+			wdMenu.navigate().refresh();
+
+			//return flag value
+			return elementPresent;				
+
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+
+			//return flag value
+			return elementPresent;
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+
+			//return flag value
+			return elementPresent;
+		}  
+	}
+
+	//create, edit security profile
+	public static boolean createEdtDelSecurityProfile(WebDriver wSP,String secProfileName, String selectEntity, String selectFields,String mode) {
+
+		//initialising pages
+		SecurityProfilePage SPListingPage = new SecurityProfilePage();
+		AddNewSecurityProfilePage addEditSecProfile = new AddNewSecurityProfilePage();
+
+		//Common test data for entity creation
+		String addNewSP_ListingPage = SPListingPage.addNewProfileBtn_XPath;
+		String topMessageXpath = addEditSecProfile.secProf_Msg_XPath;
+		String saveButton = addEditSecProfile.SaveBtn_XPath;
+		String deleteButton = addEditSecProfile.deleteBtn_XPath;
+		String popupYesBtn = addEditSecProfile.popUpYesBtn_XPath;
+
+		try {			
+
+			//page wait
+			GenericMethods.JSPageWait(wSP);
+
+			//Applicable only for add mode
+			if (mode== "Add") {
+
+				//click on add new SP button
+				GenericMethods.elementClick(wSP, addNewSP_ListingPage);
+
+				//page wait
+				GenericMethods.JSPageWait(wSP);
+
+				//input entity internal name
+				GenericMethods.sendText(wSP, addEditSecProfile.addnewSP_inputroleName_XPath, secProfileName);
+
+				//input entity group name
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wSP, addEditSecProfile.addnewSP_entityNameDropdown_XPath, selectEntity);
+
+				//page wait
+				GenericMethods.JSPageWait(wSP);
+
+				//input field name
+				GenericMethods.elementClick(wSP, addEditSecProfile.restriction_DropdnClick_Xpath);
+				GenericMethods.elementClick(wSP, addEditSecProfile.restriction_add_dropdown_XPath);
+				GenericMethods.elementClick(wSP, addEditSecProfile.restriction_DropdnClick_Xpath);
+
+				//Select edit radio button
+				GenericMethods.elementClick(wSP, addEditSecProfile.rdobtnView_XPath);	
+
+				//clicking on entity - save button
+				GenericMethods.elementClick(wSP, saveButton);
+
+				//waiting for success message
+				GenericMethods.waitforElement(wSP, topMessageXpath);
+				GenericMethods.elementVisible(wSP, topMessageXpath);
+
+				//verifying the add record success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wSP, topMessageXpath),
+						addEditSecProfile.ADDNEWSP_SUCESSMSG_TXT);					
+
+			}else if (mode =="Edit") {
+
+				//input entity internal name
+				GenericMethods.sendText(wSP, addEditSecProfile.addnewSP_inputroleName_XPath, secProfileName);
+
+				//clicking on entity - save button
+				GenericMethods.elementClick(wSP, saveButton);
+
+				//waiting for success message
+				GenericMethods.waitforElement(wSP, topMessageXpath);
+				GenericMethods.elementVisible(wSP, topMessageXpath);
+
+				//verifying the update record success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wSP, topMessageXpath),
+						addEditSecProfile.UPDATESP_SUCESSMSG_TXT);
+
+			}else if (mode == "Delete") {
+
+				//clicking on entity - save button
+				GenericMethods.elementClick(wSP, deleteButton);
+
+				//clicking on popup button
+				GenericMethods.elementClick(wSP, popupYesBtn);					
+
+				//waiting for success message
+				GenericMethods.waitforElement(wSP, topMessageXpath);
+				GenericMethods.elementVisible(wSP, topMessageXpath);
+
+				//verifying the update record success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wSP, topMessageXpath),
+						addEditSecProfile.DELSP_SUCESSMSG_TXT);
+			}
+
+			//page wait
+			GenericMethods.JSPageWait(wSP);
+
+			//Setting return value true
+			return true;			
+
+		}catch (NoSuchElementException  noElement) {
+
+			noElement.printStackTrace();
+			return false;
+
+		}catch (Exception  e) {
+
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	//Dynamic column header and click 01-Sep only for entity listing page
+	public static void SecurityProfListingGrid_Click(WebDriver wSPGrid,int position,String filterText) {
+
+		//initialisting entity form listing page
+		EntityFormListingPage entListPage = new EntityFormListingPage();
+
+		//Initialising string as per page
+		String gridTablePrefix_Xpath = entListPage.SecurityProfileListing_GridTable_Prefix_Xpath;;
+
+		//Fetch col header name w.r.t position into the string
+		String ColName = gridTablePrefix_Xpath + position +entListPage.Dynamic_colHeaderName_Text_Suffix2_Xpath;
+
+		//Get text name of the header
+		ColName = GenericMethods.getActualTxt(wSPGrid, ColName);
+
+		//concatenate prefix, suffix, col header name, position to form xpath
+		String GridColHeader = gridTablePrefix_Xpath +position+entListPage.Dynamic_GridTable_Suffix1_Xpath
+				+ColName+entListPage.Dynamic_GridTable_Suffix2_Xpath;
+
+		//create dynamic dynamic xpath of text field
+		String GridTextInput_xpath = gridTablePrefix_Xpath +position+entListPage.Dynamic_GridTable_TxtInput_Suffix_Xpath;
+
+		GenericMethods.waitforElement(wSPGrid, GridColHeader);
+		//		GenericMethods.elementClickable(wGrid, GridTextInput_xpath);
+
+		//clicking on filter icon on the grid
+		GenericMethods.elementClick(wSPGrid, GridColHeader);
+
+		//wait for page load
+		//		GenericMethods.JSPageWait(wSPGrid);
+		GenericMethods.waitforElement(wSPGrid, GridColHeader);
+
+		//input text value to search
+		GenericMethods.sendText(wSPGrid, GridTextInput_xpath, filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wSPGrid);			
+
+		//Clicking on specific Role created
+		perm_restrict_Select_Click(wSPGrid,entListPage.securityProfileTableList_XPath , filterText);
+
+		//wait for page load
+		GenericMethods.JSPageWait(wSPGrid);	
+
+	}
+
+	//xpath path generator for popup, where Add new <> is present
+	public static String saveBtnGenericPopUp(String idName) {
+
+		//Initialise string
+		String finalXpath = null;
+
+		//generate dynamic xpath
+		finalXpath = idName+"/div/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/button[2]";
+
+		//return xpath
+		return finalXpath;
+	}
+
+	//create facility - add/ edit or delete
+	public static Boolean createFacility (WebDriver wFac,String facRan, String facName, String facStatus, String facPractice,
+			String facRegion, String facDistrict, String mode, String pageName) {
+
+		//Initialising form name
+		AddNewEntityFormDetailsPage addEntityRecordPage = new AddNewEntityFormDetailsPage();
+		EntityFormListingPage entityListing = new EntityFormListingPage();
+
+		//setting flag to return
+		Boolean createFacilityFlag = false;
+
+		try {
+
+			//wait for page load
+			GenericMethods.JSPageWait(wFac);
+
+			//only for Add new record mode
+			if(mode=="Add") {
+
+				//Input Name
+				GenericMethods.sendText(wFac, addEntityRecordPage.entityFormDetailsPage_RANFld_XPath, facRan);
+
+				//Input Name
+				GenericMethods.sendText(wFac, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, facName);
+
+				//input status type
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFac, addEntityRecordPage.entityFormDetailsPage_status_Xpath, 
+						RaisTestData.inOperation_Txt);
+
+				//Legal basis data
+				GenericMethods.sendText(wFac, addEntityRecordPage.entityFormDetailsPage_legalBasisFld_Xpath, RaisTestData.LEGAL_BASIS_DATA);
+
+				///Add practice here
+				//selectMultiValue(wFac, pageName, facPractice);
+
+				//input region type
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFac, addEntityRecordPage.entityFormDetailsPage_region_Xpath,facRegion);
+
+				//input district type
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFac, addEntityRecordPage.entityFormDetailsPage_district_Xpath,facDistrict);
+
+				//give tab from element
+				GenericMethods.tabfromElement(wFac, addEntityRecordPage.entityFormDetailsPage_district_Xpath);
+
+			} else if(mode =="Edit") {
+
+				//Input Name
+				GenericMethods.sendText(wFac, addEntityRecordPage.entityFormDetailsPage_inputNameFld_XPath, facName);
+
+			}					
+
+			//wait for page load
+			GenericMethods.JSPageWait(wFac);
+
+			//Waiting until element to load and click on Add new button
+			GenericMethods.elementClick(wFac, addEntityRecordPage.SaveBtn_XPath);
+
+			//waiting for success message
+			GenericMethods.waitforElement(wFac, addEntityRecordPage.form_SuccessMsg_XPath);
+			GenericMethods.elementVisible(wFac, addEntityRecordPage.form_SuccessMsg_XPath);
+
+			if (mode=="Add") {
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wFac, addEntityRecordPage.form_SuccessMsg_XPath),
+						addEntityRecordPage.ADDNEWRECORD_SUCESSMSG_TXT);
+			} else if (mode=="Edit"){
+
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wFac, addEntityRecordPage.form_SuccessMsg_XPath),
+						addEntityRecordPage.UPDATERECORD_SUCESSMSG_TXT);
+			} else {						
+				//verifying the success message
+				Assert.assertEquals(GenericMethods.getActualTxt(wFac, addEntityRecordPage.form_SuccessMsg_XPath),
+						addEntityRecordPage.DELRECORD_SUCCESSMSG_TXT);
+			}
+
+			//wait for page load
+			GenericMethods.JSPageWait(wFac);
+
+			//return flag
+			return createFacilityFlag;
+
+		}catch (NoSuchElementException  noElement) {
+
+			noElement.printStackTrace();
+			return createFacilityFlag;
+
+		}catch (Exception  e) {
+
+			e.printStackTrace();
+			return createFacilityFlag;
+		}
+
+	}
+
+	//select value from multiselect list for DR &FR
+	public static void multiSelect_DR_FR_Page(WebDriver wMulti,String selectValue, String roleType) {	
+
+		try {
+
+			String wrapperName = "//*[@class='multiselect-wrapper']";
+			String filterId = "//*[@id='filter']";
+			String tabName = null;
+
+			if (roleType == "Add New Permission") {
+
+				tabName = "//*[@id='nav-tabpanel-0']//fieldset//label";
+
+			} else if (roleType == "Add New Restrictions") {
+
+				tabName = "//*[@id='nav-tabpanel-1']//fieldset//label";
+			}
+
+			//					//Waiting for popup to load
+			GenericMethods .JSPageWait(wMulti);
+
+			//click on multiselect class to expand
+			GenericMethods.elementClick(wMulti, wrapperName);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wMulti);
+
+			//select value to select
+			GenericMethods.sendText_removeblank(wMulti, filterId, selectValue);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wMulti);
+
+			//select first value in the list
+			GenericMethods.elementClick(wMulti, tabName);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wMulti);
+
+			//click on multiselect class to collapse
+			GenericMethods.elementClick(wMulti, wrapperName);					
+
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+
+		}	catch (Exception e) {
+			e.printStackTrace();
+		}  
+
+	}
+
+	//create facility in DR FR popup
+	public static Boolean createfacility_DR_FRpopUp(WebDriver wPopup, String facRAN, String FacName, String facStatus, String facReg, String facDist) {
+
+		//Initialising page
+		AddNewEntityFormDetailsPage facEntityRecordDetails = new AddNewEntityFormDetailsPage ();
+		DataRoles_FunctionalRolesPage DRFRRolesPage = new DataRoles_FunctionalRolesPage();
+
+		try {
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wPopup);
+
+			GenericMethods.sendText(wPopup, facEntityRecordDetails.entityFormDetailsPage_RANFld_XPath, facRAN); //RAN
+			GenericMethods.sendText(wPopup, facEntityRecordDetails.entityFormDetailsPage_inputNameFld_XPath, FacName); //Fac Name
+
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wPopup, DRFRRolesPage.facilityFrm_facilityStatus, facStatus);
+
+			//Waiting for popup to load rais-modal-body
+			GenericMethods .JSPageWait(wPopup);
+			GenericMethods.elementClick(wPopup, "//*[@id='nav-tabpanel-0']//div//form//div//fieldset//div[@class='multiselect-wrapper']");
+			//		GenericMethods.elementClick(wd, "//*[@class='rais-modal-dialog']//div[@class='multiselect-wrapper']");
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wPopup);
+			//		GenericMethods.sendText_removeblank(wd, "//*[@class='mul-fieldset']//div[@id='filter']", "Dental Xray");
+			//		GenericMethods.sendText(wd, "//*[@id='nav-tabpanel-0']//div//form//div//fieldset//div//fieldset//div[@id='filter']", "1Demo Practice");
+			//Javascript command
+			//		  JavascriptExecutor js = (JavascriptExecutor)wd;
+			//		  js.executeScript("document.getElementById('filter').value='1Demo Practice';");
+			//		  
+			//		  js.executeScript("arguments[0].value='1Demo Practice';", wd.findElement(By.xpath("//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/fieldset/div/div[2]/div/div")));
+			//		
+			//		
+			//		GenericMethods.JClickonElement(wd, "//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/fieldset/div/div[2]/div/div");
+			//		GenericMethods.sendText(wd, "//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/fieldset/div/div[2]/div/div", 
+			//				"1Demo Practice");
+			//		GenericMethods.sendText_removeblank(wd, "//*[@id='nav-tabpanel-0']//div//form//div//fieldset//div//fieldset//div", "Dental Xray");
+
+			GenericMethods.elementClick(wPopup, "//*[@id='nav-tabpanel-0']//div//form//div/fieldset//div//fieldset//div//ul//li[2]//label");
+			//		GenericMethods.elementClick(wd, "//*[@class='mul-fieldset']//label");
+			//		GenericMethods.elementClick(wd, "//*[@class='multiselect-wrapper']//div[@class='mul-fieldset']//label");
+
+			//Waiting for popup to load
+			//			GenericMethods .JSPageWait(wPopup);
+			GenericMethods.elementClick(wPopup, "//*[@id='nav-tabpanel-0']//div//form//div//fieldset//div[@class='multiselect-wrapper']");
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wPopup);
+
+			//select region and district
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wPopup, DRFRRolesPage.facilityFrm_Region, facReg);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wPopup);
+
+			//select region and district
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wPopup, DRFRRolesPage.facilityFrm_District, facDist);
+
+			//tab from element
+			GenericMethods.tabfromElement(wPopup, DRFRRolesPage.facilityFrm_District);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wPopup);
+
+			//click on Save button
+			GenericMethods.elementClick(wPopup, DRFRRolesPage.facilityPopUp_SaveBtn_Xpath);
+
+			//			GenericMethods.JClickonElement(wPopup, DRFRRolesPage.savePermRestrict_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wPopup);
+
+			return true;
+
+			//		//**************************************************Add Facility HERE
+			//		
+			//		//click on facility link
+			//		GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.addFacility_Xpath);
+			//		
+			//		//Waiting for popup to load
+			//		GenericMethods .JSPageWait(wd);
+			//		
+			//		GenericMethods.sendText(wd, entityRecordDetails.entityFormDetailsPage_RANFld_XPath, "FAC001"); //RAN
+			//		GenericMethods.sendText(wd, entityRecordDetails.entityFormDetailsPage_inputNameFld_XPath, "1Demo Facility"); //Fac Name
+			//		
+			//		//page wait
+			//		GenericMethods.JSPageWait(wd);
+			//		
+			//		GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.createFacility_PracticeSelect);
+			//		//page wait
+			//		GenericMethods.JSPageWait(wd);
+			//		
+			//		GenericMethods.sendText(wd, entityRecordDetails.idFilter, "1Demo Practice"); //Practice
+			//		//selecting particular item
+			//		GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.selectedItem);
+			//		GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.createFacility_PracticeSelect);
+			//		
+			//		
+			//		GenericMethods.sendText(wd, entityRecordDetails.entityFormDetailsPage_region_Xpath, "1Demo Region"); //Region
+			//		GenericMethods.sendText(wd, entityRecordDetails.entityFormDetailsPage_district_Xpath, "1Demo District"); //District
+			//		
+			//**************************************** Add facility ends here
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}		
+
+
+	}
+
+	//search facility or WF record and intiate WF on it
+	public static void basicSearchRecord(WebDriver wsin, Object searchRecord) {
+
+		//initialise entity listing page
+		EntityFormListingPage entList = new EntityFormListingPage();
+
+		//Waiting for popup to load
+		GenericMethods .JSPageWait(wsin);
+
+		//send text
+		GenericMethods.sendText(wsin, entList.inputSearchFld_Xpath, searchRecord);
+
+		//click on search button
+		GenericMethods.elementClick(wsin, entList.searchBtn_Xpath);
+
+		//Waiting for popup to load
+		GenericMethods .JSPageWait(wsin);
+	}
+
+	//initiate a Workflow
+	public static void initiateWorkflow(WebDriver wInitiateWF, Object workFlowName) {
+
+		//initialise entity listing page
+		EntityFormListingPage entListing = new EntityFormListingPage();
+
+		//Adding implicit wait
+		GenericMethods .JSPageWait(wInitiateWF);
+
+		//select radio button and initiate Workflow
+		GenericMethods.elementClick(wInitiateWF, entListing.rdoBtn_Xpath);
+
+		//click on the record and go ahead
+		valueSelectfromDropDown(wInitiateWF, entListing.workflowDrpDwn_Xpath,workFlowName);
+
+		//Click on initiate button
+		GenericMethods.elementClick(wInitiateWF, entListing.workflowBtnInitiate);
+
+		//Adding implicit wait
+		GenericMethods .JSPageWait(wInitiateWF);
+
+		//verifying the success message
+		Assert.assertEquals(GenericMethods.getActualTxt(wInitiateWF, entListing.workflowInitiateSuccessMsg_XPath),
+				entListing.WORKFLOW_INITIATE_SUCCESS_TXT);
+
+
+		//Waiting for popup to load
+		GenericMethods .JSPageWait(wInitiateWF);
+	}
+
+	//trim workflow id name
+	public static String trimWorkflowid(WebDriver wTrim, String extractId) {
+
+		//start trimming
+		String idName = GenericMethods.getActualTxt(wTrim, extractId);
+		idName = idName.replace("Initiated Manually - ", "");
+		//final String Wfid = idName.replace("- ", "");
+		final String Wfid = idName.substring(0, 11);
+
+		//return final value
+		return Wfid;     
+
+	}
+
+	//method to click and upload file
+	public static void setClipboardData(String string) {
+		//StringSelection is a class that can be used for copy and paste operations.
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+
+	}
+
+	public static void clickAndUploadFile(WebDriver wUpload,String clickOnLink, String filePath) {
+
+		try {
+
+			//click on element
+			//click on organigram link
+			GenericMethods.elementClick(wUpload,clickOnLink);			
+
+			//			Thread.sleep(3000);
+			//page wait
+			GenericMethods.JSPageWait(wUpload);
+
+			//Setting clipboard with file location
+			//setClipboardData(filePath);
+			//StringSelection is a class that can be used for copy and paste operations.
+			StringSelection stringSelection = new StringSelection(filePath);
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+			System.out.println(filePath);
+
+			//page wait
+			GenericMethods.JSPageWait(wUpload);
+
+			//native key strokes for CTRL, V and ENTER keys
+			Robot robot = new Robot();
+
+			robot.keyPress(KeyEvent.VK_CONTROL);
+
+			robot.keyPress(KeyEvent.VK_V);
+
+			robot.keyRelease(KeyEvent.VK_V);
+
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+
+			//page wait
+			GenericMethods.JSPageWait(wUpload);
+
+			robot.keyPress(KeyEvent.VK_ENTER);
+
+			robot.keyRelease(KeyEvent.VK_ENTER);
+
+			//page wait
+			GenericMethods.JSPageWait(wUpload);
+
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//		} catch (InterruptedException e) {
+			//			// TODO Auto-generated catch block
+			//			e.printStackTrace();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	//scroll to bottom
+	public static void jScrollToBottom(WebDriver wScroll) {
+
+		//initialise
+		JavascriptExecutor js = (JavascriptExecutor) wScroll;
+
+		//This will scroll the web page till end.		
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+	}
+
+	//Followup Action WF Dataform input
+	public static Boolean FA_DataFormInput(WebDriver wFA, String workFlowName) {
+
+		//		//Waiting for popup to load
+		//		GenericMethods .JSPageWait(wFA);
+		//		
+		//		pageName.toString()
+		//		
+		//		//input source location
+		//		RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFA, FA_WFPage.sourceLocation_Xpath, sourceLocation);
+		//		
+		//		//input source status
+		//		RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFA, FA_WFPage.sourceStatus_Xpath, sourceStatus);
+		//		
+		//		//input source date
+		//		GenericMethods.sendText(wFA, FA_WFPage.sourceStatusDate_Xpath, genericDate);
+		//		
+		//		//input import date
+		//		GenericMethods.sendText(wFA, FA_WFPage.importDate_Xpath, genericDate);
+		//		
+		//		//upload security plan doc
+		//		RAIS_applicationSpecificMethods.clickAndUploadFile(wFA, FA_WFPage.securityPlan_Xpath,securityPlanDoc_Path);
+		//		
+		//		//input customs number
+		//		GenericMethods.sendText(wFA, FA_WFPage.importCustomNum_Xpath, customsNumber);
+		//		
+		//		//input Bills of number
+		//		GenericMethods.sendText(wFA, FA_WFPage.importBillLadingNum_XPath, bill_LadingNum);
+		//		
+		//		//input bill lading date
+		//		GenericMethods.sendText(wFA, FA_WFPage.importBillLadingdate_XPath, genericDate);
+		//		
+		//		//click on submit button
+		//		GenericMethods.elementClick(wFA, FA_WFPage.submitBtn_FAPage1_Xpath);
+		//		
+		//		//Waiting for popup to load
+		//		//GenericMethods .JSPageWait(wd);
+		//		//waiting for success message
+		//		GenericMethods.waitforElement(wFA, FA_WFPage.SuccessMsg_XPath);
+		//		GenericMethods.elementVisible(wFA, FA_WFPage.SuccessMsg_XPath);
+		//		
+		//		//verify success message
+		//		String submitSuccessMsg = GenericMethods.getActualTxt(wFA, FA_WFPage.SuccessMsg_XPath);
+		//		Assert.assertEquals(submitSuccessMsg,FA_WFPage.successfulMsg_Txt);
+
+
+		return true;
+	}
+
+	//send text using RB class
+	public static void rbSendText(WebDriver wUpload,String filePath) {
+
+		try {
+
+
+			//			Thread.sleep(3000);
+			//page wait
+			GenericMethods.JSPageWait(wUpload);
+
+			//Setting clipboard with file location
+			//setClipboardData(filePath);
+			//StringSelection is a class that can be used for copy and paste operations.
+			StringSelection stringSelection = new StringSelection(filePath);
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+			System.out.println(filePath);
+
+			//native key strokes for CTRL, V and ENTER keys
+			Robot robot = new Robot();
+
+			robot.keyPress(KeyEvent.VK_CONTROL);
+
+			robot.keyPress(KeyEvent.VK_V);
+
+			robot.keyRelease(KeyEvent.VK_V);
+
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+
+			robot.keyPress(KeyEvent.VK_ENTER);
+
+			robot.keyRelease(KeyEvent.VK_ENTER);
+
+			//Adding implicit wait
+			wUpload.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS) ;
+
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//		} catch (InterruptedException e) {
+			//			// TODO Auto-generated catch block
+			//			e.printStackTrace();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	//multiSelect for WF
+	public static void multiSelect_WFDataforms(WebDriver wmDF, String elementXpath,String textToSelect) {
+
+		//		JavascriptExecutor jse = (JavascriptExecutor) wmDF;
+		//		jse.executeScript("arguments[0].scrollIntoView(true);", 
+		//				wmDF.findElement(By.xpath(elementXpath)));
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//click to expand multilookup		
+		GenericMethods.elementClick(wmDF, elementXpath);
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//input text value that needs to be filtered
+		GenericMethods.sendText(wmDF, elementXpath+"//input[@id='filter']", textToSelect);
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//click on first element of the list
+		GenericMethods.elementClick(wmDF, elementXpath +"//ul/li[1]/label");
+
+		//wait for multilist to expand
+		//GenericMethods .JSPageWait(wmDF);
+
+		//click to collapse the list
+		GenericMethods.elementClick(wmDF, elementXpath);
+
+		//wait for multilist to expand
+		//GenericMethods .JSPageWait(wmDF);
+
+	}
+
+	//scroll to element ONLY
+	public static void scrollToElement_Click(WebDriver wScroll, String elementposition) {
+
+		//using js scroll
+		JavascriptExecutor jse = (JavascriptExecutor) wScroll;
+		jse.executeScript("arguments[0].scrollIntoView(true);", 
+				wScroll.findElement(By.xpath(elementposition)));
+
+		//click on element
+		GenericMethods.elementClick(wScroll, elementposition);
+
+		//page wait
+		GenericMethods.JSPageWait(wScroll);
+
+	}
+
+	//scroll to elementOnly
+	public static void scrollToElement(WebDriver wScroll, String elementposition) {
+
+		//using js scroll
+		JavascriptExecutor jse = (JavascriptExecutor) wScroll;
+		jse.executeScript("arguments[0].scrollIntoView(true);", 
+				wScroll.findElement(By.xpath(elementposition)));
+
+		//page wait
+		GenericMethods.JSPageWait(wScroll);
+
+	}
+
+	//scroll to page topmost
+	public static void scrollToTop(WebDriver wTop) {
+
+		//jscript to scroll to page top
+		((JavascriptExecutor) wTop).executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+
+		// option 2 - ((JavascriptExecutor) wTop).executeScript("window.scrollTo(0,-250)");
+	}
+
+	//workflow data forms associations
+	public static Boolean inputDataOnAssociationForm_Authorization(WebDriver wAssoDF, String [] formData) {
+
+		//Initialise authorization - association page
+		Workflow_AuthorizationPage wfAssociationDataForm = new Workflow_AuthorizationPage();
+
+		try {
+			//input department on DF-Associations page
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.department_Xpath, formData[0]);
+			scrollToElement(wAssoDF, wfAssociationDataForm.sealedSource_Xpath);
+
+			//input sealed source on DF-Associations page
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.sealedSource_Xpath, formData[1]);
+			scrollToElement(wAssoDF, wfAssociationDataForm.unsealedSource_Xpath);
+
+			//input unsealed source on DF-Associations page
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.unsealedSource_Xpath, formData[2]);
+			scrollToElement(wAssoDF, wfAssociationDataForm.radGenerator_Xpath);
+
+			//input Radiation generator source on DF-Associations page
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.radGenerator_Xpath, formData[3]);
+			scrollToElement(wAssoDF, wfAssociationDataForm.assoEquipment_Xpath);
+
+			//input asso equipments source on DF-Associations page
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.assoEquipment_Xpath, formData[4]);
+
+			//generate btn xpath
+			String btnClick = wfAssociationDataForm.btnPrefix_Xpath + formData[5]+ wfAssociationDataForm.btnSuffix_Xpath;
+
+			//click on submit button
+			GenericMethods.elementClick(wAssoDF, btnClick);
+
+			//page wait
+			GenericMethods .JSPageWait(wAssoDF);
+
+			//return value
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	//workflow data form req terms
+	public static Boolean inputDataOnRequestedTerms_Authorization(WebDriver wRT, String [] inputData) {
+
+		//Initialise authorization - association page
+		Workflow_AuthorizationPage wfRequestedTermsForm = new Workflow_AuthorizationPage();
+
+		//generate btn xpath
+		String btnClick = wfRequestedTermsForm.btnPrefix_Xpath + inputData[7]+ wfRequestedTermsForm.btnSuffix_Xpath;
+
+		try {
+
+			//Starting with date
+			GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+
+			//page wait
+			GenericMethods .JSPageWait(wRT);
+
+			GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+			//page wait
+			GenericMethods .JSPageWait(wRT);
+
+			if(inputData[0] != "Release Authorization Workflow") {
+
+				GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+
+				GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+
+			} 
 			
-			//Return flag
-			boolean elementPresent = false;
+			if(inputData[0] != "Equipment Manufacturing Authorization Workflow" && inputData[0] != "Release Authorization Workflow") {
+				
+				//max radioactivity value - first item in array
+				GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, inputData[1]);
 
-			//Setting column position
-			if(subMenu == "Inventory" || subMenu == "User Management") {
+				//page wait
+				GenericMethods .JSPageWait(wRT);
 
-				colposition = 1;
+				//select unit - second in array
+				valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, inputData[2]);
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+				
 			} 
 
-			//setting col position for other menus
-			switch (subMenu) {
+			switch (inputData[0]) {
 
-			case "Resources":
 
-				colposition = 2;
+			case "Import Authorization Workflow":	
+				
+				
+
+
+				//scroll to element
+				scrollToElement(wRT, wfRequestedTermsForm.importAgency_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+
+				//input import agency - 3rd in array
+				GenericMethods.sendText(wRT, wfRequestedTermsForm.importAgency_Xpath, inputData[3]);
+				//page wait
+				GenericMethods .JSPageWait(wRT);
 
 				break;
 
-			case "Customization":
+			case "Export Authorization Workflow":		
 
-				colposition = 3;
+				//scroll to element
+				//scrollToElement(wRT, wfRequestedTermsForm.importAgency_Xpath);  //// Export Agency ???????
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+
+				//input import agency - 3rd in array
+				//GenericMethods.sendText(wRT, wfRequestedTermsForm.importAgency_Xpath, inputData[2]); ////Export Agency ?????
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
 
 				break;
 
-			case "Common Tables":
-
-				colposition = 4;
+			case "Equip********* Authorization Workflow":				
 
 				break;
+
 
 			default:
 				break;
 			}
 
-			try {
-				
-				//pagerefresh
-				wdMenu.navigate().refresh();
-				
-				//page wait
-				GenericMethods.JSPageWait(wdMenu);
+			//common data input for all forms *******************************************
 
-				//Creating list of webelements returned from left pane				
-				List<WebElement> menuList = wdMenu.findElements(By.xpath("//div//ul[@id='main-menu']/li"));
-				//List<WebElement> rolesList = mainleftpaneRoleXpath.findElements(By.xpath("//*[@id=\"datarole\"]/div/div[1]/div/div/div[2]/ul/li"));
+			//upload docs - 4th in array
+			clickAndUploadFile(wRT, wfRequestedTermsForm.profitLossStatement_Xpath, inputData[4]);
+			//page wait
+			//GenericMethods .JSPageWait(wd);
 
-				//Iterating the role list webelement until match is found
-				for (WebElement headerName : menuList) {				
+			clickAndUploadFile(wRT, wfRequestedTermsForm.businessRegCertificate_Xpath, inputData[5]);
+			//page wait
+			//GenericMethods .JSPageWait(wd);
 
-					//				System.out.println(headerName);
-					//locate specific role with text
-					if ((flag==true) && headerName.findElement(By.tagName("a")).getText().equals(MainMenuName)) {
+			clickAndUploadFile(wRT, wfRequestedTermsForm.lastYearTaxCertificate_Xpath, inputData[6]);
 
-						System.out.println(headerName.findElement(By.tagName("a")).getText());
-						headerName.click();
+			//scroll to element and click on button
+			scrollToElement_Click(wRT, btnClick);
 
-						//GenericMethods.pageLoadWait(600);
-						GenericMethods.JSPageWait(wdMenu);
+			//page wait
+			GenericMethods .JSPageWait(wRT);
 
-						List<WebElement> subMenuList = headerName.findElements(By.xpath("//div[@class='sub-menu']//div[@class='column']["+colposition+"]"));
+			//return true
+			return true;
 
-						for (WebElement subHeaderName : subMenuList) {
-
-							if ((flag==true) && subHeaderName.findElement(By.tagName("a")).getText().equals(subMenu)) {
-
-								//subHeaderName.click();
-								System.out.println(subHeaderName.findElement(By.tagName("a")).getText());
-
-								List<WebElement> childMenuList = subHeaderName.findElements(By.xpath("//ul[@class='sub-menu-column']//li"));
-
-								for (WebElement childName : childMenuList) {
-
-									if ((flag==true) && childName.findElement(By.tagName("a")).getText().equals(childMenu)) {
-
-										System.out.println(childName.findElement(By.tagName("a")).getText());
-										
-//										 //setting return type flag
-									     elementPresent = true;
-									    
-									   //calling element highligt
-										GenericMethods.highLightWebElement(wdMenu, childName.findElement(By.tagName("a")), GenericMethods.elementClickHighlight);
-									     
-										//setting flag as false
-										flag= false;
-									}
-
-								}
-
-							}
-						} 
-					}
-				}
-				
-				//pagerefresh
-				wdMenu.navigate().refresh();
-				
-				//return flag value
-				return elementPresent;				
-				
-				
-			} catch (NoSuchElementException e) {
-				e.printStackTrace();
-				
-				//return flag value
-				return elementPresent;
-
-			}	catch (Exception e) {
-				e.printStackTrace();
-				
-				//return flag value
-				return elementPresent;
-			}  
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
+		return false;
+	}
+	
+	//verify workflow status and click on record
+	public static void verifyWorkflowStatusAndClickRecord(WebDriver wStatusClick, String status, Boolean clickNeeded) {
+		
+		//intialise page
+		EntityFormListingPage wfListingPage = new EntityFormListingPage();
+		
+		if(status !="") {
+		
+			//verify status of on listing page
+			Assert.assertEquals(GenericMethods.getActualTxt(wStatusClick, wfListingPage.workflowStatus_Xpath), status);
+		
+		}
+		
+		if(clickNeeded == true) {
+		
+			//click on first record
+			GenericMethods.elementClick(wStatusClick, wfListingPage.workFlowName_Xpath);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wStatusClick);
+		}
+	}
+	
+	//Workflow logout and re-login with new user
+	public static void workflowLogoutAndReLoginUser(WebDriver wLoginLogout, String userName, String passwordValue) {
+		
+		//initialise login page
+		LoginPage loginLogoutPage = new LoginPage();
+		
+		//page refresh
+		wLoginLogout.navigate().refresh();
+		
+		//page wait
+		GenericMethods .JSPageWait(wLoginLogout);
+						
+		//Logout licensee user
+		RAIS_applicationSpecificMethods.logout(wLoginLogout);
+		System.out.println("Logout success");		
+		
+		//Start as NEW TC From below			
+		//login using Regulator
+		GenericMethods.loginApplication
+		(wLoginLogout, loginLogoutPage.userId_XPath, userName, loginLogoutPage.pwd_XPath, 
+				passwordValue, loginLogoutPage.loginBtn_XPath);
+		
+		//Waiting for popup to load
+		GenericMethods .JSPageWait(wLoginLogout);
+		
+	}
+	
+	//Authorization - completeness check
+	public static void authorizationCompletenessCheck(WebDriver wComp, String reviewedBy,String memoTxt, Object btnToClick, String workflowName) {
+		
+		try {
+			//initialise page
+			Workflow_AuthorizationPage wfAuthCompletenessCheck = new Workflow_AuthorizationPage();
+			
+			//input reviewed by
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wComp, wfAuthCompletenessCheck.reviewedByCC, reviewedBy);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wComp);
+			
+			//input notes
+			GenericMethods.sendText(wComp, wfAuthCompletenessCheck.approvedRejectedNotes_Xpath, memoTxt);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wComp);
+			
+			if(workflowName == "Isotope Production Authorization Workflow") {
+				
+				//add code for Radioactivity Aggregation Applicable
+			}
+			
+			//scroll to button
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wComp, btnToClick.toString());
+			
+			//waiting for success message
+			GenericMethods.JSPageWait(wComp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	//scrollto top and click on step tracker
+	public static void scrollUpClickStepTrackerandclickBottomTab(WebDriver wLinkedP, Object stepTracker, Object linkedProcessTab) {
+		
+		try {
+			
+			//scroll to page top
+			RAIS_applicationSpecificMethods.scrollToTop(wLinkedP);
+			
+			//scroll to element
+			//RAIS_applicationSpecificMethods.scrollToElement_Click(wd, wfAuthorization.completenessLabelStepTracker_Xpath);
+			
+			//click on step tracker
+			GenericMethods.elementClick(wLinkedP,stepTracker.toString());
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wLinkedP);
+			
+			//clicking on linked processes
+			GenericMethods.elementClick(wLinkedP,linkedProcessTab.toString());
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wLinkedP);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//Data form only button click
+	public static void dataFormOnlyButtonClick(WebDriver wDFBtn, Object buttonToClick) {
+		
+		//Waiting for popup to load
+		GenericMethods.JSPageWait(wDFBtn);
+		
+		//clicking on No external assement button
+		RAIS_applicationSpecificMethods.scrollToElement_Click(wDFBtn, buttonToClick.toString());
+		
+		//Waiting for popup to load
+		GenericMethods.JSPageWait(wDFBtn);
+	}
+	
+	//Only Memo and click button
+	public static void dataFormMemoAndButtonClick(WebDriver wMem, Object memoXpath, String memoText, Object buttonXpath) {
+		
+		try {
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wMem);
+			
+			//enter internal review remarks
+			GenericMethods.sendText_removeblank(wMem, memoXpath.toString(), memoText);
+			
+			//scroll to button
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wMem, buttonXpath.toString());
+							
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wMem);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	//inspection scope input form
+	public static void inspectionScopeDataForm(WebDriver wInspection, Object [] inspectionScopeInputData) {
+		
+		//Initialise inspection scope form
+		Workflow_Inspection_Parent_ChildPage inspectionScopeDF = new Workflow_Inspection_Parent_ChildPage();
+		
+		String clickButton = inspectionScopeDF.btnPrefix_Xpath +inspectionScopeInputData[9].toString() + inspectionScopeDF.btnSuffix_Xpath;
+		
+		try {
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//input department on DF-Associations page
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.department_Xpath, inspectionScopeInputData[0].toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//using js scroll
+			JavascriptExecutor jse = (JavascriptExecutor) wInspection;
+			jse.executeScript("window.scrollBy(0,150)");			
+			
+			//input sealed source on DF-Associations page
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.sealedSource_Xpath, inspectionScopeInputData[1].toString());
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//input unsealed source on DF-Associations page
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.unsealedSource_Xpath, inspectionScopeInputData[2].toString());
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//input Radiation generator source on DF-Associations page
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.radGenerator_Xpath, inspectionScopeInputData[3].toString());
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//regular or full inspection
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.regularInspection_Xpath, inspectionScopeInputData[6].toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//regular or full inspection
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.fullInspection_Xpath, inspectionScopeInputData[7].toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//date of inspection
+			//click on date control
+			GenericMethods.elementClick(wInspection, inspectionScopeDF.scheduledDateofInspection_Xpath);
+			//date of inspection
+			//click on date control
+			//GenericMethods.elementClick(wd, wfInspection.scheduledDateofInspection_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//select date
+			GenericMethods.elementClick(wInspection, inspectionScopeDF.selectSpecificDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//page scroll
+			jse.executeScript("window.scrollBy(0,150)");
+			
+			//Scope of inspection
+			GenericMethods.sendText_removeblank(wInspection, inspectionScopeDF.scopeOfInspection_Xpath, inspectionScopeInputData[8].toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+			
+			//click on proceed without announcement
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wInspection, clickButton);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInspection);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Inspection findings data form
+	public static void inspectionFindingsDataForm(WebDriver wInsFind, String remarksText, Object buttonName) {
+		
+		//Initialise inspection scope form
+		Workflow_Inspection_Parent_ChildPage inspectionFindingsDF = new Workflow_Inspection_Parent_ChildPage();
+		
+		//String clickButton = inspectionFindingsDF.btnPrefix_Xpath +buttonName + inspectionFindingsDF.btnSuffix_Xpath;
+		
+		try {
+			//date of inspection
+			//scroll to element
+			RAIS_applicationSpecificMethods.scrollToElement(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInsFind);
+			
+			//click on date control
+			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInsFind);
+			
+			//select date
+			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.selectSpecificDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInsFind);
+			
+			//Scope of inspection
+			GenericMethods.sendText_removeblank(wInsFind, inspectionFindingsDF.internalInspectionFindings_Xpath, remarksText);
+			
+			//page wait
+			GenericMethods .JSPageWait(wInsFind);
+			
+			//click on proceed without announcement
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wInsFind, buttonName.toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wInsFind);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	//Generic method for approval form
+	public static void approvalDataForm(WebDriver wApproval, Object downLoadReportBtnXpath, Object approvedByXpath, String approvedBy,
+			Object approveRejectMemoXpath, String approveRejectTxt, Object approveRejectBtn) {
+						
+		try {
+			//downlod report
+			GenericMethods.elementClick(wApproval, downLoadReportBtnXpath.toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wApproval);
+			
+			//select reviewed by
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wApproval, approvedByXpath.toString(), approvedBy);
+			
+			//page wait
+			GenericMethods .JSPageWait(wApproval);
+			
+			//scroll to element
+			RAIS_applicationSpecificMethods.scrollToElement(wApproval, approveRejectMemoXpath.toString());
+			
+			//input approval notes
+			GenericMethods.sendText_removeblank(wApproval, approveRejectMemoXpath.toString(), approveRejectTxt);
+			
+			//page wait
+			GenericMethods .JSPageWait(wApproval);
+			
+			//click on approve
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wApproval, approveRejectBtn.toString());
+			
+			//page wait
+			GenericMethods .JSPageWait(wApproval);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	//R&A data form
+	public static void authorizationReviewAssessmentDataForm(WebDriver wRnA, String remarksTxt, String approvedByName, Object buttonName) {
+		
+		//initialise page
+		Workflow_AuthorizationPage wfAuthRADataForm = new Workflow_AuthorizationPage();
+		
+		try {
+			//scroll and add remarks
+			RAIS_applicationSpecificMethods.scrollToElement(wRnA, wfAuthRADataForm.authorizeRejectRemarks_Xpath);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wRnA);
+			
+			//input text
+			GenericMethods.sendText_removeblank(wRnA, wfAuthRADataForm.authorizeRejectRemarks_Xpath, remarksTxt);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wRnA);
+			
+			//input reviewed by
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRnA, wfAuthRADataForm.reviewedBy_Xpath, approvedByName);
+			
+			//page wait
+			GenericMethods .JSPageWait(wRnA);
+			
+			//scroll to bottom
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wRnA, buttonName.toString());
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wRnA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Payment attach invoice form
+	public static void paymentAttachInvoiceReceiptDataForm(WebDriver wPay, Object dataFormName, String[] inputPaymentData, Object fileUploadXpath) {
+		
+		//Initialize form
+		Workflow_PaymentPage paymentDF = new Workflow_PaymentPage();
+		
+		try {
+			
+			//additional fields for confirm payment
+			if (dataFormName.toString() == "Confirm Payment") {
+				
+				//Input amount paid
+				GenericMethods.sendText(wPay, paymentDF.amountPaid_Xpath, inputPaymentData[2]);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wPay);
+				
+				//Input amount paid mode
+				GenericMethods.sendText(wPay, paymentDF.paymentMedium_Xpath, inputPaymentData[3]);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wPay);	
+				
+				//scroll to element
+				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
+				
+				//upload invoice
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), inputPaymentData[1]);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wPay);
+				
+			} else {
+			
+				//scroll to element
+				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
+				
+				//upload invoice
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), inputPaymentData[0]);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wPay);
+			
+			}
+			
+			//scroll to bottom and click
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wPay, paymentDF.submitBtn);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wPay);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Authorization terms and conditions
+	public static void authorizationTermsAndConditions(WebDriver wTnC, String workflowName, String maxRadioActivityValue, String unitValue, String tncText ) {
+		
+		//initialise page
+		Workflow_AuthorizationPage wfAuthTnC = new Workflow_AuthorizationPage();
+		
+		try {
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wTnC);
+			
+			if(workflowName != "Transport Authorization Workflow" ||workflowName != "Release Authorization Workflow" ) {
+			
+			//date of inspection
+			//click on date control
+			GenericMethods.elementClick(wTnC, wfAuthTnC.authStartDate);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			//select date
+			GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			//date of inspection
+			//click on date control
+			GenericMethods.elementClick(wTnC, wfAuthTnC.authEndDate);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			//select date
+			GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			}
+			
+			if (workflowName == "Isotope Production Workflow") {
+				
+				//include max radio activity xpath and values here
+			}
+			
+			//scroll to element
+			RAIS_applicationSpecificMethods.scrollToElement(wTnC, wfAuthTnC.tncText_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			//input TNC
+			GenericMethods.sendText_removeblank(wTnC, wfAuthTnC.tncText_Xpath, tncText);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+			
+			//scroll to bottom and click
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wTnC, wfAuthTnC.submitBtn);
+			
+			//page wait
+			GenericMethods .JSPageWait(wTnC);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Acceptance form
+	public static void acceptanceDataForm(WebDriver wAccept, String memoText, Object buttonToClick) {
+		
+		//initialise page
+		Workflow_AuthorizationPage acceptanceForm = new Workflow_AuthorizationPage();
+		
+		String clickButton = acceptanceForm.btnPrefix_Xpath +buttonToClick.toString() + acceptanceForm.btnSuffix_Xpath;
+		
+		try {
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wAccept);
+			
+			//click on accept check box
+			GenericMethods.elementClick(wAccept, acceptanceForm.acceptTnC_ChkBox_Xpath);
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wAccept);
+			
+			//scroll to element
+			RAIS_applicationSpecificMethods.scrollToElement(wAccept, acceptanceForm.remarks_Xpath);
+			
+			//input remarks
+			GenericMethods.sendText_removeblank(wAccept, acceptanceForm.remarks_Xpath, memoText);
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wAccept);
+			
+			//scroll and click
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wAccept, clickButton);
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wAccept);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 
 

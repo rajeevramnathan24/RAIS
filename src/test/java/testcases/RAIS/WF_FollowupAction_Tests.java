@@ -20,6 +20,7 @@ import pageLocators_Elements.RAIS.DashboardPage;
 import pageLocators_Elements.RAIS.DataRoles_FunctionalRolesPage;
 import pageLocators_Elements.RAIS.EntityFormListingPage;
 import pageLocators_Elements.RAIS.EntityListingPage;
+import pageLocators_Elements.RAIS.Workflow_FAPage;
 import pageLocators_Elements.RAIS.ForgotPasswordPage;
 import pageLocators_Elements.RAIS.LoginPage;
 import pageLocators_Elements.RAIS.SecurityProfilePage;
@@ -41,7 +42,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 
-public class CRUD_Operation_Tests extends BaseClass
+public class WF_FollowupAction_Tests extends BaseClass
 {		
 	//Instantiating individual pages
 	LoginPage loginPage = new LoginPage();
@@ -58,6 +59,9 @@ public class CRUD_Operation_Tests extends BaseClass
 	AddNewEntityPage addEntityPage = new AddNewEntityPage();
 	EntityFormListingPage entityRecordListing = new EntityFormListingPage();
 	AddNewEntityFormDetailsPage entityRecordDetails = new AddNewEntityFormDetailsPage ();
+	
+	Workflow_FAPage FA_WFPage = new Workflow_FAPage();
+	
 
 	//Common Test data used across test cases
 	String dataRoleName = RaisTestData.DataRole_Test;
@@ -100,6 +104,9 @@ public class CRUD_Operation_Tests extends BaseClass
 	//error and success text
 	String errorMsg = RaisTestData.errorText;
 	String successMsg = RaisTestData.successText;
+	
+	//workflowID
+	//public static String workflowId = null;
 
 
 	TestSuite RunTestCase = new TestSuite();
@@ -155,69 +162,176 @@ public class CRUD_Operation_Tests extends BaseClass
 
 	//Test case starts here ******************************
 
-	//#CRUD1
-	@Test(priority=CRUDOperationTestDetails.tcNumber,enabled=CRUDOperationTestDetails.crudOpTC1_runStatus)
-	public void DataRole_CreateEditDeleteRole() throws Exception {
+	//#F1
+	@Test(priority=1,enabled=false)
+	public void FollowpAction_Test() throws Exception {
 
 		try {
+			
+			Thread.sleep(6000);
+			
+			//Test Data
+			String regulatoryProcessMainMenu = RaisTestData.RegProcessText;
+			String authorization = RaisTestData.AuthorizationSubmenu;
+			String ParentWorkFlowName = RaisTestData.importAuthWF;
+			String FA_WFName = "FollowUpAction Import Workflow";
+			
+			String licenseeRole = "LICImp";
+			String regulatorRole = "REGVP";
+			String pwd = "Pass123$";
+			//*********************************************************************
+			String WFid_FAtobeExecuted = "IMP/0003/WF Import Facility 1 Execution";
+			//*********************************************************************
+			
+			//DF1 test data
+			String sourceLocation = "Import Facility 1 Execution";
+			String sourceStatus = "In-Process";
+			String genericDate = "08/10/2020";
+			String securityPlanDoc_Path = "C:\\Temp\\securityPlan.pdf";
+			String customsNumber = "455500P231/22";
+			String bill_LadingNum = "455500P231/223434";
+			String RemarksTxt = "This Followup action has been approved by Regulator role.";
+			String ApprovedByName = "Vishal";
+			
+			
 
 			//Setting Test name and description on report
-			SettingRptTestName_TestDesc(CRUDOperationTestDetails.crudOpTC1_testName,CRUDOperationTestDetails.crudOpTC1_testDescription);
+			SettingRptTestName_TestDesc("Followp Action Test case","Followp Action Test case");
 
 			//Calling Login method
 			GenericMethods.loginApplication
-			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
-					password, loginPage.loginBtn_XPath);
+			(wd, loginPage.userId_XPath, licenseeRole, loginPage.pwd_XPath, 
+					pwd, loginPage.loginBtn_XPath);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
 
-			//Clicking on entities menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					DR_MenuName);
+			//Clicking on parent Auth WF menu and name
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,ParentWorkFlowName);
 
+			//search for required record
+			RAIS_applicationSpecificMethods.basicSearchRecord(wd, WFid_FAtobeExecuted);
+			
+			//Initiate Workflow
+			RAIS_applicationSpecificMethods.initiateWorkflow(wd, FA_WFName);
+			
+			//extract workflowid
+			final Object workflowId = RAIS_applicationSpecificMethods.trimWorkflowid(wd, null);
+			
+			//*************************Starting with first data form
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+			
+			//input source location
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.sourceLocation_Xpath, sourceLocation);
+			
+			//input source status
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.sourceStatus_Xpath, sourceStatus);
+			
+			//input source date
+			GenericMethods.sendText(wd, FA_WFPage.sourceStatusDate_Xpath, genericDate);
+			
+			//input import date
+			GenericMethods.sendText(wd, FA_WFPage.importDate_Xpath, genericDate);
+			
+			//upload security plan doc
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, FA_WFPage.securityPlan_Xpath,securityPlanDoc_Path);
+			
+			//input customs number
+			GenericMethods.sendText(wd, FA_WFPage.importCustomNum_Xpath, customsNumber);
+			
+			//input Bills of number
+			GenericMethods.sendText(wd, FA_WFPage.importBillLadingNum_XPath, bill_LadingNum);
+			
+			//input bill lading date
+			GenericMethods.sendText(wd, FA_WFPage.importBillLadingdate_XPath, genericDate);
+			
+			//click on submit button
+			GenericMethods.elementClick(wd, FA_WFPage.submitBtn_FAPage1_Xpath);
+			
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);
+			//waiting for success message
+			GenericMethods.waitforElement(wd, FA_WFPage.SuccessMsg_XPath);
+			GenericMethods.elementVisible(wd, FA_WFPage.SuccessMsg_XPath);
+			
+			//verify success message
+			String submitSuccessMsg = GenericMethods.getActualTxt(wd, FA_WFPage.SuccessMsg_XPath);
+			Assert.assertEquals(submitSuccessMsg,FA_WFPage.successfulMsg_Txt);
+			
+			//Logout licensee user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+			
+			//login using Regulator
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, regulatorRole, loginPage.pwd_XPath, 
+					pwd, loginPage.loginBtn_XPath);
+			
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
 
-			//Clicking on add new data role
-			GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.DR_addNewRoleBtn);
-
-			//Calling common method to input save and verify
-			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, dataRoleName, AddNewDataRole.ADDNEWROLE_SUCESSMSG_TXT,DR_MenuName);
-
+			//Clicking on followup action menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.RegProcessText, authorization, FA_WFName);
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+			
+			//search for required record
+			RAIS_applicationSpecificMethods.basicSearchRecord(wd, workflowId);
+			
+			//verify workflow statuses
+			String wfStatus_Submit = GenericMethods.getActualTxt(wd, entityRecordListing.workflowStatus_Xpath);
+			Assert.assertEquals(wfStatus_Submit,RaisTestData.WF_Status_Submitted_Txt);
+						
+			//click on first record
+			GenericMethods.elementClick(wd, entityRecordListing.workFlowName_Xpath);
+			
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wd);
+			
+			//input approval status date
+			GenericMethods.sendText(wd, FA_WFPage.approvalFrmStatusDate_Xpath, genericDate);
+			
+			//input remarks on approval form
+			GenericMethods.sendText(wd, FA_WFPage.approvalFrmRemarks_Xpath, RemarksTxt);
+			
+			//select approved by role by regulator
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.approvalFrmApprovedBy_Xpath, ApprovedByName);
+			
+			//scroll to bottom
+			RAIS_applicationSpecificMethods.jScrollToBottom(wd);
+			
+			//click on submit button
+			GenericMethods.elementClick(wd, FA_WFPage.approveBtn_Xpath);
+			
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);
+			//waiting for success message
+			GenericMethods.waitforElement(wd, FA_WFPage.SuccessMsg_XPath);
+			GenericMethods.elementVisible(wd, FA_WFPage.SuccessMsg_XPath);
+			
+			//verify success message
+			String approveSuccessMsg = GenericMethods.getActualTxt(wd, FA_WFPage.SuccessMsg_XPath);
+			Assert.assertEquals(approveSuccessMsg,FA_WFPage.successfulMsg_Txt);
+			
 			//page refresh
 			wd.navigate().refresh();
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
 
-
-
-			//Edit starts here****************************************************************************			
-			//clicking on left data role
-			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName, editMode,DR_MenuName);
-
-			System.out.println("clicked on edit");
-
-			//Calling common method to input save and verify
-			RAIS_applicationSpecificMethods.DR_FR_Input_Save_Verify(wd, localTime, AddNewDataRole.EDITNEWROLE_SUCESSMSG_TXT,DR_MenuName);
-
-			//page refresh
-			wd.navigate().refresh();
-
-
-
-			//delete starts here****************************************************************************				
-			//clicking on left data role
-			RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, dataRoleName+localTime, deleteMode,DR_MenuName);
-
-			System.out.println("clicked on delete");
-
-			//calling delete DRFR method and verify message
-			RAIS_applicationSpecificMethods.delete_DR_FR(wd, dataRolesfunctionalRolesPage.DEL_DR_CONFIRM_MSG_Txt,DR_MenuName);
-
-			//page refresh
-			wd.navigate().refresh();
-
-
-			//**************************************************Delete ENDS HERE								
+			//Clicking on followup action menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.RegProcessText, authorization,FA_WFName);
+			
+			//search for required record
+			RAIS_applicationSpecificMethods.basicSearchRecord(wd, workflowId);
+			
+			//verify workflow statuses
+			String wfStatus_Complete = GenericMethods.getActualTxt(wd, entityRecordListing.workflowStatus_Xpath);
+			Assert.assertEquals(wfStatus_Complete,RaisTestData.WF_Status_Completed_Txt);
+																
 
 		}catch (NoSuchElementException  noElement) {
 			noElement.printStackTrace();
@@ -236,6 +350,229 @@ public class CRUD_Operation_Tests extends BaseClass
 
 	}
 
+	//#F1
+		@Test(priority=2,enabled=true)
+		public void DemoWF_Test() throws Exception {
+
+			try {
+				
+				Thread.sleep(6000);
+				
+				//Test Data
+				
+				
+				
+				String regulatoryProcessMainMenu = RaisTestData.RegProcessText;
+				String authorization = RaisTestData.AuthorizationSubmenu;
+				String ParentWorkFlowName = RaisTestData.importAuthWF;
+				String FA_WFName = "FollowUpAction Import Workflow";
+				
+				String licenseeRole = "LICImp";
+				String regulatorRole = "REGVP";
+				String pwd = "Pass123$";
+				//*********************************************************************
+				String WFid_FAtobeExecuted = "IMP/0003/WF Import Facility 1 Execution";
+				//*********************************************************************
+				
+				//DF1 test data
+				String sourceLocation = "Import Facility 1 Execution";
+				String sourceStatus = "In-Process";
+				String genericDate = "08/10/2020";
+				String securityPlanDoc_Path = "C:\\Temp\\securityPlan.pdf";
+				String customsNumber = "455500P231/22";
+				String bill_LadingNum = "455500P231/223434";
+				String RemarksTxt = "This Followup action has been approved by Regulator role.";
+				String ApprovedByName = "Vishal";
+				
+				
+
+				//Setting Test name and description on report
+				SettingRptTestName_TestDesc("Followp Action Test case","Followp Action Test case");
+
+				//Calling Login method
+				GenericMethods.loginApplication
+				(wd, loginPage.userId_XPath, "LICEQP", loginPage.pwd_XPath, 
+						pwd, loginPage.loginBtn_XPath);
+
+				//Clicking on followup action menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.RegProcessText, authorization, "Equipment Manufacturing Workflow");
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+				
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, "EM/0002/WF");
+				
+				//click on first record
+				GenericMethods.elementClick(wd, entityRecordListing.workFlowName_Xpath);
+				
+				GenericMethods .JSPageWait(wd);
+				
+				//click on department multilookup
+				
+				GenericMethods.elementClick(wd, "//*[@id='work-flow-form']//div//form//div//fieldset//div[1]//fieldset//div");
+//				GenericMethods.elementClick(wd, "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[1]/div/div/div/div/div/fieldset/div/div[1]");
+				
+				GenericMethods .JSPageWait(wd);
+				
+				GenericMethods.sendText(wd, "//input[@id='filter']", "Equip Dept2");
+//				GenericMethods.sendText(wd, "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[1]/div/div/div/div/div/fieldset/div/div[2]/div/div/input[@id='filter']"
+//						, "Equip Dept2");
+				
+//				GenericMethods.JClickonElement(wd, "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[1]/div/div/div/div/div/fieldset/div/div[2]/div/div");
+//				
+//				RAIS_applicationSpecificMethods.rbSendText(wd,  "Equip Dept2");
+				
+				
+				GenericMethods.elementClick(wd, "//*[@id='work-flow-form']//div//form//div//fieldset//div[1]//fieldset//div//ul/li[1]/label");
+				
+				GenericMethods.elementClick(wd, "//*[@id='work-flow-form']//div//form//div//fieldset//div[1]//fieldset//div");
+				
+				//GenericMethods.sendText_removeblank(wc, clickElement, valueToSend);
+				
+				//GenericMethods.JClickonElement(wj, clickElement);
+				
+				JavascriptExecutor jse = (JavascriptExecutor) wd;
+				jse.executeScript("arguments[0].scrollIntoView(true);", wd.findElement(By.xpath("//*[@id='work-flow-form']//div//form//div//fieldset//div[2]//fieldset//div")));
+				
+				GenericMethods.elementClick(wd, "//*[@id='work-flow-form']//div//form//div//fieldset//div[2]//fieldset//div");
+				
+				GenericMethods .JSPageWait(wd);
+				
+				GenericMethods.sendText(wd, "//input[@id='filter']", "Equip facility2 - Sealed source");
+				
+				
+				
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.sourceLocation_Xpath, sourceLocation);
+				
+				//input source status
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.sourceStatus_Xpath, sourceStatus);
+				
+				//input source date
+				GenericMethods.sendText(wd, FA_WFPage.sourceStatusDate_Xpath, genericDate);
+				
+				//input import date
+				GenericMethods.sendText(wd, FA_WFPage.importDate_Xpath, genericDate);
+				
+				//upload security plan doc
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wd, FA_WFPage.securityPlan_Xpath,securityPlanDoc_Path);
+				
+				//input customs number
+				GenericMethods.sendText(wd, FA_WFPage.importCustomNum_Xpath, customsNumber);
+				
+				//input Bills of number
+				GenericMethods.sendText(wd, FA_WFPage.importBillLadingNum_XPath, bill_LadingNum);
+				
+				//input bill lading date
+				GenericMethods.sendText(wd, FA_WFPage.importBillLadingdate_XPath, genericDate);
+				
+				//click on submit button
+				GenericMethods.elementClick(wd, FA_WFPage.submitBtn_FAPage1_Xpath);
+				
+				//Waiting for popup to load
+				//GenericMethods .JSPageWait(wd);
+				//waiting for success message
+				GenericMethods.waitforElement(wd, FA_WFPage.SuccessMsg_XPath);
+				GenericMethods.elementVisible(wd, FA_WFPage.SuccessMsg_XPath);
+				
+				//verify success message
+				String submitSuccessMsg = GenericMethods.getActualTxt(wd, FA_WFPage.SuccessMsg_XPath);
+				Assert.assertEquals(submitSuccessMsg,FA_WFPage.successfulMsg_Txt);
+				
+				//Logout licensee user
+				RAIS_applicationSpecificMethods.logout(wd);
+				System.out.println("Logout success");
+				
+				//login using Regulator
+				GenericMethods.loginApplication
+				(wd, loginPage.userId_XPath, regulatorRole, loginPage.pwd_XPath, 
+						pwd, loginPage.loginBtn_XPath);
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//Clicking on followup action menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.RegProcessText, authorization, FA_WFName);
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+				
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, "workflowId");
+				
+				//verify workflow statuses
+				String wfStatus_Submit = GenericMethods.getActualTxt(wd, entityRecordListing.workflowStatus_Xpath);
+				Assert.assertEquals(wfStatus_Submit,RaisTestData.WF_Status_Submitted_Txt);
+							
+				//click on first record
+				GenericMethods.elementClick(wd, entityRecordListing.workFlowName_Xpath);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+				
+				//input approval status date
+				GenericMethods.sendText(wd, FA_WFPage.approvalFrmStatusDate_Xpath, genericDate);
+				
+				//input remarks on approval form
+				GenericMethods.sendText(wd, FA_WFPage.approvalFrmRemarks_Xpath, RemarksTxt);
+				
+				//select approved by role by regulator
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, FA_WFPage.approvalFrmApprovedBy_Xpath, ApprovedByName);
+				
+				//scroll to bottom
+				RAIS_applicationSpecificMethods.jScrollToBottom(wd);
+				
+				//click on submit button
+				GenericMethods.elementClick(wd, FA_WFPage.approveBtn_Xpath);
+				
+				//Waiting for popup to load
+				//GenericMethods .JSPageWait(wd);
+				//waiting for success message
+				GenericMethods.waitforElement(wd, FA_WFPage.SuccessMsg_XPath);
+				GenericMethods.elementVisible(wd, FA_WFPage.SuccessMsg_XPath);
+				
+				//verify success message
+				String approveSuccessMsg = GenericMethods.getActualTxt(wd, FA_WFPage.SuccessMsg_XPath);
+				Assert.assertEquals(approveSuccessMsg,FA_WFPage.successfulMsg_Txt);
+				
+				//page refresh
+				wd.navigate().refresh();
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//Clicking on followup action menu
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.RegProcessText, authorization,FA_WFName);
+				
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, "workflowId");
+				
+				//verify workflow statuses
+				String wfStatus_Complete = GenericMethods.getActualTxt(wd, entityRecordListing.workflowStatus_Xpath);
+				Assert.assertEquals(wfStatus_Complete,RaisTestData.WF_Status_Completed_Txt);
+																	
+
+			}catch (NoSuchElementException  noElement) {
+				noElement.printStackTrace();
+
+			}catch (Exception  e) {
+				e.printStackTrace();
+			}
+
+			finally {
+
+				//Logout user
+				RAIS_applicationSpecificMethods.logout(wd);
+				System.out.println("Logout success");
+
+			}
+
+		}
+
+	
+	
 	//#CRUD2
 	@Test(priority=2, enabled=CRUDOperationTestDetails.crudOpTC2_runStatus)
 	public void FunctionalRole_CRUD_Operations(){
@@ -1496,7 +1833,7 @@ public class CRUD_Operation_Tests extends BaseClass
 
 	
 	//Pending to test
-	@Test(enabled=true)
+	@Test(enabled=false)
 	public void testPending() {
 		
 		//Calling Login method

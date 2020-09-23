@@ -31,6 +31,7 @@ public class AddNewRolePage {
 	
 	//public String cancelBtn_XPath = "//button[text()='Cancel']";
 	public String cancelBtn_XPath = "//div[@id='datarole']//div//button[text()='Cancel']";
+	public String FRcancelBtn_XPath = "//div[@id='functionalrole']//div//button[text()='Cancel']";
 	
 	//success message
 	public String addnewRole_SuccessMsg_XPath = "//div[@id='message-success']";

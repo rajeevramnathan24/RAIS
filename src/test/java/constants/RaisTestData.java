@@ -35,11 +35,17 @@ public class RaisTestData {
 	public static String CommonTablesSubMenu = "Common Tables";
 	public static String NotificationText = "Notification";
 	public static String HelpText = "Help";
+	public static String AuthorizationSubmenu = "Authorizations";
 	
 	//Menu DR/FR
 	public static String dataRole = "Data Roles";
 	public static String functionalRole = "Functional Roles";
+	public static String securityProfileMenu = "Security Profiles";
 
+	//Authorizations
+	public static String importAuthWF = "Import Authorization Workflow";
+	public static String exportAuthWF = "Export Authorization Workflow";
+	
 
 	//Data role test data
 	public static String DataRole_Test = "DataRoleAutomationUser";
@@ -47,7 +53,7 @@ public class RaisTestData {
 	public static String SecurityRole_Test = "SecurityRoleAutomationUser";
 	public static String Dup_DataRole_Test = "All Data";
 	public static String OWNF_DataRole_Test = "Own Facility";
-	public static String Dup_FuncRole_Test = "Licensee";
+	public static String Licensee_FuncRole_Test = "Licensee";
 	public static String Attb_Text = "Attributes";
 	public static String EntityDetail_Text = "Entity Detail";
 	public static String LinkedForms_Text = "Linked Forms";
@@ -170,7 +176,9 @@ public class RaisTestData {
 	public static int text_lines = 1;
 	public static int text_length = 3;
 	public static String common_tag = "TagNameAuto";
-
+	public static String suppliers_PracticeCat = "Suppliers";
+	public static String inOperation_Txt = "In Operation";
+	
 	public static String chkBoxSelected = "Check Box selected";
 	public static String chkBoxNOTSelected = "Check Box not selected";
 
@@ -194,7 +202,7 @@ public class RaisTestData {
 			"Country",//12
 			"Department", //13
 			"Department Status", //14
-			"District", //15
+			"Districts", //15
 			"Dose", //16
 			"Equipment", //17
 			"Equipment Status", //18
@@ -205,7 +213,7 @@ public class RaisTestData {
 			"Equipment Type", //23
 			"Experts", //24
 			"Expert Task", //25
-			"Facilities",//26
+			"Facility",//26
 			"Facility Status", //27
 			"Fields", //28
 			"Frequency In Month", //29
@@ -223,14 +231,14 @@ public class RaisTestData {
 			"Person Status", //41
 			"Physical Barrier",//42
 			"Physical Form", //43
-			"Practice", //44
+			"Practices", //44
 			"Professional Degree",//45
 			"Professional Qualification", //46
 			"Radiation Generator", //47
 			"Radiation Generator Model",//48
 			"Radiation Generator Status", //49
 			"Radiation Generator Type", //50
-			"Region", //51
+			"Regions", //51
 			"Regulatory Authority",//52
 			"Sealed Source", //53
 			"Sealed Source Model", //54
@@ -250,8 +258,7 @@ public class RaisTestData {
 	//Single field BE
 	public static String oneInputField = "NameOnly";
 	public static String demoData = "1Demo Data";
-	public static String [] singleFldBE_Admin_CommonTbl = {
-			"Academic Degrees",
+	public static String [] singleFldBE_Admin_CommonTbl = { //"Academic Degrees",
 			"Booleans",
 			"Categories of Sealed Sources",
 			"Countries",
@@ -309,6 +316,9 @@ public class RaisTestData {
 	public static String EDIT_MODE_TEXT = "Edit";
 	public static String DELETE_MODE_TEXT = "Delete";
 	
+	public static String errorText = "Error";
+	public static String successText = "Success";
+	
 	//Officer name
 	public static String OFFICER_NAME_DATA = "ExternalOfficer";
 	public static String INTERNAL_OFFICER_NAME_DATA = "internalOfficer";
@@ -358,6 +368,10 @@ public class RaisTestData {
 	
 	//updated text
 	public static String UPDATED_TXT = "Updated";
+	
+	//WF Statuses
+	public static String WF_Status_Submitted_Txt = "Submitted";
+	public static String WF_Status_Completed_Txt = "Completed";
 
 
 

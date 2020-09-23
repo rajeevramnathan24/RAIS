@@ -44,16 +44,42 @@ public class AddNewEntityFormDetailsPage {
 	public String entityFormDetailsPage_emailFld_Xpath = "//*[@id='Email']";
 	
 	//Legal basis
-	public String entityFormDetailsPage_legalBasisFld_Xpath = "//*[@id='LegalBasis']";
+	public String entityFormDetailsPage_legalBasisFld_Xpath = "//*[@id='LegalPerson']";
 	
 	//Chairperson xpath
 	public String entityFormDetailsPage_ChairPrsonFld_Xpath = "//*[@id='ChairPerson']";
 	
+	//RAN field txt xpath
+	public String entityFormDetailsPage_RANFld_XPath = "//*[@id='RAN']";
+	
+	//facility Status xpath
+	public String entityFormDetailsPage_status_Xpath = "//*[@id='FacilityStatus']";
+	
+	//practice multi select
+	public String pracMultiSelect_Xpath = "//*[@id='nav-tabpanel-0']//div[@class='mul-input col-form-control']";
+	
+	//region field xpath
+	public String entityFormDetailsPage_region_Xpath = "//*[@id='Region']";
+	
+	//District field xpath
+	public String entityFormDetailsPage_district_Xpath = "//*[@id='District']";
+		
 	//Multi select dropdown
 	public String restriction_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";
 	
 	//multiselect drop down for FR value select on User mgmt screen
 	public String userMgmt_FRdrpdwn_Xpath = "//*[@id='user']//div[@class='mul-input col-form-control']";
+	
+	//inspection frequency
+	public String inspFrequency_XPath ="//*[@id='InspectionFrequency']"; 
+	public String inspFrequencyID_XPath ="//*[@id='InspectionFrequencyId']";
+	public String practiceCat_XPath ="//*[@id='PracticeCategory']";
+	
+	//filter id
+	public String idFilter = "//*[@id='filter']";
+	
+	public String topErrorMsg = "//*[@id='error-content']";
+	
 
 	//value to select for multi select
 	public String restriction_add_dropdown_XPath = "//*[contains(text(),'Address')]";
@@ -136,6 +162,8 @@ public class AddNewEntityFormDetailsPage {
 	public String DELRECORD_SUCCESSMSG_TXT = "Record deleted successfully";
 
 	public String DELSP_POPMSG_Txt = "Do you really want to delete this security profile?";
+	
+	public String topErrorMsg_Txt = "This record can not be deleted as this is already referenced into the system.";
 
 
 }

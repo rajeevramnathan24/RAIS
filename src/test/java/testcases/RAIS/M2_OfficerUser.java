@@ -208,7 +208,8 @@ public class M2_OfficerUser extends BaseClass
 
 			//calling entity creation method and set flag value
 			TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Primay_EntityInternalName, primary_EntityNameSingular, primary_EntityNamePlural, 
-					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Inventory,"Add");
+					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Inventory,"Add"
+					,RaisTestData.businessEntityList[66]);
 
 			System.out.println("entity1 creation complete");
 
@@ -217,7 +218,8 @@ public class M2_OfficerUser extends BaseClass
 
 			//calling entity creation method and set flag value
 			TestData_secUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, Sec_EntityInternalName, Sec_EntityNameSingular, Sec_EntityNamePlural, 
-					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Resources,"Add");
+					RaisTestData.Entity_GroupData, RaisTestData.Entity_RoleData, RaisTestData.Entity_Publish_Inv_Res, RaisTestData.Entity_PublishNav_Resources,"Add"
+					,RaisTestData.businessEntityList[66]);
 
 			System.out.println("entity2 creation complete");
 			//Entity creation Complete********************************************************************************
@@ -261,7 +263,7 @@ public class M2_OfficerUser extends BaseClass
 			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, adminMainMenu, CommonTblSubMenu, Auth_OrgEntity);
 
 			//calling generic method to call Authority and Organisations entity data input
-			flag_AuthType = RAIS_applicationSpecificMethods.createEntityRecord(wd, Auth_OrgEntity, Optional, AuthType, Optional,RaisTestData.ADD_MODE_TEXT );
+			flag_AuthType = RAIS_applicationSpecificMethods.createEntityRecord(wd, Auth_OrgEntity, Optional, AuthType, Optional,RaisTestData.ADD_MODE_TEXT, null );
 			//Adding data to Authority & Org ends here*************************************************
 
 
@@ -278,7 +280,7 @@ public class M2_OfficerUser extends BaseClass
 			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, invenResMainMenu, InvSubMenuName, OfficerEntityName);
 
 			//calling generic method to call Officer entity data input
-			flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, OfficerEntityName, externalOfficerName, AuthType, userEmail,RaisTestData.ADD_MODE_TEXT);
+			flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, OfficerEntityName, externalOfficerName, AuthType, userEmail,RaisTestData.ADD_MODE_TEXT, null);
 
 			System.out.println("officer external record creation complete");
 
@@ -618,7 +620,7 @@ public class M2_OfficerUser extends BaseClass
 
 				//***********************************************Create entity record
 				//calling generic method to call Officer entity data input
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT, null);
 
 				////**********************************************EDIT MODE STARTS Here						
 				//Grid filter and click on entity record listing page
@@ -626,14 +628,14 @@ public class M2_OfficerUser extends BaseClass
 
 				//Edit entity record
 				//calling generic method to call Officer entity data edit
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional, null);
 
 				////***********************************************delete starts here
 				//Grid filter and click on entity record listing page
 				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
 
 				//delete entity record data
-				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd, null);			
 
 			}
 
@@ -685,7 +687,7 @@ public class M2_OfficerUser extends BaseClass
 
 				//***********************************************Create entity record
 				//calling generic method to call Officer entity data input
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT, null);
 
 				////**********************************************EDIT MODE STARTS Here						
 				//Grid filter and click on entity record listing page
@@ -693,14 +695,14 @@ public class M2_OfficerUser extends BaseClass
 
 				//Edit entity record
 				//calling generic method to call Officer entity data edit
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional, null);
 
 				////***********************************************delete starts here
 				//Grid filter and click on entity record listing page
 				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
 
 				//delete entity record data
-				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd, null);			
 
 			}
 
@@ -753,7 +755,7 @@ public class M2_OfficerUser extends BaseClass
 
 				//***********************************************Create entity record
 				//calling generic method to call Officer entity data input
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT, null);
 
 				////**********************************************EDIT MODE STARTS Here						
 				//Grid filter and click on entity record listing page
@@ -761,14 +763,14 @@ public class M2_OfficerUser extends BaseClass
 
 				//Edit entity record
 				//calling generic method to call Officer entity data edit
-				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+				flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional, null);
 
 				////***********************************************delete starts here
 				//Grid filter and click on entity record listing page
 				RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
 
 				//delete entity record data
-				RAIS_applicationSpecificMethods.deleteEntityRecord(wd);			
+				RAIS_applicationSpecificMethods.deleteEntityRecord(wd, null);			
 
 			}
 
@@ -868,7 +870,8 @@ public class M2_OfficerUser extends BaseClass
 					
 					//***********************************************Create entity record
 					//calling generic method to call Officer entity data input
-					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT);
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", "TestAuto", Optional, Optional, RaisTestData.ADD_MODE_TEXT, 
+							addEntityPage.formid);
 
 					////**********************************************EDIT MODE STARTS Here						
 					//Grid filter and click on entity record listing page
@@ -876,14 +879,14 @@ public class M2_OfficerUser extends BaseClass
 
 					//Edit entity record
 					//calling generic method to call Officer entity data edit
-					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional);
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, "NameOnly", localTime, Optional, Optional, Optional, addEntityPage.formid);
 
 					////***********************************************delete starts here
 					//Grid filter and click on entity record listing page
 					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "TestAuto"+localTime);
 
 					//delete entity record data
-					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);		
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd, null);		
 				}
 			}
 
@@ -979,7 +982,7 @@ public class M2_OfficerUser extends BaseClass
 					
 					//***********************************************Create entity record
 					//calling generic method to call Officer entity data input
-					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], "1TestAuto", "Dental Xray",Optional, RaisTestData.ADD_MODE_TEXT);
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], "1TestAuto", "Dental Xray",Optional, RaisTestData.ADD_MODE_TEXT, null);
 
 					////**********************************************EDIT MODE STARTS Here						
 					//Grid filter and click on entity record listing page
@@ -987,14 +990,14 @@ public class M2_OfficerUser extends BaseClass
 
 					//Edit entity record
 					//calling generic method to call Officer entity data edit
-					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], localTime, "Dental Xray", Optional, Optional);
+					flag_externalOfficer = RAIS_applicationSpecificMethods.createEntityRecord(wd, BEname[entyCount], localTime, "Dental Xray", Optional, Optional, null);
 
 					////***********************************************delete starts here
 					//Grid filter and click on entity record listing page
 					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, "1TestAuto"+localTime);
 
 					//delete entity record data
-					RAIS_applicationSpecificMethods.deleteEntityRecord(wd);		
+					RAIS_applicationSpecificMethods.deleteEntityRecord(wd, null);		
 				}
 			}
 

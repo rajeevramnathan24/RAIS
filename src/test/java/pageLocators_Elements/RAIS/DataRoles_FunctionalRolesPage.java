@@ -20,6 +20,30 @@ public class DataRoles_FunctionalRolesPage {
 	public String functionalRoleaddNewPermissionRestrictBtn_XPath = "//button[normalize-space(text())='Add New Permission']";
 	//Loader xpath
 	public String loader_Xpath = "//div[@class='loading']";
+	
+	//Add new practice, district, region, facility links
+	public String addPractice_Xpath = "//*[@id='nav-tabpanel-0']//div//span//a[contains(text(),'Add New Practice')]";
+	public String addRegion_Xpath = "//*[@id='nav-tabpanel-0']//div//span//a[contains(text(),'Add New Region')]";
+	public String addDistrict_Xpath = "//*[@id='nav-tabpanel-0']//div//span//a[contains(text(),'Add New District')]";
+	public String addFacility_Xpath = "//*[@id='nav-tabpanel-0']//div//span//a[contains(text(),'Add New Facility')]";
+	
+	public String formId_Tab1 = "//*[@id='nav-tabpanel-0']";
+	public String formId_Tab2 = "//*[@id='nav-tabpanel-1']";
+	
+	public String entityGroupID = "//*[@id='entityGroupId']";
+	
+	public String createFacility_PracticeSelect = "//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/fieldset/div/div[1]";
+	
+	public String selectedItem = "//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/fieldset/div/div[2]/ul/li/label";
+	
+	public String practiceDropdown_Xpath = "//*[@id='practiceId']";
+	public String regionDropdown_Xpath = "//*[@id='regionId']";
+	public String districtDropdown_Xpath = "//*[@id='districtId']";
+	public String facMultiSelect_Xpath = "//*[@id='nav-tabpanel-0']//div[@class='mul-input col-form-control']";
+	
+	public String facilityFrm_Region = "//*[@id='Region']";
+	public String facilityFrm_District = "//*[@id='District']";
+	public String facilityFrm_facilityStatus = "//*[@id='FacilityStatus']";
 
 	//Data roles restrictions xpath
 	//public String dataRoleRestrictionTab_XPath = "//*[@id=\"datarole\"]/div/div[2]/div/div[2]/div/div[1]/div/div/div/a[2]/span[1]";	 
@@ -99,7 +123,12 @@ public class DataRoles_FunctionalRolesPage {
 	public String edit_Suffix_XPath = "]/div/button[1]";
 	public String delete_Suffix_XPath = "]/div/button[2]";
 	
+	public String multiSel_Suffix_Xpath = "//span[2]";
 	
+	//save button
+	public String savePermRestrict_XPath = "//*[@id='nav-tabpanel-0']//div//button[text()='Save']";
+	
+	public String facilityPopUp_SaveBtn_Xpath = "//*[@id='nav-tabpanel-0']/div/div/div[3]/div/div/div[2]/div/div[1]/div[2]/div/button[2]";
 	
 	//public String delEntity_popUpYesBtn_XPath = "//*[@id='datarole']/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	
@@ -127,5 +156,8 @@ public class DataRoles_FunctionalRolesPage {
 		
 		public String DEL_DR_CONFIRM_MSG_Txt = "Data Role has been deleted successfully.";
 		public String DEL_FR_CONFIRM_MSG_Txt = "Functional Role has been deleted successfully.";
+		
+		public String NewPermissionDR_Txt = "New permission to the Data Role has been added successfully.";
+		public String UpdatePermissionDR_Txt = "New permission to the Data Role has been updated successfully.";
 	
 }

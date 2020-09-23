@@ -5,19 +5,22 @@ package testSuite;
 public class CRUDOperationTestDetails {
 
 	//CRUD operation Tests
-	public final static boolean crudOpTC1_runStatus = true;
+	public final static int tcNumber = 1;
+	public final static boolean crudOpTC1_runStatus = false;
 	public final static String crudOpTC1_testName = "Data Role Name CRUD Operations"; 
 	public final static String crudOpTC1_testDescription = "Verify CRUD Operations for Data Role Name";
 	
-	public final static boolean crudOpTC2_runStatus = true; 
+	public final static boolean crudOpTC2_runStatus = false; 
 	public final static String crudOpTC2_testName = "Functional Role CRUD Operations"; 
 	public final static String crudOpTC2_testDescription = "Verify CRUD Operations for Functional Role page";
 	
-	public final static boolean crudOpTC3_runStatus = false; 
+	public final static boolean crudOpTC3_runStatus = false;  
 	public final static String crudOpTC3_testName = "Security Role CRUD Operations"; 
 	public final static String crudOpTC3_testDescription = "Verify CRUD Operations for Security Role page";
 	
-	public final static boolean crudOpTC4_runStatus = false;
+	
+	
+	public final static boolean crudOpTC4_runStatus = false; // to be fixed
 	public final static String crudOpTC4_testName = "User Management CRUD Operations"; 
 	public final static String crudOpTC4_testDescription = "Verify CRUD Operations for User creation page";
 	
@@ -25,10 +28,13 @@ public class CRUDOperationTestDetails {
 	public final static String crudOpTC5_testName = "Entity builder - Type Inventory CRUD Operations"; 
 	public final static String crudOpTC5_testDescription = "Verify CRUD Operations for Entity - type Inventory creation page";
 	
-	public final static boolean crudOpTC6_runStatus = true;
+	public final static boolean crudOpTC6_runStatus = false;
 	public final static String crudOpTC6_testName = "Verify default DR role Permissions-Restrictions"; 
 	public final static String crudOpTC6_testDescription = "Verify Permission and Restrictions for default DR roles for - All data & Own facility";
 
+	
+	//***********************************************One field input
+	
 	public final static boolean crudOpTC7_runStatus = false;
 	public final static String crudOpTC7_testName = "Verify CRUD operations for Admin-Common Table menus with one field value input"; 
 	public final static String crudOpTC7_testDescription = "Verify CRUD operations for Admin-Common Table menus with one field value input";
@@ -41,6 +47,8 @@ public class CRUDOperationTestDetails {
 	public final static String crudOpTC9_testName = "Verify CRUD operations for Inventory & Resources menus with one field value input"; 
 	public final static String crudOpTC9_testDescription = "Verify CRUD operations for Inventory & Resources - Resources menus with one field value input";
 	
+	//***********************************************One field input
+	
 	public final static boolean crudOpTC10_runStatus = false;
 	public final static String crudOpTC10_testName = "Entity builder - Type Master CRUD Operations"; 
 	public final static String crudOpTC10_testDescription = "Verify CRUD Operations for Entity - type Master creation page";
@@ -48,4 +56,12 @@ public class CRUDOperationTestDetails {
 	public final static boolean crudOpTC11_runStatus = false;
 	public final static String crudOpTC11_testName = "Entity builder - Type Inventory with History CRUD Operations"; 
 	public final static String crudOpTC11_testDescription = "Verify CRUD Operations for Entity - type Inventory with History creation page";
+	
+	public final static boolean crudOpTC12_runStatus = false;
+	public final static String crudOpTC12_testName = "Verify default FR role Permissions-Restrictions"; 
+	public final static String crudOpTC12_testDescription = "Verify Permission and Restrictions for default FR roles for - Licensee";
+	
+	public final static boolean crudOpTC13_runStatus = false;
+	public final static String crudOpTC13_testName = "Data Roles - New Permissions - CRUD operations"; 
+	public final static String crudOpTC13_testDescription = "Data Roles - New Permissions - CRUD operations using Practice, Region, District & Facility";
 }

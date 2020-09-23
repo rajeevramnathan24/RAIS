@@ -562,7 +562,7 @@ public class ValidationTests extends BaseClass
 			GenericMethods.elementClickable(wd, AddNewDataRole.addBtn_XPath);
 
 			//input role name and internal name
-			GenericMethods.sendText(wd, AddNewDataRole.inputroleName_XPath, RaisTestData.Dup_FuncRole_Test);
+			GenericMethods.sendText(wd, AddNewDataRole.inputroleName_XPath, RaisTestData.Licensee_FuncRole_Test);
 
 			//Enter tab key press for duplicate msg check
 			GenericMethods.tabfromElement(wd, AddNewDataRole.addBtn_XPath);

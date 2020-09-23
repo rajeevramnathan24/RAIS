@@ -2,7 +2,7 @@ package pageLocators_Elements.RAIS;
 
 public class SecurityProfilePage {
 	//Add profile btn
-	public String addNewProfileBtn_XPath = "//button[text()='Add New Profile']";
+	public String addNewProfileBtn_XPath = "//*[@id='securityprofiles']//button[text()='Add New Profile']";
 	public String noSecurityProfiles_XPath = "//*[@id='securityprofiles']//table//tbody//tr[td[contains(., 'No security profiles found')]]";
 	public String securityProfileLandingPageColHeaderName_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[contains(text(),'Name')]]";
 	public String securityProfileLandingPageColHeaderEntity_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[contains(text(),'Entity')]]";
@@ -16,6 +16,8 @@ public class SecurityProfilePage {
 	//EntityFilter
 	public String secProfListingTableColHeader_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//a[span[text()='Name']]//span//button";
 	public String secProfListingTableColHeader_TXT_XPath = "//*[@id='securityprofiles']//table//thead//tr//th//div//div//input[@class='k-textbox']";
+	
+	
 	
 	
 	

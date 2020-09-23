@@ -2,9 +2,9 @@ package pageLocators_Elements.RAIS;
 
 public class AddNewSecurityProfilePage {
 	//Add new security profile page
-	public String SaveBtn_XPath = "//button[text()='Save']";
-	public String cancelBtn_XPath = "//button[text()='Cancel']";
-	public String deleteBtn_XPath = "//button[text()='Delete']";
+	public String SaveBtn_XPath = "//*[@id='securityprofile']//button[text()='Save']";
+	public String cancelBtn_XPath = "//*[@id='securityprofile']//button[text()='Cancel']";
+	public String deleteBtn_XPath = "//*[@id='securityprofile']//button[text()='Delete']";
 	
 	//labels and buttons
 	public String addNewSP_name_XPath = "//*[@id='securityprofile']//label[contains(text(),'Name')]";
@@ -16,7 +16,7 @@ public class AddNewSecurityProfilePage {
 	public String addnewSP_inputroleName_XPath = "//input[@id='name']";
 	
 	//facility dropdown selectedEntity
-	public String addnewSP_facilityDropdown_XPath = "//*[@id='selectedEntity']";
+	public String addnewSP_entityNameDropdown_XPath = "//*[@id='entityInternalName']";
 	
 	//Multi select dropdown
 	public String restriction_DropdnClick_Xpath = "//div[@class='mul-input col-form-control']";
@@ -26,7 +26,8 @@ public class AddNewSecurityProfilePage {
 	public String restriction_dept_dropdown_XPath = "//*[contains(text(),'Department')]";
 	
 	//radio button text click
-	public String rdobtnEdit_XPath = "//*[@id='securityprofile']//span[contains(text(),'Edit')]";
+	public String rdobtnEdit_XPath = "//*[@id='securityprofile']//label[2]//span[2][contains(text(),'Edit')]";
+	public String rdobtnView_XPath = "//*[@id='securityprofile']//label[1]//span[2][contains(text(),'View')]";
 	
 	//Validation msgs xpath
 	public String nameRequired_MsgXPath = "//*[@id='securityprofile']//p[contains(text(),'Name is required')]"	;
@@ -35,14 +36,14 @@ public class AddNewSecurityProfilePage {
 	public String restrictRequired_MsgXPath = "//*[@id='securityprofile']//p[contains(text(),'Restriction is required')]"	;
 	
 	//success message
-		public String addnewSP_SuccessMsg_XPath = "//div[@id='message-body']";
+		public String secProf_Msg_XPath = "//div[@id='message-body']";
 		public String deleteSP_PopTitleXPath = "//*[@id='max-width-dialog-title']";
 		public String delSPRole_PopupMSGTxt_XPath= "//div[@class='dialog-content']";
 		public String delSPRole_PopupNoBtn_XPath = "//div[@class='dialog-action']"; 
 		
 		//Pop message yes/ no buttons
 		public String popUpNoBtn_XPath = "//button[contains(text(),'No')]";
-		public String popUpYesBtn_XPath = "//button[contains(text(),'Yes')]";
+		public String popUpYesBtn_XPath = "//*[@id='securityprofile']/div/div[2]/div/div/div[2]/div[2]/div/button[2]";
 	
 		
 	

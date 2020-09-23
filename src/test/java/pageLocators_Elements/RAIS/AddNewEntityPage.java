@@ -5,7 +5,15 @@ public class AddNewEntityPage {
 	public String SaveBtn_XPath = "//*[@id='add-entity']//button[text()='Save']";
 	public String cancelBtn_XPath = "//*[@id='add-entity']//button[text()='Cancel']";
 	public String deleteBtn_XPath = "//*[@id='add-entity']//button[text()='Delete']";
-
+	
+	public String formid = "add-entity";
+	
+	//Entities, FR, DR & security role page save button
+	public String EntityPageSaveBtn_XPath = "//*[@id='add-entity']//button[text()='Save']";
+	public String FRSaveBtn_XPath = "//*[@id='add-edit-functionalRolePermission']//button[text()='Save']";
+	public String DRSaveBtn_XPath = "//*[@id='permission-restriction']//button[text()='Save']";
+	public String SRSaveBtn_XPath = "//*[@id='securityprofile']//button[text()='Save']";
+	
 	//labels and buttons
 	public String addNewEntity_name_XPath = "//*[@id='add-entity']//label[contains(text(),'Internal Name')]";
 	public String addNewEntity_Desc_XPath = "//*[@id='add-entity']//label[contains(text(),'Description')]";
@@ -92,7 +100,8 @@ public class AddNewEntityPage {
 	
 //Entity link on left menu pane
 	public String entDetailPage_XPath = "//*[@id='add-entity']/div/div[1]/div/div[2]/div[2]/div/div[1]/ul/li[1]/a/span";
-
+	
+	
 
 
 

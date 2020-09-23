@@ -4,6 +4,8 @@ public class EntityFormListingPage {
 	//Add new form btn
 	public String addNewBtn_XPath = "//*[@id='entity-details']//button[text()='Add New']";
 	
+	public String formId = "entity-details";
+		
 	public String FacListingaddNewBtn_XPath = "//*[@id='entity-details']//button[2][contains(text(),'Add New')]";
 	//public String noEntityForm_XPath = "//*[@id='entity-details']//table//tbody//tr[td[contains(., 'No Entity details found')]]";
 	
@@ -12,11 +14,14 @@ public class EntityFormListingPage {
 	
 	public String generic_Suffix_EntityFrmListingColHeader1_XPath = "')]]";
 	
-	//Main xpath for col header
+	//Main xpath for col header for entity record page
 	public String Dyamic_GridTable_Prefix_Xpath = "//*[@id='entity-details']//table//thead//tr//th[";
 	
 	//For entity listing page
 	public String EntityListing_GridTable_Prefix_Xpath = "//*[@id='entity']//table//thead//tr//th[";
+	
+	//For Security profile listing page
+	public String SecurityProfileListing_GridTable_Prefix_Xpath = "//*[@id='securityprofiles']//table//thead//tr//th[";
 		
 	//below 2 are for col header filter and button click
 	public String Dynamic_GridTable_Suffix1_Xpath = "]//a[span[contains(text(),'";
@@ -48,11 +53,33 @@ public class EntityFormListingPage {
 	public String emptyRecordsGrid_XPath = "//*[@id='entity-details']/div/div[3]/div/div[2]/div/div[1]/table/tbody/tr/td";
 	
 	
+	//common xpath prefix for links
+	public String savePrefix_XPath = "//*[@id='";
+	public String saveSuffix_XPath = "']//button[text()='Save']";
 	
-	
-	
-	
-	
+	//search text box field
+		public String inputSearchFld_Xpath = "//*[@id='filterText']";
+		
+		//search button 
+		public String searchBtn_Xpath = "//*[@id='entity-details']//div//span//button";
+		
+	//Radio button click on first record
+		public String rdoBtn_Xpath = "//*[@id='entity-details']//div//table//tbody//tr[1]/td[1]";
+		
+	//workflow name drop down
+		public String workflowDrpDwn_Xpath = "//*[@id='workflow']";
+		
+	//workflow initiate button
+		public String workflowBtnInitiate = "//*[@id='entity-details']//div//button[text()='Initiate']";
+
+		//success message
+		public String workflowInitiateSuccessMsg_XPath = "//div[@id='message-body']";
+		
+		//workflow status
+		public String workflowStatus_Xpath = "//*[@id='entity-details']//div//table//tbody//tr//td[3]";
+		
+		//name xpath
+		public String workFlowName_Xpath = "//*[@id='entity-details']//div//table//tbody//tr//td[2]";
 	
 	
 	
@@ -77,5 +104,6 @@ public class EntityFormListingPage {
 		public String SP_COLHEADER_FIELD_Txt = "Fields";
 		public String AUTHNAME_COLHEADER_Txt = "Authority Name";
 		public String OFFICERNAME_COLHEADER_Txt = "Officer Name";
+		public String WORKFLOW_INITIATE_SUCCESS_TXT = "Workflow initiated successfully.";
 
 }
