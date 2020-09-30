@@ -42,6 +42,7 @@ import pageLocators_Elements.RAIS.LoginPage;
 import pageLocators_Elements.RAIS.SecurityProfilePage;
 import pageLocators_Elements.RAIS.UserListPage;
 import pageLocators_Elements.RAIS.Workflow_AuthorizationPage;
+import pageLocators_Elements.RAIS.Workflow_FAPage;
 import pageLocators_Elements.RAIS.Workflow_Inspection_Parent_ChildPage;
 import pageLocators_Elements.RAIS.Workflow_PaymentPage;
 import testcases.RAIS.WF_FollowupAction_Tests;
@@ -5163,6 +5164,172 @@ public class RAIS_applicationSpecificMethods  {
 			e.printStackTrace();
 		}
 	}
+
+	//Followupaction data form
+	public static void followUpActionDataForm(WebDriver wdFollowUp, Object fwWorkflowName, String [] fwInputData, Object buttonClick) {
+	
+		//Initialise data form
+		Workflow_FAPage fwDataForm = new Workflow_FAPage();
+		
+		try {
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wdFollowUp);
+			
+			//input source location
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[0]);
+			
+			//input source status
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceStatus_Xpath, fwInputData[1]);
+			
+			//page wait
+			GenericMethods .JSPageWait(wdFollowUp);
+			
+			//scroll to element
+			//scrollToElement(wdFollowUp, fwDataForm.sourceStatusDate_Xpath);
+			
+			JavascriptExecutor jse = (JavascriptExecutor) wdFollowUp;
+			jse.executeScript("window.scrollBy(0,100)");
+			
+			//date of inspection
+			//click on date control
+			GenericMethods.elementClick(wdFollowUp, fwDataForm.sourceStatusDate_Xpath);
+			
+			//page wait
+			GenericMethods.JSPageWait(wdFollowUp);
+			
+			//select date
+			GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
+			
+			//page wait
+			GenericMethods .JSPageWait(wdFollowUp);
+			
+			//using switch case for different FA WF
+			switch (fwWorkflowName.toString()) {
+			
+			case "FollowUpAction Import Workflow":
+				
+				//scroll to bottom
+				jScrollToBottom(wdFollowUp);			
+				
+				//scroll to element
+				//scrollToElement(wdFollowUp, fwDataForm.importDate_Xpath);
+				
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.importDate_Xpath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wdFollowUp);
+				
+				//select date
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
+							
+				//page wait
+				//GenericMethods .JSPageWait(wdFollowUp);
+				
+				//scroll to element
+				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
+				
+				//upload security plan doc
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
+				
+				//input customs number
+				GenericMethods.sendText(wdFollowUp, fwDataForm.importCustomNum_Xpath, fwInputData[3]);
+				
+				//input Bills of number
+				GenericMethods.sendText(wdFollowUp, fwDataForm.importBillLadingNum_XPath, fwInputData[4]);
+				
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.importBillLadingdate_XPath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wdFollowUp);
+				
+				//select date
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);				
+				
+				break;
+
+			case "FollowUpAction Export Workflow":
+				
+				
+				
+				break;
+				
+			case "FollowUpAction Transfer Workflow":
+				
+				
+				
+				break;
+				
+			default:
+				break;
+			}			
+			
+			//page wait
+			GenericMethods .JSPageWait(wdFollowUp);			
+				
+			//click on submit button
+			GenericMethods.elementClick(wdFollowUp, buttonClick.toString());
+			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wdFollowUp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//FA - approval form
+	public static void followUpActionApprovalDataForm(WebDriver wFADF, String remarksTxt, String reviewedBy, Object buttonToClick ) {
+		
+		//Initialise data form
+		Workflow_FAPage fwApprovalDataForm = new Workflow_FAPage();
+							
+			try {
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wFADF);
+				
+				//date of inspection
+				//scroll to element
+				RAIS_applicationSpecificMethods.scrollToElement(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wFADF);
+				
+				//click on date control
+				GenericMethods.elementClick(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wFADF);
+				
+				//select date
+				GenericMethods.elementClick(wFADF, fwApprovalDataForm.selectSpecificDate_Xpath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wFADF);
+				
+				//input remarks on approval form
+				GenericMethods.sendText(wFADF, fwApprovalDataForm.approvalFrmRemarks_Xpath, remarksTxt);
+				
+				//select approved by role by regulator
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFADF, fwApprovalDataForm.approvalFrmApprovedBy_Xpath, reviewedBy);
+								
+				//click on submit button
+				GenericMethods.elementClick(wFADF, buttonToClick.toString());
+				
+				//page wait
+				GenericMethods .JSPageWait(wFADF);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	
+
 }
 
 

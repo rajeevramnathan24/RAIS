@@ -121,7 +121,7 @@ public class WF_Authorization_Tests extends BaseClass
 			String facilityMenu = RaisTestData.businessEntityList[26];
 			//*********************************************************************
 			String licenseeRole = "LICImp";
-			String regulatorRole = "REGVP";
+			String regulatorRole = "REG";
 			//String pwd = "Pass123$";
 			//*********************************************************************
 			//wfID_tobeExecuted = "IMP/0079/WF"; // - Import Facility1";
@@ -175,7 +175,7 @@ public class WF_Authorization_Tests extends BaseClass
 			};
 			
 			String RemarksTxt = "This step has been is Reviewed/ approved- Demo";
-			String ApprovedByName = "Vishal Parbat";
+			String ApprovedByName = "Vishal";
 			//*********************************************************************					
 			
 			//Setting Test name and description on report
@@ -1723,7 +1723,7 @@ public class WF_Authorization_Tests extends BaseClass
 			String facilityMenu = RaisTestData.businessEntityList[26];
 			//*********************************************************************
 			String licenseeRole = "LICImp";
-			String regulatorRole = "REGVP";
+			String regulatorRole = "REG";
 			//String pwd = "Pass123$";
 			//*********************************************************************
 			//wfID_tobeExecuted = "IMP/0079/WF"; // - Import Facility1";
@@ -1779,7 +1779,7 @@ public class WF_Authorization_Tests extends BaseClass
 			};
 			
 			String RemarksTxt = "This step has been is Reviewed/ approved- Demo";
-			String ApprovedByName = "Vishal Parbat";
+			String ApprovedByName = "Vishal";
 			//*********************************************************************					
 			
 			//Setting Test name and description on report
