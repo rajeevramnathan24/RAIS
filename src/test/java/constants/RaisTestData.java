@@ -45,6 +45,24 @@ public class RaisTestData {
 	//Authorizations
 	public static String importAuthWF = "Import Authorization Workflow";
 	public static String exportAuthWF = "Export Authorization Workflow";
+	public static String equipManuFacAuthWF = "Equipment Manufacturing Workflow";
+	public static String ispProdAuthWF = "Isotope Production Authorization";
+	public static String releaseAuthWF = "Release Authorization Workflow";
+	public static String storageAuthWF = "Storage Authorization Workflow";
+	public static String useAuthWF = "Use Authorization Workflow";
+	public static String transferAuthWF = "Transfer Authorization Workflow";
+	public static String transportAuthWF = "Transport Authorization Workflow";
+	
+	public static String [] faWFList = {
+			
+			"FollowUpAction Import Workflow",						//0//
+			"FollowUpAction Export Workflow",						//1//
+			"FollowUpAction Transfer Workflow",						//2//
+			"FollowUpAction Transport Workflow",					//3//
+			"FollowUpAction Equip Manufacturing Workflow",		//4//
+			"FollowUpAction Isotope Production Workflow"			//5//
+			
+	};
 	
 
 	//Data role test data
@@ -372,7 +390,26 @@ public class RaisTestData {
 	//WF Statuses
 	public static String WF_Status_Submitted_Txt = "Submitted";
 	public static String WF_Status_Completed_Txt = "Completed";
+	
+	public static String [] faDataFormInput = {
+			
+			"Import Facility2",						//0// Source location - import facility
+			"In-Process",							//1// Source Status
+			"C:\\Temp\\securityPlan.pdf",			//2// security plan
+			"455500P231/22",						//3//customs number
+			"455500P231/223434",					//4// Bill lading number	
+			"Exp facility2",						//5//Source location - Export facility
+			"Equip facility2",						//6//Source location - EQP facility
+			"Isotope facility2",					//7//Source location - Isotope Prod facility
+			"Transf facility2",						//8//Source location - Transfer facility
+			"Transp facility2"						//9//Source location - Transport facility	
+	};
 
-
+	public static String [] workflowStatuses = {
+			"Draft",								//0//
+			"Submitted",							//1//
+			"Completed",							//2//
+			"Reassigned"							//3//
+	};
 
 }

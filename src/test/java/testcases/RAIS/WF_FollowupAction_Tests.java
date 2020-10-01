@@ -31,6 +31,9 @@ import org.testng.annotations.Parameters;
 
 import static org.testng.Assert.assertTrue;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -50,18 +53,6 @@ public class WF_FollowupAction_Tests extends BaseClass
 	
 	Workflow_FAPage FA_WFPage = new Workflow_FAPage();
 	
-	String [] followUpActionWFName = {
-			
-			"FollowUpAction Import Workflow",						//0//
-			"FollowUpAction Export Workflow",						//1//
-			"FollowUpAction Transfer Workflow",						//2//
-			"FollowUpAction Tranport Workflow",						//3//
-			"FollowUpAction Equipment Manufacuring Workflow",		//4//
-			"FollowUpAction Isotope Manufacuring Workflow"			//5//
-			
-	};
-	
-
 	TestSuite RunTestCase = new TestSuite();
 
 	//passcurrent time
@@ -78,37 +69,25 @@ public class WF_FollowupAction_Tests extends BaseClass
 	public static String browserCategory = "";	
 	public static String TESTSTATUS = null;
 	
-	//Common Test Data****************************************************
+	//Common Test Data***************NoCHANGE REQUIRED*********************************
 	String regulatoryProcessMainMenu = RaisTestData.RegProcessText;
-	String authorization = RaisTestData.AuthorizationSubmenu;
-	String ParentWorkFlowName = RaisTestData.importAuthWF;
-	
-	String licenseeRole = "LICImp";
+	String authorization = RaisTestData.AuthorizationSubmenu;	
+	String faWorkFlowName = null;	
+	String licenseeRole = null; //LICIMP
 	String regulatorRole = "REG";
-	String pwd = "Pass123$";
-	//*********************************************************************
-	String WFid_FAtobeExecuted = "IMP/0003/WF";
+	//String pwd = "Pass123$";
+	//********************************CHANGE REQUIRED*****************************
+	String ParentWorkFlowName = RaisTestData.exportAuthWF;
+	String WFid_FAtobeExecuted = "EXP/0001/WF"; //EM/0001/WF Equip facility1		IMP/0003/WF		TRP/0001/WF Transp facility2	IP/0001/WF  TRF/0001/WF EXP/0001/WF
 	//*********************************************************************
 	
 	//DF1 test data
-	String [] fwActionDataFormInput = {
-			
-			"Import Facility2",						//0// Source location
-			"In-Process",							//1// Source Status
-			"C:\\Temp\\securityPlan.pdf",			//2// security plan
-			"455500P231/22",						//3//customs number
-			"455500P231/223434",					//4// Bill lading number	
-	};
-	
-	String [] statusOfWorkflow = {
-			"Draft",								//0//
-			"Submitted",							//1//
-			"Completed",							//2//
-			"Reassigned"							//3//
-	};
+	String [] fwActionDataFormInput = RaisTestData.faDataFormInput;
+	String [] statusOfWorkflow = RaisTestData.workflowStatuses; 
 	
 	//*********************************************************************			
-	String RemarksTxt = "This step has been is Reviewed/ approved- Demo";
+	String RemarksTxt = "This step has been is Reviewed/ approved.";
+	String remarksUpdated= "Updated text";
 	String ApprovedByName = "Vishal";
 	//*********************************************************************
 
@@ -147,19 +126,24 @@ public class WF_FollowupAction_Tests extends BaseClass
 
 	//#F1 - Import
 	@Test(priority=1,enabled=true)
-	public void FollowUpAction_HappyPath() throws Exception {
+	public void fa_HappyPath() throws Exception {
 
 		try {
-			
-			
 
 			//Setting Test name and description on report
-			SettingRptTestName_TestDesc("Followp Action Test case","Followp Action Test case");
+			SettingRptTestName_TestDesc("Followp Action Test case","Followp Action Test case");			
+			
+			//Call the method to set user and followup workflow name
+			licenseeRole = RAIS_applicationSpecificMethods.getUserFollowupWFName(ParentWorkFlowName).get(0).toString();
+			faWorkFlowName = RAIS_applicationSpecificMethods.getUserFollowupWFName(ParentWorkFlowName).get(1).toString();
+			
+			System.out.println(licenseeRole);
+			System.out.println(faWorkFlowName);				
 
 			//Calling Login method
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, licenseeRole, loginPage.pwd_XPath, 
-					pwd, loginPage.loginBtn_XPath);
+					password, loginPage.loginBtn_XPath);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -167,6 +151,9 @@ public class WF_FollowupAction_Tests extends BaseClass
 			//Clicking on parent Auth WF menu and name
 			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,ParentWorkFlowName);
 
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+			
 			//search for required record
 			RAIS_applicationSpecificMethods.basicSearchRecord(wd, WFid_FAtobeExecuted);
 			
@@ -177,7 +164,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 			GenericMethods.elementClick(wd, entityRecordListing.rdoBtn_Xpath);
 			
 			//Initiate Workflow
-			RAIS_applicationSpecificMethods.initiateWorkflow(wd, followUpActionWFName[0]);
+			RAIS_applicationSpecificMethods.initiateWorkflow(wd, faWorkFlowName);
 			
 			//page wait
 			GenericMethods .JSPageWait(wd);
@@ -186,15 +173,38 @@ public class WF_FollowupAction_Tests extends BaseClass
 			final Object workflowId = RAIS_applicationSpecificMethods.trimWorkflowid(wd, FA_WFPage.wfId_displayedonTop);			
 			System.out.println(workflowId);
 			
+			
+			
+			
+			
+			//Verify draft status and proceed - commenting it for now so that bug is fixed
+			//*************************************
+			
+			//Clicking on followup action menu
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+			
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);
+			
+			//search for required record
+			//RAIS_applicationSpecificMethods.basicSearchRecord(wd, workflowId);
+			
+			//verify workflow statuses
+			//RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd,statusOfWorkflow[0], true);			
+			
+			
+			
+			
+			
 			//*************************Starting with first data form			
-			RAIS_applicationSpecificMethods.followUpActionDataForm(wd, followUpActionWFName[0], fwActionDataFormInput, 
+			RAIS_applicationSpecificMethods.followUpActionDataForm(wd, faWorkFlowName, fwActionDataFormInput, 
 					FA_WFPage.submitBtn_FAPage1_Xpath);			
 			
 			//logout and relogin with new user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, faWorkFlowName);
 			
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -212,8 +222,11 @@ public class WF_FollowupAction_Tests extends BaseClass
 			//page refresh
 			wd.navigate().refresh();
 			
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+			
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,followUpActionWFName[0]);
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,faWorkFlowName);
 			
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -243,23 +256,33 @@ public class WF_FollowupAction_Tests extends BaseClass
 
 	//#F2 - Import
 	@Test(priority=2,enabled=true)
-	public void FollowUpAction_AlternatePath() throws Exception {
+	public void fa_AlternatePaths() throws Exception {
 
 			try {								
 
 				//Setting Test name and description on report
 				SettingRptTestName_TestDesc("Followp Action Test case","Followp Action Test case");
+				
+				//Call the method to set user and followup workflow name
+				licenseeRole = RAIS_applicationSpecificMethods.getUserFollowupWFName(ParentWorkFlowName).get(0).toString();
+				faWorkFlowName = RAIS_applicationSpecificMethods.getUserFollowupWFName(ParentWorkFlowName).get(1).toString();
+				
+				System.out.println(licenseeRole);
+				System.out.println(faWorkFlowName);	
 
 				//Calling Login method
 				GenericMethods.loginApplication
 				(wd, loginPage.userId_XPath, licenseeRole, loginPage.pwd_XPath, 
-						pwd, loginPage.loginBtn_XPath);
+						password, loginPage.loginBtn_XPath);
 
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
 
 				//Clicking on parent Auth WF menu and name
 				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,ParentWorkFlowName);
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
 
 				//search for required record
 				RAIS_applicationSpecificMethods.basicSearchRecord(wd, WFid_FAtobeExecuted);
@@ -271,7 +294,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 				GenericMethods.elementClick(wd, entityRecordListing.rdoBtn_Xpath);
 				
 				//Initiate Workflow
-				RAIS_applicationSpecificMethods.initiateWorkflow(wd, followUpActionWFName[0]);
+				RAIS_applicationSpecificMethods.initiateWorkflow(wd, faWorkFlowName);
 				
 				//page wait
 				GenericMethods .JSPageWait(wd);
@@ -281,14 +304,14 @@ public class WF_FollowupAction_Tests extends BaseClass
 				System.out.println(workflowId);
 				
 				//*************************Starting with first data form			
-				RAIS_applicationSpecificMethods.followUpActionDataForm(wd, followUpActionWFName[0], fwActionDataFormInput, 
+				RAIS_applicationSpecificMethods.followUpActionDataForm(wd, faWorkFlowName, fwActionDataFormInput, 
 						FA_WFPage.submitBtn_FAPage1_Xpath);			
 				
 				//logout and relogin with new user
 				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 				//Clicking on followup action menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, faWorkFlowName);
 				
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
@@ -310,7 +333,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,licenseeRole,password);
 								
 				//Clicking on followup action menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, faWorkFlowName);
 				
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
@@ -331,7 +354,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 				//Clicking on followup action menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, faWorkFlowName);
 				
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
@@ -344,13 +367,16 @@ public class WF_FollowupAction_Tests extends BaseClass
 				
 				//*************************Starting with Approval data form
 				//calling approval form method
-				RAIS_applicationSpecificMethods.followUpActionApprovalDataForm(wd, ".Updated", ApprovedByName, FA_WFPage.approveBtn_Xpath);
+				RAIS_applicationSpecificMethods.followUpActionApprovalDataForm(wd, remarksUpdated, ApprovedByName, FA_WFPage.approveBtn_Xpath);
 				
 				//page refresh
 				wd.navigate().refresh();
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
 								
 				//Clicking on followup action menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, followUpActionWFName[0]);
+				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization,faWorkFlowName);
 				
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);

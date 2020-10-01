@@ -58,10 +58,10 @@ public class EntityFormListingPage {
 	public String saveSuffix_XPath = "']//button[text()='Save']";
 	
 	//search text box field
-		public String inputSearchFld_Xpath = "//*[@id='filterText']";
+		public String inputSearchFld_Xpath = "//*[@id='entity-details']//div//span[@class='form-group search-control']//div//input[@id='filterText']";
 		
 		//search button 
-		public String searchBtn_Xpath = "//*[@id='entity-details']//div//span//button";
+		public String searchBtn_Xpath = "//*[@id='entity-details']//div//span[@class='form-group search-control']//button[1]";
 		
 	//Radio button click on first record
 		public String rdoBtn_Xpath = "//*[@id='entity-details']//div//table//tbody//tr[1]/td[1]";

@@ -5175,8 +5175,54 @@ public class RAIS_applicationSpecificMethods  {
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wdFollowUp);
 			
-			//input source location
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[0]);
+			//selection source location based on WF
+			switch (fwWorkflowName.toString()) {
+			
+			case "FollowUpAction Import Workflow":
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[0]);
+				
+				break;
+				
+			case "FollowUpAction Export Workflow":
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[5]);
+				
+				break;
+				
+			case "FollowUpAction Transfer Workflow":
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[8]);
+				
+				break;
+				
+			case "FollowUpAction Transport Workflow":
+	
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[9]);
+				
+				break;
+	
+			case "FollowUpAction Equipment Manufacturing Workflow":
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[6]);
+				
+				break;
+				
+			case "FollowUpAction Isotope Production Workflow":
+				
+				//input source location
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[7]);
+				
+				break;
+
+			default:
+				break;
+			}
 			
 			//input source status
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceStatus_Xpath, fwInputData[1]);
@@ -5253,13 +5299,56 @@ public class RAIS_applicationSpecificMethods  {
 
 			case "FollowUpAction Export Workflow":
 				
+				//scroll to bottom
+				jScrollToBottom(wdFollowUp);			
 				
+				//scroll to element
+				//scrollToElement(wdFollowUp, fwDataForm.importDate_Xpath);
 				
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.exportDate_Xpath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wdFollowUp);
+				
+				//select date
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
+							
+				//page wait
+				//GenericMethods .JSPageWait(wdFollowUp);
+				
+				//scroll to element
+				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
+				
+				//upload security plan doc
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
+				
+				//click on source returned
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.receipientCountryApproval_ChkBox_Xpath);				
+				
+				//input customs number
+				GenericMethods.sendText(wdFollowUp, fwDataForm.importCustomNum_Xpath, fwInputData[3]);
+								
 				break;
 				
 			case "FollowUpAction Transfer Workflow":
 				
+				//click on source returned
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.sourceReturnedToParent_ChkBox_Xpath);
 				
+				//scroll to bottom
+				RAIS_applicationSpecificMethods.jScrollToBottom(wdFollowUp);
+				
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.returnDate_XPath);
+				
+				//page wait
+				GenericMethods .JSPageWait(wdFollowUp);
+				
+				//select date
+				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
 				
 				break;
 				
@@ -5328,7 +5417,68 @@ public class RAIS_applicationSpecificMethods  {
 			}
 		}
 
-	
+	//identify user and followup WF name based on parent name
+	public static ArrayList<Object> getUserFollowupWFName( String workfName) {
+
+		ArrayList<Object> listValue = new ArrayList<>();
+		
+		try {
+			switch (workfName) {
+			case "Equipment Manufacturing Workflow":
+												
+				listValue.add("LICEQP");
+				listValue.add(RaisTestData.faWFList[4]);
+				
+				break;
+				
+			case "Isotope Production Authorization":
+				
+				listValue.add("LICISP");
+				listValue.add(RaisTestData.faWFList[5]);
+				
+				break;
+				
+			case "Transfer Authorization Workflow":
+				
+				listValue.add("LICTRANSF");
+				listValue.add(RaisTestData.faWFList[2]);
+				
+				break;
+				
+			case "Transport Authorization Workflow":
+				
+				listValue.add("LICTRNSP");
+				listValue.add(RaisTestData.faWFList[3]);
+				
+				break;
+				
+			case "Import Authorization Workflow":
+				
+				listValue.add("LICIMP");
+				listValue.add(RaisTestData.faWFList[0]);
+				
+				break;
+
+			case "Export Authorization Workflow":
+				
+				listValue.add("LICEXP");
+				listValue.add(RaisTestData.faWFList[1]);
+				
+				break;
+				
+			
+			default:
+				break;
+			}					
+			
+			return listValue;
+			//return Arrays.asList(userId, faWF_Name);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
 
