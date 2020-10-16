@@ -28,26 +28,52 @@ public class Workflow_AuthorizationPage {
 	public String requestedStartDate_Xpath = "//input[@id='StartDate']";
 	public String requestedStartDateCalendarControl_Xpath = "//div[input[@id='StartDate']]//div//button";
 	
+	//for equipment workflow
+	public String requestedStartDateEQPCalendarControl_Xpath = "//div[input[@id='ReqStartDate']]//div//button";
+	
+	//for release workflow
+	public String releaseDateCalendarControl_Xpath = "//div[input[@id='ReleaseDate']]//div//button";
+	
 	//end date
 	public String requestedEndDate_Xpath = "//input[@id='EndDate']";
 	public String requestedEndDateCalendarControl_Xpath = "//div[input[@id='EndDate']]//div//button";
+	
+	//for equipment workflow
+	public String requestedEndDateEQPCalendarControl_Xpath = "//div[input[@id='ReqEndDate']]//div//button";
 	
 	//select one particular date
 	public String selectSpecificDate_Xpath = "/html/body/div[7]/div[3]/div/div[2]/div[2]/div/div[3]/div[2]/button";
 	
 	//max radio activity
-	public String maxRadioActivity_Xpath = "//input[@id='MaximumRadioActivity']";
+	public String maxRadioActivity_Xpath = "//*[@id='MaximumRadioActivity']";  //"//input[@id='MaximumRadioActivity']";
+	public String maxRadioActivity_Use_Storage_Trn_Trf_Xpath = "//*[@id='MaximumRadioactivity']";
+	
 	//unit max radio activity
 	public String unitMaxRadioActivity_Xpath = "//*[@id='MaximumRadioActivityId']";
+	public String unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath = "//*[@id='MaximumRadioactivityId']";
+	
 	//import agency
 	public String importAgency_Xpath = "//input[@id='ImportAgencyText']";
 	
+	//export agency
+	public String exportAgency_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='ExportAgency']";
+	
+	//Trasnfer agency
+	public String recipientFacility_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='RecipientFacility']";
+	public String recipientDepartment_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='RecipientDepartment']";
+	public String transferDateCalendarControl_Xpath = "//div[input[@id='DateofTransfer']]//div//button";
+	public String transferType_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='TransferType']";
+	public String durationOfTransfer_Xpath = "//input[@id='DurationofTransfer']";
+	
 	//upload P&L statement
-	public String profitLossStatement_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/label/a";
+	//public String profitLossStatement_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[5]/div/div/div/div/div/label/a";
+	public String profitLossStatement_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[input[@id='Document3']]//label//a"; //[contains(text(),'Business Registration Certificate')]";
 	//upload P&L statement
-	public String businessRegCertificate_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a";
+	//public String businessRegCertificate_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a";
+	public String businessRegCertificate_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[input[@id='Document2']]//label//a";//[contains(text(),'Business Registration Certificate')]";
 	//upload P&L statement
-	public String lastYearTaxCertificate_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[7]/div/div/div/div/div/label/a";
+	//public String lastYearTaxCertificate_Xpath = "//*[@id='work-flow-form']/div[3]/div[2]/form/div/div[2]/fieldset/div/div/div/div[7]/div/div/div/div/div/label/a";
+	public String lastYearTaxCertificate_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[input[@id='Document1']]//label//a";//[contains(text(),'Last Year Tax Certificate')]";
 	
 	//save and submit button
 	public String saveBtn = "//*[@id='work-flow-form']//div//button[contains(text(),'Save')]";
@@ -56,6 +82,21 @@ public class Workflow_AuthorizationPage {
 	//generic buttons
 	public String btnPrefix_Xpath = "//*[@id='work-flow-form']//button[text()='";
 	public String btnSuffix_Xpath = "']";
+	
+	//Transport data form
+	public String packageType_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='PackageType']";
+	public String packageCategory_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='PackageCategory']";	
+	public String transportIndex_Xpath = "//input[@id='TransportIndex']";
+	public String transportMode_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//div[4][@class='column-section-controls']//fieldset//div";
+	public String consignorFacility_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='ConsignorFacility']";
+	public String originMemo_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//textarea[@id='Origin']";
+	public String consigneeFacility_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='ConsigneeFacility']";
+	public String destinationMemo_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//textarea[@id='Destination']";
+	public String dateOfShipmentCalendarControl_Xpath = "//div[input[@id='Dateofshipment']]//div//button";
+	public String dateOfReceiptCalendarControl_Xpath = "//div[input[@id='DateofReceipt']]//div//button";
+	public String exclusiveYesNo_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='ExclusiveuseYN']";
+	public String specialArrangement_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//select[@id='SpecialarrangementYN']";
+	
 	//**************************************************************
 	
 	//******************All forms 2 sections generic xpath prefix
@@ -94,7 +135,14 @@ public class Workflow_AuthorizationPage {
 	public String paymentWFid_Xpath = "//*[@id='collapsible-tabpanel-0']//div//table//tbody//tr[2]/td[1]";
 	public String newPaymentWFid_Xpath = "//*[@id='collapsible-tabpanel-0']//div//table//tbody//tr//td[contains(text(),'PAY')]";
 	
+	//check box for isotope production
+	public String raaApplicable_ChkBox_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//label[@id='RAAapplicable']"; 
+	
 	//**************************************************************
+	//DF- incompleteness check form
+	public String incompleteRemarks_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//textarea[@id='IncompleteRemarks']";
+		
+	//***************************************************************
 	
 	//DF- review and assessment
 	//authorization remarks
@@ -112,9 +160,15 @@ public class Workflow_AuthorizationPage {
 	
 	//DF- Auth terms
 	//start date
-	public String authStartDate = "//div[input[@id='AuthStartDate']]//div//button" ; //input[@id='AuthStartDate']"
+	public String authStartDate = "//*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='column-section-controls']//div[input[@id='AuthStartDate']]//div//button" ; //input[@id='AuthStartDate']"
 	//end date
-	public String authEndDate = "//div[input[@id='AuthEndDate']]//div//button"; //input[@id='AuthEndDate']";
+	public String authEndDate = "//*[@id='work-flow-form']//div//form//div//fieldset//div[2][@class='column-section-controls']//div[input[@id='AuthEndDate']]//div//button"; //input[@id='AuthEndDate']";
+	
+	//transfer WF auth date
+	public String authDateOfTransfer = "//*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='column-section-controls']//div[input[@id='AuthDateofTransfer']]//div//button" ;
+	//Auth transfer duration text
+	public String authTransferDuration_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[2][@class='column-section-controls']//div//input[@id='AuthTransferDuration']";
+	
 	
 	//terms and conditions text
 	public String tncText_Xpath = genericLocatorXpath + "//textarea[@id='TermsAndConditions']";

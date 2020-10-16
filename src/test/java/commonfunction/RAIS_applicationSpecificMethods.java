@@ -4242,7 +4242,7 @@ public class RAIS_applicationSpecificMethods  {
 			StringSelection stringSelection = new StringSelection(filePath);
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 
-			System.out.println(filePath);
+			//System.out.println(filePath);
 
 			//page wait
 			GenericMethods.JSPageWait(wUpload);
@@ -4465,33 +4465,37 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//workflow data forms associations
-	public static Boolean inputDataOnAssociationForm_Authorization(WebDriver wAssoDF, String [] formData) {
+	public static Boolean inputDataOnAssociationForm_Authorization(WebDriver wAssoDF, ArrayList<Object>formData) {
 
 		//Initialise authorization - association page
 		Workflow_AuthorizationPage wfAssociationDataForm = new Workflow_AuthorizationPage();
 
 		try {
 			//input department on DF-Associations page
-			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.department_Xpath, formData[0]);
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.department_Xpath, formData.get(2).toString());
 			scrollToElement(wAssoDF, wfAssociationDataForm.sealedSource_Xpath);
 
 			//input sealed source on DF-Associations page
-			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.sealedSource_Xpath, formData[1]);
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.sealedSource_Xpath, formData.get(3).toString());
 			scrollToElement(wAssoDF, wfAssociationDataForm.unsealedSource_Xpath);
 
 			//input unsealed source on DF-Associations page
-			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.unsealedSource_Xpath, formData[2]);
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.unsealedSource_Xpath, formData.get(4).toString());
 			scrollToElement(wAssoDF, wfAssociationDataForm.radGenerator_Xpath);
 
 			//input Radiation generator source on DF-Associations page
-			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.radGenerator_Xpath, formData[3]);
+			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.radGenerator_Xpath, formData.get(5).toString());
 			scrollToElement(wAssoDF, wfAssociationDataForm.assoEquipment_Xpath);
 
-			//input asso equipments source on DF-Associations page
-			multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.assoEquipment_Xpath, formData[4]);
+			if(formData.get(0).toString() != "LICISP" && formData.get(0).toString() != "LICTRANSF") {
+
+				//input asso equipments source on DF-Associations page
+				multiSelect_WFDataforms(wAssoDF, wfAssociationDataForm.assoEquipment_Xpath, formData.get(6).toString());
+
+			}
 
 			//generate btn xpath
-			String btnClick = wfAssociationDataForm.btnPrefix_Xpath + formData[5]+ wfAssociationDataForm.btnSuffix_Xpath;
+			String btnClick = wfAssociationDataForm.submitBtn;
 
 			//click on submit button
 			GenericMethods.elementClick(wAssoDF, btnClick);
@@ -4510,118 +4514,493 @@ public class RAIS_applicationSpecificMethods  {
 
 
 	//workflow data form req terms
-	public static Boolean inputDataOnRequestedTerms_Authorization(WebDriver wRT, String [] inputData) {
+	public static Boolean inputDataOnRequestedTerms_Authorization(WebDriver wRT,String workflowName, Boolean incompleteApplication, String buttonClick) {
 
 		//Initialise authorization - association page
-		Workflow_AuthorizationPage wfRequestedTermsForm = new Workflow_AuthorizationPage();
+		Workflow_AuthorizationPage wfRequestedTermsForm = new Workflow_AuthorizationPage();	
 
-		//generate btn xpath
-		String btnClick = wfRequestedTermsForm.btnPrefix_Xpath + inputData[7]+ wfRequestedTermsForm.btnSuffix_Xpath;
+		//scroll down
+		JavascriptExecutor jse = (JavascriptExecutor) wRT;
 
 		try {
 
-			//Starting with date
-			GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+			if(incompleteApplication== false) {
 
-			//page wait
-			GenericMethods .JSPageWait(wRT);
+				//Align here
+				//input data based on wf name
 
-			GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+				switch (workflowName) {
 
-			//page wait
-			GenericMethods .JSPageWait(wRT);
 
-			if(inputData[0] != "Release Authorization Workflow") {
+				case "Import Authorization Workflow":
 
-				GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
 
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);					
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.importAgency_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//input import agency - 3rd in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.importAgency_Xpath, RaisTestData.inputRequestedTermsDataForm.get(2).toString());
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Export Authorization Workflow":		
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);	
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.exportAgency_Xpath);  //// Export Agency ???????
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select from drop down - 3rd in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.exportAgency_Xpath, RaisTestData.inputRequestedTermsDataForm.get(6).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Equipment Manufacturing Workflow":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Release Authorization Workflow":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.releaseDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Use Authorization Workflow":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Storage Authorization Workflow":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Isotope Production Authorization":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Transfer Authorization Workflow":
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+					GenericMethods .JSPageWait(wRT);
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.recipientFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(7).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");	
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.recipientDepartment_Xpath, RaisTestData.inputRequestedTermsDataForm.get(8).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");	
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");					
+
+					//page wait
+					//GenericMethods.JSPageWait(wRT);
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.transferType_Xpath, RaisTestData.inputRequestedTermsDataForm.get(9).toString());		
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");	
+
+					//page wait
+					GenericMethods.JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.transferDateCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//input import agency - 3rd in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.durationOfTransfer_Xpath, RaisTestData.inputRequestedTermsDataForm.get(10).toString());
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				case "Transport Authorization Workflow":
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+					GenericMethods .JSPageWait(wRT);
+
+					//package type
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.packageType_Xpath, RaisTestData.inputRequestedTermsDataForm.get(11).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//package category
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.packageCategory_Xpath, RaisTestData.inputRequestedTermsDataForm.get(12).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//transport index
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.transportIndex_Xpath, RaisTestData.inputRequestedTermsDataForm.get(10).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//input transport mode
+					multiSelect_WFDataforms(wRT, wfRequestedTermsForm.transportMode_Xpath, RaisTestData.inputRequestedTermsDataForm.get(13).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//max radioactivity value - first item in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+					//select unit - second in array
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//package category
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consignorFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(14).toString());
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.originMemo_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//Origin transport
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.originMemo_Xpath , RaisTestData.inputRequestedTermsDataForm.get(15).toString());
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.consigneeFacility_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//package category
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consigneeFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(14).toString());
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.destinationMemo_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//Origin transport
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.destinationMemo_Xpath , RaisTestData.inputRequestedTermsDataForm.get(16).toString());
+
+					//scroll to element
+					GenericMethods.tabfromElement(wRT, wfRequestedTermsForm.destinationMemo_Xpath);
+
+					//scrollToElement(wRT, wfRequestedTermsForm.dateOfShipmentCalendarControl_Xpath);	
+
+					//page wait
+					GenericMethods.JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.dateOfShipmentCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//scroll to element
+					//scrollToElement(wRT, wfRequestedTermsForm.dateOfReceiptCalendarControl_Xpath);	
+
+					//page wait
+					GenericMethods.JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.dateOfReceiptCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.exclusiveYesNo_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//package category
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.exclusiveYesNo_Xpath, RaisTestData.commonInputData.get(2).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.specialArrangement_Xpath);	
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//package category
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.specialArrangement_Xpath, RaisTestData.commonInputData.get(2).toString());
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					break;
+
+				default:
+					break;
+				}
+
+				//common data input for all forms *******************************************
+				//scroll to bottom
+				jScrollToBottom(wRT);
+
+				//upload docs - 4th in array
+				clickAndUploadFile(wRT, wfRequestedTermsForm.profitLossStatement_Xpath, RaisTestData.inputRequestedTermsDataForm.get(3).toString());
 				//page wait
-				GenericMethods .JSPageWait(wRT);
+				//GenericMethods .JSPageWait(wd);
 
-				GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
-
+				clickAndUploadFile(wRT, wfRequestedTermsForm.businessRegCertificate_Xpath, RaisTestData.inputRequestedTermsDataForm.get(4).toString());
 				//page wait
-				GenericMethods .JSPageWait(wRT);
+				//GenericMethods .JSPageWait(wd);
 
-			} 
-			
-			if(inputData[0] != "Equipment Manufacturing Authorization Workflow" && inputData[0] != "Release Authorization Workflow") {
-				
-				//max radioactivity value - first item in array
-				GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, inputData[1]);
+				clickAndUploadFile(wRT, wfRequestedTermsForm.lastYearTaxCertificate_Xpath, RaisTestData.inputRequestedTermsDataForm.get(5).toString());
 
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-
-				//select unit - second in array
-				valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, inputData[2]);
-
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-				
-			} 
-
-			switch (inputData[0]) {
-
-
-			case "Import Authorization Workflow":	
-				
-				
-
-
-				//scroll to element
-				scrollToElement(wRT, wfRequestedTermsForm.importAgency_Xpath);
-
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-
-				//input import agency - 3rd in array
-				GenericMethods.sendText(wRT, wfRequestedTermsForm.importAgency_Xpath, inputData[3]);
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-
-				break;
-
-			case "Export Authorization Workflow":		
-
-				//scroll to element
-				//scrollToElement(wRT, wfRequestedTermsForm.importAgency_Xpath);  //// Export Agency ???????
-
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-
-				//input import agency - 3rd in array
-				//GenericMethods.sendText(wRT, wfRequestedTermsForm.importAgency_Xpath, inputData[2]); ////Export Agency ?????
-
-				//page wait
-				GenericMethods .JSPageWait(wRT);
-
-				break;
-
-			case "Equip********* Authorization Workflow":				
-
-				break;
-
-
-			default:
-				break;
 			}
 
-			//common data input for all forms *******************************************
-
-			//upload docs - 4th in array
-			clickAndUploadFile(wRT, wfRequestedTermsForm.profitLossStatement_Xpath, inputData[4]);
-			//page wait
-			//GenericMethods .JSPageWait(wd);
-
-			clickAndUploadFile(wRT, wfRequestedTermsForm.businessRegCertificate_Xpath, inputData[5]);
-			//page wait
-			//GenericMethods .JSPageWait(wd);
-
-			clickAndUploadFile(wRT, wfRequestedTermsForm.lastYearTaxCertificate_Xpath, inputData[6]);
-
 			//scroll to element and click on button
-			scrollToElement_Click(wRT, btnClick);
+			scrollToElement_Click(wRT, buttonClick);
 
 			//page wait
 			GenericMethods .JSPageWait(wRT);
@@ -4635,247 +5014,260 @@ public class RAIS_applicationSpecificMethods  {
 
 		return false;
 	}
-	
+
 	//verify workflow status and click on record
 	public static void verifyWorkflowStatusAndClickRecord(WebDriver wStatusClick, String status, Boolean clickNeeded) {
-		
+
 		//intialise page
 		EntityFormListingPage wfListingPage = new EntityFormListingPage();
-		
+
+		//Waiting for popup to load
+		GenericMethods.JSPageWait(wStatusClick);
+
 		if(status !="") {
-		
+
 			//verify status of on listing page
-			Assert.assertEquals(GenericMethods.getActualTxt(wStatusClick, wfListingPage.workflowStatus_Xpath), status);
-		
+			Assert.assertTrue((GenericMethods.getActualTxt(wStatusClick, wfListingPage.workflowStatus_Xpath).contains(status)));
+
 		}
-		
+
 		if(clickNeeded == true) {
-		
+
 			//click on first record
 			GenericMethods.elementClick(wStatusClick, wfListingPage.workFlowName_Xpath);
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wStatusClick);
 		}
 	}
-	
+
 	//Workflow logout and re-login with new user
 	public static void workflowLogoutAndReLoginUser(WebDriver wLoginLogout, String userName, String passwordValue) {
-		
+
 		//initialise login page
 		LoginPage loginLogoutPage = new LoginPage();
-		
+
 		//page refresh
 		wLoginLogout.navigate().refresh();
-		
+
 		//page wait
 		GenericMethods .JSPageWait(wLoginLogout);
-						
+
 		//Logout licensee user
 		RAIS_applicationSpecificMethods.logout(wLoginLogout);
 		System.out.println("Logout success");		
-		
+
 		//Start as NEW TC From below			
 		//login using Regulator
 		GenericMethods.loginApplication
 		(wLoginLogout, loginLogoutPage.userId_XPath, userName, loginLogoutPage.pwd_XPath, 
 				passwordValue, loginLogoutPage.loginBtn_XPath);
-		
+
 		//Waiting for popup to load
 		GenericMethods .JSPageWait(wLoginLogout);
-		
+
 	}
-	
+
 	//Authorization - completeness check
-	public static void authorizationCompletenessCheck(WebDriver wComp, String reviewedBy,String memoTxt, Object btnToClick, String workflowName) {
-		
+	public static void authorizationCompletenessCheck(WebDriver wComp, String reviewedBy,String memoTxt, Object btnToClick, Boolean incompleteApplication, String workflowName) {
+
 		try {
 			//initialise page
 			Workflow_AuthorizationPage wfAuthCompletenessCheck = new Workflow_AuthorizationPage();
-			
-			//input reviewed by
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wComp, wfAuthCompletenessCheck.reviewedByCC, reviewedBy);
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wComp);
 			
-			//input notes
-			GenericMethods.sendText(wComp, wfAuthCompletenessCheck.approvedRejectedNotes_Xpath, memoTxt);
-			
-			//Waiting for popup to load
-			GenericMethods.JSPageWait(wComp);
-			
-			if(workflowName == "Isotope Production Authorization Workflow") {
+			if (incompleteApplication == false) {
 				
-				//add code for Radioactivity Aggregation Applicable
+				//input reviewed by
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wComp, wfAuthCompletenessCheck.reviewedByCC, reviewedBy);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wComp);
+
+				//input notes
+				GenericMethods.sendText(wComp, wfAuthCompletenessCheck.approvedRejectedNotes_Xpath, memoTxt);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wComp);
+
+				if(workflowName == "Isotope Production Authorization Workflow") {
+
+					//add code for Radioactivity Aggregation Applicable
+					//click on check box
+					GenericMethods.elementClick(wComp, wfAuthCompletenessCheck.raaApplicable_ChkBox_Xpath);
+
+				}
 			}
-			
+
 			//scroll to button
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wComp, btnToClick.toString());
-			
+
 			//waiting for success message
 			GenericMethods.JSPageWait(wComp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
-	
+
 	//scrollto top and click on step tracker
 	public static void scrollUpClickStepTrackerandclickBottomTab(WebDriver wLinkedP, Object stepTracker, Object linkedProcessTab) {
-		
+
 		try {
-			
+
 			//scroll to page top
 			RAIS_applicationSpecificMethods.scrollToTop(wLinkedP);
-			
+
 			//scroll to element
 			//RAIS_applicationSpecificMethods.scrollToElement_Click(wd, wfAuthorization.completenessLabelStepTracker_Xpath);
-			
+
 			//click on step tracker
 			GenericMethods.elementClick(wLinkedP,stepTracker.toString());
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wLinkedP);
-			
+
 			//clicking on linked processes
 			GenericMethods.elementClick(wLinkedP,linkedProcessTab.toString());
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wLinkedP);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	//Data form only button click
 	public static void dataFormOnlyButtonClick(WebDriver wDFBtn, Object buttonToClick) {
-		
+
 		//Waiting for popup to load
 		GenericMethods.JSPageWait(wDFBtn);
-		
+
 		//clicking on No external assement button
 		RAIS_applicationSpecificMethods.scrollToElement_Click(wDFBtn, buttonToClick.toString());
-		
+
 		//Waiting for popup to load
 		GenericMethods.JSPageWait(wDFBtn);
 	}
-	
+
 	//Only Memo and click button
 	public static void dataFormMemoAndButtonClick(WebDriver wMem, Object memoXpath, String memoText, Object buttonXpath) {
-		
+
 		try {
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wMem);
-			
+
 			//enter internal review remarks
 			GenericMethods.sendText_removeblank(wMem, memoXpath.toString(), memoText);
-			
+
 			//scroll to button
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wMem, buttonXpath.toString());
-							
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wMem);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
-	
+
 	//inspection scope input form
-	public static void inspectionScopeDataForm(WebDriver wInspection, Object [] inspectionScopeInputData) {
-		
+	public static void inspectionScopeDataForm(WebDriver wInspection, ArrayList<Object> inspectionScopeInputData, String buttonToBeClicked) {
+
 		//Initialise inspection scope form
 		Workflow_Inspection_Parent_ChildPage inspectionScopeDF = new Workflow_Inspection_Parent_ChildPage();
-		
-		String clickButton = inspectionScopeDF.btnPrefix_Xpath +inspectionScopeInputData[9].toString() + inspectionScopeDF.btnSuffix_Xpath;
-		
+
+		//String clickButton = inspectionScopeDF.btnPrefix_Xpath +inspectionScopeInputData.get(4).toString() + inspectionScopeDF.btnSuffix_Xpath;
+
 		try {
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//input department on DF-Associations page
-			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.department_Xpath, inspectionScopeInputData[0].toString());
-			
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.department_Xpath, inspectionScopeInputData.get(2).toString());
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//using js scroll
 			JavascriptExecutor jse = (JavascriptExecutor) wInspection;
 			jse.executeScript("window.scrollBy(0,150)");			
-			
+
 			//input sealed source on DF-Associations page
-			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.sealedSource_Xpath, inspectionScopeInputData[1].toString());
-			
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.sealedSource_Xpath, inspectionScopeInputData.get(3).toString());
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//input unsealed source on DF-Associations page
-			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.unsealedSource_Xpath, inspectionScopeInputData[2].toString());
-			
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.unsealedSource_Xpath, inspectionScopeInputData.get(4).toString());
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//input Radiation generator source on DF-Associations page
-			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.radGenerator_Xpath, inspectionScopeInputData[3].toString());
-			
+			RAIS_applicationSpecificMethods.multiSelect_WFDataforms(wInspection, inspectionScopeDF.radGenerator_Xpath, inspectionScopeInputData.get(5).toString());
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//regular or full inspection
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.regularInspection_Xpath, inspectionScopeInputData[6].toString());
-			
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.regularInspection_Xpath, RaisTestData.commonInputData.get(1).toString());
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//regular or full inspection
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.fullInspection_Xpath, inspectionScopeInputData[7].toString());
-			
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wInspection, inspectionScopeDF.fullInspection_Xpath, RaisTestData.commonInputData.get(2).toString());
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//date of inspection
 			//click on date control
 			GenericMethods.elementClick(wInspection, inspectionScopeDF.scheduledDateofInspection_Xpath);
 			//date of inspection
 			//click on date control
 			//GenericMethods.elementClick(wd, wfInspection.scheduledDateofInspection_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//select date
 			GenericMethods.elementClick(wInspection, inspectionScopeDF.selectSpecificDate_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//page scroll
 			jse.executeScript("window.scrollBy(0,150)");
-			
+
 			//Scope of inspection
-			GenericMethods.sendText_removeblank(wInspection, inspectionScopeDF.scopeOfInspection_Xpath, inspectionScopeInputData[8].toString());
-			
+			//GenericMethods.sendText_removeblank(wInspection, inspectionScopeDF.scopeOfInspection_Xpath, inspectionScopeInputData[8].toString());
+			GenericMethods.sendText_removeblank(wInspection, inspectionScopeDF.scopeOfInspection_Xpath, RaisTestData.commonInputData.get(3).toString());
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
-			
+
 			//click on proceed without announcement
-			RAIS_applicationSpecificMethods.scrollToElement_Click(wInspection, clickButton);
-			
+			RAIS_applicationSpecificMethods.scrollToElement_Click(wInspection, buttonToBeClicked);
+
 			//page wait
 			GenericMethods .JSPageWait(wInspection);
 		} catch (Exception e) {
@@ -4883,44 +5275,44 @@ public class RAIS_applicationSpecificMethods  {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Inspection findings data form
 	public static void inspectionFindingsDataForm(WebDriver wInsFind, String remarksText, Object buttonName) {
-		
+
 		//Initialise inspection scope form
 		Workflow_Inspection_Parent_ChildPage inspectionFindingsDF = new Workflow_Inspection_Parent_ChildPage();
-		
+
 		//String clickButton = inspectionFindingsDF.btnPrefix_Xpath +buttonName + inspectionFindingsDF.btnSuffix_Xpath;
-		
+
 		try {
 			//date of inspection
 			//scroll to element
 			RAIS_applicationSpecificMethods.scrollToElement(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
-			
+
 			//click on date control
 			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
-			
+
 			//select date
 			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.selectSpecificDate_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
-			
+
 			//Scope of inspection
 			GenericMethods.sendText_removeblank(wInsFind, inspectionFindingsDF.internalInspectionFindings_Xpath, remarksText);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
-			
+
 			//click on proceed without announcement
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wInsFind, buttonName.toString());
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
 		} catch (Exception e) {
@@ -4931,33 +5323,37 @@ public class RAIS_applicationSpecificMethods  {
 
 	//Generic method for approval form
 	public static void approvalDataForm(WebDriver wApproval, Object downLoadReportBtnXpath, Object approvedByXpath, String approvedBy,
-			Object approveRejectMemoXpath, String approveRejectTxt, Object approveRejectBtn) {
-						
+			Object approveRejectMemoXpath, String approveRejectTxt, Boolean previouslyRejected, Object approveRejectBtn) {
+
 		try {
 			//downlod report
 			GenericMethods.elementClick(wApproval, downLoadReportBtnXpath.toString());
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wApproval);
-			
+
 			//select reviewed by
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wApproval, approvedByXpath.toString(), approvedBy);
 			
-			//page wait
-			GenericMethods .JSPageWait(wApproval);
-			
 			//scroll to element
 			RAIS_applicationSpecificMethods.scrollToElement(wApproval, approveRejectMemoXpath.toString());
-			
-			//input approval notes
-			GenericMethods.sendText_removeblank(wApproval, approveRejectMemoXpath.toString(), approveRejectTxt);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wApproval);
+			
+			if(previouslyRejected == false) {		
+				
+				//input approval notes
+				GenericMethods.sendText_removeblank(wApproval, approveRejectMemoXpath.toString(), approveRejectTxt);
+
+				//page wait
+				GenericMethods .JSPageWait(wApproval);
+				
+			}
 			
 			//click on approve
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wApproval, approveRejectBtn.toString());
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wApproval);
 		} catch (Exception e) {
@@ -4968,32 +5364,32 @@ public class RAIS_applicationSpecificMethods  {
 
 	//R&A data form
 	public static void authorizationReviewAssessmentDataForm(WebDriver wRnA, String remarksTxt, String approvedByName, Object buttonName) {
-		
+
 		//initialise page
 		Workflow_AuthorizationPage wfAuthRADataForm = new Workflow_AuthorizationPage();
-		
+
 		try {
 			//scroll and add remarks
 			RAIS_applicationSpecificMethods.scrollToElement(wRnA, wfAuthRADataForm.authorizeRejectRemarks_Xpath);
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wRnA);
-			
+
 			//input text
 			GenericMethods.sendText_removeblank(wRnA, wfAuthRADataForm.authorizeRejectRemarks_Xpath, remarksTxt);
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wRnA);
-			
+
 			//input reviewed by
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRnA, wfAuthRADataForm.reviewedBy_Xpath, approvedByName);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wRnA);
-			
+
 			//scroll to bottom
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wRnA, buttonName.toString());
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wRnA);
 		} catch (Exception e) {
@@ -5001,124 +5397,149 @@ public class RAIS_applicationSpecificMethods  {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Payment attach invoice form
-	public static void paymentAttachInvoiceReceiptDataForm(WebDriver wPay, Object dataFormName, String[] inputPaymentData, Object fileUploadXpath) {
-		
+	public static void paymentAttachInvoiceReceiptDataForm(WebDriver wPay, Object dataFormName, Object fileUploadXpath) {
+
 		//Initialize form
 		Workflow_PaymentPage paymentDF = new Workflow_PaymentPage();
-		
+
 		try {
-			
+
 			//additional fields for confirm payment
 			if (dataFormName.toString() == "Confirm Payment") {
-				
+
 				//Input amount paid
-				GenericMethods.sendText(wPay, paymentDF.amountPaid_Xpath, inputPaymentData[2]);
-				
+				GenericMethods.sendText(wPay, paymentDF.amountPaid_Xpath, RaisTestData.paymentInputData.get(2).toString());
+
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);
-				
+
 				//Input amount paid mode
-				GenericMethods.sendText(wPay, paymentDF.paymentMedium_Xpath, inputPaymentData[3]);
-				
+				GenericMethods.sendText(wPay, paymentDF.paymentMedium_Xpath, RaisTestData.paymentInputData.get(3).toString());
+
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);	
-				
+
 				//scroll to element
 				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
-				
+
 				//upload invoice
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), inputPaymentData[1]);
-				
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), RaisTestData.paymentInputData.get(1).toString());
+
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);
-				
+
 			} else {
-			
+
 				//scroll to element
 				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
-				
+
 				//upload invoice
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), inputPaymentData[0]);
-				
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), RaisTestData.paymentInputData.get(0).toString());
+
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);
-			
+
 			}
-			
+
 			//scroll to bottom and click
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wPay, paymentDF.submitBtn);
-			
+
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wPay);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Authorization terms and conditions
-	public static void authorizationTermsAndConditions(WebDriver wTnC, String workflowName, String maxRadioActivityValue, String unitValue, String tncText ) {
-		
+	public static void authorizationTermsAndConditions(WebDriver wTnC, String workflowName, String maxRadioActivityValue, String unitValue, String tncText, 
+			Boolean certificateRejectPreviously ) {
+
 		//initialise page
 		Workflow_AuthorizationPage wfAuthTnC = new Workflow_AuthorizationPage();
-		
+
 		try {
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wTnC);
-			
-			if(workflowName != "Transport Authorization Workflow" ||workflowName != "Release Authorization Workflow" ) {
-			
-			//date of inspection
-			//click on date control
-			GenericMethods.elementClick(wTnC, wfAuthTnC.authStartDate);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
-			//select date
-			GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
-			//date of inspection
-			//click on date control
-			GenericMethods.elementClick(wTnC, wfAuthTnC.authEndDate);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
-			//select date
-			GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
-			}
-			
+
+			//skip below for release and transport
+			if(workflowName.equals("Transfer Authorization Workflow")) {
+
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wTnC, wfAuthTnC.authDateOfTransfer);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select date
+				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//send duration text
+				GenericMethods.sendText(wTnC, wfAuthTnC.authTransferDuration_Xpath, RaisTestData.inputRequestedTermsDataForm.get(10).toString());
+
+
+			} else if (!workflowName.equals("Release Authorization Workflow") && !workflowName.equals("Transport Authorization Workflow")) {
+
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wTnC, wfAuthTnC.authStartDate);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select date
+				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//date of inspection
+				//click on date control
+				GenericMethods.elementClick(wTnC, wfAuthTnC.authEndDate);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select date
+				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+			}			
+
 			if (workflowName == "Isotope Production Workflow") {
-				
+
 				//include max radio activity xpath and values here
 			}
-			
+
 			//scroll to element
 			RAIS_applicationSpecificMethods.scrollToElement(wTnC, wfAuthTnC.tncText_Xpath);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
-			//input TNC
-			GenericMethods.sendText_removeblank(wTnC, wfAuthTnC.tncText_Xpath, tncText);
-			
-			//page wait
-			GenericMethods .JSPageWait(wTnC);
-			
+
+			if(certificateRejectPreviously == false) {
+							
+					//page wait
+					GenericMethods .JSPageWait(wTnC);
+		
+					//input TNC
+					GenericMethods.sendText_removeblank(wTnC, wfAuthTnC.tncText_Xpath, tncText);
+		
+					//page wait
+					GenericMethods .JSPageWait(wTnC);
+					
+			}
+
 			//scroll to bottom and click
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wTnC, wfAuthTnC.submitBtn);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wTnC);
 		} catch (Exception e) {
@@ -5126,37 +5547,42 @@ public class RAIS_applicationSpecificMethods  {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Acceptance form
-	public static void acceptanceDataForm(WebDriver wAccept, String memoText, Object buttonToClick) {
-		
+	public static void acceptanceDataForm(WebDriver wAccept, String memoText, Boolean skipAccepDecline, Object buttonToClick) {
+
 		//initialise page
 		Workflow_AuthorizationPage acceptanceForm = new Workflow_AuthorizationPage();
-		
+
 		String clickButton = acceptanceForm.btnPrefix_Xpath +buttonToClick.toString() + acceptanceForm.btnSuffix_Xpath;
-		
+
 		try {
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wAccept);
+
+			if (skipAccepDecline == false) {
+
+				//click on accept check box
+				GenericMethods.elementClick(wAccept, acceptanceForm.acceptTnC_ChkBox_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wAccept);
 			
-			//click on accept check box
-			GenericMethods.elementClick(wAccept, acceptanceForm.acceptTnC_ChkBox_Xpath);
-			
-			//Waiting for popup to load
-			GenericMethods .JSPageWait(wAccept);
-			
-			//scroll to element
-			RAIS_applicationSpecificMethods.scrollToElement(wAccept, acceptanceForm.remarks_Xpath);
-			
-			//input remarks
-			GenericMethods.sendText_removeblank(wAccept, acceptanceForm.remarks_Xpath, memoText);
-			
-			//Waiting for popup to load
-			GenericMethods .JSPageWait(wAccept);
-			
+
+				//scroll to element
+				RAIS_applicationSpecificMethods.scrollToElement(wAccept, acceptanceForm.remarks_Xpath);
+	
+				//input remarks
+				GenericMethods.sendText_removeblank(wAccept, acceptanceForm.remarks_Xpath, memoText);
+	
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wAccept);
+				
+			}
+
 			//scroll and click
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wAccept, clickButton);
-			
+
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wAccept);
 		} catch (Exception e) {
@@ -5167,319 +5593,487 @@ public class RAIS_applicationSpecificMethods  {
 
 	//Followupaction data form
 	public static void followUpActionDataForm(WebDriver wdFollowUp, Object fwWorkflowName, String [] fwInputData, Object buttonClick) {
-	
+
 		//Initialise data form
 		Workflow_FAPage fwDataForm = new Workflow_FAPage();
-		
+
 		try {
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wdFollowUp);
-			
+
 			//selection source location based on WF
 			switch (fwWorkflowName.toString()) {
-			
+
 			case "FollowUpAction Import Workflow":
-				
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[0]);
-				
+
 				break;
-				
+
 			case "FollowUpAction Export Workflow":
-				
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[5]);
-				
+
 				break;
-				
+
 			case "FollowUpAction Transfer Workflow":
-				
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[8]);
-				
+
 				break;
-				
+
 			case "FollowUpAction Transport Workflow":
-	
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[9]);
-				
+
 				break;
-	
+
 			case "FollowUpAction Equipment Manufacturing Workflow":
-				
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[6]);
-				
+
 				break;
-				
+
 			case "FollowUpAction Isotope Production Workflow":
-				
+
 				//input source location
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceLocation_Xpath, fwInputData[7]);
-				
+
 				break;
 
 			default:
 				break;
 			}
-			
+
 			//input source status
 			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wdFollowUp, fwDataForm.sourceStatus_Xpath, fwInputData[1]);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wdFollowUp);
-			
+
 			//scroll to element
 			//scrollToElement(wdFollowUp, fwDataForm.sourceStatusDate_Xpath);
-			
+
 			JavascriptExecutor jse = (JavascriptExecutor) wdFollowUp;
 			jse.executeScript("window.scrollBy(0,100)");
-			
+
 			//date of inspection
 			//click on date control
 			GenericMethods.elementClick(wdFollowUp, fwDataForm.sourceStatusDate_Xpath);
-			
+
 			//page wait
 			GenericMethods.JSPageWait(wdFollowUp);
-			
+
 			//select date
 			GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wdFollowUp);
-			
+
 			//using switch case for different FA WF
 			switch (fwWorkflowName.toString()) {
-			
+
 			case "FollowUpAction Import Workflow":
-				
+
 				//scroll to bottom
 				jScrollToBottom(wdFollowUp);			
-				
+
 				//scroll to element
 				//scrollToElement(wdFollowUp, fwDataForm.importDate_Xpath);
-				
+
 				//date of inspection
 				//click on date control
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.importDate_Xpath);
-				
+
 				//page wait
 				GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//select date
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
-							
+
 				//page wait
 				//GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//scroll to element
 				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
-				
+
 				//upload security plan doc
 				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
-				
+
 				//input customs number
 				GenericMethods.sendText(wdFollowUp, fwDataForm.importCustomNum_Xpath, fwInputData[3]);
-				
+
 				//input Bills of number
 				GenericMethods.sendText(wdFollowUp, fwDataForm.importBillLadingNum_XPath, fwInputData[4]);
-				
+
 				//date of inspection
 				//click on date control
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.importBillLadingdate_XPath);
-				
+
 				//page wait
 				GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//select date
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);				
-				
+
 				break;
 
 			case "FollowUpAction Export Workflow":
-				
+
 				//scroll to bottom
 				jScrollToBottom(wdFollowUp);			
-				
+
 				//scroll to element
 				//scrollToElement(wdFollowUp, fwDataForm.importDate_Xpath);
-				
+
 				//date of inspection
 				//click on date control
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.exportDate_Xpath);
-				
+
 				//page wait
 				GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//select date
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
-							
+
 				//page wait
 				//GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//scroll to element
 				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
-				
+
 				//upload security plan doc
 				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
-				
+
 				//click on source returned
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.receipientCountryApproval_ChkBox_Xpath);				
-				
+
 				//input customs number
 				GenericMethods.sendText(wdFollowUp, fwDataForm.importCustomNum_Xpath, fwInputData[3]);
-								
+
 				break;
-				
+
 			case "FollowUpAction Transfer Workflow":
-				
+
 				//click on source returned
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.sourceReturnedToParent_ChkBox_Xpath);
-				
+
 				//scroll to bottom
 				RAIS_applicationSpecificMethods.jScrollToBottom(wdFollowUp);
-				
+
 				//date of inspection
 				//click on date control
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.returnDate_XPath);
-				
+
 				//page wait
 				GenericMethods .JSPageWait(wdFollowUp);
-				
+
 				//select date
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.selectSpecificDate_Xpath);
-				
+
 				break;
-				
+
 			default:
 				break;
 			}			
-			
+
 			//page wait
 			GenericMethods .JSPageWait(wdFollowUp);			
-				
+
 			//click on submit button
 			GenericMethods.elementClick(wdFollowUp, buttonClick.toString());
-			
+
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wdFollowUp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	//FA - approval form
 	public static void followUpActionApprovalDataForm(WebDriver wFADF, String remarksTxt, String reviewedBy, Object buttonToClick ) {
-		
+
 		//Initialise data form
 		Workflow_FAPage fwApprovalDataForm = new Workflow_FAPage();
-							
-			try {
-				
-				//Waiting for popup to load
-				GenericMethods.JSPageWait(wFADF);
-				
-				//date of inspection
-				//scroll to element
-				RAIS_applicationSpecificMethods.scrollToElement(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
-				
-				//page wait
-				GenericMethods .JSPageWait(wFADF);
-				
-				//click on date control
-				GenericMethods.elementClick(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
-				
-				//page wait
-				GenericMethods .JSPageWait(wFADF);
-				
-				//select date
-				GenericMethods.elementClick(wFADF, fwApprovalDataForm.selectSpecificDate_Xpath);
-				
-				//page wait
-				GenericMethods .JSPageWait(wFADF);
-				
-				//input remarks on approval form
-				GenericMethods.sendText(wFADF, fwApprovalDataForm.approvalFrmRemarks_Xpath, remarksTxt);
-				
-				//select approved by role by regulator
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFADF, fwApprovalDataForm.approvalFrmApprovedBy_Xpath, reviewedBy);
-								
-				//click on submit button
-				GenericMethods.elementClick(wFADF, buttonToClick.toString());
-				
-				//page wait
-				GenericMethods .JSPageWait(wFADF);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		try {
+
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wFADF);
+
+			//date of inspection
+			//scroll to element
+			RAIS_applicationSpecificMethods.scrollToElement(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
+
+			//page wait
+			GenericMethods .JSPageWait(wFADF);
+
+			//click on date control
+			GenericMethods.elementClick(wFADF, fwApprovalDataForm.approvalFrmStatusDate_Xpath);
+
+			//page wait
+			GenericMethods .JSPageWait(wFADF);
+
+			//select date
+			GenericMethods.elementClick(wFADF, fwApprovalDataForm.selectSpecificDate_Xpath);
+
+			//page wait
+			GenericMethods .JSPageWait(wFADF);
+
+			//input remarks on approval form
+			GenericMethods.sendText(wFADF, fwApprovalDataForm.approvalFrmRemarks_Xpath, remarksTxt);
+
+			//select approved by role by regulator
+			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wFADF, fwApprovalDataForm.approvalFrmApprovedBy_Xpath, reviewedBy);
+
+			//click on submit button
+			GenericMethods.elementClick(wFADF, buttonToClick.toString());
+
+			//page wait
+			GenericMethods .JSPageWait(wFADF);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
 	//identify user and followup WF name based on parent name
 	public static ArrayList<Object> getUserFollowupWFName( String workfName) {
 
 		ArrayList<Object> listValue = new ArrayList<>();
-		
+
 		try {
 			switch (workfName) {
 			case "Equipment Manufacturing Workflow":
-												
+
 				listValue.add("LICEQP");
 				listValue.add(RaisTestData.faWFList[4]);
-				
+
 				break;
-				
+
 			case "Isotope Production Authorization":
-				
+
 				listValue.add("LICISP");
 				listValue.add(RaisTestData.faWFList[5]);
-				
+
 				break;
-				
+
 			case "Transfer Authorization Workflow":
-				
+
 				listValue.add("LICTRANSF");
 				listValue.add(RaisTestData.faWFList[2]);
-				
+
 				break;
-				
+
 			case "Transport Authorization Workflow":
-				
+
 				listValue.add("LICTRNSP");
 				listValue.add(RaisTestData.faWFList[3]);
-				
+
 				break;
-				
+
 			case "Import Authorization Workflow":
-				
+
 				listValue.add("LICIMP");
 				listValue.add(RaisTestData.faWFList[0]);
-				
+
 				break;
 
 			case "Export Authorization Workflow":
-				
+
 				listValue.add("LICEXP");
 				listValue.add(RaisTestData.faWFList[1]);
-				
+
 				break;
-				
-			
+
+
 			default:
 				break;
 			}					
-			
+
 			return listValue;
 			//return Arrays.asList(userId, faWF_Name);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			return null;
 		}
 	}
 
+	//identify user and facility and association form input data based on parent name
+	public static ArrayList<Object> getDetailsAuthWorkflow( String workfName) {
+
+		ArrayList <Object>inputDataForWorkflow = new ArrayList<Object>();
+		//initialise counter i
+		int i;
+
+		try {
+			switch (workfName) {
+			case "Equipment Manufacturing Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_equipmentMWF.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_equipmentMWF.get(i));
+
+				}
+
+				break;
+
+			case "Isotope Production Authorization":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_isotopeProdWF.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_isotopeProdWF.get(i));
+
+				}
+
+				break;
+
+			case "Transfer Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_transfer.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_transfer.get(i));
+
+				}
+
+				break;
+
+			case "Transport Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_transport.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_transport.get(i));
+
+				}
+
+				break;
+
+			case "Use Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_use.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_use.get(i));
+
+				}
+
+				break;
+
+			case "Import Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_import.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_import.get(i));
+
+				}				
+
+				break;
+
+			case "Storage Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_storage.size();i++) {
+
+					//add elements one by one
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_storage.get(i));
+
+				}				
+
+				break;
+
+			case "Export Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_export.size();i++) {
+
+					//add elements one by one
+					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_export.get(i));
+
+				}
+
+				break;
+
+			case "Release Authorization Workflow":
+
+				//extract user name, facility and dependent data					
+				for(i=0;i<RaisTestData.associationsInputData_release.size();i++) {
+
+					//add elements one by one
+					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
+					inputDataForWorkflow.add(RaisTestData.associationsInputData_release.get(i));
+
+				}
+
+				break;
+
+
+			default:
+				break;
+			}					
+
+			return inputDataForWorkflow;
+			//return Arrays.asList(userId, faWF_Name);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	//user creation screen multi select
+	public static void multiSelect_UserCreationFR(WebDriver wmDF, String elementXpath,String textToSelect) {
+
+		//		JavascriptExecutor jse = (JavascriptExecutor) wmDF;
+		//		jse.executeScript("arguments[0].scrollIntoView(true);", 
+		//				wmDF.findElement(By.xpath(elementXpath)));
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//click to expand multilookup		
+		GenericMethods.elementClick(wmDF, elementXpath);
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//input text value that needs to be filtered
+		GenericMethods.sendText(wmDF, elementXpath+"//input[@id='filter']", textToSelect);
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(wmDF);
+
+		//click on first element of the list
+		GenericMethods.elementClick(wmDF, elementXpath +"//ul/li[1]/label");
+
+		//wait for multilist to expand
+		//GenericMethods .JSPageWait(wmDF);
+
+		//click to collapse the list
+		GenericMethods.elementClick(wmDF, elementXpath);
+
+		//wait for multilist to expand
+		//GenericMethods .JSPageWait(wmDF);
+
+	}
 }
 
 

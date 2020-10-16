@@ -76,7 +76,8 @@ public class EntityFormListingPage {
 		public String workflowInitiateSuccessMsg_XPath = "//div[@id='message-body']";
 		
 		//workflow status
-		public String workflowStatus_Xpath = "//*[@id='entity-details']//div//table//tbody//tr//td[3]";
+		public String workflowStatus_Xpath = "//*[@id='entity-details']//div//table//tbody//tr";
+		//public String workflowStatus_Xpath = "//*[@id='entity-details']//div//table//tbody//tr//td[3]";
 		
 		//name xpath
 		public String workFlowName_Xpath = "//*[@id='entity-details']//div//table//tbody//tr//td[2]";

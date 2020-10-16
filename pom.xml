@@ -129,13 +129,35 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M3</version>
-           <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>ValidationTest.xml</suiteXmlFile>
-            <suiteXmlFile>CRUD_OperationTest.xml</suiteXmlFile>
-            <suiteXmlFile>E2ETest.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
+          <configuration>
+          	<suiteXmlFiles>
+            
+            	<suiteXmlFile>transport_Authorization.xml</suiteXmlFile>
+            	<suiteXmlFile>transfer_Authorization.xml</suiteXmlFile>
+            	<suiteXmlFile>use_Authorization.xml</suiteXmlFile>
+            	
+            	<suiteXmlFile>storage_Authorization.xml</suiteXmlFile>
+            	<suiteXmlFile>release_Authorization.xml</suiteXmlFile>
+            	
+            	<suiteXmlFile>eqp_Authorization.xml</suiteXmlFile>
+            	<suiteXmlFile>import_Authorization.xml</suiteXmlFile>
+            	<suiteXmlFile>export_Authorization.xml</suiteXmlFile>
+            	
+            	            
+          	</suiteXmlFiles>
+          </configuration>
+        
+         	
+            	
+            	
+            
+          <!--  <suiteXmlFile>eqp_Authorization.xml</suiteXmlFile> -->
+             <!--	<suiteXmlFile>release_Authorization.xml</suiteXmlFile> -->
+             <!--	<suiteXmlFile>use_Authorization.xml</suiteXmlFile> -->
+             <!--	<suiteXmlFile>ValidationTest.xml</suiteXmlFile> -->
+             <!--	<suiteXmlFile>CRUD_OperationTest.xml</suiteXmlFile> -->
+             <!--	<suiteXmlFile>E2ETest.xml</suiteXmlFile> -->
+            	
 			
 	</plugin>
 	

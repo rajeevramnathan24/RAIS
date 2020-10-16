@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RAIS Test Automation" >
+  
+ <parameter name="workflowName" value="Transport Authorization Workflow"/>
+ <parameter name="browserType" value="Chrome"/>	 
+ <test name="RAIS Test Suite Run for Chrome Browser">	  		
+ 			<classes> 			
+ 				<class name="testcases.RAIS.WF_Authorization_Tests"> 
+ 	 			</class> 	 		 		
+ 			</classes> 	
+ </test>
+ 
+</suite>

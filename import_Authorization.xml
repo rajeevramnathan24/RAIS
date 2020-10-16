@@ -8,12 +8,16 @@
  	<classes>
  		<class name="testcases.RAIS.WF_Authorization_Tests">
  		<parameter name="browserType" value="Chrome"/>
+ 		<parameter name="workflowName" value="Import Authorization Workflow"/>
+ 		
+ 		
  		</class>
  		
+ 		 		
  	</classes>
  </test>
  
-
+ 
   <!--
  <test name="RAIS Test Suite Run for Chrome Browser">
  	<classes>
@@ -27,3 +31,4 @@
   -->
  
 </suite>
+

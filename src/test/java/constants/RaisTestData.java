@@ -42,16 +42,7 @@ public class RaisTestData {
 	public static String functionalRole = "Functional Roles";
 	public static String securityProfileMenu = "Security Profiles";
 
-	//Authorizations
-	public static String importAuthWF = "Import Authorization Workflow";
-	public static String exportAuthWF = "Export Authorization Workflow";
-	public static String equipManuFacAuthWF = "Equipment Manufacturing Workflow";
-	public static String ispProdAuthWF = "Isotope Production Authorization";
-	public static String releaseAuthWF = "Release Authorization Workflow";
-	public static String storageAuthWF = "Storage Authorization Workflow";
-	public static String useAuthWF = "Use Authorization Workflow";
-	public static String transferAuthWF = "Transfer Authorization Workflow";
-	public static String transportAuthWF = "Transport Authorization Workflow";
+	
 	
 	public static String [] faWFList = {
 			
@@ -411,5 +402,227 @@ public class RaisTestData {
 			"Completed",							//2//
 			"Reassigned"							//3//
 	};
+	
+	//Authorizations
+		public static String importAuthWF = "Import Authorization Workflow";
+		public static String exportAuthWF = "Export Authorization Workflow";
+		public static String equipManuFacAuthWF = "Equipment Manufacturing Workflow";
+		public static String ispProdAuthWF = "Isotope Production Authorization";
+		//public static String ispProdAuthWF = "Isotope Production Authorization Workflow";
+		public static String releaseAuthWF = "Release Authorization Workflow";
+		public static String storageAuthWF = "Storage Authorization Workflow";
+		public static String useAuthWF = "Use Authorization Workflow";
+		public static String transferAuthWF = "Transfer Authorization Workflow";
+		public static String transportAuthWF = "Transport Authorization Workflow";
+		
+		//workFlowNames
+		public static ArrayList<String> workflowNames = new ArrayList<String>(Arrays.asList(					
+				"Import Authorization Workflow",							
+				"Export Authorization Workflow",					
+				"Equipment Manufacturing Workflow", 					
+				"Isotope Production Authorization", 	
+				"Release Authorization Workflow",		
+				"Storage Authorization Workflow",	
+				"Use Authorization Workflow",		
+				"Transfer Authorization Workflow",
+				"Transport Authorization Workflow"
+				));	
+	
+	public static ArrayList<String> associationsInputData_import = new ArrayList<String>(Arrays.asList(					
+			"LICIMP",							
+			"Import Facility2",					
+			"Import Dept2", 					
+			"Imp facility 2 -sealed source", 	
+			"Import2 - Unsealed source",		
+			"Import facility- Radiation Gen2",	
+			"Imp facility 2 - Asso equip",		
+			"Imp2 - person",
+			"LicenseeImportFacility",
+			"rais_test1@e-zest.in"
+			));
+	
+	public static ArrayList<String> associationsInputData_export = new ArrayList<String>(Arrays.asList(					
+			"LICExp",									//0//export user name
+			"Exp facility2",							//1//export facility
+			"Exp Dept2", 								//2//export department name import
+			"Exp facility2 - Sealed source", 			//3//export  sealed source name
+			"Exp facility2- unsealed source",			//4//export  unsealed source name
+			"Exp facility2 - Rad Gen",					//5//export  radiation generator name
+			"Exp facility2 - associated equipment",		//6//export associated equipment name
+			"Exp facility2 - person",					//7//export person
+			"LicenseeExportFacility",					//8//name
+			"rais_test2@e-zest.in"						//9//email
+			)); 
+			
+	public static ArrayList<String> associationsInputData_storage = new ArrayList<String>(Arrays.asList(					
+			"LICStorage",									//0//export user name
+			"Storage facility2",							//1//export facility
+			"Storage Dept2", 								//2//export department name import
+			"Storage facility2- Sealed source", 			//3//export  sealed source name
+			"Storage facility2- unsealed source",			//4//export  unsealed source name
+			"Storage facility2-Rad gen",					//5//export  radiation generator name
+			"Storage facility2 - associated equipment",		//6//export associated equipment name
+			"Storage facility2 - person",					//7//export person
+			"LicenseeStorageFacility",						//8//name
+			"str@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_use = new ArrayList<String>(Arrays.asList(					
+			"LICUse",									//0//export user name
+			"Use facility2",							//1//export facility
+			"Use Dept2", 								//2//export department name import
+			"Use facility2- Sealed source", 			//3//export  sealed source name
+			"Use facility2- unsealed source",			//4//export  unsealed source name
+			"Use facility2 - Rad Gen",					//5//export  radiation generator name
+			"Use facility2- associated equipment",		//6//export associated equipment name
+			"Use facility2 - person",					//7//export person
+			"LicenseeUseFacility",						//8//name
+			"use@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_equipmentMWF = new ArrayList<String>(Arrays.asList(					
+			"LICEQP",									//0//export user name
+			"Equip facility2",							//1//export facility
+			"Equip Dept2", 								//2//export department name import
+			"Equip facility2 - Sealed source", 			//3//export  sealed source name
+			"Equip facility2- unsealed source",			//4//export  unsealed source name
+			"Equip facility2 - Rad Gen",					//5//export  radiation generator name
+			"Equip facility2 - associated equipment",		//6//export associated equipment name
+			"Equip facility2- person",						//7//export person
+			"LicenseeEqpFacility",							//8//name
+			"rais_test3@e-zest.in"							//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_isotopeProdWF = new ArrayList<String>(Arrays.asList(					
+			"LICISP",									//0//export user name
+			"Isotope facility2",							//1//export facility
+			"Isotop Dep2", 								//2//export department name import
+			"Isotope facility2 - Sealed source", 			//3//export  sealed source name
+			"Isotope facility2- unsealed source",			//4//export  unsealed source name
+			"Isotope facility2 - Rad Gen",					//5//export  radiation generator name
+			"Isotope facility2 - associated equipment",		//6//export associated equipment name
+			"Isotope facility2 - person",					//7//export person
+			"LicenseeIsotopeFacility",						//8//name
+			"isp@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_release = new ArrayList<String>(Arrays.asList(					
+			"LICREL",									//0//export user name
+			"Rel facility2",							//1//export facility
+			"Rel Dept2", 								//2//export department name import
+			"Rel facility2 - Sealed source", 			//3//export  sealed source name
+			"Rel facility2- unsealed source",			//4//export  unsealed source name
+			"Rel facility2 - Rad Gen",					//5//export  radiation generator name
+			"Rel facility2 - associated equipment",		//6//export associated equipment name
+			"Rel facility2 - person",					//7//export person
+			"LicenseeReleaseFacility",						//8//name
+			"rel@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_transfer = new ArrayList<String>(Arrays.asList(					
+			"LICTRANSF",									//0//export user name
+			"Transf facility2",							//1//export facility
+			"Transf Dept2", 								//2//export department name import
+			"Transf facility2 - Sealed source", 			//3//export  sealed source name
+			"Transf facility2- unsealed source",			//4//export  unsealed source name
+			"Transf facility2-Rad Gen",					//5//export  radiation generator name
+			"Transf facility2 - associated equipment",		//6//export associated equipment name
+			"Transf facility2 - person",					//7//export person
+			"LicenseeTransferFacility",						//8//name
+			"transf@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> associationsInputData_transport = new ArrayList<String>(Arrays.asList(					
+			"LICTRNSP",									//0//export user name
+			"Transp facility2",							//1//export facility
+			"Transp Dept2", 								//2//export department name import
+			"Transp facility2 - Sealed source", 			//3//export  sealed source name
+			"Transp facility2- unsealed source",			//4//export  unsealed source name
+			"Transport Facility2 - Rad Gen",					//5//export  radiation generator name
+			"Transp facility2 - associated equipment",		//6//export associated equipment name
+			"Transp facility2 - person",					//7//export person
+			"LicenseeTransportFacility",						//8//name
+			"trnsp@yopmail.com"								//9//email
+			));
+	
+	public static ArrayList<String> inputRequestedTermsDataForm = new ArrayList<String>(Arrays.asList(					
+			"1.2E+45",							//0//Max radioactivity
+			"Bq",								//1//Unit
+			"Lifeline Import",					//2//agency name
+			"C:\\Temp\\PL_Doc.pdf",				//3//doc1	
+			"C:\\Temp\\BReg.pdf",				//4//doc2
+			"C:\\Temp\\Tax.pdf",				//5//doc3
+			"Partner Agency 1",					//6//partner agency for export
+			"Transf facility2",					//7//Transfer facility for Transfer
+			"Transf Dept2",						//8//Transfer Department for Transfer
+			"Permanent",						//9//Transfer Department for Transfer
+			"10",								//10//duration of Transfer and used in transport
+			
+			"A",								//11//package type - transport
+			"III-Yellow",						//12//package category - transport
+			"Inland Water Way",					//13//mode of transport - transport
+			"Transp facility2",					//14//consignor/ consignee facility - transport
+			"Mumbai",							//15//origin - transport
+			"Pune"								//16//destination - transport		
+			));
+	
+	public static ArrayList<String> commonInputData = new ArrayList<String>(Arrays.asList(					
+			"Submit",									//0// submit button
+			"Yes",										//1// Yes value to be used in Inspection Scope data form
+			"No",										//2// No value to be used in Inspection scope data form
+			"This step has been is Reviewed/ approved",	//3// Memo field Reviewed by field
+			"Proceed Without Announcement",				//4// Button for inspection
+			"Accept",									//5//Auth terms page
+			"Vishal",									//6//approved by
+			"This step has been is Incomplete/ Reviewed/ approved/ rejected- Demo. ",	//7//
+			"Vishal",										//8//
+			"Decline",										//9//decline acceptance form
+			"Updated comments"								//10// updated text
+			));	
+	
+	public static ArrayList<String> paymentInputData = new ArrayList<String>(Arrays.asList(	
+			"C:\\Temp\\Invoice.pdf",			//0//invoice path	
+			"C:\\Temp\\Receipt.pdf",			//1//Receipt path
+			"6000",								//2//Amount
+			"card",								//3//Payment mode
+			"Skip",								//4// Skip
+			"Attach Invoice",					//5// Attach invoice form
+			"Confirm Payment"					//6// Confirm payment Data form
+			));
+	
+//		
+//	public static String [] associationsInputData_export = { 
+//			"LICExp",									//0//export user name
+//			"Exp facility2",							//1//export facility
+//			"Exp Dept2", 								//2//export department name import
+//			"Exp facility2 - Sealed source", 			//3//export  sealed source name
+//			"Exp facility2- unsealed source",			//4//export  unsealed source name
+//			"Exp facility2 - Rad Gen",					//5//export  radiation generator name
+//			"Exp facility2 - associated equipment",		//6//export associated equipment name
+//			"Exp facility2 - person",					//7//export person
+//};		
+			
+	public static String [] remaining =		{
+			"Submit",									//5// submit button
+			"Yes",										//6// Yes value to be used in Inspection Scope data form
+			"No",										//7// No value to be used in Inspection scope data form
+			"This step has been is Reviewed/ approved",	//8// Memo field Reviewed by field
+			"Proceed Without Announcement",				//9// Button for inspection
+			"Accept"									//10//Auth terms page
+	
+};
+	
+	//Regulator and RAR role and user creation details
+	public static ArrayList<String> regulator_RAR_Data = new ArrayList<String>(Arrays.asList(	
+			"Reg",								//0//Regulator role name	
+			"RAR",								//1//RAR role name
+			"??",								//2//Amount
+			"??",								//3//Payment mode
+			"??",								//4// Skip
+			"?? Invoice",					//5// Attach invoice form
+			"?? Payment"					//6// Confirm payment Data form
+			));
+	
+	
 
 }

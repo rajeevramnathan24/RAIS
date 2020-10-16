@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RAIS Test Automation" >
+  
+ 
+ <test name="RAIS Test Suite Run for Chrome Browser">
+ 	<classes>
+ 		<class name="testcases.RAIS.WF_Authorization_Tests">
+ 		<parameter name="browserType" value="Chrome"/>
+ 		<parameter name="workflowName" value="Release Authorization Workflow"/>
+ 		
+ 		
+ 		</class>
+ 		
+ 		 		
+ 	</classes>
+ </test>
+ 
+ 
+  <!--
+ <test name="RAIS Test Suite Run for Chrome Browser">
+ 	<classes>
+ 		<class name="testcases.RAIS.SanityTestPack_Final",ValidationTests,CRUD_Operation_Tests,
+ 		E2ETests, SanityTestPack_TEMP >
+ 		<parameter name="browserType" value="Chrome"/>
+ 		</class>
+ 		
+ 	</classes>
+ </test>
+  -->
+ 
+</suite>
+
