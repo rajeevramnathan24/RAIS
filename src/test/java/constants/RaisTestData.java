@@ -16,10 +16,6 @@ public class RaisTestData {
 	public static String raisAdminUserId = "Administrator";
 	public static String raisAdminUserPwd = "Pass123$";
 
-
-
-
-
 	//Dashboard page constants
 	public static String DashboardText = "Dashboard"; //"DASHBOARD";
 	public static String RegProcessText = "Regulatory Processes"; //"REGULATORY PROCESSES";
@@ -32,10 +28,22 @@ public class RaisTestData {
 	public static String UserMgmtSubMenuText = "User Management";
 	public static String ToolsSubMenu = "Tools";
 	public static String CustomizeSubMenu = "Customization";
+	public static String customizePowerToolSubMenu = "Customization Power Tool";
 	public static String CommonTablesSubMenu = "Common Tables";
 	public static String NotificationText = "Notification";
 	public static String HelpText = "Help";
 	public static String AuthorizationSubmenu = "Authorizations";
+	public static String inventoryMainMenu = "Inventory";
+	public static String regSysSettingMainMenu = "Regulatory System Setting";
+	public static String regSysDocsSubMenu = "Regulatory Systems And Documents";
+	public static String sourcesAssoEquipmentsSubMenu = "Sources And Associated Equipments";
+	public static String infraInfoSubMenu = "Infrastructure Information";
+	public static String officersExpertsSubMenu = "Officers And Experts";
+	public static String regProcessSubMenu = "Regulatory Process";
+	public static String radiationEventSubMenu = "Radiation Events";
+	public static String facAndDepartmentsSubMenu = "Facilities And Departments";
+	public static String workerSubMenu = "Workers";
+	public static String manufactureModelsSubMenu = "Manufacturers And Models";	
 	
 	//Menu DR/FR
 	public static String dataRole = "Data Roles";
@@ -66,6 +74,7 @@ public class RaisTestData {
 	public static String Attb_Text = "Attributes";
 	public static String EntityDetail_Text = "Entity Detail";
 	public static String LinkedForms_Text = "Linked Forms";
+	public static String [] allRoleNames= {"Restricted Access Regulator","Licensee","Regulator"}; //"Licensee", "Regulator", "Restricted Access Regulator"
 	
 	//Test Data for M2Exit criteria
 	public static String FR_Prim_ext_A = "FR_primary";
@@ -222,7 +231,7 @@ public class RaisTestData {
 			"Equipment Type", //23
 			"Experts", //24
 			"Expert Task", //25
-			"Facility",//26
+			"Facilities",//26
 			"Facility Status", //27
 			"Fields", //28
 			"Frequency In Month", //29
@@ -455,7 +464,7 @@ public class RaisTestData {
 			)); 
 			
 	public static ArrayList<String> associationsInputData_storage = new ArrayList<String>(Arrays.asList(					
-			"LICStorage",									//0//export user name
+			"LICStorage1",									//0//export user name
 			"Storage facility2",							//1//export facility
 			"Storage Dept2", 								//2//export department name import
 			"Storage facility2- Sealed source", 			//3//export  sealed source name
@@ -463,8 +472,8 @@ public class RaisTestData {
 			"Storage facility2-Rad gen",					//5//export  radiation generator name
 			"Storage facility2 - associated equipment",		//6//export associated equipment name
 			"Storage facility2 - person",					//7//export person
-			"LicenseeStorageFacility",						//8//name
-			"str@yopmail.com"								//9//email
+			"LicenseeStorageFacility1",						//8//name
+			"str1@yopmail.com"								//9//email
 			));
 	
 	public static ArrayList<String> associationsInputData_use = new ArrayList<String>(Arrays.asList(					
@@ -573,11 +582,18 @@ public class RaisTestData {
 			"This step has been is Reviewed/ approved",	//3// Memo field Reviewed by field
 			"Proceed Without Announcement",				//4// Button for inspection
 			"Accept",									//5//Auth terms page
-			"Vishal",									//6//approved by
+			"Regulator",									//6//approved by
 			"This step has been is Incomplete/ Reviewed/ approved/ rejected- Demo. ",	//7//
-			"Vishal",										//8//
+			"Regulator",										//8//
 			"Decline",										//9//decline acceptance form
-			"Updated comments"								//10// updated text
+			"Updated comments",								//10// updated text
+			"reg@yopmail.com",								//11//regulator email id
+			"rar",											//12// RAR user name
+			"Regulatory Authority INDIA",					//13//Authority for officer role - regulator
+			"Reg",											//14//Regulator role name		
+			"rar@yopmail.com",								//15//RAR email
+			"Restricted Access Regulator",					//16//RAR NAME on creation page
+			"Partner Agency 2"								//17//partner agency for RAR creation
 			));	
 	
 	public static ArrayList<String> paymentInputData = new ArrayList<String>(Arrays.asList(	
@@ -623,6 +639,57 @@ public class RaisTestData {
 			"?? Payment"					//6// Confirm payment Data form
 			));
 	
+	//single field entities as per new menu structure
 	
+	
+	public static String [] regSysSettings_commonTables = {
+			"Boolean",
+			"Countries",
+			"Gender",
+			"Workflow Statuses"
+			};
+public static String [] regSysSettings_infraInfo = {
+			"Practice Categories",
+			"Regions"
+			};				
+public static String [] regSysSettings_radEvents = {		
+			"Deterministic Effects",
+			"Dose Extremity Organ List",
+			"Extent of Events",
+			"Health Consequences",
+			"Report Types",
+			"Emergency Response Levels",
+			"Event Causes",
+			"Radiological Consequences",
+			"Exposure Types",
+			"Person Type Exposed to Radiation"
+			};				
+public static String [] regSysSettings_regProcesses = {
+			"Transfer Types",
+			"Transport Modes",
+			"Action Types",
+			"Non-Compliance Major Categories"
+			};				
+public static String [] regSysSettings_regSysDocs = {
+			"Regulatory Reference Statuses",
+			"Regulatory Reference Types"
+			};
+public static String [] regSysSettings_sourceAssoEqp = {		
+			"Package Categories",
+			"Package Types",
+			"Physical Barriers",
+			"Physical Forms",
+			"Source Statuses",
+			"Wave Forms",
+			"Sealed Source Category",
+			"Security Groups"
+			};
+public static String [] regSysSettings_workers = {
+			"Academic Degrees",
+			"Fields",
+			"Monitoring Statuses",
+			"Worker Statuses",
+			"Professional Degrees",
+			};
 
 }

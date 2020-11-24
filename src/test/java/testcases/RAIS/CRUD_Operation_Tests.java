@@ -701,12 +701,13 @@ public class CRUD_Operation_Tests extends BaseClass
 		try {
 
 			//Entities under common tables with 1 field
-			String BEname [] =RaisTestData.singleFldBE_Admin_CommonTbl;// {"Extent of Events","Enforcement Statuses","Radiological Consequences","Source Statuses"};"Countries","Gender","Fields","Workflow Statuses"
+			String BEname [] = RaisTestData.regSysSettings_commonTables;//RaisTestData.singleFldBE_Admin_CommonTbl;// {"Extent of Events","Enforcement Statuses","Radiological Consequences","Source Statuses"};"Countries","Gender","Fields","Workflow Statuses"
 
 			//Calling Login method
-			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,
-					loginPage.loginBtn_XPath);
+			GenericMethods.loginApplication(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, password,loginPage.loginBtn_XPath);
 
+			
+			
 			for(int i=0;i<BEname.length;i++) {
 
 				//wait for page load
@@ -715,8 +716,14 @@ public class CRUD_Operation_Tests extends BaseClass
 				wd.navigate().refresh();
 
 				//Clicking on User menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.CommonTablesSubMenu,BEname[i]);
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "Regulatory System Setting", RaisTestData.CommonTablesSubMenu,BEname[i]);
 
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.regSysSettingMainMenu, RaisTestData.CommonTablesSubMenu,
+						BEname[i]);
+				//RAIS_applicationSpecificMethods.genericMenuItemClick(wd, "Inventory", "Workers","Workers");
+				
+				System.out.println("menu clicked");	
+				
 				//***********************************************Create entity record "Workflow Statuses"
 				//calling generic method to call Officer entity data input
 				Boolean flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, inputData, 
@@ -725,8 +732,8 @@ public class CRUD_Operation_Tests extends BaseClass
 				////**********************************************EDIT MODE STARTS Here	
 
 				if(flag_createEntity == true) {
-					//Grid filter and click on entity record listing page
-					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData);
+					//Search and click on entity record
+					RAIS_applicationSpecificMethods.searchAndClickEntityRecord(wd,inputData);
 
 					//Edit entity record
 					//calling generic method to call Officer entity data edit
@@ -735,22 +742,28 @@ public class CRUD_Operation_Tests extends BaseClass
 
 
 					////***********************************************delete starts here
-					//Grid filter and click on entity record listing page
-					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
-
+					//Search and click on entity record
+					RAIS_applicationSpecificMethods.searchAndClickEntityRecord(wd,inputData+localTime);
+					
 					//delete entity record data
 					RAIS_applicationSpecificMethods.deleteEntityRecord(wd, successMsg);	
 
-					//Grid filter and click on entity record listing page
-					RAIS_applicationSpecificMethods.EntityRecordGridFilter_Click(wd, 2, inputData+localTime);
+					//Search and click on entity record
+					RAIS_applicationSpecificMethods.searchAndClickEntityRecord(wd,inputData+localTime);
 
 					//verify the validation message
 					Assert.assertEquals(GenericMethods.getActualTxt(wd, entityRecordListing.emptyRecordsGrid_XPath),
-							entityRecordListing.NO_RECORDS_Txt);									
-
+							entityRecordListing.NO_RECORDS_Txt);	
+										
 				} else {
 					System.out.println("Entity creation failed");
 				}
+				
+				
+				
+				
+				
+				
 
 			}
 
@@ -1496,7 +1509,7 @@ public class CRUD_Operation_Tests extends BaseClass
 
 	
 	//Pending to test
-	@Test(enabled=true)
+	@Test(enabled=false)
 	public void testPending() {
 		
 		//Calling Login method

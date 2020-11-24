@@ -35,7 +35,7 @@ public class CRUDOperationTestDetails {
 	
 	//***********************************************One field input
 	
-	public final static boolean crudOpTC7_runStatus = false;
+	public final static boolean crudOpTC7_runStatus = true;
 	public final static String crudOpTC7_testName = "Verify CRUD operations for Admin-Common Table menus with one field value input"; 
 	public final static String crudOpTC7_testDescription = "Verify CRUD operations for Admin-Common Table menus with one field value input";
 	

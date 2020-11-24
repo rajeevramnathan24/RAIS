@@ -32,13 +32,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	<dependency>
     	<groupId>org.apache.poi</groupId>
     		<artifactId>poi</artifactId>
-    	<version>4.1.0</version>
+    	<version>4.1.2</version>
 	</dependency>
 	
 	<dependency>
     	<groupId>org.apache.poi</groupId>
     		<artifactId>poi-ooxml</artifactId>
-    	<version>4.1.0</version>
+    	<version>4.1.2</version>
 	</dependency>
 	
 	
@@ -142,6 +142,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             	<suiteXmlFile>eqp_Authorization.xml</suiteXmlFile>
             	<suiteXmlFile>import_Authorization.xml</suiteXmlFile>
             	<suiteXmlFile>export_Authorization.xml</suiteXmlFile>
+            	
+            	<suiteXmlFile>CRUD_OperationTest.xml</suiteXmlFile>
             	
             	            
           	</suiteXmlFiles>

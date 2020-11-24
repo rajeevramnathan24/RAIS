@@ -3,7 +3,7 @@ package pageLocators_Elements.RAIS;
 public class Workflow_AuthorizationPage {
 	
 	//WFID
-	public String wfId_displayedonTop = "//*[@id='work-flow-form']/div[1]/span";
+	public String wfId_displayedonTop = "//*[@id='work-flow-form']//div[@class='workflow-heading']//span[1]";
 	
 	//DF - Associations
 	//Department location xpath

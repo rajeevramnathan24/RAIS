@@ -5,7 +5,7 @@ package pageLocators_Elements.RAIS;
 public class DataRoles_FunctionalRolesPage {
 		
 	//Data Roles permission tab xpath
-	public String dataRolePermTab_XPath = "//*[@id='Permissions']";
+	public String dataRolePermTab_XPath = "//*[@id='EntityPermission']";
 	public String dataRoleRestrictionTab_XPath = "//*[@id='Restrictions']";
 	//public String dataRolePermTab_XPath = "//div/a[@href='Permissions']";
 			//span[contains(text(),'Permissions')]";
@@ -13,7 +13,7 @@ public class DataRoles_FunctionalRolesPage {
 	//a[href='Permissions']
 	//Add new permission/ restrictions btn xpath
 	//public String addNewPermissionRestrictBtn_XPath = "//*[@id=\"datarole\"]/div/div[2]/div/div[1]/div/button[3]";
-	public String addNewPermissionRestrictBtn_XPath = "//*[@id='AddNewPermission']";
+	public String addNewPermissionRestrictBtn_XPath = "//*[@id='functionalrole']//div//button[text()='Add New Permission']";
 	public String addNewRestrictBtn_XPath = "//*[@id='AddNewRestriction']";
 	//public String addNewPermissionRestrictBtn_XPath = "//button[@title='Add New Permissions']";
 	public String FunctionalRolePermissionRestrictBtn_XPath = "//button[text()='Add New Permission']";

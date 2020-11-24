@@ -28,8 +28,17 @@ import pageLocators_Elements.RAIS.UserListPage;
 
 import org.testng.annotations.BeforeClass;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.NoSuchElementException;
 
 import org.testng.Assert;
@@ -505,8 +514,8 @@ public class TestData_creation extends BaseClass
 			GenericMethods.pageLoadWait(2000);
 
 			//clicking on entity - save button
-//			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
-//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
+			//			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
+			//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
 
 			//input entity internal name
 			GenericMethods.sendText(wd, addEntityPage.addNewEntity_internalNameTxtBox_XPath, "TestDataSetupInternalName" + localTime);
@@ -532,7 +541,7 @@ public class TestData_creation extends BaseClass
 
 			//clicking on entity - save button
 			GenericMethods.waitforElement(wd, addEntityPage.SaveBtn_XPath);
-//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
+			//			GenericMethods.elementClickable(wd, addEntityPage.SaveBtn_XPath);
 			GenericMethods.elementClick(wd, addEntityPage.SaveBtn_XPath);
 
 			//Add entity completed and below is for selecting particular entity
@@ -1572,6 +1581,106 @@ public class TestData_creation extends BaseClass
 
 	}
 
+	//demo business entity creation - OLD DND
+	@Test(priority=77,enabled=false)
+	public void businessEntityCreation() {
+
+
+
+		//Initialising creation flag
+		Boolean entityPresent = false;
+
+		System.out.println(RAIS_applicationSpecificMethods.getEntityCreationDetails().size());
+
+		ArrayList<Object> entityData = new ArrayList<>(RAIS_applicationSpecificMethods.getEntityCreationDetails());
+		ArrayList<Object> ent = new ArrayList<>();
+
+		ArrayList<String> listOfStrings = new ArrayList<>(RAIS_applicationSpecificMethods.getEntityCreationDetails().size());
+
+		//ArrayList<String> listOfStrings1 = ArrayList<Object>(RAIS_applicationSpecificMethods.getEntityCreationDetails());
+		//listOfStrings.addAll(RAIS_applicationSpecificMethods.getEntityCreationDetails().toString());
+
+		//entityData = RAIS_applicationSpecificMethods.getEntityCreationDetails();
+		//entityData = Arrays.asList(RAIS_applicationSpecificMethods.getEntityCreationDetails());
+
+		int entityCount = RAIS_applicationSpecificMethods.getEntityCreationDetails().size();
+
+		System.out.println(entityCount);
+
+		//		for(int arl = 0; arl<entityData.size();arl++) {
+		//			
+		System.out.println(entityData.get(0).toString());
+		//		}
+
+
+		for( entityCount = 0; entityCount <RAIS_applicationSpecificMethods.getEntityCreationDetails().size(); entityCount++) {
+
+			//System.out.println(RAIS_applicationSpecificMethods.getEntityCreationDetails().get(0).toString());
+			//System.out.println(Arrays.toString(entityData.get(4).toString()));
+			//System.out.println(entityData.get(6).toString());
+			System.out.println(entityData.size());
+
+
+
+			//ArrayList<Object> entityRecord = ArrayList<Object>(entityData.get(0).toString());
+
+			//ent= entityData;
+
+			for(int i = 0; i<entityData.size();i++) {
+
+				System.out.println(entityData.get(0).toString());
+				String str[] = new String[entityData.size()]; 
+
+				// ArrayList to Array Conversion 
+				for (int j = 0; j < entityData.size(); j++) { 
+
+					// Assign each value to String array 
+					str[j] = entityData.get(j).toString(); 
+					System.out.println(j);
+
+
+				}
+
+			}
+
+			System.out.println(RAIS_applicationSpecificMethods.getEntityCreationDetails().get(0).toString());
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("BE creation","BE creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, 
+					RaisTestData.CustomizeSubMenu,RaisTestData.businessEntityList[66]);
+
+
+
+			//		Boolean TestData_primUserEntity = RAIS_applicationSpecificMethods.createEntity(wd, entityInternalName, singLabelName, pluralLabelName, 
+			//				commonGroup, inventoryRole, MainMenuInv_Res, subMenu,addMode,menuEntities);
+
+			//Page refresh for DOM
+			wd.navigate().refresh();
+
+			//clicking on left entity detail link
+			GenericMethods.elementClick(wd, addEntityPage.entDetailPage_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//click on cancel
+			GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+		}
+	}
 
 	//#ANKUR Data
 	@Test(priority=2,enabled=false)
@@ -1875,121 +1984,409 @@ public class TestData_creation extends BaseClass
 	}
 
 
-	//users creation
-	@Test(priority=66,enabled=true)
-	public void usersCreation(){
-		
-		//Setting Test name and description on report
-		SettingRptTestName_TestDesc("user creation","user creation");
-		
-		//Calling Login method
-				GenericMethods.loginApplication
-				(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
-						password, loginPage.loginBtn_XPath);
 
-				//Clicking on followup action menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
-						RaisTestData.businessEntityList[64]);
+
+
+
+	//*********************************Starts from here 3-Nov-2020
+
+	//users creation for licensee
+	@Test(priority=66,enabled=true)
+	public void licenseeUsersCreation(){
+
+		try {
+			//Thread.sleep(3000);
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("user creation","user creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Clicking on followup action menu
+//			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
+//					RaisTestData.businessEntityList[64]);
+			
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
+					RaisTestData.businessEntityList[64]);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);				
+
+			ArrayList<String> wfName = RaisTestData.workflowNames;
+
+			for(int i=0; i<wfName.size();i++) {
+
+				String userId = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(0).toString();
+				String fac = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(1).toString();
+				String dept = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(2).toString();
+				String uName = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(8).toString();
+				String uEmail = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(9).toString();
+
+				System.out.println(wfName.get(i).toString());
+				System.out.println(userId);
+				System.out.println(fac);
+				System.out.println(dept);
+				System.out.println(uName);
+				System.out.println(uEmail);
+
+				GenericMethods.elementClick(wd, UserListingPage.addNewUserBtn_XPath);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				GenericMethods.elementClick(wd, "//*[@id='user']//div//span[contains(text(),'Worker')]");		
+
+				GenericMethods .JSPageWait(wd);
+
+				GenericMethods.sendText_removeblank(wd, "//input[@id='email']", uEmail);/////////////////////////////////////////////
+
+				GenericMethods .JSPageWait(wd);
+
+				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Next']");
+
+				GenericMethods .JSPageWait(wd);
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Facility']",
+						fac);//////////////////////////////////////////////////////////////////////////////////////////
+
+				GenericMethods .JSPageWait(wd);
+
+				GenericMethods.sendText(wd, "//input[@id='Name']", 
+						uName);////////////////////////////////////////////////////////////////////////////////////////////////
+
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Gender']",
+						"Male");
+
+				GenericMethods.elementClick(wd, "//*[@id='user']/div/div[2]/div/div/div[3]/div/div[2]/div[1]/div[2]/div");
+
+				GenericMethods .JSPageWait(wd);
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Facility']",
+						fac);///////////////////////////////////////////////////////////////////////////////////////////
+
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Department']",
+						dept);///////////////////////////////////////////////////////////////////////////////////////////////
+
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='WorkerStatus']",
+						"Active in the Facility"); 
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='MonitoringStatus']",
+						"Monitored");
+
+				GenericMethods .JSPageWait(wd);				
+
+				RAIS_applicationSpecificMethods.scrollToElement_Click(wd, "//*[@id='user']/div/div[2]/div/div/div[3]/div/div[2]/div[1]/div[2]/div/button[2]");
+				//GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Save']");
+
+				GenericMethods .JSPageWait(wd);
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//select[@id='authentication']","External");
+
+				RAIS_applicationSpecificMethods.multiSelect_UserCreationFR(wd, "//*[@id='user']//div//fieldset//div", 
+						"Licensee");
+
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//select[@id='status']",
+						"Activate");
+
+				GenericMethods.sendText(wd, "//input[@id='externalUsername']", 
+						userId);////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+				GenericMethods.tabfromElement(wd, "//input[@id='externalUsername']");
+				GenericMethods .JSPageWait(wd);
+
+				RAIS_applicationSpecificMethods.scrollToTop(wd);
+
+				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Finish']");
+
+				GenericMethods .JSPageWait(wd);
+				GenericMethods .JSPageWait(wd);
+
+				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Cancel']");
+
+				GenericMethods .JSPageWait(wd);
+				GenericMethods .JSPageWait(wd);
+
+			}
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);		
+
+
+	}
+
+
+	//users creation for licensee
+	@Test(priority=66,enabled=false)
+	public void regulator_RARUsersCreation(){
+
+		try {
+			//Thread.sleep(3000);
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("user creation","user creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Clicking on followup action menu
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
+					RaisTestData.businessEntityList[64]);
+
+			//calling regulator user creation method
+			//RAIS_applicationSpecificMethods.createRegRarUser(wd, "Expert");			
+
+			//calling regulator user creation method
+			RAIS_applicationSpecificMethods.createRegRarUser(wd, "Officer");		
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);		
+
+
+	}
+
+
+	//latest with excel read and multi arraylist
+	@Test(priority=99,enabled=false)
+	public void businessEntityCreation2() {
+
+		try {
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("BE creation","BE creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, 
+					RaisTestData.customizePowerToolSubMenu,RaisTestData.businessEntityList[66]);
+
+			//Read excel sheet containing entity list and returining it as record set in arraylist
+			ArrayList<ArrayList<Object> > entityRecordSet = new ArrayList<ArrayList<Object> >();			
+			entityRecordSet= RAIS_applicationSpecificMethods.getEntityCreationDetails();
+
+			for (int i = 1; i<entityRecordSet.size();i++) {
+
+				System.out.println("--------------------------------");
+				System.out.println("Internal Name - "+entityRecordSet.get(i).get(0));
+				System.out.println("Description - "+entityRecordSet.get(i).get(1));
+				System.out.println("Singular Name - "+entityRecordSet.get(i).get(2));
+				System.out.println("Plural Name - "+entityRecordSet.get(i).get(3));
+				System.out.println("Entity Group Name - "+entityRecordSet.get(i).get(4));
+				System.out.println("Entity Role Name - "+entityRecordSet.get(i).get(5));
+				System.out.println("Publish and navigation Menu Name - "+entityRecordSet.get(i).get(6));
+				System.out.println("Publish and navigation Sub-menu name - "+entityRecordSet.get(i).get(7));
+				System.out.println("Enable WF status - "+entityRecordSet.get(i).get(8));
+				System.out.println("Enable RAN status - "+entityRecordSet.get(i).get(9));
+
+				ArrayList<Object> entityDetail = new ArrayList<Object>();
+
+				entityDetail.add(0, entityRecordSet.get(i).get(0));
+				entityDetail.add(1, entityRecordSet.get(i).get(1));
+				entityDetail.add(2, entityRecordSet.get(i).get(2));
+				entityDetail.add(3, entityRecordSet.get(i).get(3));
+				entityDetail.add(4, entityRecordSet.get(i).get(4));
+				entityDetail.add(5, entityRecordSet.get(i).get(5));
+				entityDetail.add(6, entityRecordSet.get(i).get(6));
+				entityDetail.add(7, entityRecordSet.get(i).get(7));
+				entityDetail.add(8, entityRecordSet.get(i).get(8)); //from col 10
+				entityDetail.add(9, entityRecordSet.get(i).get(9)); //from col 11
+
+				System.out.println(entityDetail);				
+
+				//Entity creation code below****************************************************************	
+
+				Boolean TestData_primUserEntity = RAIS_applicationSpecificMethods.addEditBusinessEntity(wd, entityDetail, RaisTestData.ADD_MODE_TEXT);
+
+				if (TestData_primUserEntity == true) {
+
+					//print value of entity created
+					System.out.println(entityRecordSet.get(i).get(2).toString() + " Entity creation successful");
+
+				} else {
+
+					System.out.println(entityRecordSet.get(i).get(2) + " creation failed");
+				}
+
+				//Page refresh for DOM
+				wd.navigate().refresh();
+
+				//clicking on left entity detail link
+				GenericMethods.elementClick(wd, addEntityPage.entDetailPage_XPath);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//click on cancel
+				GenericMethods.elementClick(wd, addEntityPage.cancelBtn_XPath);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//Entity creation code ENDS****************************************************************				
+			}
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		//entityDetails = multipleEntities;		
+
+	}
+
+	//setting Functional role permissions as part of data setup
+	//#6Default DR permissions/ restriction 
+	@Test(priority=17,enabled=false)
+	public void setFRLicensee_Reg_RAR_TestData() {
+
+		try {
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Setup Default FR for all 3 roles","Verify user is able to setup Default FR for all 3 roles");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wd);
+
+			//Clicking on entities menu
+//			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
+//					RaisTestData.functionalRole);
+			
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
+					RaisTestData.functionalRole);
+
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wd);
+			
+			System.out.println(RaisTestData.allRoleNames.length);
+			
+			
+			for(int i =0; i<RaisTestData.allRoleNames.length; i++) {
 				
+				//clicking on left data role
+				RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, RaisTestData.allRoleNames[i], RaisTestData.OPTIONAL_TEXT,
+						RaisTestData.OPTIONAL_TEXT);
+
+				//clicking on permissions tab
+				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRolePermTab_XPath);
+	
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
 				
+				//click on new permission button
+				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FunctionalRolePermissionRestrictBtn_XPath);
 				
+				//select entity group from dropdown
+				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd,"//*[@id='nav-tabpanel-0']//div//form//div//select[@id='entityGroupId']", 
+						"Enforcement");
 				
-		
-		ArrayList<String> wfName = RaisTestData.workflowNames;
-		
-		for(int i=0; i<wfName.size();i++) {
+				//select newly added facility from list
+				RAIS_applicationSpecificMethods.multiSelect_DR_FR_Page(wd, "All","Add New Permission" );
+				
+				GenericMethods.JSPageWait(wd);
+				
+				//checkbox
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
+				
+				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
+				
+				GenericMethods.JSPageWait(wd);
+				
+				RAIS_applicationSpecificMethods.clickTextOnGrid(wd, "Boolean");
+				
+				GenericMethods.JSPageWait(wd);
+				
+				//checkbox
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
+				
+				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
+				
+				GenericMethods.JSPageWait(wd);
+				
+				RAIS_applicationSpecificMethods.clickTextOnGrid(wd, "Department");
+				
+				GenericMethods.JSPageWait(wd);
+				
+				//checkbox
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
+				
+				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
+				
+				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
+				
+				GenericMethods.JSPageWait(wd);
 			
-			String userId = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(0).toString();
-			String fac = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(1).toString();
-			String dept = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(2).toString();
-			String uName = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(8).toString();
-			String uEmail = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(wfName.get(i).toString()).get(9).toString();
-			
-			System.out.println(wfName.get(i).toString());
-			System.out.println(userId);
-			System.out.println(fac);
-			System.out.println(dept);
-			System.out.println(uName);
-			System.out.println(uEmail);
-			
-			GenericMethods.elementClick(wd, UserListingPage.addNewUserBtn_XPath);
-			
-		//Waiting for popup to load
-				GenericMethods .JSPageWait(wd);
-				
-				GenericMethods.elementClick(wd, "//*[@id='user']//div//span[contains(text(),'Worker')]");		
-				
-				GenericMethods .JSPageWait(wd);
-				
-				GenericMethods.sendText_removeblank(wd, "//input[@id='email']", uEmail);/////////////////////////////////////////////
-				
-				GenericMethods .JSPageWait(wd);
-				
-				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Next']");
-				
-				GenericMethods .JSPageWait(wd);
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Facility']",
-						fac);//////////////////////////////////////////////////////////////////////////////////////////
-				
-				GenericMethods.sendText(wd, "//input[@id='Name']", 
-						uName);////////////////////////////////////////////////////////////////////////////////////////////////
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Gender']",
-						"Male");
-		
-				GenericMethods.elementClick(wd, "//*[@id='user']/div/div[2]/div/div/div[3]/div/div[2]/div[1]/div[2]/div");
-				
-				GenericMethods .JSPageWait(wd);
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Facility']",
-						fac);///////////////////////////////////////////////////////////////////////////////////////////
-								
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Department']",
-						dept);///////////////////////////////////////////////////////////////////////////////////////////////
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='WorkerStatus']",
-						"Active in the Facility"); 
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='MonitoringStatus']",
-								"Monitored");
-				RAIS_applicationSpecificMethods.scrollToElement_Click(wd, "//*[@id='user']/div/div[2]/div/div/div[3]/div/div[2]/div[1]/div[2]/div/button[2]");
-				//GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Save']");
-				
-				GenericMethods .JSPageWait(wd);
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//select[@id='authentication']","External");
-				
-				RAIS_applicationSpecificMethods.multiSelect_UserCreationFR(wd, "//*[@id='user']//div//fieldset//div", 
-						"Licensee");
-				
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//select[@id='status']",
-						"Activate");
-				
-				GenericMethods.sendText(wd, "//input[@id='externalUsername']", 
-						userId);////////////////////////////////////////////////////////////////////////////////////////////////////////
-				
-				//RAIS_applicationSpecificMethods.scrollToTop(wd);
-				
-								
-				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Finish']");
-				
-				GenericMethods .JSPageWait(wd);
-				
-				GenericMethods.elementClick(wd, "//*[@id='user']//div//button[text()='Cancel']");
-				
-				GenericMethods .JSPageWait(wd);
-		}			
-				
-				//Logout user
-				RAIS_applicationSpecificMethods.logout(wd);		
-				
-				
+			}
+
+
+		}catch (NoSuchElementException  noElement) {
+			noElement.printStackTrace();
+
+		}catch (Exception  e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			//Logout user
+			RAIS_applicationSpecificMethods.logout(wd);
+			System.out.println("Logout success");
+
+		}
+
+
+
 	}
-	
-	
+
+
+
 
 	//Test case Ends here *********************************
 

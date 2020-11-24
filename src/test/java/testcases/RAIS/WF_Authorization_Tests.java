@@ -73,8 +73,8 @@ public class WF_Authorization_Tests extends BaseClass
 	String regulatoryProcessMainMenu = RaisTestData.RegProcessText;
 	String authorization = RaisTestData.AuthorizationSubmenu;
 	String facilityMenu = RaisTestData.businessEntityList[26];
-	String inventoryMainMenu = RaisTestData.InventResourceMainMenu;
-	String resourceSubMenu = RaisTestData.ResourcesSubMenuText;
+	String inventoryMainMenu = RaisTestData.inventoryMainMenu;
+	String resourceSubMenu = RaisTestData.facAndDepartmentsSubMenu;
 	//*********************************************************************
 	//DF1 test data
 	String regulatorRole = RaisTestData.regulator_RAR_Data.get(0).toString();
@@ -82,13 +82,14 @@ public class WF_Authorization_Tests extends BaseClass
 	String ApprovedByName = RaisTestData.commonInputData.get(8).toString();
 	//*********************************************************************	
 	//TC Name, Yes/ No
-	final boolean tc1Status = true; String tc1Name = " is executed for E2E Happy path for R&A and Inspection";
+	final boolean tc1Status = false; String tc1Name = " is executed for E2E Happy path for R&A and Inspection";
 	final boolean tc2Status = true; String tc2Name = " is executed for E2E Happy path only R&A";
-	final boolean tc3Status = true; String tc3Name = " is executed for Rejection from Completeness Check";
-	final boolean tc4Status = true; String tc4Name = " is executed for Rejection from R&A Approval form";
-	final boolean tc5Status = true; String tc5Name = " is executed for Rejection of Authorization Terms";
-	final boolean tc6Status = true; String tc6Name = " is executed for incomplete Application";
-	final boolean tc7Status = true; String tc7Name = " is executed for Rejection of Authorization";
+	
+	final boolean tc3Status = false; String tc3Name = " is executed for Rejection from Completeness Check";
+	final boolean tc4Status = false; String tc4Name = " is executed for Rejection from R&A Approval form";
+	final boolean tc5Status = false; String tc5Name = " is executed for Rejection of Authorization Terms";
+	final boolean tc6Status = false; String tc6Name = " is executed for incomplete Application";
+	final boolean tc7Status = false; String tc7Name = " is executed for Rejection of Authorization";
 	
 	//passcurrent time
 	private static String localTime = GenericMethods.currentLocalTime();
@@ -170,10 +171,10 @@ public class WF_Authorization_Tests extends BaseClass
 
 		try {
 
-			//Thread.sleep(6000);
+			Thread.sleep(6000);
 
 			System.out.println(ParentWorkFlowName);
-
+			
 			//Setting Test name and description on report
 			SettingRptTestName_TestDesc(ParentWorkFlowName+" Execution","Verify "+ParentWorkFlowName+tc1Name);	
 
@@ -189,7 +190,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -250,7 +252,9 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -400,7 +404,9 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -432,7 +438,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -453,7 +460,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -472,7 +480,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -494,7 +503,8 @@ public class WF_Authorization_Tests extends BaseClass
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -530,8 +540,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 		try {
 
-			//Thread.sleep(6000);
-
+			Thread.sleep(6000);
 			System.out.println(ParentWorkFlowName);
 
 			//Setting Test name and description on report
@@ -547,9 +556,10 @@ public class WF_Authorization_Tests extends BaseClass
 			GenericMethods.loginApplication
 			(wd, loginPage.userId_XPath, licenseeRole, loginPage.pwd_XPath, 
 					password, loginPage.loginBtn_XPath);
-
+			
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);			
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -609,7 +619,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -774,7 +785,9 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -806,7 +819,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -827,7 +841,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -846,7 +861,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -868,7 +884,8 @@ public class WF_Authorization_Tests extends BaseClass
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -923,7 +940,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -983,7 +1001,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1013,7 +1032,8 @@ public class WF_Authorization_Tests extends BaseClass
 
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1068,7 +1088,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1128,7 +1149,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1204,7 +1226,8 @@ public class WF_Authorization_Tests extends BaseClass
 
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1259,7 +1282,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1319,7 +1343,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1412,7 +1437,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1444,7 +1470,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1465,7 +1492,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1484,7 +1512,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1504,7 +1533,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1524,7 +1554,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1546,7 +1577,8 @@ public class WF_Authorization_Tests extends BaseClass
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1601,7 +1633,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1661,7 +1694,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1689,7 +1723,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,licenseeRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1709,7 +1744,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1804,7 +1840,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1836,7 +1873,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1857,7 +1895,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1876,7 +1915,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1898,7 +1938,8 @@ public class WF_Authorization_Tests extends BaseClass
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1953,7 +1994,8 @@ public class WF_Authorization_Tests extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2013,7 +2055,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2106,7 +2149,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2138,7 +2182,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2159,7 +2204,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2181,7 +2227,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2212,7 +2259,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2234,7 +2282,8 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2257,7 +2306,8 @@ public class WF_Authorization_Tests extends BaseClass
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
-			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
