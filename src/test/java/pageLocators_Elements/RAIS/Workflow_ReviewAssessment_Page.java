@@ -28,7 +28,7 @@ public class Workflow_ReviewAssessment_Page {
 	//************************************************************
 
 	//DF -  recommendation
-	public String recommendationRemarksTxt_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='col-sm-6 col-flex-1 renderer-section-2']//div[1][@class='column-section-controls']//div//textarea[@id='ReviewRecommendation']";
+	public String recommendationRemarksTxt_Xpath = "//textarea[@id='ReviewRecommendation']"; //*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='col-sm-6 col-flex-1 renderer-section-2']//div[1][@class='column-section-controls']//div//textarea[@id='ReviewRecommendation']";
 	//public String recommendationRemarksTxt_Xpath = "//*[@id='ReviewRecommendation']";
 	
 	//external assessment buttons  location xpath
@@ -38,13 +38,14 @@ public class Workflow_ReviewAssessment_Page {
 
 	//DF -  Approval
 	//R&A report download
-	public String downloadReviewAssessmentReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//ul//li//span//a//button";
+	public String downloadWordReviewAssessmentReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//ul//li[1]//span//a//button";
+	public String downloadPdfReviewAssessmentReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//ul//li[2]//span//a//button";
 	
 	//reviewed by
 	public String reviewAssessmentApprovedBy_Xpath = "//*[@id='ReviewedBy']";
 	
 	//approval/ rejection notes
-	public String approvalRejectionNotes_Xpath = "//*[@id='AppRejNotes']";
+	public String approvalRejectionNotes_Xpath = "//textarea[@id='AppRejNotes']";
 		
 	//approve and reject button
 	public String approveBtn = "//*[@id='work-flow-form']//div//button[contains(text(),'Approve')]";

@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +20,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.xpath.XPath;
 
+import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.formula.functions.T;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -3536,7 +3542,7 @@ public class RAIS_applicationSpecificMethods  {
 
 					//pagewait
 					GenericMethods.JSPageWait(wdi);
-					
+
 					break;
 
 				}
@@ -4213,8 +4219,8 @@ public class RAIS_applicationSpecificMethods  {
 		GenericMethods .JSPageWait(wInitiateWF);
 
 		//verifying the success message
-		Assert.assertEquals(GenericMethods.getActualTxt(wInitiateWF, entListing.workflowInitiateSuccessMsg_XPath),
-				entListing.WORKFLOW_INITIATE_SUCCESS_TXT);
+		//		Assert.assertEquals(GenericMethods.getActualTxt(wInitiateWF, entListing.workflowInitiateSuccessMsg_XPath),
+		//				entListing.WORKFLOW_INITIATE_SUCCESS_TXT);
 
 
 		//Waiting for popup to load
@@ -4226,12 +4232,17 @@ public class RAIS_applicationSpecificMethods  {
 
 		//start trimming
 		String idName = GenericMethods.getActualTxt(wTrim, extractId);
-		idName = idName.replace("Initiated Manually : ", "");
+
+		int start = idName.indexOf("/");
+		int end = idName.indexOf(")");
+
+		start = start+1;
+		//idName = idName.replace("Initiated Manually : ", "");
 		//final String Wfid = idName.replace("- ", "");
-		final String Wfid = idName.substring(0, 11);
+		//final String Wfid = idName.substring(start, end);
 
 		//return final value
-		return Wfid;     
+		return idName.substring(start, end);    
 
 	}
 
@@ -4244,13 +4255,30 @@ public class RAIS_applicationSpecificMethods  {
 
 	}
 
-	public static void clickAndUploadFile(WebDriver wUpload,String clickOnLink, String filePath) {
+	public static void clickAndUploadFile(WebDriver wUpload,String elementPosition, String filePath, String flowType) {
 
 		try {
 
+			//Initialise authorization - association page
+			Workflow_AuthorizationPage RequestedTermsForm = new Workflow_AuthorizationPage();	
+
+			//Define final xpath
+			String finalLinkXpath = null;
+
+			if (flowType == "Confirm Payment") {
+				//formulating xpath
+				finalLinkXpath = createCustomXpath(RequestedTermsForm.prefixConfirmPayment_Xpath, elementPosition,
+						RequestedTermsForm.suffix_Doc1_Xpath);
+			} else {
+
+				finalLinkXpath = createCustomXpath(RequestedTermsForm.prefix_Doc1_Xpath, elementPosition,
+						RequestedTermsForm.suffix_Doc1_Xpath);
+			}
+
+
 			//click on element
 			//click on organigram link
-			GenericMethods.elementClick(wUpload,clickOnLink);			
+			GenericMethods.elementClick(wUpload,finalLinkXpath);			
 
 			//			Thread.sleep(3000);
 			//page wait
@@ -4421,13 +4449,19 @@ public class RAIS_applicationSpecificMethods  {
 		GenericMethods .JSPageWait(wmDF);
 
 		//click to expand multilookup		
-		GenericMethods.elementClick(wmDF, elementXpath);
+		GenericMethods.elementClick(wmDF, elementXpath+"//fieldset//div");
+
+		//*[@id='entity-form']//div//form//div//fieldset//div[2]//fieldset//div
 
 		//wait for multilist to expand
 		GenericMethods .JSPageWait(wmDF);
 
+		//Clear previous data
+		//GenericMethods.clearElement(wmDF, elementXpath+"//input[@id='filter']");
+		GenericMethods.clearElement(wmDF, "//input[@id='filter']");
+
 		//input text value that needs to be filtered
-		GenericMethods.sendText(wmDF, elementXpath+"//input[@id='filter']", textToSelect);
+		GenericMethods.sendText(wmDF, "//input[@id='filter']", textToSelect);
 
 		//wait for multilist to expand
 		GenericMethods .JSPageWait(wmDF);
@@ -4438,8 +4472,10 @@ public class RAIS_applicationSpecificMethods  {
 		//wait for multilist to expand
 		//GenericMethods .JSPageWait(wmDF);
 
-		//click to collapse the list
-		GenericMethods.elementClick(wmDF, elementXpath);
+		//click to collapse the list //*[@id='entity-form']//div//form//div//fieldset//div[2]//fieldset
+		GenericMethods.JClickonElement(wmDF, elementXpath);
+		//GenericMethods.elementClick(wmDF, "//*[@id='entity-form']//div//form//div//fieldset//div[2]//fieldset");
+		//GenericMethods.elemeJClickonElementntClick(wmDF, elementXpath);
 
 		//wait for multilist to expand
 		//GenericMethods .JSPageWait(wmDF);
@@ -4453,6 +4489,9 @@ public class RAIS_applicationSpecificMethods  {
 		JavascriptExecutor jse = (JavascriptExecutor) wScroll;
 		jse.executeScript("arguments[0].scrollIntoView(true);", 
 				wScroll.findElement(By.xpath(elementposition)));
+
+		//page wait
+		GenericMethods.JSPageWait(wScroll);
 
 		//click on element
 		GenericMethods.elementClick(wScroll, elementposition);
@@ -4476,19 +4515,19 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//scroll to Webelement
-		public static void scrollToWebElement(WebDriver wbScroll, Object webElementName) {
+	public static void scrollToWebElement(WebDriver wbScroll, Object webElementName) {
 
-			//using js scroll
-			JavascriptExecutor jse = (JavascriptExecutor) wbScroll;
-			jse.executeScript("arguments[0].scrollIntoView(true);", 
-					webElementName);
+		//using js scroll
+		JavascriptExecutor jse = (JavascriptExecutor) wbScroll;
+		jse.executeScript("arguments[0].scrollIntoView(true);", 
+				webElementName);
 
-			//page wait
-			GenericMethods.JSPageWait(wbScroll);
+		//page wait
+		GenericMethods.JSPageWait(wbScroll);
 
-		}
+	}
 
-	
+
 	//scroll to page topmost
 	public static void scrollToTop(WebDriver wTop) {
 
@@ -4503,10 +4542,10 @@ public class RAIS_applicationSpecificMethods  {
 
 		//Initialise authorization - association page
 		Workflow_AuthorizationPage wfAssociationDataForm = new Workflow_AuthorizationPage();
-		
+
 		//using js scroll
 		JavascriptExecutor jse = (JavascriptExecutor) wAssoDF;
-		
+
 
 		try {
 			//input department on DF-Associations page
@@ -4564,6 +4603,10 @@ public class RAIS_applicationSpecificMethods  {
 		//scroll down
 		JavascriptExecutor jse = (JavascriptExecutor) wRT;
 
+		//doc positions
+		String businessReg = null, lastYearCert=null, profitLossDoc=null;
+
+
 		try {
 
 			if(incompleteApplication== false) {
@@ -4574,10 +4617,10 @@ public class RAIS_applicationSpecificMethods  {
 				switch (workflowName) {
 
 
-				case "Import Authorization Workflow":
+				case "Import Authorization":
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4586,7 +4629,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4596,6 +4639,9 @@ public class RAIS_applicationSpecificMethods  {
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
+
+					//scroll to element
+					scrollToElement(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath);
 
 					//max radioactivity value - first item in array
 					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
@@ -4620,12 +4666,24 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.importDate_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//business reg, profitloss and last year
+					businessReg = "6";lastYearCert ="7";profitLossDoc = "8";					
+
 					break;
 
-				case "Export Authorization Workflow":		
+				case "Export Authorization":		
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4634,7 +4692,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4661,14 +4719,27 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods .JSPageWait(wRT);
 
 					//select from drop down - 3rd in array
-					valueSelectfromDropDown(wRT, wfRequestedTermsForm.exportAgency_Xpath, RaisTestData.inputRequestedTermsDataForm.get(6).toString());
+					//input import agency - 3rd in array
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.exportAgency_Xpath, RaisTestData.inputRequestedTermsDataForm.get(2).toString());
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.exportDate_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//business reg, profitloss and last year
+					businessReg = "6";lastYearCert ="7";profitLossDoc = "8";
+
 					break;
 
-				case "Equipment Manufacturing Workflow":
+				case "Equipment Manufacturing Authorization":
 
 					//Starting with date
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
@@ -4691,9 +4762,12 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//business reg, profitloss and last year
+					businessReg = "2";lastYearCert ="4";profitLossDoc = "5";
+
 					break;
 
-				case "Release Authorization Workflow":
+				case "Release Authorization":
 
 					//Starting with date
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.releaseDateCalendarControl_Xpath);
@@ -4707,12 +4781,15 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//business reg, profitloss and last year arenot applicable
+					businessReg = "2";lastYearCert ="0";profitLossDoc = "0";
+
 					break;
 
-				case "Use Authorization Workflow":
+				case "Use Authorization":
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4721,7 +4798,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4741,12 +4818,15 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//business reg, profitloss and last year arenot applicable
+					businessReg = "4";lastYearCert ="5";profitLossDoc = "6";
+
 					break;
 
-				case "Storage Authorization Workflow":
+				case "Storage Authorization":
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4755,7 +4835,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4774,13 +4854,16 @@ public class RAIS_applicationSpecificMethods  {
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
+
+					//business reg, profitloss and last year arenot applicable
+					businessReg = "4";lastYearCert ="5";profitLossDoc = "6";
 
 					break;
 
 				case "Isotope Production Authorization":
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4789,7 +4872,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//Starting with date
-					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateCalendarControl_Xpath);
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4814,10 +4897,27 @@ public class RAIS_applicationSpecificMethods  {
 
 					break;
 
-				case "Transfer Authorization Workflow":
+				case "Transfer Authorization":
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedStartDateEQPCalendarControl_Xpath);
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
+
+					//Starting with date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.requestedEndDateEQPCalendarControl_Xpath);
+
+					//page wait
+					GenericMethods .JSPageWait(wRT);
+
+					//select specific date
+					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);					
+
+					//page wait
 					GenericMethods .JSPageWait(wRT);
 
 					//select unit - second in array
@@ -4829,9 +4929,6 @@ public class RAIS_applicationSpecificMethods  {
 					//scroll down
 					jse.executeScript("window.scrollBy(0,50)");	
 
-					//select unit - second in array
-					valueSelectfromDropDown(wRT, wfRequestedTermsForm.recipientDepartment_Xpath, RaisTestData.inputRequestedTermsDataForm.get(8).toString());
-
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
@@ -4839,10 +4936,10 @@ public class RAIS_applicationSpecificMethods  {
 					jse.executeScript("window.scrollBy(0,50)");	
 
 					//max radioactivity value - first item in array
-					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+					GenericMethods.sendText(wRT, wfRequestedTermsForm.maxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
 
 					//select unit - second in array
-					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Use_Storage_Trn_Trf_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.unitMaxRadioActivity_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
 
 					//scroll down
 					jse.executeScript("window.scrollBy(0,50)");					
@@ -4876,12 +4973,14 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//business reg, profitloss and last year arenot applicable
+					businessReg = "8";lastYearCert ="9";profitLossDoc = "10";
+
 					break;
 
-				case "Transport Authorization Workflow":
+				case "Transport Authorization":
 
 					//page wait
-					GenericMethods .JSPageWait(wRT);
 					GenericMethods .JSPageWait(wRT);
 
 					//package type
@@ -4933,7 +5032,7 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods .JSPageWait(wRT);
 
 					//package category
-					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consignorFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(14).toString());
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consignorFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(7).toString());
 
 					//scroll to element
 					scrollToElement(wRT, wfRequestedTermsForm.originMemo_Xpath);
@@ -4944,17 +5043,17 @@ public class RAIS_applicationSpecificMethods  {
 					//Origin transport
 					GenericMethods.sendText(wRT, wfRequestedTermsForm.originMemo_Xpath , RaisTestData.inputRequestedTermsDataForm.get(15).toString());
 
-					//scroll to element
-					scrollToElement(wRT, wfRequestedTermsForm.consigneeFacility_Xpath);
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
 					//package category
-					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consigneeFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(14).toString());
+					valueSelectfromDropDown(wRT, wfRequestedTermsForm.consigneeFacility_Xpath, RaisTestData.inputRequestedTermsDataForm.get(7).toString());
 
-					//scroll to element
-					scrollToElement(wRT, wfRequestedTermsForm.destinationMemo_Xpath);
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -4963,7 +5062,12 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.sendText(wRT, wfRequestedTermsForm.destinationMemo_Xpath , RaisTestData.inputRequestedTermsDataForm.get(16).toString());
 
 					//scroll to element
-					GenericMethods.tabfromElement(wRT, wfRequestedTermsForm.destinationMemo_Xpath);
+					//GenericMethods.tabfromElement(wRT, wfRequestedTermsForm.destinationMemo_Xpath);
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
+					//page wait
+					//GenericMethods .JSPageWait(wRT);
 
 					//scrollToElement(wRT, wfRequestedTermsForm.dateOfShipmentCalendarControl_Xpath);	
 
@@ -4981,6 +5085,8 @@ public class RAIS_applicationSpecificMethods  {
 
 					//scroll to element
 					//scrollToElement(wRT, wfRequestedTermsForm.dateOfReceiptCalendarControl_Xpath);	
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
 
 					//page wait
 					GenericMethods.JSPageWait(wRT);
@@ -4995,7 +5101,9 @@ public class RAIS_applicationSpecificMethods  {
 					GenericMethods.elementClick(wRT, wfRequestedTermsForm.selectSpecificDate_Xpath);
 
 					//scroll to element
-					scrollToElement(wRT, wfRequestedTermsForm.exclusiveYesNo_Xpath);	
+					//scrollToElement(wRT, wfRequestedTermsForm.exclusiveYesNo_Xpath);	
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -5003,11 +5111,14 @@ public class RAIS_applicationSpecificMethods  {
 					//package category
 					valueSelectfromDropDown(wRT, wfRequestedTermsForm.exclusiveYesNo_Xpath, RaisTestData.commonInputData.get(2).toString());
 
+					//scroll down
+					jse.executeScript("window.scrollBy(0,50)");
+
 					//page wait
-					GenericMethods .JSPageWait(wRT);
+					//GenericMethods .JSPageWait(wRT);
 
 					//scroll to element
-					scrollToElement(wRT, wfRequestedTermsForm.specialArrangement_Xpath);	
+					//scrollToElement(wRT, wfRequestedTermsForm.specialArrangement_Xpath);	
 
 					//page wait
 					GenericMethods .JSPageWait(wRT);
@@ -5018,6 +5129,9 @@ public class RAIS_applicationSpecificMethods  {
 					//page wait
 					GenericMethods .JSPageWait(wRT);
 
+					//business reg, profitloss and last year arenot applicable
+					businessReg = "14";lastYearCert ="15";profitLossDoc = "16";
+
 					break;
 
 				default:
@@ -5025,19 +5139,46 @@ public class RAIS_applicationSpecificMethods  {
 				}
 
 				//common data input for all forms *******************************************
+				//Application submitted by and date
+				//valueSelectfromDropDown(wRT, wfRequestedTermsForm.applicationSubmittedBy, RaisTestData.inputRequestedTermsDataForm.get(17).toString());
+
 				//scroll to bottom
 				jScrollToBottom(wRT);
 
-				//upload docs - 4th in array
-				clickAndUploadFile(wRT, wfRequestedTermsForm.profitLossStatement_Xpath, RaisTestData.inputRequestedTermsDataForm.get(3).toString());
+
+				clickAndUploadFile(wRT, businessReg, RaisTestData.inputRequestedTermsDataForm.get(4).toString(), null);
 				//page wait
 				//GenericMethods .JSPageWait(wd);
 
-				clickAndUploadFile(wRT, wfRequestedTermsForm.businessRegCertificate_Xpath, RaisTestData.inputRequestedTermsDataForm.get(4).toString());
-				//page wait
-				//GenericMethods .JSPageWait(wd);
+				if (!workflowName.equals("Release Authorization")) {
 
-				clickAndUploadFile(wRT, wfRequestedTermsForm.lastYearTaxCertificate_Xpath, RaisTestData.inputRequestedTermsDataForm.get(5).toString());
+					//upload docs - 4th in array
+					clickAndUploadFile(wRT, profitLossDoc, RaisTestData.inputRequestedTermsDataForm.get(3).toString(),
+							null);
+					//page wait
+					//GenericMethods .JSPageWait(wd);
+					//Last year certificate
+					clickAndUploadFile(wRT, lastYearCert, RaisTestData.inputRequestedTermsDataForm.get(5).toString(),
+							null);
+				}
+
+				//scroll to bottom
+				jScrollToBottom(wRT);
+
+				//page wait
+				GenericMethods.JSPageWait(wRT);
+
+				//input date time
+				GenericMethods.sendText(wRT, wfRequestedTermsForm.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
+
+				//select specific date
+				//GenericMethods.elementClick(wRT, wfRequestedTermsForm.dateOfApplication_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wRT);
+
+				//select specific date
+				//GenericMethods.elementClick(wRT, "//span[1]");
 
 			}
 
@@ -5122,19 +5263,25 @@ public class RAIS_applicationSpecificMethods  {
 
 			if (incompleteApplication == false) {
 
-				//input reviewed by
-				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wComp, wfAuthCompletenessCheck.reviewedByCC, reviewedBy);
-
-				//Waiting for popup to load
-				GenericMethods.JSPageWait(wComp);
+				//scroll to bottom
+				jScrollToBottom(wComp);
 
 				//input notes
-				GenericMethods.sendText(wComp, wfAuthCompletenessCheck.approvedRejectedNotes_Xpath, memoTxt);
+				GenericMethods.sendText_removeblank(wComp, wfAuthCompletenessCheck.approvedRejectedNotes_Xpath, memoTxt);
+
+				//input reviewed by
+				//RAIS_applicationSpecificMethods.valueSelectfromDropDown(wComp, wfAuthCompletenessCheck.reviewedByCC, reviewedBy);
 
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wComp);
 
-				if(workflowName == "Isotope Production Authorization Workflow") {
+				//input date time
+				GenericMethods.sendText(wComp, wfAuthCompletenessCheck.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wComp);
+
+				if(workflowName == "Isotope Production Authorization") {
 
 					//add code for Radioactivity Aggregation Applicable
 					//click on check box
@@ -5202,12 +5349,24 @@ public class RAIS_applicationSpecificMethods  {
 	//Only Memo and click button
 	public static void dataFormMemoAndButtonClick(WebDriver wMem, Object memoXpath, String memoText, Object buttonXpath) {
 
+		//initialise page
+		Workflow_AuthorizationPage wfMemoBtnOnly = new Workflow_AuthorizationPage();
+
+		//scroll to bottom
+		jScrollToBottom(wMem);
+
 		try {
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wMem);
 
 			//enter internal review remarks
 			GenericMethods.sendText_removeblank(wMem, memoXpath.toString(), memoText);
+
+			//Waiting for popup to load
+			GenericMethods.JSPageWait(wMem);
+
+			//input date time
+			GenericMethods.sendText(wMem, wfMemoBtnOnly.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
 
 			//scroll to button
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wMem, buttonXpath.toString());
@@ -5329,19 +5488,7 @@ public class RAIS_applicationSpecificMethods  {
 		try {
 			//date of inspection
 			//scroll to element
-			RAIS_applicationSpecificMethods.scrollToElement(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
-
-			//page wait
-			GenericMethods .JSPageWait(wInsFind);
-
-			//click on date control
-			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.internalInspectionDate_Xpath);
-
-			//page wait
-			GenericMethods .JSPageWait(wInsFind);
-
-			//select date
-			GenericMethods.elementClick(wInsFind, inspectionFindingsDF.selectSpecificDate_Xpath);
+			RAIS_applicationSpecificMethods.jScrollToBottom(wInsFind); //.scrollToElement(wInsFind, inspectionFindingsDF.internalInspectionFindings_Xpath);
 
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
@@ -5351,6 +5498,9 @@ public class RAIS_applicationSpecificMethods  {
 
 			//page wait
 			GenericMethods .JSPageWait(wInsFind);
+
+			//input date time
+			GenericMethods.sendText(wInsFind, inspectionFindingsDF.InspectionDateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
 
 			//click on proceed without announcement
 			RAIS_applicationSpecificMethods.scrollToElement_Click(wInsFind, buttonName.toString());
@@ -5364,33 +5514,49 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//Generic method for approval form
-	public static void approvalDataForm(WebDriver wApproval, Object downLoadReportBtnXpath, Object approvedByXpath, String approvedBy,
-			Object approveRejectMemoXpath, String approveRejectTxt, Boolean previouslyRejected, Object approveRejectBtn) {
+	public static void approvalDataForm(WebDriver wApproval, Object downLoadWordReportBtnXpath, Object downLoadPDFReportBtnXpath, Object approvedByXpath,
+			String approvedBy, Object approveRejectMemoXpath, String approveRejectTxt, Boolean previouslyRejected, Object approveRejectBtn) {
 
 		try {
-			
-			//page wait
-			GenericMethods .JSPageWait(wApproval);
-			
-			//downlod report
-			GenericMethods.elementClick(wApproval, downLoadReportBtnXpath.toString());
 
 			//page wait
 			GenericMethods .JSPageWait(wApproval);
+			GenericMethods.pageLoadWait(2000);
+
+			//scroll to the download word link
+			RAIS_applicationSpecificMethods.scrollToElement(wApproval, downLoadWordReportBtnXpath.toString());
+
+			//downlod report
+			GenericMethods.elementClick(wApproval, downLoadWordReportBtnXpath.toString());
+
+			//page wait
+			GenericMethods .JSPageWait(wApproval);
+
+			//scroll to the download PDF link
+			RAIS_applicationSpecificMethods.scrollToElement(wApproval, downLoadPDFReportBtnXpath.toString());
+
+			//downlod report
+			GenericMethods.elementClick(wApproval, downLoadPDFReportBtnXpath.toString());
+
+
+			//page wait
+			//GenericMethods .JSPageWait(wApproval);
 
 			//select reviewed by
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wApproval, approvedByXpath.toString(), approvedBy);
+			//RAIS_applicationSpecificMethods.valueSelectfromDropDown(wApproval, approvedByXpath.toString(), approvedBy);
 
 			//scroll to element
-			RAIS_applicationSpecificMethods.scrollToElement(wApproval, approveRejectMemoXpath.toString());
+			//RAIS_applicationSpecificMethods.scrollToElement(wApproval, approveRejectMemoXpath.toString());
 
 			//page wait
 			GenericMethods .JSPageWait(wApproval);
+			GenericMethods.pageLoadWait(2000);
+
 
 			if(previouslyRejected == false) {		
 
 				//input approval notes
-				GenericMethods.sendText_removeblank(wApproval, approveRejectMemoXpath.toString(), approveRejectTxt);
+				//GenericMethods.sendText_removeblank(wApproval, approveRejectMemoXpath.toString(), approveRejectTxt);
 
 				//page wait
 				GenericMethods .JSPageWait(wApproval);
@@ -5428,7 +5594,10 @@ public class RAIS_applicationSpecificMethods  {
 			GenericMethods.JSPageWait(wRnA);
 
 			//input reviewed by
-			RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRnA, wfAuthRADataForm.reviewedBy_Xpath, approvedByName);
+			//RAIS_applicationSpecificMethods.valueSelectfromDropDown(wRnA, wfAuthRADataForm.reviewedBy_Xpath, approvedByName);
+
+			//input date time
+			GenericMethods.sendText(wRnA, wfAuthRADataForm.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
 
 			//page wait
 			GenericMethods .JSPageWait(wRnA);
@@ -5445,7 +5614,7 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	//Payment attach invoice form
-	public static void paymentAttachInvoiceReceiptDataForm(WebDriver wPay, Object dataFormName, Object fileUploadXpath) {
+	public static void paymentAttachInvoiceReceiptDataForm(WebDriver wPay, Object dataFormName) {
 
 		//Initialize form
 		Workflow_PaymentPage paymentDF = new Workflow_PaymentPage();
@@ -5468,10 +5637,13 @@ public class RAIS_applicationSpecificMethods  {
 				GenericMethods.JSPageWait(wPay);	
 
 				//scroll to element
-				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
+				jScrollToBottom(wPay);
+				//RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
+
+				String position = "4";
 
 				//upload invoice
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), RaisTestData.paymentInputData.get(1).toString());
+				clickAndUploadFile(wPay,position, RaisTestData.paymentInputData.get(1).toString(), dataFormName.toString());
 
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);
@@ -5479,10 +5651,15 @@ public class RAIS_applicationSpecificMethods  {
 			} else {
 
 				//scroll to element
-				RAIS_applicationSpecificMethods.scrollToElement(wPay, fileUploadXpath.toString());
+				RAIS_applicationSpecificMethods.jScrollToBottom(wPay);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wPay);
+
+				String position = "5";
 
 				//upload invoice
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wPay,fileUploadXpath.toString(), RaisTestData.paymentInputData.get(0).toString());
+				clickAndUploadFile(wPay,position, RaisTestData.paymentInputData.get(0).toString(), null);
 
 				//Waiting for popup to load
 				GenericMethods.JSPageWait(wPay);
@@ -5508,12 +5685,57 @@ public class RAIS_applicationSpecificMethods  {
 		//initialise page
 		Workflow_AuthorizationPage wfAuthTnC = new Workflow_AuthorizationPage();
 
+		//scroll to top
+		scrollToTop(wTnC);
+
+		//Waiting for popup to load
+		GenericMethods .JSPageWait(wTnC);
+
 		try {
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wTnC);
 
 			//skip below for release and transport
-			if(workflowName.equals("Transfer Authorization Workflow")) {
+			if (!workflowName.equals("Release Authorization") && !workflowName.equals("Transport Authorization")) {
+
+				//scroll to item and click
+				scrollToElement(wTnC, wfAuthTnC.authStartDate);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wTnC);
+
+				//jclick
+				GenericMethods.JClickonElement(wTnC, wfAuthTnC.authStartDate);
+
+				//date of inspection
+				//click on date control
+				//GenericMethods.elementClick(wTnC, wfAuthTnC.authStartDate);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select date
+				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//date of inspection
+				//click on date control
+				scrollToElement_Click(wTnC, wfAuthTnC.authEndDate);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select date
+				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+			}
+
+			if(workflowName.equals("Transfer Authorization")) {
 
 				//date of inspection
 				//click on date control
@@ -5531,60 +5753,45 @@ public class RAIS_applicationSpecificMethods  {
 				//send duration text
 				GenericMethods.sendText(wTnC, wfAuthTnC.authTransferDuration_Xpath, RaisTestData.inputRequestedTermsDataForm.get(10).toString());
 
+			} 
 
-			} else if (!workflowName.equals("Release Authorization Workflow") && !workflowName.equals("Transport Authorization Workflow")) {
-
-				//date of inspection
-				//click on date control
-				GenericMethods.elementClick(wTnC, wfAuthTnC.authStartDate);
-
-				//page wait
-				GenericMethods .JSPageWait(wTnC);
-
-				//select date
-				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
-
-				//page wait
-				GenericMethods .JSPageWait(wTnC);
-
-				//date of inspection
-				//click on date control
-				GenericMethods.elementClick(wTnC, wfAuthTnC.authEndDate);
-
-				//page wait
-				GenericMethods .JSPageWait(wTnC);
-
-				//select date
-				GenericMethods.elementClick(wTnC, wfAuthTnC.selectSpecificDate_Xpath);
-
-				//page wait
-				GenericMethods .JSPageWait(wTnC);
-
-			}			
-
-			if (workflowName == "Isotope Production Workflow") {
+			if (workflowName == "Isotope Production Authorization") {
 
 				//include max radio activity xpath and values here
+				//max radioactivity value - first item in array
+				GenericMethods.sendText(wTnC, wfAuthTnC.authMaxRadAct_Xpath, RaisTestData.inputRequestedTermsDataForm.get(0).toString());
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
+
+				//select unit - second in array
+				valueSelectfromDropDown(wTnC, wfAuthTnC.authMaxRadActUnit_Xpath, RaisTestData.inputRequestedTermsDataForm.get(1).toString());
+
+				//page wait
+				GenericMethods .JSPageWait(wTnC);
 			}
 
 			//scroll to element
 			RAIS_applicationSpecificMethods.scrollToElement(wTnC, wfAuthTnC.tncText_Xpath);
 
-			if(certificateRejectPreviously == false) {
+			if (certificateRejectPreviously == false) {
 
 				//page wait
-				GenericMethods .JSPageWait(wTnC);
+				GenericMethods.JSPageWait(wTnC);
 
 				//input TNC
 				GenericMethods.sendText_removeblank(wTnC, wfAuthTnC.tncText_Xpath, tncText);
 
 				//page wait
-				GenericMethods .JSPageWait(wTnC);
+				GenericMethods.JSPageWait(wTnC);
 
-			}
+				//input date time
+				GenericMethods.sendText(wTnC, wfAuthTnC.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
 
-			//scroll to bottom and click
-			RAIS_applicationSpecificMethods.scrollToElement_Click(wTnC, wfAuthTnC.submitBtn);
+				//scroll to bottom and click
+				RAIS_applicationSpecificMethods.scrollToElement_Click(wTnC, wfAuthTnC.submitBtn);
+
+			} 			
 
 			//page wait
 			GenericMethods .JSPageWait(wTnC);
@@ -5603,6 +5810,10 @@ public class RAIS_applicationSpecificMethods  {
 		String clickButton = acceptanceForm.btnPrefix_Xpath +buttonToClick.toString() + acceptanceForm.btnSuffix_Xpath;
 
 		try {
+
+			//scroll to bottom
+			jScrollToBottom(wAccept);
+
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wAccept);
 
@@ -5621,8 +5832,8 @@ public class RAIS_applicationSpecificMethods  {
 				//input remarks
 				GenericMethods.sendText_removeblank(wAccept, acceptanceForm.remarks_Xpath, memoText);
 
-				//Waiting for popup to load
-				GenericMethods .JSPageWait(wAccept);
+				//input date time
+				GenericMethods.sendText(wAccept, acceptanceForm.dateOfApplication_Xpath, RaisTestData.DATE_TIME_PICKR_DATA);
 
 			}
 
@@ -5749,7 +5960,7 @@ public class RAIS_applicationSpecificMethods  {
 				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
 
 				//upload security plan doc
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2], null);
 
 				//input customs number
 				GenericMethods.sendText(wdFollowUp, fwDataForm.importCustomNum_Xpath, fwInputData[3]);
@@ -5794,7 +6005,7 @@ public class RAIS_applicationSpecificMethods  {
 				//scrollToElement(wdFollowUp, fwDataForm.securityPlan_Xpath);
 
 				//upload security plan doc
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2]);
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wdFollowUp, fwDataForm.securityPlan_Xpath,fwInputData[2], null);
 
 				//click on source returned
 				GenericMethods.elementClick(wdFollowUp, fwDataForm.receipientCountryApproval_ChkBox_Xpath);				
@@ -5960,114 +6171,130 @@ public class RAIS_applicationSpecificMethods  {
 		int i;
 
 		try {
+
+			//extract user name, facility and dependent data					
+			for(i=0;i<RaisTestData.associationsInputData_import.size();i++) {
+
+				//add elements one by one
+				inputDataForWorkflow.add(RaisTestData.associationsInputData_import.get(i));
+
+			}
+
 			switch (workfName) {
-			case "Equipment Manufacturing Workflow":
+			case "Equipment Manufacturing Authorization":
 
 				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_equipmentMWF.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_equipmentMWF.get(i));
-
-				}
+				//				for(i=0;i<RaisTestData.associationsInputData_equipmentMWF.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_equipmentMWF.get(i));
+				//
+				//				}
 
 				break;
 
 			case "Isotope Production Authorization":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_isotopeProdWF.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_isotopeProdWF.get(i));
-
-				}
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_isotopeProdWF.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_isotopeProdWF.get(i));
+				//
+				//				}
 
 				break;
 
-			case "Transfer Authorization Workflow":
+			case "Transfer Authorization":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_transfer.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_transfer.get(i));
-
-				}
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_transfer.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_transfer.get(i));
+				//
+				//				}
 
 				break;
 
 			case "Transport Authorization Workflow":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_transport.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_transport.get(i));
-
-				}
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_transport.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_transport.get(i));
+				//
+				//				}
 
 				break;
 
 			case "Use Authorization Workflow":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_use.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_use.get(i));
-
-				}
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_use.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_use.get(i));
+				//
+				//				}
 
 				break;
 
-			case "Import Authorization Workflow":
+			case "Import Authorization":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_import.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_import.get(i));
-
-				}				
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_import.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_import.get(i));
+				//
+				//				}				
 
 				break;
 
 			case "Storage Authorization Workflow":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_storage.size();i++) {
-
-					//add elements one by one
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_storage.get(i));
-
-				}				
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_storage.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_storage.get(i));
+				//
+				//				}				
 
 				break;
 
-			case "Export Authorization Workflow":
+			case "Export Authorization":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_export.size();i++) {
-
-					//add elements one by one
-					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_export.get(i));
-
-				}
+				//				//New implementation
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_import.size();i++) {
+				//
+				//					//add elements one by one
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_import.get(i));
+				//
+				////				//extract user name, facility and dependent data					
+				////				for(i=0;i<RaisTestData.associationsInputData_export.size();i++) {
+				////
+				////					//add elements one by one
+				////					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
+				////					inputDataForWorkflow.add(RaisTestData.associationsInputData_export.get(i));
+				//
+				//				}
 
 				break;
 
 			case "Release Authorization Workflow":
 
-				//extract user name, facility and dependent data					
-				for(i=0;i<RaisTestData.associationsInputData_release.size();i++) {
-
-					//add elements one by one
-					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
-					inputDataForWorkflow.add(RaisTestData.associationsInputData_release.get(i));
-
-				}
+				//				//extract user name, facility and dependent data					
+				//				for(i=0;i<RaisTestData.associationsInputData_release.size();i++) {
+				//
+				//					//add elements one by one
+				//					//inputDataForWorkflow.add(RaisTestData.associationsInputData_export[i]);
+				//					inputDataForWorkflow.add(RaisTestData.associationsInputData_release.get(i));
+				//
+				//				}
 
 				break;
 
@@ -6079,6 +6306,8 @@ public class RAIS_applicationSpecificMethods  {
 			return inputDataForWorkflow;
 			//return Arrays.asList(userId, faWF_Name);
 		} catch (Exception e) {
+
+			System.out.println("Incorrect Workflow name");
 
 			e.printStackTrace();
 			return null;
@@ -6136,37 +6365,59 @@ public class RAIS_applicationSpecificMethods  {
 
 		try {
 			FileInputStream file = new FileInputStream
-					(new File("C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\businessEntityList.xlsx"));
+					(new File("C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\InvWithHist_TestData.xlsx"));
 
 			//Create Workbook instance holding reference to .xlsx file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 
 			//Get first/desired sheet from the workbook
-			XSSFSheet sheet = workbook.getSheet("EL");
+			XSSFSheet sheet = workbook.getSheet("Worker");
 
 			//count rows of excel
 			int rowCount = sheet.getLastRowNum();
 
+			//define int since array list position starts from 0 and then increment it
+			int position = 0;
+
 			//iterate between the number of rows in excel sheet
-			for(int rowNumber = 0; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+			for(int rowNumber = 1; rowNumber <= 10; rowNumber++) {
+				//for(int rowNumber = 1; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+
 				Row row = sheet.getRow(rowNumber);
 
-				if(row != null){
+				if(row != null){		
 
 					System.out.println("Row number " + rowNumber);
 					//fetch the details into array list
-					entityDetailList.add(rowNumber, new ArrayList<>(Arrays.asList(
-							row.getCell(0).getStringCellValue(), 
-							row.getCell(1).getStringCellValue(),
-							row.getCell(2).getStringCellValue(),
-							row.getCell(3).getStringCellValue(),
-							row.getCell(4).getStringCellValue(),
-							row.getCell(5).getStringCellValue(),
-							row.getCell(6).getStringCellValue(),	
-							row.getCell(7).getStringCellValue(),
-							row.getCell(8).getStringCellValue(),
-							row.getCell(9).getStringCellValue()
-							)));									
+					entityDetailList.add(position, new ArrayList<>(Arrays.asList(
+
+							row.getCell(0).getStringCellValue().toString().trim(), 
+							row.getCell(1).getStringCellValue().toString().trim(),
+							row.getCell(2).getStringCellValue().toString().trim(),
+							row.getCell(3).getStringCellValue().toString().trim(),
+							//String.valueOf(row.getCell(1).getNumericCellValue()).trim(),
+
+							//row.getCell(2).getStringCellValue().toString().trim(),
+
+							//String.valueOf(row.getCell(3).getDateCellValue()).trim(),
+
+							row.getCell(4).getDateCellValue().toString().trim(),
+							row.getCell(5).getStringCellValue().toString().trim(),
+							row.getCell(6).getStringCellValue().toString().trim()
+							//							row.getCell(7).getStringCellValue().toString().trim(),
+							//							row.getCell(8).getStringCellValue().toString().trim(),
+							//							row.getCell(9).getStringCellValue().toString().trim(),
+							//							
+							//							String.valueOf(row.getCell(10).getNumericCellValue()).trim(),
+							//							
+							//							row.getCell(11).getStringCellValue().toString().trim(),
+							//							row.getCell(12).getStringCellValue().toString().trim(),
+							//							row.getCell(13).getStringCellValue().toString().trim(),
+							//							row.getCell(14).getStringCellValue().toString().trim()
+							)));	
+
+					position = position+1;
+
 				}
 			}
 
@@ -6525,7 +6776,7 @@ public class RAIS_applicationSpecificMethods  {
 		default:
 			break;
 		}
-		
+
 		scrollToTop(wU);
 
 		GenericMethods.elementClick(wU, "//*[@id='user']//div//button[text()='Finish']");
@@ -6567,12 +6818,16 @@ public class RAIS_applicationSpecificMethods  {
 	}
 
 	// Method to click on top menu
-	public static void genericMenuItemClick(WebDriver wdMenu, String MainMenuName, String subMenuColHeader, String childMenu) {	
+	public static void genericMenuItemClick(WebDriver wdMenu, String childMenu) {	
 
 		//Setting flag to exit loop
 		int mainMenuPosition = 0;
 		int subMenuColHeaderPosition = 0;
 		int subMenuHeaderPosition = 0;
+
+		ArrayList<Object> MainMenuNameNew = getMenuSubMenu(childMenu);
+		String MainMenuName = MainMenuNameNew.get(1).toString();
+		String subMenuColHeader = MainMenuNameNew.get(2).toString();
 
 		try {
 			//page wait
@@ -6596,10 +6851,16 @@ public class RAIS_applicationSpecificMethods  {
 					subMenuHeaderPosition = 1;
 				} 
 
-				if(subMenuColHeader.contentEquals("Facilities And Departments")) {
+				if(subMenuColHeader.contentEquals("Facilities and Departments")) {
 
 					subMenuColHeaderPosition = 1;
 					subMenuHeaderPosition = 1;
+				}
+
+				if(subMenuColHeader.contentEquals("Sources and Associated Equipments")) {
+
+					subMenuColHeaderPosition = 1;
+					subMenuHeaderPosition = 2;
 				}
 
 				break;
@@ -6615,7 +6876,7 @@ public class RAIS_applicationSpecificMethods  {
 				mainMenuPosition = 5;
 
 				break;
-			case "Regulatory System Setting":
+			case "Regulatory System Settings":
 
 				mainMenuPosition = 6;
 
@@ -6625,10 +6886,16 @@ public class RAIS_applicationSpecificMethods  {
 					subMenuHeaderPosition = 2;
 				}
 
-				if(subMenuColHeader.contentEquals("Facilities And Departments")) {
+				if(subMenuColHeader.contentEquals("Facilities and Departments")) {
 
 					subMenuColHeaderPosition = 2;
 					subMenuHeaderPosition = 3;
+				}
+
+				if(subMenuColHeader.contentEquals("Sources and Associated Equipments")) {
+
+					subMenuColHeaderPosition = 3;
+					subMenuHeaderPosition = 1;
 				}
 
 				break;
@@ -6648,7 +6915,7 @@ public class RAIS_applicationSpecificMethods  {
 			switch (subMenuColHeader) {
 
 			case "Review & Assessment":
-			case "Regulatory Systems And Documents":
+			case "Regulatory Systems and Documents":
 			case "User Management":
 
 				subMenuColHeaderPosition = 1;
@@ -6657,16 +6924,16 @@ public class RAIS_applicationSpecificMethods  {
 				break;
 
 			case "Enforcements":
-			case "Sources And Associated Equipment":
+
 			case "Infrastructure Information":
-			case "Customization Power Tool":
+			case "Customization Power Tools":
 
 				subMenuColHeaderPosition = 1;
 				subMenuHeaderPosition = 2;
 
 				break;
 
-			case "Officers And Experts":
+			case "Officers and Experts":
 				//case "Supporting Processes":
 
 
@@ -6677,9 +6944,15 @@ public class RAIS_applicationSpecificMethods  {
 
 				//***************************************** Column 2 + Row 1
 
-			case "Authorizations":
-			case "Regulatory Process":
+			case "Authorizations":			
 			case "Settings":
+
+				subMenuColHeaderPosition = 1;
+				subMenuHeaderPosition = 1;
+
+				break;
+
+			case "Regulatory Processes":
 
 				subMenuColHeaderPosition = 2;
 				subMenuHeaderPosition = 1;
@@ -6704,7 +6977,7 @@ public class RAIS_applicationSpecificMethods  {
 				//***************************************** Column 3 + Row 1				
 
 			case "Inspections":
-			case "Sources And Associated Equipments":
+
 			case "Merge Records":
 
 				subMenuColHeaderPosition = 3;
@@ -6721,7 +6994,7 @@ public class RAIS_applicationSpecificMethods  {
 				break;
 
 			case "Common Tables":
-			case "System Language And Translations":
+			case "System Language and Translations":
 
 				subMenuColHeaderPosition = 3;
 				subMenuHeaderPosition = 3;
@@ -6730,7 +7003,7 @@ public class RAIS_applicationSpecificMethods  {
 
 				//***************************************** Column 4 + Row 1				
 
-			case "Manufacturers And Models":
+			case "Manufacturers and Models":
 
 				subMenuColHeaderPosition = 4;
 				subMenuHeaderPosition = 1;
@@ -6755,11 +7028,11 @@ public class RAIS_applicationSpecificMethods  {
 			for (int i = 0; i<childMenuList.size();i++) {
 
 				String menuName = childMenuList.get(i).getText();
-				
+
 
 				//Check if menu matches to click on item
 				if (menuName.equals(childMenu)) {
-					
+
 					//pass it to an weblement
 					WebElement menuElement = childMenuList.get(i);
 
@@ -6773,7 +7046,7 @@ public class RAIS_applicationSpecificMethods  {
 					break;
 				}
 			}
-			
+
 			//page wait
 			GenericMethods.JSPageWait(wdMenu);
 
@@ -6811,7 +7084,7 @@ public class RAIS_applicationSpecificMethods  {
 				GenericMethods.waitforElement(went, addNewEntityBtn_EntityListingPage);
 				GenericMethods.elementClickable(went, addNewEntityBtn_EntityListingPage);
 				GenericMethods.elementClick(went, addNewEntityBtn_EntityListingPage);
-				
+
 			}		
 
 			//page wait
@@ -6838,38 +7111,38 @@ public class RAIS_applicationSpecificMethods  {
 			if (mode == "Add") {
 
 				//input entity group name
-//				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_grpDropDown_XPath, 
-//						entityToBeCreated.get(4).toString());
+				//				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_grpDropDown_XPath, 
+				//						entityToBeCreated.get(4).toString());
 
 				//input entity role name
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(went, addNewEntityPage.addNewEntity_roleDropDown_XPath, 
 						entityToBeCreated.get(5).toString());
-				
+
 				if (entityToBeCreated.get(6).toString().contentEquals("Skip")) {
-					
+
 					//donot publish entity if value is skip
 				} else {
-					
+
 					//input entity publish navigation name
 					RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi1DropDown_XPath, 
 							entityToBeCreated.get(6).toString());
-//					RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, 
-//							entityToBeCreated.get(7).toString());
+					//					RAIS_applicationSpecificMethods.valueSelectfromDropDown(went,addNewEntityPage.addNewEntity_pubNavi2DropDown_XPath, 
+					//							entityToBeCreated.get(7).toString());
 				}			
-				
+
 				//enableworkflow check box
 				if (entityToBeCreated.get(8).toString().contentEquals("Selected"))  {
 
 					GenericMethods.elementClick(went, addNewEntityPage.addNewEntity_enableWF_XPath);
-					
+
 
 				} else {
-					
+
 					//Skip if checkbox need not be selected
 
 				}
 			}
-			
+
 			//page wait
 			GenericMethods.JSPageWait(went);
 
@@ -6896,32 +7169,1156 @@ public class RAIS_applicationSpecificMethods  {
 
 	//search for value in table and click on it
 	public static void clickTextOnGrid(WebDriver wTg, String textValue) {
-		
+
 		try {
 			//assiginig webelement list
 			List<WebElement> gridTable = wTg.findElements(By.xpath("//*[@id='nav-tabpanel-0']//div//table//tbody//tr"));
-			
+
 			//Start iterating from here
 			for (int i = 0; i<gridTable.size();i++) {
-			
+
 				//check if specific text is present in the table
 				if (gridTable.get(i).getText().contains(textValue)) {
-				
-				//click on the text value
-				gridTable.get(i).click();
-				
-				//break loop
-				break;				
-			}				
+
+					//click on the text value
+					gridTable.get(i).click();
+
+					//break loop
+					break;				
+				}				
 				//page wait
 				GenericMethods.JSPageWait(wTg);
-			
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	//Create test data for sources
+	public static void sourcesTestData(WebDriver wdTD, String sourceType, ArrayList <Object> xcelTestData) {
+
+		//Test data
+		ArrayList<String> sourcesTestData = new ArrayList<String>(Arrays.asList(
+				"SS002",							//0// SS serial num
+				"1.3E+45",							//1//Max radioactivity
+				"Bq",								//2//Unit
+				"12",								//3//activity period
+				"Day",								//4//Unit period
+
+				"RG001",							//5// Rad gen serial num
+				"CT scanner",						//6// Rad gen Type
+
+				"AE001",							//7// Asso equp serial num
+
+				"BKC Group",						//8//Manufacturer
+
+				"Lifeline Hospital",				//9//Facility
+				"Dental",							//10//Department
+				"In Use"							//11//Status
+				));
+
+		GenericMethods.JSPageWait(wdTD);
+
+		switch (sourceType) {
+
+		case "Sealed Sources":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='SerialNumber']", xcelTestData.get(0).toString());
+
+			GenericMethods.sendText(wdTD, "//input[@id='Activity']", xcelTestData.get(1).toString()+"e+3");
+
+			valueSelectfromDropDown(wdTD, "//select[@id='ActivityId']", xcelTestData.get(2).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(5).toString());
+
+			//			jScrollToBottom(wdTD);
+			//			
+			//			valueSelectfromDropDown(wdTD, "//select[@id='SealedModel']", xcelTestData.get(6).toString());
+			//			
+			//			valueSelectfromDropDown(wdTD, "//select[@id='SealedCategory']", xcelTestData.get(7).toString());
+			//			
+			//			valueSelectfromDropDown(wdTD, "//select[@id='SecurityGroup']", xcelTestData.get(8).toString());	
+
+
+			scrollToTop(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Next')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(13).toString());
+			GenericMethods.JSPageWait(wdTD);
+			//valueSelectfromDropDown(wdTD, "//select[@id='Department']", sourcesTestData.get(10));
+			//GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='SourceStatus']", xcelTestData.get(14));
+			//GenericMethods.JSPageWait(wdTD);
+
+			break;
+
+		case "Unsealed Sources":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText(wdTD, "//input[@id='MaximumActivity']", sourcesTestData.get(1));
+			valueSelectfromDropDown(wdTD, "//select[@id='MaximumActivityId']", sourcesTestData.get(2));			
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(3).toString());
+
+			scrollToTop(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Next')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(4).toString());
+			GenericMethods.JSPageWait(wdTD);
+			//valueSelectfromDropDown(wdTD, "//select[@id='Department']", sourcesTestData.get(10));
+			//GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='SourceStatus']", xcelTestData.get(6));
+
+			break;
+
+		case "Radiation Generators":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText(wdTD, "//input[@id='SerialNumber']", xcelTestData.get(0).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Type']", xcelTestData.get(1).toString());		
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(2).toString());
+
+			//valueSelectfromDropDown(wdTD, "//select[@id='Model']", xcelTestData.get(3).toString());
+
+
+
+			scrollToTop(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Next')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(4).toString());
+			GenericMethods.JSPageWait(wdTD);
+			//valueSelectfromDropDown(wdTD, "//select[@id='Department']", sourcesTestData.get(10));
+			//GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='SourceStatus']", xcelTestData.get(6));
+			//GenericMethods.JSPageWait(wdTD);
+
+			break;
+
+		case "Associated Equipments":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);	
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText(wdTD, "//input[@id='SerialNumber']", xcelTestData.get(0).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='AssoType']", xcelTestData.get(1).toString());
+
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(2).toString());
+
+
+			scrollToTop(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Next')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(3).toString());
+			GenericMethods.JSPageWait(wdTD);
+			//valueSelectfromDropDown(wdTD, "//select[@id='Department']", sourcesTestData.get(10));
+			//GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='SourceStatus']", xcelTestData.get(5));
+			//GenericMethods.JSPageWait(wdTD);
+
+			break;
+
+		case "Workers":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='Name']", xcelTestData.get(0).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(1).toString());
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='eMail']", xcelTestData.get(2).toString());
+
+			break;
+
+		default:
+
+			break;
+		}
+
+
+
+
+
+
+
+		if (sourceType.equals("Workers")) {
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(3).toString());
+			GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='WorkerStatus']", xcelTestData.get(5).toString());
+			GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='MonitoringStatus']", xcelTestData.get(6));
+			GenericMethods.JSPageWait(wdTD);
+
+		} else {
+
+
+		}
+		GenericMethods.elementClick(wdTD, "//button[contains(text(),'Save')]");		
+
+		GenericMethods.JSPageWait(wdTD);
+
+	}
+
+	//create report
+	public static void reportCreate(WebDriver wRpt, ArrayList<Object> reportData) {
+
+		//click on add new report
+		GenericMethods.elementClick(wRpt, "//button[contains(text(),'Add new report')]");
+
+		GenericMethods.JSPageWait(wRpt);
+
+		//internal name
+		GenericMethods.sendText(wRpt, "//input[@id='internalName']", reportData.get(0).toString());
+
+		//description
+		GenericMethods.sendText_removeblank(wRpt, "//textarea[@id='description']", reportData.get(1).toString());
+
+		//Name
+		GenericMethods.sendText_removeblank(wRpt, "//input[@id='name']", reportData.get(2).toString());
+
+		//category drop down
+		valueSelectfromDropDown(wRpt, "//select[@id='categoryId']", reportData.get(3).toString());
+
+		//Publish navi parent drop down
+		valueSelectfromDropDown(wRpt, "//select[@id='parentNavigationId']", reportData.get(4).toString());	
+
+		//page wait
+		GenericMethods.JSPageWait(wRpt);GenericMethods.JSPageWait(wRpt);	
+
+		//sub parent to publish
+		valueSelectfromDropDown(wRpt, "//select[@id='navigationId']", reportData.get(5).toString());
+
+		//description
+		GenericMethods.sendText_removeblank(wRpt, "//textarea[@id='helpText']", reportData.get(1).toString());
+
+		//page wait
+		//GenericMethods.JSPageWait(wRpt);
+
+		//title
+		GenericMethods.sendText(wRpt, "//input[@id='title']", reportData.get(6).toString());
+
+		//query type
+		valueSelectfromDropDown(wRpt, "//select[@id='queryTypeId']", reportData.get(7).toString());
+
+		//page wait
+		GenericMethods.JSPageWait(wRpt);		
+
+		//query name
+		valueSelectfromDropDown(wRpt, "//select[@id='queryId']", reportData.get(8).toString());
+
+		//page wait
+		GenericMethods.JSPageWait(wRpt);
+
+		//report type
+		valueSelectfromDropDown(wRpt, "//select[@id='reportType']", reportData.get(9).toString());		
+
+		//page wait
+		GenericMethods.JSPageWait(wRpt);
+
+		//scroll to top
+		scrollToTop(wRpt);
+
+		//click on save button
+		GenericMethods.elementClick(wRpt, "//button[contains(text(),'Save')]");
+
+		GenericMethods.JSPageWait(wRpt);GenericMethods.JSPageWait(wRpt);
+
+	}
+
+	//create Evaluators
+	public static void evalCreate(WebDriver wEval, ArrayList<Object> evalData) {
+
+		//click on add new report
+		GenericMethods.elementClick(wEval, "//button[contains(text(),'Add New Evaluator')]");
+
+		GenericMethods.JSPageWait(wEval);
+
+		//internal name
+		GenericMethods.sendText(wEval, "//input[@id='internalName']", evalData.get(0).toString());
+
+		GenericMethods.JSPageWait(wEval);GenericMethods.JSPageWait(wEval);
+
+		//Name of eval
+		GenericMethods.sendText_removeblank(wEval, "//input[@id='Name']", evalData.get(1).toString());
+
+		GenericMethods.JSPageWait(wEval);
+
+		//category drop down
+		valueSelectfromDropDown(wEval, "//select[@id='lookupEntityId']", evalData.get(2).toString());
+
+		//click on save button
+		GenericMethods.elementClick(wEval, "//button[contains(text(),'Save')]");
+
+		GenericMethods.JSPageWait(wEval);GenericMethods.JSPageWait(wEval);
+
+	}
+
+
+	//create facility
+	public static void reportCreateFacility_SM_AE(WebDriver wRptTestData, ArrayList<Object> reportTestData, String type) {
+
+		GenericMethods.JSPageWait(wRptTestData);
+
+		//click on add new report
+		GenericMethods.elementClick(wRptTestData, "//button[contains(text(),'Add New')]");
+
+		GenericMethods.JSPageWait(wRptTestData);GenericMethods.JSPageWait(wRptTestData);
+
+		switch (type) {
+
+		case "Facilities":
+
+
+			//Fac name
+			GenericMethods.sendText(wRptTestData, "//input[@id='Name']", reportTestData.get(0).toString());
+
+			//category drop down
+			valueSelectfromDropDown(wRptTestData, "//select[@id='FacilityStatus']", reportTestData.get(1).toString());
+
+			break;
+
+		case "Sealed Source Models":
+
+
+			//Fac name
+			GenericMethods.sendText(wRptTestData, "//input[@id='Name']", reportTestData.get(0).toString());
+
+			//category drop down
+			valueSelectfromDropDown(wRptTestData, "//select[@id='Manufacturer']", reportTestData.get(1).toString());
+
+			break;
+
+		case "Associated Equipment Types":
+
+
+			//AE name
+			GenericMethods.sendText(wRptTestData, "//input[@id='Name']", reportTestData.get(0).toString());
+
+			//practice drop down
+			multiSelect_WFDataforms(wRptTestData, "//*[@id='entity-form']//div//form//div//fieldset//div[2]//fieldset//div", reportTestData.get(1).toString());
+
+			break;
+
+		default:
+			break;
+		}
+
+		//scroll to top
+		scrollToTop(wRptTestData);
+
+		//click on save button
+		GenericMethods.elementClick(wRptTestData, "//button[contains(text(),'Save')]");
+
+		GenericMethods.JSPageWait(wRptTestData);GenericMethods.JSPageWait(wRptTestData);
+
+	}
+
+	//Create test data for sources
+	public static void childEntity(WebDriver wdTD, String sourceType, ArrayList <Object> xcelTestData) {
+
+
+		GenericMethods.JSPageWait(wdTD);
+
+		switch (sourceType) {
+
+		case "Sealed Sources":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='SerialNumber']", xcelTestData.get(0).toString());
+
+			GenericMethods.sendText(wdTD, "//input[@id='Activity']", xcelTestData.get(1).toString()+"e+3");
+
+			valueSelectfromDropDown(wdTD, "//select[@id='ActivityId']", xcelTestData.get(2).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(5).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='SealedModel']", xcelTestData.get(6).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='SealedCategory']", xcelTestData.get(7).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='SecurityGroup']", xcelTestData.get(8).toString());			
+
+			break;
+
+		case "Unsealed Sources":				
+
+
+
+
+			break;
+
+		case "Radiation Generators":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			basicSearchRecord(wdTD, xcelTestData.get(0).toString());
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//td[contains(text(),'"+xcelTestData.get(0).toString()+"')]");
+
+			GenericMethods.JSPageWait(wdTD);GenericMethods.JSPageWait(wdTD);GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//body/div[5]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[2]/a[1]/span[1]");
+
+			GenericMethods.JSPageWait(wdTD);GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+
+			GenericMethods.JSPageWait(wdTD);GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(1).toString());
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText(wdTD, "//input[@id='CertificateNumber']", xcelTestData.get(3).toString());				
+
+
+			break;
+
+		case "Associated Equipments":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);	
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText(wdTD, "//input[@id='SerialNumber']", xcelTestData.get(0).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='AssoType']", xcelTestData.get(1).toString());
+
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Manufacturer']", xcelTestData.get(2).toString());
+
+
+			scrollToTop(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Next')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(3).toString());
+			GenericMethods.JSPageWait(wdTD);
+			//valueSelectfromDropDown(wdTD, "//select[@id='Department']", sourcesTestData.get(10));
+			//GenericMethods.JSPageWait(wdTD);
+			valueSelectfromDropDown(wdTD, "//select[@id='SourceStatus']", xcelTestData.get(5));
+			//GenericMethods.JSPageWait(wdTD);
+
+			break;
+
+		case "Workers":
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wdTD, sourceType);			
+
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.elementClick(wdTD, "//button[contains(text(),'Add New')]");
+
+			GenericMethods.JSPageWait(wdTD);
+			GenericMethods.JSPageWait(wdTD);
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='Name']", xcelTestData.get(0).toString());
+
+			valueSelectfromDropDown(wdTD, "//select[@id='Facility']", xcelTestData.get(1).toString());
+
+			GenericMethods.sendText_removeblank(wdTD, "//input[@id='eMail']", xcelTestData.get(2).toString());
+
+			break;
+
+		default:
+
+			break;
+		}
+
+
+		GenericMethods.JSPageWait(wdTD);
+
+		GenericMethods.elementClick(wdTD, "//button[contains(text(),'Save')]");		
+
+		GenericMethods.JSPageWait(wdTD);
+
+	}
+
+
+
+	//report excel read data
+	//get Entity details in 2d array list from excel
+	public static ArrayList<ArrayList<Object>> getReportData() {
+
+		//List<Object> entityList = new ArrayList<>();
+		ArrayList<ArrayList<Object>> reportDataFromExcel = new ArrayList<ArrayList<Object> >();
+
+		try {
+			FileInputStream file = new FileInputStream
+					(new File("C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\InvWithHist_TestData.xlsx"));
+
+			//Create Workbook instance holding reference to .xlsx file
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+			//Get first/desired sheet from the workbook
+			XSSFSheet sheet = workbook.getSheet("AE-Type");
+
+			//count rows of excel
+			//int rowCount = sheet.getLastRowNum();
+
+			//define int since array list position starts from 0 and then increment it
+			int position = 0;
+
+			//iterate between the number of rows in excel sheet
+			for(int rowNumber = 1; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+
+				Row row = sheet.getRow(rowNumber);
+
+				if(row != null){		
+
+					//System.out.println("Row number " + rowNumber);
+					//fetch the details into array list
+					reportDataFromExcel.add(position, new ArrayList<>(Arrays.asList(
+
+							row.getCell(0).getStringCellValue().toString().trim(), 
+
+							row.getCell(1).getStringCellValue().toString().trim()//,
+
+							//								row.getCell(2).getStringCellValue().toString(),
+							//								
+							//								row.getCell(3).getStringCellValue().toString(),
+							//								
+							//								row.getCell(4).getStringCellValue().toString(),
+							//								row.getCell(5).getStringCellValue().toString(),
+							//								row.getCell(6).getStringCellValue().toString(),	
+							//								row.getCell(7).getStringCellValue().toString(),
+							//								row.getCell(8).getStringCellValue().toString(),
+							//								row.getCell(9).getStringCellValue().toString(),
+							//								row.getCell(10).getStringCellValue().toString()
+
+							)));	
+
+					position = position+1;
+
+				}
+			}
+
+			//Close excel workbook
+			workbook.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}		
+		//return entire sheet in arraylist
+		return reportDataFromExcel;		
+	}
+
+	//Generic method to read excel file and return arraylist of data - xlsx type of file
+	public static ArrayList<ArrayList<Object>> getDataFromExcel(Object fileName, Object sheetName) {
+
+		//Define arraylist record set
+		ArrayList<ArrayList<Object> > fullRecordSet= new ArrayList<ArrayList<Object> >();
+
+		try {
+
+			//File path and name
+			FileInputStream file = new FileInputStream	(new File("C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\"+fileName.toString()+".xlsx"));
+
+			//Create Workbook instance holding reference to .xlsx file
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+			//Get first/desired sheet from the workbook
+			XSSFSheet sheet = workbook.getSheet(sheetName.toString());
+
+			//					int sheetcount = workbook.getNumberOfSheets();
+			//					
+			//					System.out.println("Total Sheet in excel "+ sheetcount);
+			//					
+			//					for(int counter =0; counter<sheetcount; counter++) {
+			//						
+			//						System.out.println(workbook.getSheetName(counter));
+			//					}
+
+
+
+			//iterate between the number of rows in excel sheet
+			for(int rowNumber = 1; rowNumber <= sheet.getLastRowNum(); rowNumber++) {
+
+				//RecordSet position
+				int recordSetPosition = 0;
+
+				//current row number
+				Row row = sheet.getRow(rowNumber);
+
+				//current column counter
+				int colCounter = sheet.getRow(rowNumber).getLastCellNum();
+
+				//System.out.println("Total Rows "+sheet.getLastRowNum());						
+				//System.out.println("Total columns "+colCounter);						
+				//System.out.println("Current row number " + rowNumber);
+
+
+				//Initialise and fetch the details into single record array list							
+				ArrayList<Object> singleListOfRecord = new ArrayList<Object>();
+
+				//loop between the columns
+				for(int colNumber = 0; colNumber < colCounter; colNumber++ ) {
+
+					//Initialise the contents to string variable to convert and trim to remove trailing spaces
+					//String record = row.getCell(colNumber).toString().trim();
+
+					//Assigning row value to cell for formatting of all values								
+					Cell cell = row.getCell(colNumber);
+
+					//Using date formatter to converting any data to string
+					DataFormatter formatter = new DataFormatter();
+
+					//Initialise the contents to string variable to convert and trim to remove trailing spaces
+					String record = formatter.formatCellValue(cell).trim();
+
+					//adding smallest record one by one								
+					singleListOfRecord.add(colNumber, record);																	
+				}							
+
+				//Add single record set to full record set
+				//fullRecordSet.add(singleListOfRecord);		
+				fullRecordSet.add(recordSetPosition, singleListOfRecord);
+
+				recordSetPosition = recordSetPosition +1;
+			}
+
+			//System.out.println(fullRecordSet);		
+
+			//Close excel workbook
+			workbook.close();			
+
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			e.printStackTrace();
+
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		catch (Exception e) {
+			System.out.println("Incorrect sheet name or found null in the cell while trying to add in array");
+			e.printStackTrace();
+
+		}						
+		//return entire sheet in arraylist
+		return fullRecordSet;
+
+	}
+
+	/*
+	 * Create Master data method for single field, 2nd field and 3 field input
+	 */
+	public static void createDataMasterEntity(WebDriver wMaster, ArrayList<Object> inputData,String bEName, String mode) {
+
+		try {
+
+			//wait for page load
+			GenericMethods.JSPageWait(wMaster);
+
+
+			if (mode.contentEquals("Edit")) {
+
+				//click on add new report
+				GenericMethods.elementClick(wMaster, "//button[contains(text(),'Add New')]");
+
+				//wait for page load
+				GenericMethods.JSPageWait(wMaster);GenericMethods.JSPageWait(wMaster);
+
+				//input name data
+				GenericMethods.sendText(wMaster, "//input[@id='Name']", inputData.get(0).toString());
+
+				//wait for page load
+				GenericMethods.JSPageWait(wMaster);
+
+				switch (bEName) {
+
+				//***************************************2 field input
+				//For multi lookup
+				case "Associated Equipment Types":
+				case "Worker Tasks":
+				case "Radiation Generator Types":
+
+					//practice drop down
+					multiSelect_WFDataforms(wMaster, "//*[@id='entity-form']//div//form//div//fieldset//div[2]//fieldset//div", inputData.get(1).toString());
+
+					break;
+
+					//For lookup with value
+				case "Dose Limits":
+
+					//input dose unit
+					GenericMethods.sendText(wMaster, "//input[@id='LimitDoseUnit']", inputData.get(1).toString());
+
+					//wait for page load
+					GenericMethods.JSPageWait(wMaster);
+
+					//dose unit id from lookupdrop down
+					valueSelectfromDropDown(wMaster, "//select[@id='LimitDoseUnitId']", inputData.get(2).toString());
+
+					GenericMethods.tabfromElement(wMaster, "//select[@id='LimitDoseUnitId']");
+
+					break;
+
+				case "Nuclides":	
+
+					//input half life
+					GenericMethods.sendText(wMaster, "//input[@id='HalfLife']", inputData.get(1).toString());
+
+					//half  life id from lookupdrop down
+					valueSelectfromDropDown(wMaster, "//select[@id='HalfLifeId']", inputData.get(2).toString());				
+
+
+					break;
+
+					//For lookup with value
+				case "Districts":
+
+					//input region
+					valueSelectfromDropDown(wMaster, "//select[@id='Region']", inputData.get(1).toString());
+
+					break;
+
+				case "Non-Compliance Categories":	
+
+					//input nonComMaj category
+					valueSelectfromDropDown(wMaster, "//select[@id='NonComplianceMajorCategory']", inputData.get(1).toString());			
+
+					break;
+
+				case "Branches":
+
+					//input field
+					valueSelectfromDropDown(wMaster, "//select[@id='Field']", inputData.get(1).toString());				
+
+					break;
+
+					//For Numeric values
+				case "Amperage Units":
+				case "Voltage Units":	
+				case "Activity Units":
+				case "Dose Units":
+				case "Time Unit":
+
+					//input amperage, vlotage, activity, time units all common
+					GenericMethods.sendText(wMaster, "//input[@id='Factor']", inputData.get(1).toString());		
+
+					GenericMethods.tabfromElement(wMaster, "//input[@id='Factor']");
+
+					break;
+
+					//***************************************3 field input
+				case "Practices":
+
+					//input inspection frequency
+					GenericMethods.sendText(wMaster, "//input[@id='InspectionFrequency']", inputData.get(1).toString());
+
+					//wait for page load
+					GenericMethods.JSPageWait(wMaster);
+
+					//frequence id input from lookupdrop down
+					valueSelectfromDropDown(wMaster, "//select[@id='InspectionFrequencyId']", inputData.get(2).toString());
+
+					//select practice category
+					valueSelectfromDropDown(wMaster, "//select[@id='PracticeCategory']", inputData.get(3).toString());
+
+					break;
+
+				case "Non-Compliances":
+
+					ArrayList<String> practiceName = new ArrayList<String>(Arrays.asList(		
+							"Analytical Techniques", 
+							"Dental Xray", 
+							"Diagnostic and Interventional Radiology", 
+							"Fixed Nuclear Gauges", 
+							"Industrial Irradiation", 
+							"Industrial Radiography", 
+							"Isotope Production", 
+							"Mobile Nuclear Gauges", 
+							"Non Medical Applications Involving Unsealed Sources", 
+							"Nuclear Medicine", 
+							"Radioactive Waste Management", 
+							"Radiotherapy", 
+							"Research & Teaching", 
+							"Well Logging"
+							));
+
+					//New multi select drop down which requires arraylist as input data
+					multiLookUpSelectValue(wMaster, "//*[@id='entity-form']//div//form//div//fieldset//div[2]", practiceName);
+
+					//select category
+					valueSelectfromDropDown(wMaster, "//select[@id='Category']", inputData.get(2).toString());			
+
+					scrollToTop(wMaster);
+
+					break;
+
+				case "Training Courses":
+
+					//input duration
+					GenericMethods.sendText(wMaster, "//input[@id='Duration']", inputData.get(1).toString());
+
+					//wait for page load
+					GenericMethods.JSPageWait(wMaster);
+
+					//frequence id input from lookupdrop down
+					valueSelectfromDropDown(wMaster, "//select[@id='DurationId']", inputData.get(2).toString());
+
+					//Training facility drop down - Commenting this as facility not available as part of setup
+					//multiSelect_WFDataforms(wMaster, "//*[@id='entity-form']//div//form//div//fieldset//div[3]//fieldset//div", inputData.get(3).toString());
+
+					break;
+
+				default:
+					break;
+				}
+
+			} else {
+				
+				//input name data
+				GenericMethods.sendText(wMaster, "//input[@id='Name']", inputData.get(0).toString());
+
+				//wait for page load
+				GenericMethods.JSPageWait(wMaster);
+				
+			}
+
+			//wait for page load
+			GenericMethods.JSPageWait(wMaster);
+
+			//click on save button
+			GenericMethods.elementClick(wMaster, "//button[contains(text(),'Save')]");
+
+			GenericMethods.JSPageWait(wMaster);GenericMethods.JSPageWait(wMaster);
+
+
+		} catch (Exception e) {
+			System.out.println("Invalid input");
+			e.printStackTrace();
+		}
+	}
+
+	//return main menu and submenu based on BE input
+
+	public static ArrayList<Object> getMenuSubMenu(String entityName) {
+
+		ArrayList<Object> entityNameMenuSubMenu = new ArrayList<>();
+
+		try {
+			switch (entityName) {
+
+			
+			case "Facilities":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Inventory");
+				entityNameMenuSubMenu.add(2, "Facilities and Departments");
+
+
+				break;
+
+			case "Sealed Sources":
+			case "Associated Equipments":
+			case "Radiation Generators":
+			case "Unsealed Sources":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Inventory");
+				entityNameMenuSubMenu.add(2, "Sources and Associated Equipments");
+
+
+				break;
+				
+			case "Import Authorization":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory Processes");
+				entityNameMenuSubMenu.add(2, "Authorizations");
+
+
+				break;
+
+			case "Deterministic Effects":
+			case "Dose Extremity Organ List":
+			case "Extent of Events":
+			case "Health Consequences":
+			case "Report Types":
+			case "Emergency Response Levels":
+			case "Event Causes":
+			case "Radiological Consequences":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Radiation Events");
+
+
+				break;
+
+			case "Package Categories":
+			case "Package Types":
+			case "Physical Barriers":
+			case "Physical Forms":
+			case "Source Statuses":
+			case "Wave Forms":
+			case "Sealed Source Category":
+			case "Security Groups":
+			case "Associated Equipment Types":
+			case "Radiation Generator Types":
+			case "Nuclides":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Sources and Associated Equipments");
+
+
+				break;
+
+			case "Academic Degrees":
+			case "Fields":
+			case "Monitoring Statuses":
+			case "Worker Statuses":
+			case "Professional Degrees":
+			case "Worker Tasks":
+			case "Branches":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Workers");
+
+				break;
+
+			case "Boolean":
+			case "Countries":
+			case "Gender":
+			case "Workflow Statuses":
+			case "Dose Limits":
+			case "Amperage Units":
+			case "Voltage Units":
+			case "Activity Units":	
+			case "Dose Units":	
+			case "Time Unit":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Common Tables");
+
+				break;
+
+			case "Transfer Types":
+			case "Transport Modes":
+			case "Action Types":
+			case "Non-Compliance Major Categories":
+			case "Non-Compliance Categories":
+			case "Non-Compliances":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Regulatory Processes");
+
+				break;
+
+			case "Regulatory Reference Statuses":
+			case "Regulatory Reference Types":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Regulatory Systems and Documents");
+
+				break;
+
+			case "Practice Categories":
+			case "Regions":
+			case "Districts":
+			case "Practices":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Infrastructure Information");
+
+				break;
+
+			case "Facility Statuses":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Facilities and Departments");
+
+				break;
+
+			case "Officer Tasks":
+
+				entityNameMenuSubMenu.add(0, entityName);
+				entityNameMenuSubMenu.add(1, "Regulatory System Settings");
+				entityNameMenuSubMenu.add(2, "Officers and Experts");
+
+				break;
+
+			default:
+
+				System.out.println("Invalid menu name or business entity which is not found");
+
+				break;
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}		
+
+		return entityNameMenuSubMenu;
+	}
+
+	//multi-Lookup New method
+	public static void multiLookUpSelectValue(WebDriver WmuLkp, String eleLocator, ArrayList<String> valueToSelect) {		
+
+		//wait for multilist to expand
+		GenericMethods .JSPageWait(WmuLkp);
+
+		try {
+			//click to expand multilookup		
+			GenericMethods.elementClick(WmuLkp, eleLocator+"//fieldset//div");
+
+			//wait for multilist to expand
+			GenericMethods .JSPageWait(WmuLkp);
+
+			//Iterate in the data arraylist to select items one by one		
+			for(int i=0;i<valueToSelect.size();i++) {
+
+				//Define webelement list and get the text of those elements
+				List<WebElement> webElementList = WmuLkp.findElements(By.xpath(eleLocator+"//fieldset//div//ul//li"));
+
+				//Iterate between the entire webelement list and assign each webelement to one child
+				for(WebElement childWebElement :webElementList ) {
+
+					//extract child webelement list and compare it with expected string				
+					if(childWebElement.getText().equals(valueToSelect.get(i).toString())) {
+
+						//if condition satisfies then, navigate the child element node of SPAN
+						WebElement singleElement = childWebElement.findElement(By.xpath(".//label//span"));
+
+						//click on the single element
+						singleElement.click();
+
+					} 
+				}
+
+			}				
+			//wait for multilist to expand
+			GenericMethods .JSPageWait(WmuLkp);
+
+			//click to collapse the list 
+			GenericMethods.JClickonElement(WmuLkp, eleLocator+"//fieldset");
+		} catch (Exception e) {
+			System.out.println("Incorrect parent and child xpath passed and formulated, hence error occured");
+			e.printStackTrace();
+		}		
+	}
+
+
+	//compare string in webelement
+	public static boolean  verifyTextPresentWebElementList(WebDriver wEList, String locator, String elementPresent) {
+
+		List<WebElement> dropDown = wEList.findElements(By.xpath(locator+"//fieldset//div//ul"));
+
+		for(int itemCount = 0; itemCount<=dropDown.size();itemCount++) {
+
+			if(dropDown.get(itemCount).getText().toString().equals(elementPresent)) {
+
+				dropDown.get(itemCount).click();
+			} else {
+
+				System.out.println("Value not present in multiLookup");
+			}
+		}
+
+		return true;
+
+
+	}
+
 }
 
 

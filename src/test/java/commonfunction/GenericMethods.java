@@ -28,7 +28,7 @@ import org.testng.annotations.Parameters;
 
 public class GenericMethods  {
 
-	public static boolean elementClickHighlight = true;
+	public static boolean elementClickHighlight = false;
 	public static boolean elementAssert;
 
 
@@ -299,10 +299,9 @@ public class GenericMethods  {
 
 		try {
 
-			//Clicking on element
-			wc.findElement(By.xpath(clickElement)).clear();
-			wc.findElement(By.xpath(clickElement)).sendKeys("");
-
+			//Clear element
+			wc.findElement(By.xpath(clickElement)).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 

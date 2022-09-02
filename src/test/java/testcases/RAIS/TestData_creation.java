@@ -1991,7 +1991,7 @@ public class TestData_creation extends BaseClass
 	//*********************************Starts from here 3-Nov-2020
 
 	//users creation for licensee
-	@Test(priority=66,enabled=true)
+	@Test(priority=66,enabled=false)
 	public void licenseeUsersCreation(){
 
 		try {
@@ -2006,16 +2006,30 @@ public class TestData_creation extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-//			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
-//					RaisTestData.businessEntityList[64]);
-			
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					RaisTestData.businessEntityList[64]);
+			//			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
+			//					RaisTestData.businessEntityList[64]);
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.businessEntityList[64]);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);				
 
-			ArrayList<String> wfName = RaisTestData.workflowNames;
+			ArrayList<Object> wfName = new ArrayList<Object>();
+
+			wfName.add(0, "Import Authorization");
+			wfName.add(1, "Storage Authorization");
+			wfName.add(2, "Export Authorization");
+
+			//			"Import Authorization",							
+			//					"Export Authorization",					
+			//					"Equipment Manufacturing Workflow", 					
+			//					"Isotope Production Authorization", 	 
+			//					"Release Authorization Workflow",		
+			//					"Storage Authorization Workflow",	
+			//					"Use Authorization Workflow",		
+			//					"Transfer Authorization Workflow",
+			//					"Transport Authorization Workflow"
+			//			);	
 
 			for(int i=0; i<wfName.size();i++) {
 
@@ -2049,6 +2063,9 @@ public class TestData_creation extends BaseClass
 
 				GenericMethods .JSPageWait(wd);
 				GenericMethods .JSPageWait(wd);
+
+				//temporary code for RAN
+				GenericMethods.sendText(wd, "//*[@id='RAN']", "RANUSER"+i);
 
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd, "//*[@id='user']//div//form//div//fieldset//div//select[@id='Facility']",
 						fac);//////////////////////////////////////////////////////////////////////////////////////////
@@ -2134,7 +2151,7 @@ public class TestData_creation extends BaseClass
 	}
 
 
-	//users creation for licensee
+	//users creation for regulator
 	@Test(priority=66,enabled=false)
 	public void regulator_RARUsersCreation(){
 
@@ -2150,8 +2167,7 @@ public class TestData_creation extends BaseClass
 					password, loginPage.loginBtn_XPath);
 
 			//Clicking on followup action menu
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu,RaisTestData.UserMgmtSubMenuText, 
-					RaisTestData.businessEntityList[64]);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.businessEntityList[64]);
 
 			//calling regulator user creation method
 			//RAIS_applicationSpecificMethods.createRegRarUser(wd, "Expert");			
@@ -2190,8 +2206,7 @@ public class TestData_creation extends BaseClass
 			GenericMethods .JSPageWait(wd);
 
 			//Clicking on entities menu
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, 
-					RaisTestData.customizePowerToolSubMenu,RaisTestData.businessEntityList[66]);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.businessEntityList[66]);
 
 			//Read excel sheet containing entity list and returining it as record set in arraylist
 			ArrayList<ArrayList<Object> > entityRecordSet = new ArrayList<ArrayList<Object> >();			
@@ -2286,83 +2301,82 @@ public class TestData_creation extends BaseClass
 			GenericMethods.JSPageWait(wd);
 
 			//Clicking on entities menu
-//			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-//					RaisTestData.functionalRole);
-			
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
-					RaisTestData.functionalRole);
+			//			RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.AdministrationMainMenu, RaisTestData.UserMgmtSubMenuText, 
+			//					RaisTestData.functionalRole);
+
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.functionalRole);
 
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wd);
-			
+
 			System.out.println(RaisTestData.allRoleNames.length);
-			
-			
+
+
 			for(int i =0; i<RaisTestData.allRoleNames.length; i++) {
-				
+
 				//clicking on left data role
 				RAIS_applicationSpecificMethods.DRFR_Edit_Delete(wd, RaisTestData.allRoleNames[i], RaisTestData.OPTIONAL_TEXT,
 						RaisTestData.OPTIONAL_TEXT);
 
 				//clicking on permissions tab
 				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.dataRolePermTab_XPath);
-	
+
 				//Waiting for popup to load
 				GenericMethods .JSPageWait(wd);
-				
+
 				//click on new permission button
 				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.FunctionalRolePermissionRestrictBtn_XPath);
-				
+
 				//select entity group from dropdown
 				RAIS_applicationSpecificMethods.valueSelectfromDropDown(wd,"//*[@id='nav-tabpanel-0']//div//form//div//select[@id='entityGroupId']", 
 						"Enforcement");
-				
+
 				//select newly added facility from list
 				RAIS_applicationSpecificMethods.multiSelect_DR_FR_Page(wd, "All","Add New Permission" );
-				
+
 				GenericMethods.JSPageWait(wd);
-				
+
 				//checkbox
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
-				
+
 				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
-				
+
 				GenericMethods.JSPageWait(wd);
-				
+
 				RAIS_applicationSpecificMethods.clickTextOnGrid(wd, "Boolean");
-				
+
 				GenericMethods.JSPageWait(wd);
-				
+
 				//checkbox
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
-				
+
 				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
-				
+
 				GenericMethods.JSPageWait(wd);
-				
+
 				RAIS_applicationSpecificMethods.clickTextOnGrid(wd, "Department");
-				
+
 				GenericMethods.JSPageWait(wd);
-				
+
 				//checkbox
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Add')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Edit')]");
-				
+
 				GenericMethods.elementClick(wd, "//*[@id='nav-tabpanel-0']//div//form//div//label//span[contains(text(),'Delete')]");
-				
+
 				GenericMethods.elementClick(wd, dataRolesfunctionalRolesPage.savePermRestrict_XPath);
-				
+
 				GenericMethods.JSPageWait(wd);
-			
+
 			}
 
 
@@ -2386,9 +2400,612 @@ public class TestData_creation extends BaseClass
 	}
 
 
+	//create SS, US, RadGen, Asso Eqp
+	@Test(priority=18,enabled=false)
+	public void createTestDataSources() {
+
+		try {
+			//Thread.sleep(3000);
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Test data creation","Test data creation");
+			
+			ArrayList<ArrayList<Object>> recordSetData = RAIS_applicationSpecificMethods.getDataFromExcel("InvWithHist_TestData","RGNew" );
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Read excel sheet containing entity list and returining it as record set in arraylist
+			//			ArrayList<ArrayList<Object> > entityRecordSet = new ArrayList<ArrayList<Object> >();			
+			//			entityRecordSet= RAIS_applicationSpecificMethods.getEntityCreationDetails();
+			//			
+
+			
+
+			for (int recordCount = 0; recordCount<recordSetData.size(); recordCount ++) {
+
+				ArrayList<Object> singleRecordSet = recordSetData.get(recordCount);
+
+				//System.out.println(singleRecordSet);
+
+				RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[53],singleRecordSet);
+			}
+
+			System.out.println("Done");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			//			ArrayList<Object> entityDetail = new ArrayList<Object>();
+
+			//			for (int i = 0; i<entityRecordSet.size();i++) {
+			//
+			//				System.out.println("--------------------------------");
+			//				System.out.println("Serial number - "+entityRecordSet.get(i).get(0));
+			//				System.out.println("Activity - "+entityRecordSet.get(i).get(1));
+			//				System.out.println("Activity period - "+entityRecordSet.get(i).get(2));
+			//				System.out.println("Activity date - "+entityRecordSet.get(i).get(3));
+			//				//System.out.println("Nuclide - "+entityRecordSet.get(i).get(4));
+			//				System.out.println("Manufacturer - "+entityRecordSet.get(i).get(5));
+			//				System.out.println("SM - "+entityRecordSet.get(i).get(6));
+			////				System.out.println("SC - "+entityRecordSet.get(i).get(7));
+			////				System.out.println("SG - "+entityRecordSet.get(i).get(8));
+			////				System.out.println("ISO - "+entityRecordSet.get(i).get(9));
+			////				
+			////				System.out.println("Recommended Life - "+entityRecordSet.get(i).get(10));
+			////				System.out.println("Period - "+entityRecordSet.get(i).get(11));
+			////				System.out.println("Image path - "+entityRecordSet.get(i).get(12));
+			////				System.out.println("Facility - "+entityRecordSet.get(i).get(13));
+			//				
+			//
+			//				entityDetail.add(0, entityRecordSet.get(i).get(0));
+			//				entityDetail.add(1, entityRecordSet.get(i).get(1));
+			//				entityDetail.add(2, entityRecordSet.get(i).get(2));
+			//				entityDetail.add(3, entityRecordSet.get(i).get(3));
+			//				entityDetail.add(4, entityRecordSet.get(i).get(4));
+			//				entityDetail.add(5, entityRecordSet.get(i).get(5));
+			//				entityDetail.add(6, entityRecordSet.get(i).get(6));
+			////				entityDetail.add(7, entityRecordSet.get(i).get(7));
+			////				entityDetail.add(8, entityRecordSet.get(i).get(8)); //from col 10
+			////				entityDetail.add(9, entityRecordSet.get(i).get(9)); //from col 11
+			////				entityDetail.add(10, entityRecordSet.get(i).get(10));
+			////				entityDetail.add(11, entityRecordSet.get(i).get(11));
+			////				entityDetail.add(12, entityRecordSet.get(i).get(12));
+			////				entityDetail.add(13, entityRecordSet.get(i).get(13));
+			////				entityDetail.add(14, entityRecordSet.get(i).get(14));
+			//
+			//				System.out.println(entityDetail);		
+			//				
+			//				RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[62], entityDetail);
+			//				
+			//				//Waiting for popup to load
+			//				GenericMethods .JSPageWait(wd);	
+			//				GenericMethods.pageLoadWait(1000);
+			//			}
+
+			//			System.out.println(entityDetail.get(0).toString());
+
+
+
+
+
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+
+			//			for (int i = 0; i<=5; i++ ) {
+			//
+			//				//calling common method
+			//				RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[47], null);
+			//			
+			//			//Waiting for popup to load
+			//			GenericMethods .JSPageWait(wd);	
+			//			GenericMethods.pageLoadWait(2000);
+			//			
+			//			}
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+			//calling common method - sealed sources
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[53]);
+
+			//calling common method - Un sealed sources
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[59]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+			//calling common method - Radiation generator
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[47]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+			//calling common method - Associated equipments
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[67]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);		
+
+	}
+
+
+	//create SS, US, RadGen, Asso Eqp
+	@Test(priority=23,enabled=false)
+	public void createTestDataChildEntity() {
+
+		try {
+			//Thread.sleep(3000);
+
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Child Entity Test data creation","Child Entity Test data creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Read excel sheet containing entity list and returining it as record set in arraylist
+			//				ArrayList<ArrayList<Object> > entityRecordSet = new ArrayList<ArrayList<Object> >();			
+			//				entityRecordSet= RAIS_applicationSpecificMethods.getEntityCreationDetails();
+			//				
+
+			ArrayList<ArrayList<Object>> recordSetData = RAIS_applicationSpecificMethods.getDataFromExcel("InvWithHist_TestData","RG-CSTemp" );
+
+			for (int recordCount = 0; recordCount<recordSetData.size(); recordCount ++) {
+
+				ArrayList<Object> singleRecordSet = recordSetData.get(recordCount);
+
+				System.out.println(singleRecordSet);
+
+				RAIS_applicationSpecificMethods.childEntity(wd, RaisTestData.businessEntityList[47],singleRecordSet);
+			}
+
+			System.out.println("Done");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			//				ArrayList<Object> entityDetail = new ArrayList<Object>();
+
+			//				for (int i = 0; i<entityRecordSet.size();i++) {
+			//
+			//					System.out.println("--------------------------------");
+			//					System.out.println("Serial number - "+entityRecordSet.get(i).get(0));
+			//					System.out.println("Activity - "+entityRecordSet.get(i).get(1));
+			//					System.out.println("Activity period - "+entityRecordSet.get(i).get(2));
+			//					System.out.println("Activity date - "+entityRecordSet.get(i).get(3));
+			//					//System.out.println("Nuclide - "+entityRecordSet.get(i).get(4));
+			//					System.out.println("Manufacturer - "+entityRecordSet.get(i).get(5));
+			//					System.out.println("SM - "+entityRecordSet.get(i).get(6));
+			////					System.out.println("SC - "+entityRecordSet.get(i).get(7));
+			////					System.out.println("SG - "+entityRecordSet.get(i).get(8));
+			////					System.out.println("ISO - "+entityRecordSet.get(i).get(9));
+			////					
+			////					System.out.println("Recommended Life - "+entityRecordSet.get(i).get(10));
+			////					System.out.println("Period - "+entityRecordSet.get(i).get(11));
+			////					System.out.println("Image path - "+entityRecordSet.get(i).get(12));
+			////					System.out.println("Facility - "+entityRecordSet.get(i).get(13));
+			//					
+			//
+			//					entityDetail.add(0, entityRecordSet.get(i).get(0));
+			//					entityDetail.add(1, entityRecordSet.get(i).get(1));
+			//					entityDetail.add(2, entityRecordSet.get(i).get(2));
+			//					entityDetail.add(3, entityRecordSet.get(i).get(3));
+			//					entityDetail.add(4, entityRecordSet.get(i).get(4));
+			//					entityDetail.add(5, entityRecordSet.get(i).get(5));
+			//					entityDetail.add(6, entityRecordSet.get(i).get(6));
+			////					entityDetail.add(7, entityRecordSet.get(i).get(7));
+			////					entityDetail.add(8, entityRecordSet.get(i).get(8)); //from col 10
+			////					entityDetail.add(9, entityRecordSet.get(i).get(9)); //from col 11
+			////					entityDetail.add(10, entityRecordSet.get(i).get(10));
+			////					entityDetail.add(11, entityRecordSet.get(i).get(11));
+			////					entityDetail.add(12, entityRecordSet.get(i).get(12));
+			////					entityDetail.add(13, entityRecordSet.get(i).get(13));
+			////					entityDetail.add(14, entityRecordSet.get(i).get(14));
+			//
+			//					System.out.println(entityDetail);		
+			//					
+			//					RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[62], entityDetail);
+			//					
+			//					//Waiting for popup to load
+			//					GenericMethods .JSPageWait(wd);	
+			//					GenericMethods.pageLoadWait(1000);
+			//				}
+
+			//				System.out.println(entityDetail.get(0).toString());
+
+
+
+
+
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+
+			//				for (int i = 0; i<=5; i++ ) {
+			//
+			//					//calling common method
+			//					RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[47], null);
+			//				
+			//				//Waiting for popup to load
+			//				GenericMethods .JSPageWait(wd);	
+			//				GenericMethods.pageLoadWait(2000);
+			//				
+			//				}
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+			//calling common method - sealed sources
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[53]);
+
+			//calling common method - Un sealed sources
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[59]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+			//calling common method - Radiation generator
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[47]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+			//calling common method - Associated equipments
+			//RAIS_applicationSpecificMethods.sourcesTestData(wd, RaisTestData.businessEntityList[67]);
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);		
+
+	}
+
+
+
+	//create entity reports
+	@Test(priority=19,enabled=false)
+	public void createReportEval() {
+
+		try {
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Report creation","Report creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.businessEntityList[68]);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			String path = this.getClass().getName().replace(".", "/") + ".java";
+			System.out.println("Current class location "+path);
+
+
+			ArrayList<ArrayList<Object> > excelRecordSet= RAIS_applicationSpecificMethods.getDataFromExcel("InvWithHist_TestData","reportDetailsFull_Inv_work_Fa" );
+
+			System.out.println(excelRecordSet);
+
+			for (int recordCount = 0; recordCount<excelRecordSet.size(); recordCount ++) {
+
+				ArrayList<Object> singleRecordSet = excelRecordSet.get(recordCount);
+
+				//RAIS_applicationSpecificMethods.evalCreate(wd, singleRecordSet);
+
+				RAIS_applicationSpecificMethods.reportCreate(wd, singleRecordSet);
+			}
+
+			System.out.println("Done");
+
+			//Waiting for popup to load
+			//GenericMethods .JSPageWait(wd);
+
+
+			//			//++++++++++++++++++++++++++++++++++++++++++++++++++
+			//			//Read excel sheet containing entity list and returining it as record set in arraylist
+			//			//ArrayList<ArrayList<Object> > reportRecordSet = new ArrayList<ArrayList<Object> >();			
+			//			ArrayList<ArrayList<Object> > reportRecordSet= RAIS_applicationSpecificMethods.getReportData();
+			//			
+			//			//define one separate arraylist where one row or set of record will be fetched and later use this arraylist to insert values
+			//			ArrayList<Object> singleReportRecord = new ArrayList<Object>();
+			//
+			//			for (int i = 0; i<reportRecordSet.size();i++) {
+			//
+			////				System.out.println("--------------------------------");
+			////				System.out.println("Serial number - "+reportRecordSet.get(i).get(0));
+			////				System.out.println("Activity - "+reportRecordSet.get(i).get(1));
+			////				System.out.println("Activity period - "+reportRecordSet.get(i).get(2));
+			////				System.out.println("Activity date - "+reportRecordSet.get(i).get(3));
+			////				System.out.println("Nuclide - "+reportRecordSet.get(i).get(4));
+			////				System.out.println("Manufacturer - "+reportRecordSet.get(i).get(5));
+			////				System.out.println("SM - "+reportRecordSet.get(i).get(6));
+			////				System.out.println("SC - "+reportRecordSet.get(i).get(7));
+			////				System.out.println("SG - "+reportRecordSet.get(i).get(8));
+			////				System.out.println("ISO - "+reportRecordSet.get(i).get(9));
+			////				System.out.println("Status - "+reportRecordSet.get(i).get(10));				
+			//				System.out.println("Total rows found " +reportRecordSet.size());
+			//				
+			//				System.out.println("Records in one row " +reportRecordSet.get(i).size());
+			//
+			//				for (int singleRecordRowLength = 0; singleRecordRowLength < reportRecordSet.get(i).size() ;singleRecordRowLength ++) {
+			//					
+			//					singleReportRecord.add(singleRecordRowLength, reportRecordSet.get(i).get(singleRecordRowLength));
+			//					
+			//				}
+			//System.out.println(singleReportRecord);
+
+
+
+
+			//				if(reportRecordSet.get(i).get(10).toString().equals("No Skip")) {
+			//					
+			//					//only for no skip records
+			//					RAIS_applicationSpecificMethods.reportCreate(wd, singleReportRecord);
+			//					//System.out.println("No Skip");
+			//					
+			//				} else {
+			//					
+			//					System.out.println("Record skipped");
+			//				}
+
+
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);	
+			//GenericMethods.pageLoadWait(2000);
+			//}
+
+			//System.out.println(singleReportRecord.get(0).toString());
+
+
+
+
+
+			//++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		} catch (Exception e) {
+
+			System.out.println("Error in report creation");
+			e.printStackTrace();
+		}
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);	
+
+	}
+
+	//create facility for report test data
+	@Test(priority=21,enabled=false)
+	public void createFacility_ReportTestData () {
+
+		try {
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("Facility creation","Facility creation");
+
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			//Clicking on entities menu
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.businessEntityList[23]);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			ArrayList<ArrayList<Object>> recordSetData = RAIS_applicationSpecificMethods.getDataFromExcel("InvWithHist_TestData","AE-Type" );
+
+			for (int recordCount = 0; recordCount<recordSetData.size(); recordCount ++) {
+
+				ArrayList<Object> singleRecordSet = recordSetData.get(recordCount);
+
+				RAIS_applicationSpecificMethods.reportCreateFacility_SM_AE(wd, singleRecordSet,RaisTestData.businessEntityList[23] );
+			}
+
+			System.out.println("Done");
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+		} catch (Exception e) {
+
+			System.out.println("Error in report creation");
+			e.printStackTrace();
+		}
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);	
+
+
+	}
+
+
+
+
+	/* Test data creation of Master entities in 3 test cases
+	 * 
+	 */
+	@Test(priority=39,enabled=true)
+	public void inputMasterEntityRecord() {
+
+		try {
+			//Setting Test name and description on report
+			SettingRptTestName_TestDesc("1 field BE record creation","1 field BE record creation");
+
+			ArrayList<String> BusEntityName = new ArrayList<String>(Arrays.asList(		
+					"Package Categories",
+					"Package Types",
+					"Transfer Types",
+					"Transport Modes",
+					"Boolean",
+					"Countries",
+					"Deterministic Effects",
+					"Dose Extremity Organ List",
+					"Extent of Events",
+					"Health Consequences",
+					"Physical Barriers",
+					"Physical Forms",
+					"Practice Categories",
+					"Report Types",
+					"Gender",
+					"Source Statuses",
+					"Action Types",
+					"Facility Statuses",
+					"Officer Tasks",
+					"Regions",
+					"Regulatory Reference Statuses",
+					"Regulatory Reference Types",
+					"Non-Compliance Major Categories",
+					"Academic Degrees",
+					"Fields",
+					"Monitoring Statuses",
+					"Worker Statuses",
+					"Professional Degrees",
+					"Emergency Response Levels",
+					"Event Causes",
+					"Radiological Consequences",
+					"Wave Forms",
+					"Sealed Source Category",
+					"Security Groups",
+					"Workflow Statuses"
+					
+
+					));
+			
+			String FileName = "EngMasterEntityTestData1";
+			
+			//Calling Login method
+			GenericMethods.loginApplication
+			(wd, loginPage.userId_XPath, userName, loginPage.pwd_XPath, 
+					password, loginPage.loginBtn_XPath);
+
+			//Waiting for popup to load
+			GenericMethods .JSPageWait(wd);
+
+			for(int beCount=0; beCount<BusEntityName.size();beCount++) {
+
+				String businessEntityName = BusEntityName.get(beCount).toString(); // "Events";
+
+				ArrayList<ArrayList<Object>> recordSetData = RAIS_applicationSpecificMethods.getDataFromExcel(FileName,businessEntityName );
+				
+				//Clicking on entities menu
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, businessEntityName);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+				
+				
+				for (int recordCount = 0; recordCount<recordSetData.size(); recordCount ++) {
+
+					ArrayList<Object> singleRecordSet = recordSetData.get(recordCount);
+					
+					GenericMethods.JSPageWait(wd);
+					
+					System.out.println(businessEntityName+" contains "+GenericMethods.getActualTxt(wd, "//div[contains(text(),'items')]"));
+
+					RAIS_applicationSpecificMethods.createDataMasterEntity(wd, singleRecordSet,businessEntityName, null);
+
+					System.out.println("Successfull record " + recordCount);
+				}
+
+				System.out.println("Done");
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+			}
+
+		} catch (Exception e) {
+
+			System.out.println("Error execution");
+			e.printStackTrace();
+		}
+
+		//Logout user
+		RAIS_applicationSpecificMethods.logout(wd);	
+
+	}
+
+
+
 
 
 	//Test case Ends here *********************************
+
+
+
+
 
 
 	//After each method reporting pass/ fail in report

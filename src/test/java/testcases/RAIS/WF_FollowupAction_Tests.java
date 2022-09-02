@@ -513,7 +513,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 				GenericMethods.sendText(wd, FA_WFPage.importDate_Xpath, genericDate);
 				
 				//upload security plan doc
-				RAIS_applicationSpecificMethods.clickAndUploadFile(wd, FA_WFPage.securityPlan_Xpath,securityPlanDoc_Path);
+				RAIS_applicationSpecificMethods.clickAndUploadFile(wd, FA_WFPage.securityPlan_Xpath,securityPlanDoc_Path, null);
 				
 				//input customs number
 				GenericMethods.sendText(wd, FA_WFPage.importCustomNum_Xpath, customsNumber);
@@ -657,7 +657,7 @@ public class WF_FollowupAction_Tests extends BaseClass
 //						"//*[@id='entity-form']/div/div/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a");
 				
 				RAIS_applicationSpecificMethods.clickAndUploadFile(wd, "//*[@id='entity-form']/div/div/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a",
-						"C:\\Temp\\Demo1.pdf");
+						"C:\\Temp\\Demo1.pdf", null);
 		
 				 System.out.println("Upload successful");
 				

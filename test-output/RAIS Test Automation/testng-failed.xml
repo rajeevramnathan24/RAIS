@@ -6,8 +6,8 @@
       <class name="testcases.RAIS.TestData_creation">
         <parameter name="browserType" value="Chrome"/>
         <methods>
-          <include name="TestData_Entity_AttributeCreation"/>
           <include name="beforeClass"/>
+          <include name="inputMasterEntityRecord"/>
           <include name="getResult"/>
           <include name="afterSuite"/>
           <include name="afterClass"/>

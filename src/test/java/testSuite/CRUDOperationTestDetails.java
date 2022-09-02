@@ -35,7 +35,7 @@ public class CRUDOperationTestDetails {
 	
 	//***********************************************One field input
 	
-	public final static boolean crudOpTC7_runStatus = true;
+	public final static boolean crudOpTC7_runStatus = false;
 	public final static String crudOpTC7_testName = "Verify CRUD operations for Admin-Common Table menus with one field value input"; 
 	public final static String crudOpTC7_testDescription = "Verify CRUD operations for Admin-Common Table menus with one field value input";
 	
@@ -43,7 +43,7 @@ public class CRUDOperationTestDetails {
 	public final static String crudOpTC8_testName = "Verify CRUD operations for Inventory & Resources menus with one field value input"; 
 	public final static String crudOpTC8_testDescription = "Verify CRUD operations for Inventory & Resources - Inventory menus with one field value input";
 
-	public final static boolean crudOpTC9_runStatus = false;
+	public final static boolean crudOpTC9_runStatus = true;
 	public final static String crudOpTC9_testName = "Verify CRUD operations for Inventory & Resources menus with one field value input"; 
 	public final static String crudOpTC9_testDescription = "Verify CRUD operations for Inventory & Resources - Resources menus with one field value input";
 	

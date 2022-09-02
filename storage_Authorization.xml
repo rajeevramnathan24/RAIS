@@ -8,7 +8,7 @@
  	<classes>
  		<class name="testcases.RAIS.WF_Authorization_Tests">
  		<parameter name="browserType" value="Chrome"/>
- 		<parameter name="workflowName" value="Storage Authorization Workflow"/>
+ 		<parameter name="workflowName" value="Storage Authorization"/>
  		
  		
  		</class>

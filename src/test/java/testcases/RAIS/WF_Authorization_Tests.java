@@ -83,13 +83,15 @@ public class WF_Authorization_Tests extends BaseClass
 	//*********************************************************************	
 	//TC Name, Yes/ No
 	final boolean tc1Status = false; String tc1Name = " is executed for E2E Happy path for R&A and Inspection";
-	final boolean tc2Status = true; String tc2Name = " is executed for E2E Happy path only R&A";
+	final boolean tc2Status = false; String tc2Name = " is executed for E2E Happy path only R&A";
 	
 	final boolean tc3Status = false; String tc3Name = " is executed for Rejection from Completeness Check";
 	final boolean tc4Status = false; String tc4Name = " is executed for Rejection from R&A Approval form";
 	final boolean tc5Status = false; String tc5Name = " is executed for Rejection of Authorization Terms";
 	final boolean tc6Status = false; String tc6Name = " is executed for incomplete Application";
 	final boolean tc7Status = false; String tc7Name = " is executed for Rejection of Authorization";
+	
+	final boolean tc999Status = true; String tc999Name = " is executed for E2E Happy path";
 	
 	//passcurrent time
 	private static String localTime = GenericMethods.currentLocalTime();
@@ -163,11 +165,453 @@ public class WF_Authorization_Tests extends BaseClass
 	}
 
 
+	//E2E flow reformatted on 18Mar
+	@Test(priority = 999, enabled = tc999Status)
+	public void E2E_WorkflowExecution_HappyPath_withInspection() {
+
+			try {
+
+				//Thread.sleep(6000);
+
+				System.out.println(ParentWorkFlowName);
+				
+				//Setting Test name and description on report
+				SettingRptTestName_TestDesc(ParentWorkFlowName+" Execution","Verify "+ParentWorkFlowName+tc1Name);	
+
+				//Call the method to set user and followup workflow name
+				String licenseeRole = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(ParentWorkFlowName).get(0).toString();
+				String facilityName = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(ParentWorkFlowName).get(1).toString();
+
+				ArrayList<Object> associationDataInput = RAIS_applicationSpecificMethods.getDetailsAuthWorkflow(ParentWorkFlowName);
+				
+				//Calling Login method
+				GenericMethods.loginApplication
+				(wd, loginPage.userId_XPath, licenseeRole, loginPage.pwd_XPath, 
+						password, loginPage.loginBtn_XPath);
+
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, facilityName);
+
+				//click on the record
+				GenericMethods.elementClick(wd, entityRecordListing.rdoBtn_Xpath);
+
+				//initatie the workflow
+				RAIS_applicationSpecificMethods.initiateWorkflow(wd, ParentWorkFlowName);
+
+				//page wait
+				GenericMethods .JSPageWait(wd);
+
+				//extract workflowid
+				wfID_tobeExecuted = RAIS_applicationSpecificMethods.trimWorkflowid(wd, wfAuthorization.wfId_displayedonTop);
+
+				System.out.println(wfID_tobeExecuted);
+
+
+				//**********************DF - Associations ************************
+
+				//Boolean associationFormDataInputFlag = RAIS_applicationSpecificMethods.inputDataOnAssociationForm_Authorization(wd, inputData_Associations_Inspection_DataForm);
+				Boolean associationFormDataInputFlag = RAIS_applicationSpecificMethods.inputDataOnAssociationForm_Authorization(wd, associationDataInput);
+
+				//**********************DF - Requested Terms************************
+
+				//intialiseflag
+				Boolean licenseeFlow_Flag = false;
+
+				if (associationFormDataInputFlag == true) {
+
+					//page wait
+					GenericMethods .JSPageWait(wd);
+
+					//calling requested terms DF method to input data
+					licenseeFlow_Flag = RAIS_applicationSpecificMethods.inputDataOnRequestedTerms_Authorization(wd, 
+							ParentWorkFlowName, false, wfAuthorization.submitBtn);
+
+				} else {
+					assertEquals("Association form completion successful", "Association form completion failed");
+
+				}
+
+				//to proceed or not
+				if (licenseeFlow_Flag == true) {
+
+					//
+
+				} else {
+					assertEquals("Input terms form completion successful", "input form completion failed");
+
+				}
+
+				//logout and relogin with new user
+				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd,regulatorRole,password);
+
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+				
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);			
+
+				//verify workflow statuses
+				RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd,"", true);
+
+				//**********************DF - Completeness Check************************
+
+				//calling completeness method
+				RAIS_applicationSpecificMethods.authorizationCompletenessCheck(wd, ApprovedByName, RemarksTxt, wfAuthorization.proceedToReviewBtn_Xpath, 
+						false, ParentWorkFlowName);
+
+				//clicking on step tracker to enable linked processes
+				RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfAuthorization.completenessLabelStepTracker_Xpath, 
+						wfAuthorization.linkedProcess_Xpath);
+
+				//reading R&A and Payment Ids
+				final String reviewAssessmentId = GenericMethods.getActualTxt(wd, "//tbody/tr[2]/td[2]");
+				final String paymentId = GenericMethods.getActualTxt(wd, "//tbody/tr[1]/td[2]");
+				System.out.println(reviewAssessmentId);
+				System.out.println(paymentId);
+
+
+				//click on R&A processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.newreviewAssessmenWFtid_Xpath);
+
+
+				//**************************************R&A DF starts here
+
+
+				// **********************R&A - DF External review starts here
+				//input data
+				RAIS_applicationSpecificMethods.dataFormOnlyButtonClick(wd,wfReview_Assessment.externalAssessmentNOTRequiredBtn_Xpath);
+
+
+				// **********************R&A - DF Internal review Remarks starts here
+				//input data
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfReview_Assessment.internalReviewRemarksTxt_Xpath, RemarksTxt, 
+						wfReview_Assessment.inspectionNeededBtn_Xpath);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				//clicking on step tracker to enable linked processes
+				GenericMethods.elementClick(wd, wfAuthorization.linkedProcess_Xpath);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+//				RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
+//						wfAuthorization.linkedProcess_Xpath);
+
+				//reading inspection Id
+				final String inspectionChildId = GenericMethods.getActualTxt(wd, wfAuthorization.inspWFtid_Xpath);
+				System.out.println(inspectionChildId);				
+
+				//click on inspection processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.inspWFtid_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);			
+
+
+				//****************************************Inspection starts here
+
+				//**************************DF - Inspection Scope
+
+				//RAIS_applicationSpecificMethods.inspectionScopeDataForm(wd,inputData_Associations_Inspection_DataForm);	
+				RAIS_applicationSpecificMethods.inspectionScopeDataForm(wd,associationDataInput, wfInspection.withoutAnnounceInspectionBtn_Xpath);	
+
+				//**************************DF - External Inspection requirement
+
+				wd.navigate().refresh(); //####################################################################################Bug here
+
+				//CHECK IF THE CODE FAILS HERE< REFER TO COMMENTED CODE BELOW
+
+				//input data form
+				RAIS_applicationSpecificMethods.dataFormOnlyButtonClick(wd, wfInspection.internalInspectionBtn_Xpath);
+				
+				//page refresh needed due to signalR issue
+				wd.navigate().refresh(); 
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+
+				//**************************DF - Internal Inspection Findings
+				//input data form
+				RAIS_applicationSpecificMethods.inspectionFindingsDataForm(wd, RemarksTxt, wfInspection.proceedInspectionBtn_Xpath);
+
+
+				//**************************DF - Inspection conclusion 
+				//input data form
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfInspection.inspectionConclusion_Xpath, RemarksTxt, wfInspection.submitBtn);
+
+				//**************************DF - Inspection approval
+
+				//approval input data form
+				//new approval form
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfInspection.approvalRejectionNotes_Xpath, RemarksTxt, wfInspection.approveBtn);
+				
+				//page refresh needed due to signalR issue
+				wd.navigate().refresh();				
+				
+				RAIS_applicationSpecificMethods.approvalDataForm(wd, wfInspection.downloadInspectionReport_Xpath, 
+						wfInspection.downloadInspectionReport2_Xpath, wfInspection.inspectionApprovedBy_Xpath, 
+						ApprovedByName, wfInspection.approvalRejectionNotes_Xpath, RemarksTxt, false, wfInspection.submitBtn);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				//clicking on step tracker to enable linked processes
+				GenericMethods.elementClick(wd, wfAuthorization.linkedProcess_Xpath);
+					
+				/// **************************Back to R&A form
+				//click and expand linked processes
+				//RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfInspection.inspectionApprovalStepTracker_Xpath, 
+				//		wfAuthorization.linkedProcess_Xpath);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+
+				//click on R&A processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.newreviewAssessmenWFtid_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+
+				//*******************************************R&A Recommendation form starts here
+				//input data form
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfReview_Assessment.recommendationRemarksTxt_Xpath, RemarksTxt, 
+						wfReview_Assessment.proceedFurtherBtn_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+
+				//*******************************************R&A Approval form starts here
+				//approval data form input
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, 
+						wfReview_Assessment.approveBtn);
+				
+				//page refresh needed due to signalR issue
+				wd.navigate().refresh();
+				
+				// R&A report form
+				RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+						wfInspection.downloadInspectionReport2_Xpath, wfInspection.inspectionApprovedBy_Xpath, 
+						ApprovedByName, wfInspection.approvalRejectionNotes_Xpath, RemarksTxt, false, wfInspection.submitBtn);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				//clicking on step tracker to enable linked processes
+				GenericMethods.elementClick(wd, wfAuthorization.linkedProcess_Xpath);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+				
+				//click on inspection processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.parentWFtid_Xpath);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+								
+				//*******************************DF AUthorization R&A form
+				// input data form
+				RAIS_applicationSpecificMethods.authorizationReviewAssessmentDataForm(wd, RemarksTxt, ApprovedByName, wfAuthorization.authorizeBtn);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+				
+				//clicking on step tracker to enable linked processes
+				GenericMethods.elementClick(wd, wfAuthorization.linkedProcess_Xpath);
+				
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+				
+				//click on inspection processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.newPaymentWFid_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+				
+				
+
+				// ***********************************************STARTING WITH PAYMENT
+
+				//calling payment form
+				RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
+
+				//Logout and change user
+				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
+
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+				
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);
+
+				//verify workflow statuses
+				RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd,"", true);
+				
+				//wait for page load
+				GenericMethods.JSPageWait(wd);
+
+				//clicking on step tracker to enable linked processes
+				GenericMethods.elementClick(wd, wfAuthorization.linkedProcess_Xpath);
+
+				//click on inspection processes direct
+				GenericMethods.elementClick(wd, wfAuthorization.newPaymentWFid_Xpath);
+
+				//Waiting for popup to load
+				GenericMethods.JSPageWait(wd);
+
+				//***********************PAYMENT approval
+				//payment approval
+				RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
+
+
+				//********************************************PAYMENT COMPLETE
+				//logout and relogin
+				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
+				
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);
+
+				//verify statuses
+				RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd, "", true);
+				
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+				
+				
+				if (ParentWorkFlowName.equals("Release Authorization") || ParentWorkFlowName.equals("Transport Authorization")) {
+					
+					//***************************AUTH DF Authorization terms requirement ONLY for release auth
+					//input data
+					RAIS_applicationSpecificMethods.dataFormOnlyButtonClick(wd, wfAuthorization.issueAuthTermsBtn);
+				}
+				//***************************AUTH DF Authorization terms
+				//input data
+				RAIS_applicationSpecificMethods.authorizationTermsAndConditions(wd, ParentWorkFlowName, 
+						RaisTestData.commonInputData.get(2).toString(), RaisTestData.commonInputData.get(2).toString(), RemarksTxt, false);
+
+				//logout and re-login with different user
+				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
+
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);
+
+				//verify statuses
+				RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd, "Authorization Terms Issued", true);
+
+				//***********************************************Starting with acceptance form
+				//input data
+				RAIS_applicationSpecificMethods.acceptanceDataForm(wd, RemarksTxt, false, RaisTestData.commonInputData.get(5).toString());
+
+				////logout and relogin
+				RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, regulatorRole, password);
+				
+				//Clicking on followup action menu
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);
+
+				//click on first record
+				GenericMethods.elementClick(wd, entityRecordListing.workFlowName_Xpath);
+
+				//********************************Last DF - certificate approval form
+				
+				//approval data form input
+				RAIS_applicationSpecificMethods.dataFormMemoAndButtonClick(wd, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
+						wfAuthorization.approveBtn);
+				
+				//page refresh needed due to signalR issue
+				wd.navigate().refresh();
+								
+				//approval form
+				RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+						wfAuthorization.downloadPdfAuthorizationReport_Xpath, wfAuthorization.authorizationApprovedBy_Xpath, 
+						ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+						RemarksTxt, false, wfAuthorization.noReminderNotificationBtn_Xpath);
+
+				//page refresh
+				//wd.navigate().refresh();
+
+				//verify approved state on workflow listing page
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
+
+				//Waiting for popup to load
+				GenericMethods .JSPageWait(wd);
+
+				//search for required record
+				RAIS_applicationSpecificMethods.basicSearchRecord(wd, wfID_tobeExecuted);
+
+				//verify statuses
+				RAIS_applicationSpecificMethods.verifyWorkflowStatusAndClickRecord(wd, "Approved", false);
+
+
+
+
+			}catch (NoSuchElementException  noElement) {
+				noElement.printStackTrace();
+
+			}catch (Exception  e) {
+				e.printStackTrace();
+			}
+
+			finally {
+
+				//Logout user
+				RAIS_applicationSpecificMethods.logout(wd);
+				System.out.println("Logout success");
+
+			}
+		}
+
+	
+	
+	
+	
+	
+	
+	
 
 
 	//E2E WF - working as of 23sep, This is latest	
 	@Test(priority = 99, enabled = tc1Status)
-	public void E2E_WorkflowExecution_HappyPathwithInspection() {
+	public void E2E_WorkflowExecution_HappyPathwithInspectionOld() {
 
 		try {
 
@@ -191,7 +635,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -253,7 +697,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 			
 
 			//Waiting for popup to load
@@ -344,8 +788,8 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//approval input data form
 			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfInspection.downloadInspectionReport_Xpath, 
-					wfInspection.inspectionApprovedBy_Xpath, ApprovedByName, 
-					wfInspection.approvalRejectionNotes_Xpath, RemarksTxt, false, wfInspection.approveBtn);
+					null, wfInspection.inspectionApprovedBy_Xpath, 
+					ApprovedByName, wfInspection.approvalRejectionNotes_Xpath, RemarksTxt, false, wfInspection.approveBtn);
 
 			/// **************************Back to R&A form
 			//click and expand linked processes
@@ -366,9 +810,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -397,15 +841,14 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString(),
-					wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 			
 
 			//Waiting for popup to load
@@ -429,8 +872,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), 
-					wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -439,7 +881,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -461,7 +903,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -481,7 +923,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -495,16 +937,17 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					wfAuthorization.downloadPdfAuthorizationReport_Xpath, wfAuthorization.authorizationApprovedBy_Xpath, 
+					ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.approveBtn);
 
 			//page refresh
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -559,7 +1002,7 @@ public class WF_Authorization_Tests extends BaseClass
 			
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);			
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);			
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -620,7 +1063,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -747,9 +1190,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					wfReview_Assessment.downloadPdfReviewAssessmentReport_Xpath, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -778,15 +1221,14 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString(),
-					wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 			
 
 			//Waiting for popup to load
@@ -810,8 +1252,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), 
-					wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -820,7 +1261,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -842,7 +1283,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -862,7 +1303,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -876,16 +1317,16 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					wfAuthorization.downloadPdfAuthorizationReport_Xpath, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.approveBtn);
 
 			//page refresh
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -941,7 +1382,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1002,7 +1443,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1033,7 +1474,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1089,7 +1530,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1150,7 +1591,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1204,9 +1645,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -1227,7 +1668,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1283,7 +1724,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1344,7 +1785,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1399,9 +1840,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -1430,15 +1871,14 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString(),
-					wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1461,8 +1901,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), 
-					wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -1471,7 +1910,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1493,7 +1932,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1513,7 +1952,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1534,7 +1973,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1555,7 +1994,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1569,16 +2008,16 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					null, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.approveBtn);
 
 			//page refresh
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1634,7 +2073,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1695,7 +2134,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1724,7 +2163,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1745,7 +2184,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1802,9 +2241,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -1833,15 +2272,14 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString(),
-					wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1864,8 +2302,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), 
-					wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -1874,7 +2311,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1896,7 +2333,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1916,7 +2353,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1930,16 +2367,16 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					null, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.approveBtn);
 
 			//page refresh
 			//wd.navigate().refresh();
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -1995,7 +2432,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, inventoryMainMenu,resourceSubMenu, facilityMenu);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, inventoryMainMenu, resourceSubMenu, facilityMenu);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, facilityMenu);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2056,7 +2493,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2111,9 +2548,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -2142,15 +2579,14 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString(),
-					wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd,RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2173,8 +2609,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), 
-					wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -2183,7 +2618,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2205,7 +2640,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2228,7 +2663,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2242,9 +2677,9 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form ++++++++++++++++++Reject certificate
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.rejectBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					null, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.rejectBtn);
 
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2260,7 +2695,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2283,7 +2718,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//Clicking on followup action menu
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2297,9 +2732,9 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form ++++++++++++++++++APPROVE certificate
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
-					RaisTestData.commonInputData.get(10).toString(), true, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					null, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, 
+					wfAuthorization.approvalRejectionNotes_Xpath, RaisTestData.commonInputData.get(10).toString(), true, wfAuthorization.approveBtn);
 
 
 			//page refresh
@@ -2307,7 +2742,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//verify approved state on workflow listing page
 			//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
-			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, regulatoryProcessMainMenu, authorization, ParentWorkFlowName);
+			RAIS_applicationSpecificMethods.genericMenuItemClick(wd, ParentWorkFlowName);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -2534,15 +2969,15 @@ public class WF_Authorization_Tests extends BaseClass
 			GenericMethods .JSPageWait(wd);
 
 			//upload docs
-			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.profitLossStatement_Xpath, profitLossStatement_Path);
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.profitLossStatement_Xpath, profitLossStatement_Path, null);
 			//page wait
 			//GenericMethods .JSPageWait(wd);
 
-			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.businessRegCertificate_Xpath, businessRegCertificate_Path);
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.businessRegCertificate_Xpath, businessRegCertificate_Path, null);
 			//page wait
 			//GenericMethods .JSPageWait(wd);
 
-			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.lastYearTaxCertificate_Xpath, lastYearTaxStatement_Path);
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd, wfAuthorization.lastYearTaxCertificate_Xpath, lastYearTaxStatement_Path, null);
 
 			//page wait
 			//GenericMethods .JSPageWait(wd);
@@ -2944,7 +3379,7 @@ public class WF_Authorization_Tests extends BaseClass
 			//*******************************************R&A Approval form starts here
 
 			//downlod report
-			GenericMethods.elementClick(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath);
+			GenericMethods.elementClick(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath);
 
 			//page wait
 			GenericMethods .JSPageWait(wd);
@@ -3059,7 +3494,7 @@ public class WF_Authorization_Tests extends BaseClass
 			RAIS_applicationSpecificMethods.scrollToElement(wd, wfPayment.newuploadInvoice_Xpath);
 
 			//upload invoice
-			RAIS_applicationSpecificMethods.clickAndUploadFile(wd,wfPayment.newuploadInvoice_Xpath , invoice);
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd,wfPayment.newuploadInvoice_Xpath , invoice, null);
 
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wd);
@@ -3147,7 +3582,7 @@ public class WF_Authorization_Tests extends BaseClass
 			GenericMethods.JSPageWait(wd);				
 
 			//upload invoice
-			RAIS_applicationSpecificMethods.clickAndUploadFile(wd,wfPayment.newPaymentReceipt_Xpath , receipt);
+			RAIS_applicationSpecificMethods.clickAndUploadFile(wd,wfPayment.newPaymentReceipt_Xpath , receipt, null);
 
 			//Waiting for popup to load
 			GenericMethods.JSPageWait(wd);
@@ -3350,7 +3785,7 @@ public class WF_Authorization_Tests extends BaseClass
 			GenericMethods .JSPageWait(wd);
 
 			//download certificate
-			GenericMethods.elementClick(wd, wfAuthorization .downloadAuthorizationReport_Xpath);
+			GenericMethods.elementClick(wd, wfAuthorization .downloadWordAuthorizationReport_Xpath);
 
 			//Waiting for popup to load
 			GenericMethods .JSPageWait(wd);
@@ -3795,9 +4230,9 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//*******************************************R&A Approval form starts here
 			//approval data form input
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadReviewAssessmentReport_Xpath, 
-					wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, ApprovedByName, 
-					wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfReview_Assessment.downloadWordReviewAssessmentReport_Xpath, 
+					null, wfReview_Assessment.reviewAssessmentApprovedBy_Xpath, 
+					ApprovedByName, wfReview_Assessment.approvalRejectionNotes_Xpath, RemarksTxt, false, wfReview_Assessment.approveBtn);
 
 			//click on step tracker to navigate
 			RAIS_applicationSpecificMethods.scrollUpClickStepTrackerandclickBottomTab(wd, wfReview_Assessment.internalReviewReviewStepTracker_Xpath, 
@@ -3826,7 +4261,7 @@ public class WF_Authorization_Tests extends BaseClass
 			// ***********************************************STARTING WITH PAYMENT
 
 			//calling payment form
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(5).toString(), wfPayment.newuploadInvoice_Xpath);			
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(5).toString());			
 
 			//Logout and change user
 			RAIS_applicationSpecificMethods.workflowLogoutAndReLoginUser(wd, licenseeRole, password);
@@ -3855,7 +4290,7 @@ public class WF_Authorization_Tests extends BaseClass
 
 			//***********************PAYMENT approval
 			//payment approval
-			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString(), wfPayment.newPaymentReceipt_Xpath);
+			RAIS_applicationSpecificMethods.paymentAttachInvoiceReceiptDataForm(wd, RaisTestData.paymentInputData.get(6).toString());
 
 
 			//********************************************PAYMENT COMPLETE
@@ -3917,9 +4352,9 @@ public class WF_Authorization_Tests extends BaseClass
 			//********************************Last DF - certificate approval form
 
 			//approval form
-			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadAuthorizationReport_Xpath, 
-					wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, RemarksTxt, 
-					false, wfAuthorization.approveBtn);
+			RAIS_applicationSpecificMethods.approvalDataForm(wd, wfAuthorization.downloadWordAuthorizationReport_Xpath, 
+					null, wfAuthorization.authorizationApprovedBy_Xpath, ApprovedByName, wfAuthorization.approvalRejectionNotes_Xpath, 
+					RemarksTxt, false, wfAuthorization.approveBtn);
 
 			//page refresh
 			//wd.navigate().refresh();

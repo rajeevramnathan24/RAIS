@@ -718,8 +718,7 @@ public class CRUD_Operation_Tests extends BaseClass
 				//Clicking on User menu
 				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, "Regulatory System Setting", RaisTestData.CommonTablesSubMenu,BEname[i]);
 
-				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, RaisTestData.regSysSettingMainMenu, RaisTestData.CommonTablesSubMenu,
-						BEname[i]);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, BEname[i]);
 				//RAIS_applicationSpecificMethods.genericMenuItemClick(wd, "Inventory", "Workers","Workers");
 				
 				System.out.println("menu clicked");	
@@ -888,8 +887,8 @@ public class CRUD_Operation_Tests extends BaseClass
 				wd.navigate().refresh();
 
 				//Clicking on User menu
-				RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.InventResourceMainMenu, RaisTestData.InventorySubMenuText,BEname[i]);
-
+				//RAIS_applicationSpecificMethods.Generic_Menu_subMenu_Click(wd, RaisTestData.InventResourceMainMenu, RaisTestData.InventorySubMenuText,BEname[i]);
+				RAIS_applicationSpecificMethods.genericMenuItemClick(wd, BEname[i]);
 				//***********************************************Create entity record "Workflow Statuses"
 				//calling generic method to call Officer entity data input
 				Boolean flag_createEntity = RAIS_applicationSpecificMethods.createEntityRecord(wd, singleFieldInput, inputData, 
@@ -1535,7 +1534,7 @@ public class CRUD_Operation_Tests extends BaseClass
 //						"//*[@id='entity-form']/div/div/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a");
 				
 				RAIS_applicationSpecificMethods.clickAndUploadFile(wd, "//*[@id='entity-form']/div/div/div/div[2]/form/div/div[2]/fieldset/div/div/div/div[6]/div/div/div/div/div/label/a",
-						"C:\\Temp\\Demo1.pdf");
+						"C:\\Temp\\Demo1.pdf", null);
 		
 				 System.out.println("Upload successful");
 				

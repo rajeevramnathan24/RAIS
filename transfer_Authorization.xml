@@ -3,7 +3,7 @@
 
 <suite name="RAIS Test Automation" >
   
- <parameter name="workflowName" value="Transfer Authorization Workflow"/>
+ <parameter name="workflowName" value="Transfer Authorization"/>
  <parameter name="browserType" value="Chrome"/>	 
  <test name="RAIS Test Suite Run for Chrome Browser">	  		
  			<classes> 			

@@ -57,7 +57,8 @@ public class Workflow_Inspection_Parent_ChildPage {
 	//DF- Internal inspection
 	//scheduled date of inspection
 	public String internalInspectionDate_Xpath = "//div[input[@id='IntInspectionDate']]//div//button";//input[@id='IntInspectionDate']";
-	public String internalInspectionFindings_Xpath = "//*[@id='IntInspectionFindings']";
+	public String internalInspectionFindings_Xpath = "//textarea[@id='IntInspectionFindings']";
+	public String InspectionDateOfApplication_Xpath = "//input[@id='date-time-picker']";
 	
 	//Announce and direct inspection button
 	public String requestInfoBtn_Xpath = "//*[@id='work-flow-form']//div//button[contains(text(),'Request Information')]";
@@ -66,16 +67,17 @@ public class Workflow_Inspection_Parent_ChildPage {
 	
 	//DF- Inspection conclusion
 	//Inspection conclusion
-	public String inspectionConclusion_Xpath = "//*[@id='InspectionConclusion']"; //*[@id="InspectionConclusion"]
+	public String inspectionConclusion_Xpath = "//textarea[@id='InspectionConclusion']"; //*[@id="InspectionConclusion"]
 	
 	//save and submit button
 	public String saveBtn = "//*[@id='work-flow-form']//div//button[contains(text(),'Save')]";
-	public String submitBtn = "//*[@id='work-flow-form']//button[text()='Submit']";
+	public String submitBtn = "//*[@id='work-flow-form']//button[contains(text(),'Submit')]";
 	//************************************************************
 	
 	//DF- Inspection approval
 	//Inspection report download
-	public String downloadInspectionReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='column-section-controls']//div//ul//li//span//a//button";
+	public String downloadInspectionReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[2][@class='column-section-controls']//div//ul//li[1]//span//a//button";
+	public String downloadInspectionReport2_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[2][@class='column-section-controls']//div//ul//li[2]//span//a//button";
 	//public String downloadInspectionReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div//ul//li//span//a//button//span[1]";
 	//public String downloadInspectionReport_Xpath = "//*[@id='work-flow-form']//div//form//div//fieldset//div[1][@class='column-section-controls']//div//ul//li//span//a//button//span[1]";
 		
@@ -83,7 +85,7 @@ public class Workflow_Inspection_Parent_ChildPage {
 	public String inspectionApprovedBy_Xpath = "//*[@id='ReviewedByApp']";
 	
 	//approval or rejection notes
-	public String approvalRejectionNotes_Xpath = "//*[@id='AppRejNotes']";
+	public String approvalRejectionNotes_Xpath = "//textarea[@id='AppRejNotes']";
 	
 	//approve and reject button
 	public String approveBtn = "//*[@id='work-flow-form']//div//button[contains(text(),'Approve')]";

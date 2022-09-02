@@ -28,18 +28,18 @@ public class RaisTestData {
 	public static String UserMgmtSubMenuText = "User Management";
 	public static String ToolsSubMenu = "Tools";
 	public static String CustomizeSubMenu = "Customization";
-	public static String customizePowerToolSubMenu = "Customization Power Tool";
+	public static String customizePowerToolsSubMenu = "Customization Power Tools";
 	public static String CommonTablesSubMenu = "Common Tables";
 	public static String NotificationText = "Notification";
 	public static String HelpText = "Help";
 	public static String AuthorizationSubmenu = "Authorizations";
 	public static String inventoryMainMenu = "Inventory";
-	public static String regSysSettingMainMenu = "Regulatory System Setting";
+	public static String regSysSettingMainMenu = "Regulatory System Settings";
 	public static String regSysDocsSubMenu = "Regulatory Systems And Documents";
 	public static String sourcesAssoEquipmentsSubMenu = "Sources And Associated Equipments";
 	public static String infraInfoSubMenu = "Infrastructure Information";
 	public static String officersExpertsSubMenu = "Officers And Experts";
-	public static String regProcessSubMenu = "Regulatory Process";
+	public static String regProcessSubMenu = "Regulatory Processes";
 	public static String radiationEventSubMenu = "Radiation Events";
 	public static String facAndDepartmentsSubMenu = "Facilities And Departments";
 	public static String workerSubMenu = "Workers";
@@ -217,7 +217,7 @@ public class RaisTestData {
 			"Branch", //9
 			"Calibration", //10
 			"Category", //11
-			"Country",//12
+			"Countries",//12
 			"Department", //13
 			"Department Status", //14
 			"Districts", //15
@@ -228,7 +228,7 @@ public class RaisTestData {
 			"Equipment & Source", //20
 			"Equipment Manufacturing", //21
 			"Equipment Model",//22
-			"Equipment Type", //23
+			"Associated Equipment Types", //23
 			"Experts", //24
 			"Expert Task", //25
 			"Facilities",//26
@@ -241,7 +241,7 @@ public class RaisTestData {
 			"Isotope Production",//33
 			"Manufacturer", //34
 			"Monitoring Status", //35
-			"Nuclide", //36
+			"Nuclides", //36
 			"Officers",//37
 			"Operation",//38
 			"Partner Agencies",//39
@@ -252,26 +252,30 @@ public class RaisTestData {
 			"Practices", //44
 			"Professional Degree",//45
 			"Professional Qualification", //46
-			"Radiation Generator", //47
+			"Radiation Generators", //47
 			"Radiation Generator Model",//48
 			"Radiation Generator Status", //49
 			"Radiation Generator Type", //50
 			"Regions", //51
 			"Regulatory Authority",//52
-			"Sealed Source", //53
-			"Sealed Source Model", //54
+			"Sealed Sources", //53
+			"Sealed Source Models", //54
 			"Sealed Source Status",//55
 			"Security Group", //56
 			"Time Unit", //57
 			"Training Course",//58
-			"Unsealed Source", //59
+			"Unsealed Sources", //59
 			"Voltage Unit", //60
 			"Wave Form", //61
-			"Worker", //62
+			"Workers", //62
 			"Year",//63
 			"Users",//64
 			"Authorities and Organizations", //65
-			"Entities"};//66
+			"Entities",		//66
+			"Associated Equipments", //67
+			"Reports", //68
+			"Evaluators",//69
+			"Package Categories"} ;//70
 	
 	//Single field BE
 	public static String oneInputField = "NameOnly";
@@ -390,6 +394,7 @@ public class RaisTestData {
 	//WF Statuses
 	public static String WF_Status_Submitted_Txt = "Submitted";
 	public static String WF_Status_Completed_Txt = "Completed";
+		
 	
 	public static String [] faDataFormInput = {
 			
@@ -426,28 +431,30 @@ public class RaisTestData {
 		
 		//workFlowNames
 		public static ArrayList<String> workflowNames = new ArrayList<String>(Arrays.asList(					
-				"Import Authorization Workflow",							
-				"Export Authorization Workflow",					
+				"Import Authorization",							
+				"Export Authorization",					
 				"Equipment Manufacturing Workflow", 					
-				"Isotope Production Authorization", 	
+				"Isotope Production Authorization", 	 
 				"Release Authorization Workflow",		
 				"Storage Authorization Workflow",	
 				"Use Authorization Workflow",		
 				"Transfer Authorization Workflow",
 				"Transport Authorization Workflow"
 				));	
+		
+		
 	
 	public static ArrayList<String> associationsInputData_import = new ArrayList<String>(Arrays.asList(					
-			"LICIMP",							
-			"Import Facility2",					
-			"Import Dept2", 					
-			"Imp facility 2 -sealed source", 	
-			"Import2 - Unsealed source",		
-			"Import facility- Radiation Gen2",	
-			"Imp facility 2 - Asso equip",		
-			"Imp2 - person",
-			"LicenseeImportFacility",
-			"rais_test1@e-zest.in"
+			"Lic1",										//0// user name
+			"Lifeline Hospital",						//1// import facility	
+			"Dental", 									//2// department name import
+			"SS/0001", 									//3// sealed source name
+			"US/0005",									//4// unsealed source name
+			"RG/0001",									//5// radiation generator name
+			"AE/0003",									//6// associated equipment name
+			"Imp2 - person",							//7// worker
+			"Lic1", 									//8//"LicenseeImportFacility",
+			"rais_test1@e-zest.in"						//9// email
 			));
 	
 	public static ArrayList<String> associationsInputData_export = new ArrayList<String>(Arrays.asList(					
@@ -562,7 +569,7 @@ public class RaisTestData {
 			"C:\\Temp\\BReg.pdf",				//4//doc2
 			"C:\\Temp\\Tax.pdf",				//5//doc3
 			"Partner Agency 1",					//6//partner agency for export
-			"Transf facility2",					//7//Transfer facility for Transfer
+			"Lifeline Hospital",					//7//Transfer facility for Transfer
 			"Transf Dept2",						//8//Transfer Department for Transfer
 			"Permanent",						//9//Transfer Department for Transfer
 			"10",								//10//duration of Transfer and used in transport
@@ -572,7 +579,8 @@ public class RaisTestData {
 			"Inland Water Way",					//13//mode of transport - transport
 			"Transp facility2",					//14//consignor/ consignee facility - transport
 			"Mumbai",							//15//origin - transport
-			"Pune"								//16//destination - transport		
+			"Pune",								//16//destination - transport
+			"Licensee 1"						//17// Licensee name
 			));
 	
 	public static ArrayList<String> commonInputData = new ArrayList<String>(Arrays.asList(					
