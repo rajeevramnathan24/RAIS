@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.Collections;
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +26,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -43,8 +44,8 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class BaseClass {
 
 	//CONFIG FILE PATH
-		//public static final String PROJ_FOLDER_PATH = "C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
-		public static final String PROJ_FOLDER_PATH = "E:\\IAEA - RAIS\\Automation\\RAIS+Automation\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
+		public static final String PROJ_FOLDER_PATH = "C:\\workspace1\\com.apache.RAIS\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
+		//public static final String PROJ_FOLDER_PATH = "E:\\IAEA - RAIS\\Automation\\RAIS+Automation\\src\\test\\java\\com\\apache\\RAIS\\resources\\";
 
 	public static final String CONFIG_FILE_PATH = "config.properties";
 
@@ -451,14 +452,31 @@ public class BaseClass {
 				//*******************************
 			} else if (browserType.equalsIgnoreCase("Chrome")) {
 
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("disable-infobars");
+//				options.setExperimentalOption("useAutomationExtension", false);
+				options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+				options.setExperimentalOption("useAutomationExtension", false);
+				
+				Map<String, Object> prefs = new HashMap<String, Object>();
+				prefs.put("credentials_enable_service", false);
+				prefs.put("profile.password_manager_enabled", false);
+
+				options.setExperimentalOption("prefs", prefs);				
+				
+				//options.setExperimentalOption("credentials_enable_service", false);
+				//options.setExperimentalOption("profile.password_manager_enabled", false);
+				//options.AddUserProfilePreference("credentials_enable_service", false);
+				//options.AddUserProfilePreference("profile.password_manager_enabled", false);
+				
+				
 				//Setting chrome driver properties
 				System.setProperty(chromeDriver,
 						PROJ_FOLDER_PATH + exeChromeDriver);
+//				ChromeOptions options = new ChromeOptions();
+//				options.addArguments("incognito");
 
 				System.out.println(executeFromCH);
-				//ChromeOptions options = new ChromeOptions();
-				//options.ad.addArguments("--disable-infobars");
-				//ch.setExperimentalOption("useAutomationExtension", false);
 				
 				//ChromeOptions ch = new ChromeOptions();
 				
@@ -482,7 +500,7 @@ public class BaseClass {
 				
 				//options.setExperimentalOption(ChromePref, prefs);
 				//wd = new ChromeDriver(options);
-				wd = new ChromeDriver();
+				wd = new ChromeDriver(options);
 				
 				//System.out.println(wd);
 

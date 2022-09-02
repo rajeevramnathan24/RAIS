@@ -4,5 +4,5 @@ cd C:\workspace1\com.apache.RAIS
 
 REM Below command is to run - CRUD operations xml file
 
-mvn clean test -Dsurefire.suiteXmlFiles=storage_Authorizations.xml
+mvn clean test -Dsurefire.suiteXmlFiles=storage_Authorization.xml
 
